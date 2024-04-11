@@ -1,30 +1,31 @@
-# React + TypeScript + Vite
+CRUZ ROJA FOOT PRINT
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Configuración inicial
 
-Currently, two official plugins are available:
+1. npm i
+2. configurar prettier y eslint con los archivos de configuración en la raíz del proyecto
+3. npm run dev para ejecutar el proyecto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Estructura de proyecto
 
-## Expanding the ESLint configuration
+![alt text](image.png)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Bibliotecas
 
-- Configure the top-level `parserOptions` property like this:
+- MaterialUi (diseño de componentes) https://mui.com/material-ui/getting-started/
+- Recoil (Manejador de estados) https://recoiljs.org/docs/introduction/core-concepts
+- Axios (promesas HTTP para peticiones al backen) https://axios-http.com/docs/intro
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+Recomendaciones
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- Actualizar los archivos de barril(index.ts) de un folder si se crea un nuevo archivo dentro de el.
+- instalar la extensión auto barrel si se usa vscode para facilitar el manejo de archivos de barril.
+
+Patrones de diseño
+Se usa atomic design.
+leer -https://danilowoz.com/blog/atomic-design-with-react
+
+GitFlow.
+leer - https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow - https://www.freecodecamp.org/news/practical-git-and-git-workflows/
+
+Fuente para los íconos: https://mui.com/material-ui/material-icons/
