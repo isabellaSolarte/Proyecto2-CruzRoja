@@ -8,7 +8,7 @@ Configuración inicial
 
 Estructura de proyecto
 
-![alt text](image.png)
+![alt text](image-1.png)
 
 Bibliotecas
 

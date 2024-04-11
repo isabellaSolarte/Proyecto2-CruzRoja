@@ -14,7 +14,8 @@
         "jsxSingleQuote": false,
         "trailingComma": "all",
         "jsxBracketSameLine": false,
-        "arrowParens": "avoid"
+        "arrowParens": "avoid",
+        "semi": true
       }
     }
   ]
