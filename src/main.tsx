@@ -3,14 +3,11 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
 import './global.css';
-import { ThemeProvider } from '@mui/material/styles';
-import { theme } from './configs/theme/Theme.config';
-
 import commons_es from './configs/locales/es/commons.json';
 import i18next from 'i18next';
 import { I18nextProvider } from 'react-i18next';
+import App from './App';
 
 i18next.init({
   interpolation: { escapeValue: false },
@@ -25,9 +22,7 @@ i18next.init({
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <I18nextProvider i18n={i18next}>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
+      <App />
     </I18nextProvider>
   </React.StrictMode>,
 );
