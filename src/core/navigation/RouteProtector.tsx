@@ -17,7 +17,7 @@ const RouteProtector = ({ route, component }: RouteProtectorProps) => {
     email: '',
     role: {
       name: 'Admin',
-      routes: ['/*', '/home', '/about'],
+      routes: ['/*', '/users/list', '/users/', '/users/register'],
       permissions: [''],
     },
     password: '',
@@ -28,6 +28,7 @@ const RouteProtector = ({ route, component }: RouteProtectorProps) => {
   };
   const loggedUser: boolean = true;
   const allowedUserRoutes: string[] = getAllowedUserRoutes(userTest);
+  console.log('current', route);
 
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!loggedUser) return <Navigate to="/login" />;

@@ -11,24 +11,24 @@ export const NavigationRoutes = () => {
       component: <h1>404</h1>,
     },
     {
-      path: '/home',
-      component: <h1>Home</h1>,
+      path: '/users/',
+      component: <h1>RUTA PADRE DE USUARIOS</h1>,
     },
     {
-      path: '/about',
-      component: <h1>About</h1>,
+      path: '/users/list',
+      component: <h1>LISTA DE USUARIOS</h1>,
     },
     {
-      path: '/contact',
-      component: <h1>Contact</h1>,
+      path: '/users/register',
+      component: <h1>REGISTRO DE USUARIOS</h1>,
     },
     {
-      path: '/users',
-      component: <h1>Login</h1>,
+      path: '/users/edit/:id',
+      component: <h1>EDICIÓN DE USUARIOS</h1>,
     },
     {
-      path: '/bussines',
-      component: <h1>Register</h1>,
+      path: '/users/view/:id',
+      component: <h1>VER DETALLES DE USUARIO</h1>,
     },
   ];
 
