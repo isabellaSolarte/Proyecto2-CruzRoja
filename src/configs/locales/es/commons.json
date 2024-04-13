@@ -3,5 +3,15 @@
         "error": "json",
         "accept": "Aceptar",
         "cancel": "Cancelar"
+    },
+    "menuOptions": {
+        "users": "Gestionar usuarios",
+        "business": "Gestionar empresas",
+        "roles": "Gestionar roles"
+    },
+    "pageTitles": {
+        "users": "Gestión de usuarios",
+        "business": "Gestión de empresas",
+        "roles": "Gestión de roles"        
     }
 }
