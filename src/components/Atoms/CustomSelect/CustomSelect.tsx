@@ -22,7 +22,31 @@ interface CustomSelectProps  {
   required?: boolean;
   sx?: SxProps;
 }
-
+/**
+ * Componente CustomSelect.
+ * 
+ * @component
+ * @example
+ * ```tsx
+ * <CustomSelect
+ *   options={options} 
+ *   label="Edad" 
+ *   sx={{ backgroundColor: '#f5f5f5' }} 
+ *   disabled={false} 
+ *   error={false} 
+ *   readOnly={false} 
+ *   required={true}
+ * />
+ * ```
+ * @param {Option[]} options - Las opciones para el componente select.
+ * @param {string} label - La etiqueta para el componente select.
+ * @param {boolean} [disabled] - Si el componente select está deshabilitado.
+ * @param {boolean} [error] - Si el componente select tiene un error.
+ * @param {boolean} [readOnly] - Si el componente select es de solo lectura.
+ * @param {boolean} [required] - Si el componente select es requerido.
+ * @param {SxProps} [sx] - Las propiedades de estilo para el componente select.
+ * @returns {JSX.Element} El componente CustomSelect renderizado.
+ */
 const CustomSelect: React.FC<CustomSelectProps> = ({ options, label, sx, readOnly, ...rest }) => {
   const [selectedValue, setSelectedValue] = useState('');
 
