@@ -10,10 +10,11 @@ interface CustomColumnProps {
   format: 'text' | 'button' | 'toggle';
   content:string;
   variant: "text" | "outlined" | "contained";
+  variante: "titulo" | "texto" | "subtitulo";
   color:"inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning";
 }
 
-const CustomColumn = ({ field, headerName, width = 150, format,  content, variant, color }: CustomColumnProps): GridColDef => ({
+const CustomColumn = ({ field, headerName, width = 150, format,  content, variant, color, variante }: CustomColumnProps): GridColDef => ({
   field,
   headerName,
   width,
@@ -21,7 +22,7 @@ const CustomColumn = ({ field, headerName, width = 150, format,  content, varian
     if (format === 'button') {
       return <CustomButton content={content} variant={variant} color={color}/>;
     } else if (format === 'text') {
-      return <Etiqueta {...params}/>;
+      return <Etiqueta texto = {content} variante={variante}/>;
     }else{
       return <Etiqueta {...params}/>;
     }
