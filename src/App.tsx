@@ -4,6 +4,7 @@ import { Router } from './router';
 import { TabsAtomComponent } from './components/Atoms/Tabs';
 import CustomInput from './components/Atoms/Inputs/Input';
 
+
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
