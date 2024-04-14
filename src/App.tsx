@@ -13,7 +13,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router />
-      <CustomSelect options={options} label="Age"/>
+      <CustomSelect options={options} label="Age" disabled={true} error={true} readOnly={false} required={true}/>
     </ThemeProvider>
   );
 };
