@@ -3,19 +3,21 @@ import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select, { SelectChangeEvent, SelectProps as MuiSelectProps } from '@mui/material/Select';
+import { SxProps } from '@mui/material';
 
 interface Option {
   value: string | number;
   label: string;
 }
 
-interface CustomSelectProps {
+interface CustomSelectProps extends MuiSelectProps{
   options: Option[];
   label: string;
+  sx?: SxProps;
 }
 
-const CustomSelect: React.FC<CustomSelectProps> = ({ options, label }) => {
+const CustomSelect: React.FC<CustomSelectProps> = ({ options, label, sx, ...rest }) => {
   const [selectedValue, setSelectedValue] = useState<string | number>('');
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -23,7 +25,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({ options, label }) => {
   };
 
   return (
-    <Box sx={{ minWidth: 120 }}>
+    <Box sx={{ minWidth: 120, ...sx }}>
       <FormControl sx={{ m: 1, minWidth: 80 }}>
         <InputLabel id="custom-select-label">{label}</InputLabel>
         <Select
@@ -32,6 +34,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({ options, label }) => {
             value={selectedValue} 
             label={label}
             onChange={handleChange}
+            {...rest}
         >
             {options.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
