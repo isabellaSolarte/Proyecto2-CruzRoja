@@ -3,43 +3,39 @@ import { Tabs, Tab } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 interface TabProps {
-    tabContentItem: string[];
+  tabContentItem: string[];
 }
 
 const StyledTabs = withStyles({
-    root: {
-        borderBottom: '1px solid #ccc',
-        display: 'flex', 
-        justifyContent: 'flex-end', 
-        width: 'fit-content', 
-        margin: '20px', 
-      },
+  root: {
+    borderBottom: '1px solid #ccc',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    width: 'fit-content',
+    margin: '20px',
+  },
 })(Tabs);
-  
-const StyledTab = withStyles({
-    root: {
-        minWidth: 100, 
-        textTransform: 'none', 
-      },
-})(Tab);
-const TabsAtomComponent= ({ tabContentItem }: TabProps) => {
 
-   
-    const [selectedTab, setSelectedTab] = React.useState(0);
-  
-    const handleTabChange = (event: React.ChangeEvent<{}>, newValue: number) => 
-    {
-      setSelectedTab(newValue);
-    };
-    
-    return (
-      <StyledTabs value={selectedTab} onChange={handleTabChange} >
-        { tabContentItem.map((label, index) => (
-            <StyledTab key={index} label={label} />
-            ))
-        }
-      </StyledTabs>
-    );
+const StyledTab = withStyles({
+  root: {
+    minWidth: 100,
+    textTransform: 'none',
+  },
+})(Tab);
+const TabsAtomComponent = ({ tabContentItem }: TabProps) => {
+  const [selectedTab, setSelectedTab] = React.useState(0);
+
+  const handleTabChange = (event: React.ChangeEvent<unknown>, newValue: number) => {
+    setSelectedTab(newValue);
+  };
+
+  return (
+    <StyledTabs value={selectedTab} onChange={handleTabChange}>
+      {tabContentItem.map((label, index) => (
+        <StyledTab key={index} label={label} />
+      ))}
+    </StyledTabs>
+  );
 };
-  
-  export default TabsAtomComponent;
+
+export default TabsAtomComponent;
