@@ -1,3 +1,3 @@
 export * from './NavigationRoutes';
 export { default as RouteProtector } from './RouteProtector';
-export * from './getAllowedUserRoutes';
+export { default as getAllowedUserRoutes } from './getAllowedUserRoutes';
