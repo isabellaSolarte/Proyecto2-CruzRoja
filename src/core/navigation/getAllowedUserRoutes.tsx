@@ -9,40 +9,42 @@ import { NavigationRoutes } from './NavigationRoutes';
 import { RouterModel } from '../../models/RouteModel';
 
 /**
- * Get all routes paths from the parent route and its children
+ * Get all routes from the parent route and its children
  * @param parentRoute
  * @returns all routes paths from an specific route
  */
-const getRoutePaths = (parentRoute: RouterModel): string[] => {
-  const allRoutePaths: string[] = [parentRoute.path];
+const getChildrenRoutes = (parentRoute: RouterModel): RouterModel[] => {
+  const allRoutePaths: RouterModel[] = [parentRoute];
   if (parentRoute.children) {
-    parentRoute.children.forEach(childRoute =>
-      allRoutePaths.push(`${parentRoute.path}${childRoute.path}`),
-    );
+    parentRoute.children.forEach(childRoute => allRoutePaths.push(childRoute));
   }
   return allRoutePaths;
 };
 
 /**
- * Get all routes paths from the routes list and its children
+ * Get all routes paths from the existing routes
+ * make just one array with all the children and parents in it
+ * so intesad of get this [ route: {children: [route1, route2]}]
+ * you will get [route, route1, route2]
  * @returns all routes paths
  */
-const getAllRoutePaths = (): string[] => {
-  const routerPathList: string[] = [];
+const getAllRoutes = (): RouterModel[] => {
+  const routerList: RouterModel[] = [];
   const allRoutes: RouterModel[] = NavigationRoutes();
 
-  for (const route of allRoutes) routerPathList.push(...getRoutePaths(route));
+  for (const route of allRoutes)
+    getChildrenRoutes(route).forEach(children => routerList.push(children));
 
-  return routerPathList;
+  return routerList;
 };
 
 /**
- * Get allowed routes for the current logged user based on its role
+ * Get allowed route paths for the current logged user based on its role
  * @param currentUser
- * @returns allowedRoutes
+ * @returns allowedRoutePaths string list paths for the current logged user
  */
-const getAllowedUserRoutes = (currentUser: UserModel) => {
-  const routerPathList: string[] = getAllRoutePaths();
+export const getAllowedUserRoutePaths = (currentUser: UserModel): string[] => {
+  const routerPathList: string[] = getAllRoutes().map(route => route.path);
 
   const userRoutes: string[] = currentUser.role.routes;
 
@@ -51,4 +53,16 @@ const getAllowedUserRoutes = (currentUser: UserModel) => {
   return allowedRoutes;
 };
 
-export default getAllowedUserRoutes;
+/**
+ * Get allowed routes for the current logged user
+ * @param currentUser
+ * @returns allowedRoutes RouterModel list for the current logged user
+ */
+export const getAllowedUserRoutes = (currentUser: UserModel): RouterModel[] => {
+  const allRoutes: RouterModel[] = getAllRoutes();
+  const userRoutes: string[] = currentUser.role.routes;
+
+  const allowedRoutes: RouterModel[] = allRoutes.filter(route => userRoutes.includes(route.path));
+
+  return allowedRoutes;
+};

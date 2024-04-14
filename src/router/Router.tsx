@@ -17,7 +17,6 @@ const Router = () => {
   const routes: RouterModel[] = NavigationRoutes();
 
   const routerObjects: RouteObject[] = routes.map(getRouteObject);
-  console.log('routerObjects', routerObjects);
 
   return <RouterProvider router={createBrowserRouter(routerObjects)} />;
 };

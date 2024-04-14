@@ -1,0 +1,42 @@
+.buttonMenu{
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 2rem;
+    padding-inline: 1rem;
+    padding-block: 0.5rem;
+    text-decoration: none;
+}
+.buttonMenu:visited{
+    color: none;
+}
+
+.deactiveButtonMenu {
+    color: #FFF;
+    background-color: #65B741;
+    transition: all 0.3s ease;
+}
+
+.deactiveButtonMenu:hover{
+    color: #FFF;
+    background-color: #3e8022;
+}
+
+.activeButtonMenu{
+    color: #6B7280;
+    background-color: #fff;
+}
+
+.activeIcon{
+    color: #FF4048;
+}
+
+
+/* 
+    Responsive design
+    768px
+*/
+@media screen and (max-width: 768px){
+}
