@@ -1,6 +1,7 @@
 import { Button, Container, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
+
 const App = () => {
   const { t } = useTranslation('commons');
   const s = '';
