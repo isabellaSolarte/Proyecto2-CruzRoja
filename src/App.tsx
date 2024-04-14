@@ -9,7 +9,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router />
-      <CustomButton content="Ejmeplo" variant="contained" color="info" sx={{ fontSize: '16px' }} />
+      <CustomButton content="Ejemplo" variant="contained" color="info" sx={{ fontSize: '16px' }} />
     </ThemeProvider>
   );
 };
