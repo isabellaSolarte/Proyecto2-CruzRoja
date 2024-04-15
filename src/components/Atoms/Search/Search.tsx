@@ -3,25 +3,45 @@ import { useState } from "react";
 import ClearIcon from '@mui/icons-material/Clear';
 import SearchIcon from '@mui/icons-material/Search';
 
+interface SearchProps {
+  placeholder: string;
+  onSearch?: (searchText: string) => void;
+}
 
-
-const Search: React.FC = () => {
+/**
+ * Un componente de búsqueda que permite a los usuarios ingresar una consulta de búsqueda y realizar una búsqueda.
+ *
+ * @component
+ * @example
+ * ```tsx
+ * <Search placeholder="Buscar..." onSearch={handleSearch} />
+ * ```
+ * @param {string} placeholder - El texto de marcador de posición para el campo de búsqueda.
+ * @param {Function} onSearch - La función de devolución de llamada que se llamará cuando se haga clic en el botón de búsqueda o se presione la tecla Enter.
+ * @returns {JSX.Element} El componente de búsqueda.
+ */
+const Search: React.FC<SearchProps> = ({ placeholder='', onSearch }) => {
   const [searchText, setSearchText] = useState('');
+
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value);
-    //console.log('Guardando busqueda:', searchText);
+    console.log('Texto de búsqueda:', event.target.value);
   };
+
   const handleClearSearch = () => {
     setSearchText('');
-    //console.log('Limpiando búsqueda:', searchText);
+    console.log('Limpiando búsqueda');
   };
+
   const handleSearch = () => {
     // Lógica para realizar la búsqueda
     console.log('Realizando búsqueda:', searchText);
+    onSearch(searchText);
   };
+
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      event.preventDefault(); // Prevenir el comportamiento predeterminado del formulario
+      event.preventDefault();
       handleSearch();
     }
   };
@@ -39,9 +59,8 @@ const Search: React.FC = () => {
         )}
         <InputBase
           sx={{ ml: 1, flex: 1 }}
-          placeholder="Buscar"
-          inputProps={{ 'aria-label': 'Buscar' }}
-          value={searchText}
+          placeholder={placeholder}
+          inputProps={{ 'aria-label': placeholder, value: searchText }}
           onChange={handleSearchChange}
           onKeyDown={handleKeyPress}
         />
