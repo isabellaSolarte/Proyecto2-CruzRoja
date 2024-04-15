@@ -5,7 +5,7 @@ interface labelProps {
   texto: string;
   icon?:ReactElement;
   variante: 'titulo' | 'texto' | 'subtitulo';
-  color?: 'gris' | 'negro'
+  color?: 'gris' | 'negro';
 }
 
 const Etiqueta = ({ texto, icon , variante, color = 'gris' }:labelProps) => {
@@ -19,11 +19,12 @@ const Etiqueta = ({ texto, icon , variante, color = 'gris' }:labelProps) => {
     }
     color={color === 'gris' ? '#808080' : '#000000'}>  
       {icon && (
-        <Box display="flex" alignItems="center" >
+        <Box display="flex" alignItems="center">
           {icon && <Icon sx={{ marginRight: 1 }}>{icon}</Icon>}
           {texto}
         </Box>
       )}
+      {!icon && texto} 
     </Typography>
   );
 };
