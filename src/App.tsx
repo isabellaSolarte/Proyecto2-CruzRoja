@@ -1,17 +1,12 @@
+import React from 'react';
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import { theme } from './configs';
-
-/*const options: Option[] = [
-  { value: '1', label: 'Opción 1' },
-  { value: '2', label: 'Opción 2' },
-  { value: '3', label: 'Opción 3' },
-];*/
+import { theme } from './configs'; // Asegúrate de importar tu tema
+import CustomSwitch from './components/Switch/CustomSwitch';
 const App = () => {
   return (
-    
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      
+      <CustomSwitch /> 
     </ThemeProvider>
   );
 };
