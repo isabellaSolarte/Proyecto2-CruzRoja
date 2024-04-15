@@ -1,9 +1,10 @@
-import { Icon, Tooltip, Typography, useTheme } from '@mui/material';
+import { Box, Icon, Tooltip, Typography, useTheme } from '@mui/material';
 
 interface PropiedadesEtiqueta {
   texto: string;
   variante: 'titulo' | 'texto' | 'subtitulo';
   mandatory?: boolean;
+  icon?: JSX.Element;
 }
 
 const putMandatoryAdornment = () => {
@@ -14,7 +15,7 @@ const putMandatoryAdornment = () => {
   );
 };
 
-const CustomText = ({ texto, variante, mandatory }: PropiedadesEtiqueta) => {
+const CustomText = ({ texto, variante, mandatory, icon }: PropiedadesEtiqueta) => {
   const theme = useTheme();
 
   const style = {
@@ -24,31 +25,90 @@ const CustomText = ({ texto, variante, mandatory }: PropiedadesEtiqueta) => {
   switch (variante) {
     case 'titulo':
       return (
-        <Typography variant="h4" fontWeight={'bold'} color={theme.palette.text.primary} sx={style}>
-          {texto}
-          {mandatory && putMandatoryAdornment()}
-        </Typography>
+        <>
+          {icon ? (
+            <Box display="flex" alignItems="center">
+              <Icon sx={{ marginRight: 1 }}>{icon}</Icon>
+              <Typography
+                variant="h4"
+                fontWeight={'bold'}
+                color={theme.palette.text.primary}
+                sx={style}
+              >
+                {texto}
+                {mandatory && putMandatoryAdornment()}
+              </Typography>
+            </Box>
+          ) : (
+            <Typography
+              variant="h4"
+              fontWeight={'bold'}
+              color={theme.palette.text.primary}
+              sx={style}
+            >
+              {texto}
+              {mandatory && putMandatoryAdornment()}
+            </Typography>
+          )}
+        </>
       );
     case 'texto':
       return (
-        <Typography fontSize={'18px'} color={theme.palette.text.primary} sx={style}>
-          {texto}
-          {mandatory && putMandatoryAdornment()}
-        </Typography>
+        <>
+          {icon ? (
+            <Box display="flex" alignItems="center">
+              <Icon sx={{ marginRight: 1 }}>{icon}</Icon>
+              <Typography fontSize={'18px'} color={theme.palette.text.primary} sx={style}>
+                {texto}
+                {mandatory && putMandatoryAdornment()}
+              </Typography>
+            </Box>
+          ) : (
+            <Typography fontSize={'18px'} color={theme.palette.text.primary} sx={style}>
+              {texto}
+              {mandatory && putMandatoryAdornment()}
+            </Typography>
+          )}
+        </>
       );
+
     case 'subtitulo':
       return (
-        <Typography variant="subtitle2" color={theme.palette.text.secondary} sx={style}>
-          {texto}
-          {mandatory && putMandatoryAdornment()}
-        </Typography>
+        <>
+          {icon ? (
+            <Box display="flex" alignItems="center">
+              <Icon sx={{ marginRight: 1 }}>{icon}</Icon>
+              <Typography variant="subtitle2" color={theme.palette.text.secondary} sx={style}>
+                {texto}
+                {mandatory && putMandatoryAdornment()}
+              </Typography>
+            </Box>
+          ) : (
+            <Typography variant="subtitle2" color={theme.palette.text.secondary} sx={style}>
+              {texto}
+              {mandatory && putMandatoryAdornment()}
+            </Typography>
+          )}
+        </>
       );
     default:
       return (
-        <Typography variant="h2" color={theme.palette.text.primary} sx={style}>
-          {texto}
-          {mandatory && putMandatoryAdornment()}
-        </Typography>
+        <>
+          {icon ? (
+            <Box display="flex" alignItems="center">
+              <Icon sx={{ marginRight: 1 }}>{icon}</Icon>
+              <Typography variant="h2" color={theme.palette.text.primary} sx={style}>
+                {texto}
+                {mandatory && putMandatoryAdornment()}
+              </Typography>
+            </Box>
+          ) : (
+            <Typography variant="h2" color={theme.palette.text.primary} sx={style}>
+              {texto}
+              {mandatory && putMandatoryAdornment()}
+            </Typography>
+          )}
+        </>
       );
   }
 };
