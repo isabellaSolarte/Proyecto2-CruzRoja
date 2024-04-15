@@ -55,6 +55,18 @@ declare module '@mui/material/styles' {
 }
 
 export const theme: ThemeOptions = createTheme({
+  components: {
+    MuiGrid: {
+      styleOverrides: {
+        root: {
+          margin: 0,
+          '& .MuiGrid-item': {
+            padding: '0',
+          },
+        },
+      },
+    },
+  },
   typography: {
     fontFamily: 'Nunito Sans, sans-serif',
   },

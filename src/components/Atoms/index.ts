@@ -5,3 +5,4 @@ export * from './CustomText';
 export * from './Inputs';
 export * from './MenuButton';
 export * from './Tabs';
+export * from './emptyBox';

@@ -17,31 +17,35 @@ const putMandatoryAdornment = () => {
 const CustomText = ({ texto, variante, mandatory }: PropiedadesEtiqueta) => {
   const theme = useTheme();
 
+  const style = {
+    padding: 0,
+  };
+
   switch (variante) {
     case 'titulo':
       return (
-        <Typography variant="h4" fontWeight={'bold'} color={theme.palette.text.primary}>
+        <Typography variant="h4" fontWeight={'bold'} color={theme.palette.text.primary} sx={style}>
           {texto}
           {mandatory && putMandatoryAdornment()}
         </Typography>
       );
     case 'texto':
       return (
-        <Typography fontSize={'18px'} color={theme.palette.text.primary}>
+        <Typography fontSize={'18px'} color={theme.palette.text.primary} sx={style}>
           {texto}
           {mandatory && putMandatoryAdornment()}
         </Typography>
       );
     case 'subtitulo':
       return (
-        <Typography variant="subtitle2" color={theme.palette.text.secondary}>
+        <Typography variant="subtitle2" color={theme.palette.text.secondary} sx={style}>
           {texto}
           {mandatory && putMandatoryAdornment()}
         </Typography>
       );
     default:
       return (
-        <Typography variant="h2" color={theme.palette.text.primary}>
+        <Typography variant="h2" color={theme.palette.text.primary} sx={style}>
           {texto}
           {mandatory && putMandatoryAdornment()}
         </Typography>
