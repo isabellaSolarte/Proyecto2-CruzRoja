@@ -1,7 +1,6 @@
 import { Container, Grid } from '@mui/material';
 import { CustomText, CustomButton, Tabs } from '../../components';
 import CustomInput from '../../components/Atoms/Inputs/Input';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { useTranslation } from 'react-i18next';
 
 // TODO: CREAR EL FORMULARIO CON VALIDACIONES
@@ -10,23 +9,6 @@ const CreateRolePage = () => {
   const { t } = useTranslation('commons');
   return (
     <Container sx={{ position: 'relative', marginInline: 10 }}>
-      <div
-        style={{
-          position: 'absolute',
-          top: '-5%',
-          left: '-6%',
-        }}
-      >
-        <CustomButton
-          content={t('generalButtonText.back')}
-          onClick={() => {
-            console.log('presionado');
-          }}
-          icon={<ArrowBackIosIcon />}
-          variant="text"
-          sx={{ color: '#000' }}
-        />
-      </div>
       <CustomText texto={t('pageTitles.createRole')} variante="titulo" />
 
       <Grid

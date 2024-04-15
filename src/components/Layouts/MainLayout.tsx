@@ -4,6 +4,7 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { useTheme } from '@mui/material';
 import './MainLayoutStyle.css';
+import { NavigationProccessButton } from '../Molecules/NavigationProccessButton';
 
 interface MainLayoutProps {
   appBar: React.ReactNode;
@@ -33,6 +34,17 @@ const MainLayout = ({ appBar, navigationMenu, content }: MainLayoutProps) => {
           position: 'relative',
         }}
       >
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            display: 'flex',
+            flexDirection: 'row',
+          }}
+        >
+          <NavigationProccessButton />
+        </div>
         <div
           style={{
             position: 'absolute',

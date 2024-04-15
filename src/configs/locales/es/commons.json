@@ -7,9 +7,15 @@
         "save": "Guardar"
     },
     "menuOptions": {
-        "users": "Gestionar usuarios",
-        "business": "Gestionar empresas",
-        "roles": "Gestionar roles"
+        "users": "usuarios",
+        "business": "empresas",
+        "roles": "roles",
+        "logout": "Cerrar sesión",
+        "settings": "Configuración",
+        "statistics": "Estadísticas",
+        "activities": "Actividades",
+        "plans": "Planes de compensación",
+        "permissions": "Permisos"
     },
     "pageTitles": {
         "users": "Gestión de usuarios",
