@@ -8,6 +8,7 @@
     align-content: stretch;
     margin: 0;
     padding: 0;
+    min-height: 100vh;
 }
 
 .navigation-menu-container{
@@ -31,16 +32,14 @@
     background-color: green;
     height: 100%;
     width: 100%;
-    padding-inline: 3rem;
-    padding-block: 1.5rem;
+    padding-inline: 4rem;
+    padding-block: 3rem;
 }
 
 .content-container > .info {
     display: flex;
-    justify-content: center;
-    align-items: center;
     height: 100%;
     width: 100%;
-    background-color: beige;
     border-radius: 5px;
+    padding: 20px;
 }

@@ -9,9 +9,9 @@ declare module '@mui/material/styles' {
       blue?: string;
     };
     backgroundContentColors?: {
-      default?: string;
-      primary?: string;
-      secondary?: string;
+      contentBox?: string;
+      paper?: string;
+      placeholders?: string;
       green?: string;
     };
     selectionColors?: {
@@ -35,9 +35,9 @@ declare module '@mui/material/styles' {
       blue?: string;
     };
     backgroundContentColors?: {
-      default?: string;
-      primary?: string;
-      secondary?: string;
+      contentBox?: string;
+      paper?: string;
+      placeholders?: string;
       green?: string;
     };
     selectionColors?: {
@@ -89,9 +89,9 @@ export const theme: ThemeOptions = createTheme({
     blue: '#4286B8',
   },
   backgroundContentColors: {
-    default: '#F3F3F3',
-    primary: '#E5E5E5',
-    secondary: '#D9D9D9',
+    contentBox: '#FFF',
+    paper: '#C8C8C8',
+    placeholders: '#D9D9D9',
     green: '#65B741',
   },
   selectionColors: {
