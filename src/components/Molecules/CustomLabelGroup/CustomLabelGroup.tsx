@@ -11,7 +11,7 @@ const LabelGroup = ({texto1,texto2,icon}:labelGroupProps) => {
     return (
         <>
         <Etiqueta texto={texto1} icon={icon} variante="texto" color="gris" />
-        <Etiqueta texto={texto2} variante="texto" color="negro" />
+        <Etiqueta texto={texto2} variante="texto"  />
         </> 
       
     );

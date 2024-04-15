@@ -8,7 +8,7 @@ interface labelProps {
   color?: 'gris' | 'negro';
 }
 
-const Etiqueta = ({ texto, icon , variante, color = 'gris' }:labelProps) => {
+const Etiqueta = ({ texto, icon , variante, color = 'negro' }:labelProps) => {
   return (
     
     <Typography variant={
@@ -17,7 +17,7 @@ const Etiqueta = ({ texto, icon , variante, color = 'gris' }:labelProps) => {
       variante === 'subtitulo' ? 'h6' :
       'h2'
     }
-    color={color === 'gris' ? '#808080' : '#000000'}>  
+    color={color === 'negro' ? '#000000' : '#808080'}>  
       {icon && (
         <Box display="flex" alignItems="center">
           {icon && <Icon sx={{ marginRight: 1 }}>{icon}</Icon>}
