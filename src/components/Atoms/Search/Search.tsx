@@ -1,4 +1,4 @@
-import { IconButton, InputBase, Paper } from "@mui/material";
+import { IconButton, InputBase, Paper, SxProps } from "@mui/material";
 import { useState } from "react";
 import ClearIcon from '@mui/icons-material/Clear';
 import SearchIcon from '@mui/icons-material/Search';
@@ -6,6 +6,7 @@ import SearchIcon from '@mui/icons-material/Search';
 interface SearchProps {
   placeholder: string;
   onSearch?: (searchText: string) => void;
+  sx?: SxProps;
 }
 
 /**
@@ -18,9 +19,10 @@ interface SearchProps {
  * ```
  * @param {string} placeholder - El texto de marcador de posición para el campo de búsqueda.
  * @param {Function} onSearch - La función de devolución de llamada que se llamará cuando se haga clic en el botón de búsqueda o se presione la tecla Enter.
+ * @param {SxProps} sx - Opcional. Las propiedades de estilo de MUI para personalizar el componente.
  * @returns {JSX.Element} El componente de búsqueda.
  */
-const Search: React.FC<SearchProps> = ({ placeholder='', onSearch }) => {
+const Search: React.FC<SearchProps> = ({ placeholder='', onSearch, sx }) => {
   const [searchText, setSearchText] = useState('');
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,7 +38,9 @@ const Search: React.FC<SearchProps> = ({ placeholder='', onSearch }) => {
   const handleSearch = () => {
     // Lógica para realizar la búsqueda
     console.log('Realizando búsqueda:', searchText);
-    onSearch(searchText);
+    if (onSearch) {
+      onSearch(searchText);
+    }
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -50,7 +54,7 @@ const Search: React.FC<SearchProps> = ({ placeholder='', onSearch }) => {
     <div>
       <Paper
         component="form"
-        sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 'fullWidth' }}
+        sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 'fullWidth', ...sx }}
       >
         {searchText && (
           <IconButton onClick={handleClearSearch}>
