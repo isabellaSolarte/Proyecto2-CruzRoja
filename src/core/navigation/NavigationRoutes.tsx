@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { RouterModel } from '../../models';
 import GroupsIcon from '@mui/icons-material/Groups';
 import BusinessIcon from '@mui/icons-material/Business';
-import { Container } from '@mui/material';
+import { CreateRolePage } from '../../pages/CreateRole';
 
 export const NavigationRoutes = () => {
   const { t } = useTranslation('commons');
@@ -20,12 +20,7 @@ export const NavigationRoutes = () => {
     },
     {
       path: '/users/',
-      component: (
-        <Container>
-          <h1>GESTION DE USUARIOS</h1>
-          <div></div>
-        </Container>
-      ),
+      component: <CreateRolePage />,
       title: t('menuOptions.users'),
       icon: <GroupsIcon />,
     },

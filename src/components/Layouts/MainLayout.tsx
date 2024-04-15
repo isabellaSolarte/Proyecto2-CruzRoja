@@ -42,7 +42,7 @@ const MainLayout = ({ appBar, navigationMenu, content }: MainLayoutProps) => {
             flexDirection: 'row',
           }}
         >
-          <img src="/public/Tress.svg" style={{ width: '110rem' }} />
+          <img src="/public/Tress.svg" style={{ maxWidth: '500rem' }} />
         </div>
 
         <div

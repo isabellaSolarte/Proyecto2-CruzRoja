@@ -12,7 +12,6 @@ const StyledTabs = withStyles({
     display: 'flex',
     justifyContent: 'flex-end',
     width: 'fit-content',
-    margin: '20px',
   },
 })(Tabs);
 
