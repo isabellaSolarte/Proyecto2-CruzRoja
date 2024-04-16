@@ -17,8 +17,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ placeholder, onSearch, additional
     };
 
     return (
-        <Box sx={{ display: 'flex', width: '100%', alignItems: 'center' }}>
-            <Search placeholder={placeholder} onSearch={handleSearch} sx={{ flexGrow: 1 }} />
+        <Box sx={{ display: 'flex', width: 'fullWidth', alignItems: 'center' }}>
+            <Search placeholder={placeholder} onSearch={handleSearch} />
             {additionalElements}
         </Box>
     );
