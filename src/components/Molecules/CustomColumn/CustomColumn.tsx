@@ -29,7 +29,7 @@ const CustomColumn = ({ field, headerName, width = 150, format, buttonDetails, v
     if (format === 'button') {
         {console.log(buttonDetails);}
       return <div style={{ display: 'flex', gap: '10px' }}>
-            {buttonDetails?.map((button, index) => (
+            {buttonDetails.map((button, index) => (
               
               <CustomButton
                 key={index}
