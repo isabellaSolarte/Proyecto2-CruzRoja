@@ -1,9 +1,10 @@
 import { UserModel } from '../../models/UserModel';
 import { Navigate } from 'react-router-dom';
 import { RouterModel } from '../../models/RouteModel';
-import getAllowedUserRoutes from './getAllowedUserRoutes';
-import { Container } from '@mui/material';
 import React from 'react';
+import { AppLayout } from '../../components';
+import { getAllowedUserRoutePaths } from './getAllowedUserRoutes';
+import { PathNames } from '../PathNames';
 
 interface RouteProtectorProps {
   route: RouterModel;
@@ -17,7 +18,16 @@ const RouteProtector = ({ route, component }: RouteProtectorProps) => {
     email: '',
     role: {
       name: 'Admin',
-      routes: ['/*', '/users/list', '/users/', '/users/register'],
+      routes: [
+        PathNames.USERS,
+        PathNames.ROLES,
+        PathNames.BUSINESS,
+        PathNames.PERMISSIONS,
+        PathNames.PLANS,
+        PathNames.ACTIVITY,
+        PathNames.STATISTICS,
+        PathNames.CLOSE_SESSION,
+      ],
       permissions: [''],
     },
     password: '',
@@ -27,15 +37,16 @@ const RouteProtector = ({ route, component }: RouteProtectorProps) => {
     updated_at: '',
   };
   const loggedUser: boolean = true;
-  const allowedUserRoutes: string[] = getAllowedUserRoutes(userTest);
-  console.log('current', route);
+  const allowedUserRoutes: string[] = getAllowedUserRoutePaths(userTest);
 
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!loggedUser) return <Navigate to="/login" />;
 
+  if (route.path === '/*') return <Navigate to="/users" />;
+
   if (!allowedUserRoutes.includes(route.path)) return <Navigate to="/404" />;
 
-  return <Container>{component}</Container>;
+  return <AppLayout content={component} />;
 };
 
 export default RouteProtector;

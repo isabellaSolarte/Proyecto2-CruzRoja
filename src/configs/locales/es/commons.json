@@ -2,6 +2,37 @@
     "generalButtonText": {
         "error": "json",
         "accept": "Aceptar",
-        "cancel": "Cancelar"
+        "cancel": "Cancelar",
+        "back": "Atrás",
+        "save": "Guardar"
+    },
+    "menuOptions": {
+        "users": "usuarios",
+        "business": "empresas",
+        "roles": "roles",
+        "logout": "Cerrar sesión",
+        "settings": "Configuración",
+        "statistics": "Estadísticas",
+        "activities": "Actividades",
+        "plans": "Planes de compensación",
+        "permissions": "Permisos"
+    },
+    "pageTitles": {
+        "users": "Gestión de usuarios",
+        "business": "Gestión de empresas",
+        "roles": "Gestión de roles",
+        "createRole": "Editar - Crear rol"
+    },
+    "rolesPages": {
+        "tabs": {
+            "visualizar": "Visualización",
+            "permissions": "Permisos"
+        },
+        "roleForm": {
+            "name": "Nombre",
+            "description": "Descripción",
+            "color": "Color",
+            "colorDescription": "Los usuarios con este rol tendrán este color en la aplicación"
+        }
     }
 }

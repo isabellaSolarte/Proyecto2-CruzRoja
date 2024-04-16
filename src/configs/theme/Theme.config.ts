@@ -2,8 +2,28 @@ import { ThemeOptions, createTheme } from '@mui/material';
 
 declare module '@mui/material/styles' {
   interface Theme {
-    status: {
-      danger: string;
+    buttonColors?: {
+      red?: string;
+      yellow?: string;
+      green?: string;
+      blue?: string;
+    };
+    backgroundContentColors?: {
+      contentBox?: string;
+      paper?: string;
+      placeholders?: string;
+      green?: string;
+    };
+    selectionColors?: {
+      darkBlue?: string;
+      lightBlue?: string;
+      darkGreen?: string;
+      lightGreen?: string;
+      darkRed?: string;
+      lightRed?: string;
+    };
+    textColors?: {
+      grey?: string;
     };
   }
   // allow configuration using `createTheme`
@@ -15,9 +35,10 @@ declare module '@mui/material/styles' {
       blue?: string;
     };
     backgroundContentColors?: {
-      default?: string;
-      primary?: string;
-      secondary?: string;
+      contentBox?: string;
+      paper?: string;
+      placeholders?: string;
+      green?: string;
     };
     selectionColors?: {
       darkBlue?: string;
@@ -27,16 +48,31 @@ declare module '@mui/material/styles' {
       darkRed?: string;
       lightRed?: string;
     };
+    textColors?: {
+      grey?: string;
+    };
   }
 }
 
 export const theme: ThemeOptions = createTheme({
+  components: {
+    MuiGrid: {
+      styleOverrides: {
+        root: {
+          margin: 0,
+          '& .MuiGrid-item': {
+            padding: '0',
+          },
+        },
+      },
+    },
+  },
   typography: {
     fontFamily: 'Nunito Sans, sans-serif',
   },
   palette: {
     primary: {
-      main: '##FFFFFF',
+      main: '#FFFFFF',
     },
     secondary: {
       main: '#000000',
@@ -65,9 +101,10 @@ export const theme: ThemeOptions = createTheme({
     blue: '#4286B8',
   },
   backgroundContentColors: {
-    default: '#F3F3F3',
-    primary: '#E5E5E5',
-    secondary: '#D9D9D9',
+    contentBox: '#FFF',
+    paper: '#C8C8C8',
+    placeholders: '#D9D9D9',
+    green: '#65B741',
   },
   selectionColors: {
     darkBlue: '#3170DC',
@@ -76,5 +113,8 @@ export const theme: ThemeOptions = createTheme({
     lightGreen: '#BADBAC',
     darkRed: '#FF020C',
     lightRed: '#FF878C',
+  },
+  textColors: {
+    grey: '#6B7280',
   },
 });
