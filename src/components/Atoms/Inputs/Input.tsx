@@ -11,7 +11,16 @@ interface CustomInputProps {
 */
 const CustomInput = ({ placeholder, size }: CustomInputProps) => {
   const inputClass = `custom-input-${size}`;
-  return <input type="text" placeholder={placeholder} className={inputClass} />;
+  return (
+    <input
+      type="text"
+      placeholder={placeholder}
+      className={inputClass}
+      style={{
+        width: '100%',
+      }}
+    />
+  );
 };
 
 export default CustomInput;

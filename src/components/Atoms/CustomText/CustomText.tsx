@@ -20,6 +20,7 @@ const CustomText = ({ texto, variante, mandatory, icon }: PropiedadesEtiqueta) =
 
   const style = {
     padding: 0,
+    textAlign: 'justify',
   };
 
   switch (variante) {

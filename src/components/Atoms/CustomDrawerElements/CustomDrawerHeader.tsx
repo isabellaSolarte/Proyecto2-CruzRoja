@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { Container, IconButton, Theme, Typography, useTheme } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import MenuIcon from '@mui/icons-material/Menu';
 
@@ -15,15 +15,12 @@ interface CustomDrawerHeaderProps {
  * @returns
  */
 const CustomDrawerHeader = ({ open, handleDrawerState }: CustomDrawerHeaderProps) => {
-  const theme: Theme = useTheme();
   return (
-    <Container
+    <div
       style={{
         display: 'flex',
         justifyContent: open ? 'space-between' : 'center',
         alignItems: 'center',
-        padding: '10px 10px',
-        color: theme.palette.primary.main,
       }}
     >
       <Typography
@@ -32,6 +29,7 @@ const CustomDrawerHeader = ({ open, handleDrawerState }: CustomDrawerHeaderProps
           width: open ? '100%' : 0,
           opacity: open ? 1 : 0,
           transition: 'width 0.5s, opacity 0.5s',
+          paddingLeft: open ? '1rem' : 0,
         }}
       >
         FootPrint
@@ -39,7 +37,7 @@ const CustomDrawerHeader = ({ open, handleDrawerState }: CustomDrawerHeaderProps
       <IconButton onClick={handleDrawerState} color="primary">
         {open ? <MenuOpenIcon /> : <MenuIcon />}
       </IconButton>
-    </Container>
+    </div>
   );
 };
 
