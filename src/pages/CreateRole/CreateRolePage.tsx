@@ -1,6 +1,5 @@
 import { Grid } from '@mui/material';
-import { CustomText, CustomButton, ManagmentLayout } from '../../components';
-import CustomInput from '../../components/Atoms/Inputs/Input';
+import { CustomText, CustomButton, ManagmentLayout, SearchBar } from '../../components';
 import { useTranslation } from 'react-i18next';
 
 // TODO: CREAR EL FORMULARIO CON VALIDACIONES
@@ -31,6 +30,7 @@ const CreateRolePage = () => {
           </Grid>
         </Grid>
       }
+      inputBar={<SearchBar placeholder={t('rolesPages.roleForm.name')} />}
       button={
         <CustomButton
           content={t('generalButtonText.save')}
@@ -39,7 +39,6 @@ const CreateRolePage = () => {
           color="success"
         />
       }
-      inputBar={<CustomInput placeholder={t('rolesPages.roleForm.name')} size={'large'} />}
     />
   );
 };
