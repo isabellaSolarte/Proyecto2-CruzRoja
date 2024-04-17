@@ -28,8 +28,8 @@ const CustomColumn = ({
   headerName,
   width = 150,
   format,
-  buttonDetails,
-  variante,
+  buttonDetails=[],
+  variante='texto',
 }: CustomColumnProps): GridColDef => ({
   field,
   headerName,
