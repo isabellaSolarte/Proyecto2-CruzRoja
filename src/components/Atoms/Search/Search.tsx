@@ -51,28 +51,26 @@ const Search: React.FC<SearchProps> = ({ placeholder='', onSearch, sx }) => {
   };
 
   return (
-    <div>
-      <Paper
-        component="form"
-        sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 'fullWidth', ...sx }}
-      >
-        {searchText && (
-          <IconButton onClick={handleClearSearch}>
-            <ClearIcon />
-          </IconButton>
-        )}
-        <InputBase
-          sx={{ ml: 1, flex: 1 }}
-          placeholder={placeholder}
-          inputProps={{ 'aria-label': placeholder, value: searchText }}
-          onChange={handleSearchChange}
-          onKeyDown={handleKeyPress}
-        />
-        <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={handleSearch}>
-          <SearchIcon />
+    <Paper
+      component="form"
+      sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: '100%', ...sx }}
+    >
+      {searchText && (
+        <IconButton onClick={handleClearSearch}>
+          <ClearIcon />
         </IconButton>
-      </Paper>
-    </div>
+      )}
+      <InputBase
+        sx={{ ml: 1, flex: 1 }}
+        placeholder={placeholder}
+        inputProps={{ 'aria-label': placeholder, value: searchText }}
+        onChange={handleSearchChange}
+        onKeyDown={handleKeyPress}
+      />
+      <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={handleSearch}>
+        <SearchIcon />
+      </IconButton>
+    </Paper>
   );
 };
 
