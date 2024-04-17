@@ -20,6 +20,7 @@ const CustomButton = ({
   buttonSide,
   onClick,
   ...rest
+  
 }: CustomButtonProps) => {
   return (
     <Button
