@@ -6,4 +6,3 @@ export * from './Molecules/DrawerMenu';
 export * from './Molecules';
 export * from './orgamisms';
 export * from './Atoms/Button';
-export * from './Molecules/SearchBar';

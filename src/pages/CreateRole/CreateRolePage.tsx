@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material';
-import { CustomText, CustomButton, ManagmentLayout, SearchBar } from '../../components';
+import { CustomText, CustomButton, ManagmentLayout, SearchBar, DataTable } from '../../components';
 import { useTranslation } from 'react-i18next';
 
 // TODO: CREAR EL FORMULARIO CON VALIDACIONES
@@ -27,6 +27,42 @@ const CreateRolePage = () => {
           <Grid item xs={12} sm={6} sx={{}}>
             <CustomText texto={t('rolesPages.roleForm.color')} variante="texto" mandatory />
             <CustomText texto={t('rolesPages.roleForm.colorDescription')} variante="texto" />
+          </Grid>
+          <Grid item xs={12}>
+            <DataTable
+              columns={[
+                {
+                  field: 'name',
+                  headerName: t('rolesPages.roleForm.table.name'),
+                  width: 200,
+                },
+                {
+                  field: 'description',
+                  headerName: t('rolesPages.roleForm.table.description'),
+                  width: 200,
+                },
+                {
+                  field: 'actions',
+                  headerName: t('rolesPages.roleForm.table.actions'),
+                  width: 200,
+                },
+              ]}
+              rows={[
+                {
+                  id: 1,
+                  name: 'Administrador',
+                  description: 'Rol de administrador',
+                  actions: 'Editar',
+                },
+                {
+                  id: 2,
+                  name: 'Usuario',
+                  description: 'Rol de usuario',
+                  actions: 'Editar',
+                },
+              ]}
+              pageSize={5}
+            />
           </Grid>
         </Grid>
       }
