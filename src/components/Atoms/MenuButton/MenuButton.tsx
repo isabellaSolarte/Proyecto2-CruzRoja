@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { NavLink } from 'react-router-dom';
-import { Icon, Typography } from '@mui/material';
+import { Icon, Tooltip, Typography } from '@mui/material';
 import './MenuButtonStyles.css';
 import { useState } from 'react';
 
@@ -22,10 +22,13 @@ const MenuButton = ({ title, icon, path, collapse = false }: MenuButtonProps) =>
         return isActive ? 'buttonMenu activeButtonMenu' : 'buttonMenu deactiveButtonMenu';
       }}
     >
-      {icon && <Icon className={active ? 'activeIcon' : ''}>{icon}</Icon>}
-      <Typography textTransform={'capitalize'} fontWeight={'regular'}>
-        {title}
-      </Typography>
+      {icon && (
+        <Tooltip title={title} placement="right-end" arrow>
+          <Icon className={active ? 'activeIcon' : ''}>{icon}</Icon>
+        </Tooltip>
+      )}
+      <Typography textTransform={'capitalize'} fontWeight={'regular'}></Typography>
+      {title}
     </NavLink>
   );
 };

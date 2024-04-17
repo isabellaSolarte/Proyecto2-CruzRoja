@@ -2,18 +2,19 @@
     display: grid;
     grid-template-columns: auto 3fr;
     grid-template-rows: 3rem 1fr;
-    background-color: aqua;
     justify-items: stretch;
     align-items: stretch;
     align-content: stretch;
     margin: 0;
     padding: 0;
+    min-height: 100vh;
+    max-width: 100vw;
+    overflow: hidden;
 }
 
 .navigation-menu-container{
     grid-row: 1 / 3;
     grid-column: 1 / 2;
-    background-color: blue;
     height: 100%;
     width: 100%;
 }
@@ -21,26 +22,26 @@
 .app-bar-container{
     grid-column: 2/3;
     grid-row: 1/2;
-    background-color: red;
+    background-color: #FFF;
     width: 100%;
 }
 
 .content-container{
     grid-column: 2/3;
     grid-row: 2/3;
-    background-color: green;
     height: 100%;
     width: 100%;
-    padding-inline: 3rem;
-    padding-block: 1.5rem;
+    padding-inline: 4rem;
+    padding-block: 3rem;
 }
 
 .content-container > .info {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-self: start;
     height: 100%;
     width: 100%;
-    background-color: beige;
     border-radius: 5px;
+    padding-inline: 0rem;
+    padding-block: 3rem;
+
 }

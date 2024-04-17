@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { CustomDrawerContent, CustomDrawerHeader } from '../../Atoms';
 import { MenuOption } from '../../../models';
 
-const drawerWidth = 240;
+const drawerWidth = 260;
 
 const openedMixin = (theme: Theme): CSSObject => ({
   backgroundColor: theme.backgroundContentColors?.green,
