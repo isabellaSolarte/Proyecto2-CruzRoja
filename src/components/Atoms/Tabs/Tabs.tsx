@@ -19,8 +19,10 @@ const StyledTab = withStyles({
   root: {
     minWidth: 100,
     textTransform: 'none',
+    fontSize: 16,
   },
 })(Tab);
+
 const TabsAtomComponent = ({ tabContentItem }: TabProps) => {
   const [selectedTab, setSelectedTab] = React.useState(0);
 
