@@ -112,7 +112,7 @@ const CompoentesPage = () => {
         <CustomSwitch switchState={switchState} handleSwitchState={handleSwitchState} />
       </Container>
 
-      <CustomText texto="Atomo CustomSwitch" variante="subtitulo" />
+      <CustomText texto="Atomo TabsAtomComponent" variante="subtitulo" />
       <Container>
         <TabsAtomComponent tabContentItem={['tab 1', 'tab 2', 'tab 3']} />
       </Container>
