@@ -11,6 +11,7 @@ interface CustomColumnProps {
   headerName: string;
   width?: number;
   format: 'text' | 'button' | 'switch';
+  sortable?: boolean;
   content: string;
   variante: 'titulo' | 'texto' | 'subtitulo';
   icon?: ReactElement;
@@ -26,15 +27,17 @@ interface CustomColumnProps {
 const CustomColumn = ({
   field,
   headerName,
-  width = 150,
+  width,
   format,
-  buttonDetails=[],
-  variante='texto',
+  buttonDetails,
+  variante,
+  sortable = true,
 }: CustomColumnProps): GridColDef => ({
   field,
   headerName,
   width,
-  renderCell: _params => {
+  sortable,
+  renderCell: (params) => {
     if (format === 'button') {
       return (
         <div style={{ display: 'flex', gap: '10px' }}>
@@ -53,7 +56,7 @@ const CustomColumn = ({
         </div>
       );
     } else if (format == 'text') {
-      return <CustomText texto={''} variante={variante} />;
+      return <CustomText texto = {params.value || ''} variante={variante} />;
     } else {
       return <CustomSwitch />;
     }

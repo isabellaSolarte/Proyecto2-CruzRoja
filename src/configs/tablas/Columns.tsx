@@ -5,11 +5,11 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 const columns1 = [
   CustomColumn({ field: 'companyName', headerName: 'Empresa', width: 250, format: 'text', variante: 'texto', content: '', buttonDetails: [] }),
   CustomColumn({ field: 'names', headerName: 'Nombre', width: 250, format: 'text', variante: 'texto', content: '', buttonDetails: []  }),
-  CustomColumn({ field: 'actions', headerName: 'Acciones', width:250, format: 'button', variante: 'texto', content: '', buttonDetails: [
+  CustomColumn({ field: 'actions', headerName: 'Acciones', width:250, format: 'button', variante: 'texto', content: '', sortable: false, buttonDetails: [
     {
       content: 'Editar',
       variant: 'contained',
-      color: 'primary',
+      color: 'info',
       icon: <EditIcon />
     },
     {
