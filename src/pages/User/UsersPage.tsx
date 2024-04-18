@@ -45,7 +45,7 @@ const UsersPage = () => {
       generalContents={
         <Grid container spacing={2} direction={'column'} gap={5}>
           <Grid item xs={12}>
-            {/* <DataTable columns={columns} rows={[]} /> */}
+            <DataTable enableCheckboxSelection={false} dataColumns={columns} />
             
           </Grid>  
         </Grid>

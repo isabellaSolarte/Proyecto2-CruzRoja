@@ -56,7 +56,7 @@
         },
         "userTable": {
             "name": "Nombre",
-            "role": "Rol",
+            "rol": "Rol",
             "actions": "Acciones"            
         }
     }
