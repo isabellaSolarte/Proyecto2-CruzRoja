@@ -3,7 +3,7 @@ import { RouterModel } from '../../models';
 import GroupsIcon from '@mui/icons-material/Groups';
 import BusinessIcon from '@mui/icons-material/Business';
 import { CreateRolePage } from '../../pages/CreateRole';
-import { UsersPage } from '../../pages';
+import { CompoentesPage, UsersPage } from '../../pages';
 import { PathNames } from '../PathNames';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
@@ -80,6 +80,11 @@ export const NavigationRoutes = () => {
       component: <h1>CERRAR SESIÓN</h1>,
       title: t('menuOptions.logout'),
       icon: <LogoutIcon />,
+    },
+    {
+      path: PathNames.COMPONETS,
+      component: <CompoentesPage />,
+      title: 'COMPONENTES',
     },
   ];
 

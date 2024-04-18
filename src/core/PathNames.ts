@@ -34,4 +34,6 @@ export enum PathNames {
   SETTINGS = '/settings',
 
   CLOSE_SESSION = '/close-session',
+
+  COMPONETS = '/components',
 }

@@ -25,6 +25,7 @@ const AppLayout = ({ content }: AppLayoutProps) => {
         PathNames.ACTIVITY,
         PathNames.STATISTICS,
         PathNames.CLOSE_SESSION,
+        PathNames.COMPONETS,
       ],
       permissions: [''],
     },
