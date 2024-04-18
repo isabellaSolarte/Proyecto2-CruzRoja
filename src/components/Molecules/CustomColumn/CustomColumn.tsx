@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
-import { GridColDef } from '@mui/x-data-grid';
+import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { CustomButton } from '../../Atoms/Button';
 import { ReactElement } from 'react';
 import { CustomText } from '../../Atoms';
-import CustomSwitch from '../../Switch/CustomSwitch';
+import CustomSwitch from '../../Atoms/Switch/CustomSwitch';
 
 interface CustomColumnProps {
   field: string;
@@ -27,7 +27,7 @@ interface CustomColumnProps {
 const CustomColumn = ({
   field,
   headerName,
-  width,
+  width=282,
   format,
   buttonDetails,
   variante,
@@ -37,7 +37,8 @@ const CustomColumn = ({
   headerName,
   width,
   sortable,
-  renderCell: (params) => {
+  
+  renderCell: (params: GridRenderCellParams) => {
     if (format === 'button') {
       return (
         <div style={{ display: 'flex', gap: '10px' }}>
@@ -56,9 +57,9 @@ const CustomColumn = ({
         </div>
       );
     } else if (format == 'text') {
-      return <CustomText texto = {params.value || ''} variante={variante} />;
+      return <CustomText texto = {params.value as string} variante={variante} />;
     } else {
-      return <CustomSwitch />;
+      return <CustomSwitch switchState={params.row.switchState as boolean} />;
     }
   },
 });

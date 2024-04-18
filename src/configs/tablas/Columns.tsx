@@ -3,9 +3,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const columns1 = [
-  CustomColumn({ field: 'companyName', headerName: 'Empresa', width: 250, format: 'text', variante: 'texto', content: '', buttonDetails: [] }),
-  CustomColumn({ field: 'names', headerName: 'Nombre', width: 250, format: 'text', variante: 'texto', content: '', buttonDetails: []  }),
-  CustomColumn({ field: 'actions', headerName: 'Acciones', width:250, format: 'button', variante: 'texto', content: '', sortable: false, buttonDetails: [
+  CustomColumn({ field: 'companyName', headerName: 'Empresa', format: 'text', variante: 'texto', content: '', buttonDetails: [] }),
+  CustomColumn({ field: 'names', headerName: 'Nombre', format: 'text', variante: 'texto', content: '', buttonDetails: []  }),
+  CustomColumn({ field: 'actions', headerName: 'Acciones', format: 'button', variante: 'texto', content: '', sortable: false, buttonDetails: [
     {
       content: 'Editar',
       variant: 'contained',
@@ -19,7 +19,7 @@ const columns1 = [
       icon: <VisibilityIcon />
     }
   ] }),
-CustomColumn({ field: 'state', headerName: 'Estado', format: 'switch', variante: 'texto', content: '', buttonDetails: [] }),
+CustomColumn({ field: 'switchState', headerName: 'Estado', format: 'switch', variante: 'texto', content: '', buttonDetails: [] }),
 ];
 
 export {columns1};

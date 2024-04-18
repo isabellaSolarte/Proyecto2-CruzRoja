@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Switch, { SwitchProps } from '@mui/material/Switch';
 
+interface CustomColumnSwitch {
+  switchState: boolean
+}
+
 const IOSSwitch = styled((props: SwitchProps) => (
     <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
   ))(({ theme }) => ({
@@ -53,8 +57,10 @@ const IOSSwitch = styled((props: SwitchProps) => (
     },
   }));
 
-const CustomSwitch = () => {
-  const [checked, setChecked] = useState(false); // Define el estado y la función para actualizarlo
+const CustomSwitch = ({switchState}:CustomColumnSwitch )=> {
+  console.log(switchState);
+  
+  const [checked, setChecked] = useState(switchState); // Define el estado y la función para actualizarlo
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked); // Actualiza el estado al cambiar el switch
