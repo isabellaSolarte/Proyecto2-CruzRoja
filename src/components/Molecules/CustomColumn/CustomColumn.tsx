@@ -1,16 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
-import { GridColDef } from '@mui/x-data-grid';
+import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { CustomButton } from '../../Atoms/Button';
 import { ReactElement } from 'react';
 import { CustomText } from '../../Atoms';
-import CustomSwitch from '../../Switch/CustomSwitch';
+import CustomSwitch from '../../Atoms/Switch/CustomSwitch';
 
 interface CustomColumnProps {
   field: string;
   headerName: string;
   width?: number;
   format: 'text' | 'button' | 'switch';
+  sortable?: boolean;
   content: string;
   variante: 'titulo' | 'texto' | 'subtitulo';
   icon?: ReactElement;
@@ -26,15 +27,18 @@ interface CustomColumnProps {
 const CustomColumn = ({
   field,
   headerName,
-  width = 150,
+  width=282,
   format,
-  buttonDetails=[],
-  variante='texto',
+  buttonDetails,
+  variante,
+  sortable = true,
 }: CustomColumnProps): GridColDef => ({
   field,
   headerName,
   width,
-  renderCell: _params => {
+  sortable,
+  
+  renderCell: (params: GridRenderCellParams) => {
     if (format === 'button') {
       return (
         <div style={{ display: 'flex', gap: '10px' }}>
@@ -53,9 +57,9 @@ const CustomColumn = ({
         </div>
       );
     } else if (format == 'text') {
-      return <CustomText texto={''} variante={variante} />;
+      return <CustomText texto = {params.value as string} variante={variante} />;
     } else {
-      return <CustomSwitch />;
+      return <CustomSwitch switchState={params.row.switchState as boolean} />;
     }
   },
 });
