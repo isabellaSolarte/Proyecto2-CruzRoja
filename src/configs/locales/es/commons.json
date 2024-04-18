@@ -4,7 +4,13 @@
         "accept": "Aceptar",
         "cancel": "Cancelar",
         "back": "Atrás",
-        "save": "Guardar"
+        "save": "Guardar",
+        "create": "Crear",
+        "edit": "EDITAR",
+        "view": "OBSERVAR",
+        "delete": "ELIMINAR",
+        "state": "Estado",
+        "search": "Buscar"
     },
     "menuOptions": {
         "users": "usuarios",
@@ -33,6 +39,25 @@
             "description": "Descripción",
             "color": "Color",
             "colorDescription": "Los usuarios con este rol tendrán este color en la aplicación"
+        }
+    },
+    "usersPages": {
+        "tabs": {
+            "general": "General",
+            "roles": "Roles",
+            "business": "Empresas"
+        },
+        "userForm": {
+            "name": "Nombre",
+            "email": "Email",
+            "password": "Contraseña",
+            "passwordConfirmation": "Confirmación de contraseña",
+            "role": "Rol"
+        },
+        "userTable": {
+            "name": "Nombre",
+            "rol": "Rol",
+            "actions": "Acciones"            
         }
     }
 }

@@ -3,6 +3,7 @@ import { RouterModel } from '../../models';
 import GroupsIcon from '@mui/icons-material/Groups';
 import BusinessIcon from '@mui/icons-material/Business';
 import { CreateRolePage } from '../../pages/CreateRole';
+import { UsersPage } from '../../pages';
 import { PathNames } from '../PathNames';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
@@ -34,7 +35,7 @@ export const NavigationRoutes = () => {
     },
     {
       path: PathNames.USERS,
-      component: <CreateRolePage />,
+      component: <UsersPage />,
       title: t('menuOptions.users'),
       icon: <GroupsIcon />,
     },
