@@ -18,7 +18,6 @@ export * from './Molecules/DrawerMenu';
 export * from './Molecules/NavigationProccessButton';
 export * from './Molecules/SearchBar';
 export * from './Molecules';
-export * from './Switch';
 export * from './orgamisms/CustomAppBar';
 export * from './orgamisms/DataTable';
 export * from './orgamisms';
