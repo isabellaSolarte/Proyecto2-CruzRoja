@@ -1,6 +1,6 @@
 // TODO: CREAR EL FORMULARIO CON VALIDACIONES
 const CreateRolePage = () => {
-  //const { t } = useTranslation('commons');
+  // const { t } = useTranslation('commons');
 
   return <div></div>;
 };

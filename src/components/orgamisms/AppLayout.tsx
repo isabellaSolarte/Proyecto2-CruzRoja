@@ -1,9 +1,9 @@
 import React from 'react';
-import { Container } from '@mui/material';
 import { DrawerMenu } from '../Molecules';
 import { MenuOption, RouterModel, UserModel } from '../../models';
 import { PathNames, getAllowedUserRoutes } from '../../core';
 import { MainLayout } from '../Layouts';
+import CustomAppBar from './CustomAppBar/CustomAppBar';
 
 interface AppLayoutProps {
   content: React.ReactNode;
@@ -51,7 +51,7 @@ const AppLayout = ({ content }: AppLayoutProps) => {
 
   return (
     <MainLayout
-      appBar={<Container> COMPONENTE PARA EL APP BAR </Container>}
+      appBar={<CustomAppBar />}
       content={content}
       navigationMenu={<DrawerMenu options={adaptedMenuOptions} />}
     />
