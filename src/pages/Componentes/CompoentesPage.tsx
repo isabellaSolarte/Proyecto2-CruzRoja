@@ -51,6 +51,36 @@ const CompoentesPage = () => {
           icon={<AccountCircle />}
           buttonSide="end"
         />
+        <CustomButton
+          content="boton"
+          onClick={() => {
+            console.log('click en boton de informacion');
+          }}
+          variant="contained"
+          color="error"
+          icon={<AccountCircle />}
+          buttonSide="end"
+        />
+        <CustomButton
+          content="boton"
+          onClick={() => {
+            console.log('click en boton de informacion');
+          }}
+          variant="contained"
+          color="secondary"
+          icon={<AccountCircle />}
+          buttonSide="end"
+        />
+        <CustomButton
+          content="boton"
+          onClick={() => {
+            console.log('click en boton de informacion');
+          }}
+          variant="contained"
+          color="inherit"
+          icon={<AccountCircle />}
+          buttonSide="end"
+        />
       </Container>
 
       <CustomText texto="Atomo CustomSelect" variante="subtitulo" />
