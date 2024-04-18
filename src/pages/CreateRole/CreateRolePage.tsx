@@ -1,12 +1,45 @@
 import { Grid } from '@mui/material';
-import { CustomText, CustomButton, ManagmentLayout, SearchBar, DataTable } from '../../components';
+import { CustomText, CustomButton, ManagmentLayout, SearchBar, DataTable, CustomColumn } from '../../components';
 import { useTranslation } from 'react-i18next';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import EditIcon from '@mui/icons-material/Edit';
 
 // TODO: CREAR EL FORMULARIO CON VALIDACIONES
 
 const CreateRolePage = () => {
   const { t } = useTranslation('commons');
 
+  const columns = [
+   CustomColumn({ field: 'companyName', headerName: 'Empresa', width: 250, format: 'text', variante: 'texto' }),
+   CustomColumn({ field: 'names', headerName: 'Nombre', width: 250, format: 'text', variante: 'texto' }),
+   CustomColumn({ field: 'actions', headerName: 'Acciones', width:250, format: 'button', buttonDetails: [
+     {
+       content: 'Editar',
+       variant: 'contained',
+       color: 'primary',
+       icon: <EditIcon />
+     },
+     {
+       content: 'Observar',
+       variant: 'contained',
+       color: 'warning',
+       icon: <VisibilityIcon />
+     }
+   ] }),
+   CustomColumn({ 
+     field: 'state', 
+     headerName: 'Estado', 
+     format: 'switch', 
+     variante: 'texto',
+     content: '', // Add the missing "content" property
+     buttonDetails: [] // Add the missing "buttonDetails" property
+   }),
+   
+ ];
+  const rows = [
+    { id: 1, companyName: 'Stark Industries', names: 'Jon Snow', state: true },
+    { id: 2, companyName: 'Lannister Holdings', names: 'Cersei Lannister', state: false },
+  ];
   return (
     <ManagmentLayout
       title={<CustomText texto={t('pageTitles.createRole')} variante="titulo" />}
@@ -29,40 +62,7 @@ const CreateRolePage = () => {
             <CustomText texto={t('rolesPages.roleForm.colorDescription')} variante="texto" />
           </Grid>
           <Grid item xs={12}>
-            <DataTable
-              columns={[
-                {
-                  field: 'name',
-                  headerName: t('rolesPages.roleForm.table.name'),
-                  width: 200,
-                },
-                {
-                  field: 'description',
-                  headerName: t('rolesPages.roleForm.table.description'),
-                  width: 200,
-                },
-                {
-                  field: 'actions',
-                  headerName: t('rolesPages.roleForm.table.actions'),
-                  width: 200,
-                },
-              ]}
-              rows={[
-                {
-                  id: 1,
-                  name: 'Administrador',
-                  description: 'Rol de administrador',
-                  actions: 'Editar',
-                },
-                {
-                  id: 2,
-                  name: 'Usuario',
-                  description: 'Rol de usuario',
-                  actions: 'Editar',
-                },
-              ]}
-              pageSize={5}
-            />
+          <DataTable/>
           </Grid>
         </Grid>
       }

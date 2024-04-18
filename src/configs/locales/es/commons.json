@@ -34,5 +34,21 @@
             "color": "Color",
             "colorDescription": "Los usuarios con este rol tendrán este color en la aplicación"
         }
+    },
+    "usersPages": {
+        "tabs": {
+            "general": "General",
+            "roles": "Roles",
+            "business": "Empresas"
+        },
+        "userForm": {
+            "name": "Nombre",
+            "email": "Email",
+            "password": "Contraseña",
+            "passwordConfirmation": "Confirmación de contraseña",
+            "role": "Rol",
+            "business": "Empresa",
+            "businessDescription": "La empresa a la que pertenece el usuario"
+        }
     }
 }
