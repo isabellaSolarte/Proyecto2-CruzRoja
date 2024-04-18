@@ -4,7 +4,13 @@
         "accept": "Aceptar",
         "cancel": "Cancelar",
         "back": "Atrás",
-        "save": "Guardar"
+        "save": "Guardar",
+        "create": "Crear",
+        "edit": "EDITAR",
+        "view": "OBSERVAR",
+        "delete": "ELIMINAR",
+        "state": "Estado",
+        "search": "Buscar"
     },
     "menuOptions": {
         "users": "usuarios",
@@ -46,9 +52,12 @@
             "email": "Email",
             "password": "Contraseña",
             "passwordConfirmation": "Confirmación de contraseña",
+            "role": "Rol"
+        },
+        "userTable": {
+            "name": "Nombre",
             "role": "Rol",
-            "business": "Empresa",
-            "businessDescription": "La empresa a la que pertenece el usuario"
+            "actions": "Acciones"            
         }
     }
 }
