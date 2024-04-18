@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { useTheme } from '@mui/material';
 import './MainLayoutStyle.css';
-import { NavigationProccessButton } from '../Molecules/NavigationProccessButton';
+import { NavigationProccessButton } from '../../Molecules/NavigationProccessButton';
 
 interface MainLayoutProps {
   appBar: React.ReactNode;

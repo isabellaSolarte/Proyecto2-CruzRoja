@@ -32,7 +32,7 @@ interface SearchBarProps {
  * @param {string} placeholder - El texto de marcador de posición para la barra de búsqueda.
  * @param {Function} onSearch - La función que se ejecuta cuando se realiza una búsqueda.
  * @param {ReactNode} additionalElements - Elementos adicionales que se muestran junto a la barra de búsqueda a su derecha.
- * 
+ *
  * @returns {ReactElement} El componente de barra de búsqueda.
  */
 const SearchBar: React.FC<SearchBarProps> = ({ placeholder, onSearch, additionalElements }) => {
@@ -43,8 +43,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ placeholder, onSearch, additional
   };
 
   return (
-    <Box sx={{ display: 'flex', width: '100%', alignItems: 'center' }}>
-      <Search placeholder={placeholder} onSearch={handleSearch} sx={{ flexGrow: 1 }} />
+    <Box sx={{ display: 'flex', width: 'fullWidth', alignItems: 'center' }}>
+      <Search placeholder={placeholder} onSearch={handleSearch} />
       {additionalElements}
     </Box>
   );

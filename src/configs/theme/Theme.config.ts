@@ -66,6 +66,16 @@ export const theme: ThemeOptions = createTheme({
         },
       },
     },
+    MuiDrawer: {
+      styleOverrides: {
+        paper: {
+          top: 'unset',
+          backgroundColor: '#FFF',
+          border: 'none',
+          boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+        },
+      },
+    },
   },
   typography: {
     fontFamily: 'Nunito Sans, sans-serif',

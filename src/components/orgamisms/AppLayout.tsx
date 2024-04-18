@@ -1,9 +1,9 @@
 import React from 'react';
-import { MainLayout } from '../Layouts';
 import { Container } from '@mui/material';
 import { DrawerMenu } from '../Molecules';
 import { MenuOption, RouterModel, UserModel } from '../../models';
 import { PathNames, getAllowedUserRoutes } from '../../core';
+import { MainLayout } from '../Layouts';
 
 interface AppLayoutProps {
   content: React.ReactNode;
