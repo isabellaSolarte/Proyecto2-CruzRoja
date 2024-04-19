@@ -6,7 +6,7 @@
 
 import { UserModel } from '../../models/UserModel';
 import { NavigationRoutes } from './NavigationRoutes';
-import { RouterModel } from '../../models/RouteModel';
+import { RouterModel } from '../../models/SideMenuModels/RouteModel';
 
 /**
  * Get all routes from the parent route and its children

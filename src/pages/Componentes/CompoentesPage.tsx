@@ -161,7 +161,7 @@ const CompoentesPage = () => {
 
       <CustomText texto="Organism CustomStepper" variante="subtitulo" />
       <Container>
-        <CustomStepper />
+        <CustomStepper optinalStep={[]} />
       </Container>
     </Container>
   );

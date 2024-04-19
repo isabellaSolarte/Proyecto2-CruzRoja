@@ -1,6 +1,6 @@
 import { UserModel } from '../../models/UserModel';
 import { Navigate } from 'react-router-dom';
-import { RouterModel } from '../../models/RouteModel';
+import { RouterModel } from '../../models/SideMenuModels/RouteModel';
 import React from 'react';
 import { AppLayout } from '../../components';
 import { getAllowedUserRoutePaths } from './getAllowedUserRoutes';
