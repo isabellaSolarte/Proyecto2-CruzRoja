@@ -34,7 +34,7 @@ const DataTable = ({ enableCheckboxSelection, dataColumns }:DataTableProps) => {
 
 
   return (
-    <div style={{ height: 450, width: '100%', margin: '2.5em' }}>
+    <div style={{ height: 450, width: '100%' }}>
         <DataGrid
           className="my-data-grid"
           rows={rows}

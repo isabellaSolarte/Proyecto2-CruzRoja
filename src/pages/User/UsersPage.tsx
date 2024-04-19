@@ -43,12 +43,7 @@ const UsersPage = () => {
       }
       inputBar={<SearchBar placeholder={t('generalButtonText.search')} />}
       generalContents={
-        <Grid container spacing={2} direction={'column'} gap={5}>
-          <Grid item xs={12}>
-            <DataTable enableCheckboxSelection={false} dataColumns={columns} />
-            
-          </Grid>  
-        </Grid>
+        <DataTable enableCheckboxSelection={false} dataColumns={columns} />
       }
     />
   );
