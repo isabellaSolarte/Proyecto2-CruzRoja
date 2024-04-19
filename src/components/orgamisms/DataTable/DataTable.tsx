@@ -59,10 +59,13 @@ const DataTable = ({ enableCheckboxSelection, dataColumns }:DataTableProps) => {
             '& .MuiDataGrid-cell': {
               paddingLeft: '1.3em', // Centra el contenido de cada celda
             },
-            
+            '&.Mui-selected': {
+              backgroundColor: 'transparent',
+            },
           }}
           pageSizeOptions={[5, 10]}
           checkboxSelection = {enableCheckboxSelection}
+          disableRowSelectionOnClick
         />
     </div>
   );
