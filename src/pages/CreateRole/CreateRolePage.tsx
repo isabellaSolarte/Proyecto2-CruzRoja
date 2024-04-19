@@ -14,7 +14,7 @@ const theme = createTheme(
 );
 
 const CreateRolePage = () => {
-  //const { t } = useTranslation('commons');
+  // const { t } = useTranslation('commons');
 
   return <ThemeProvider theme={theme}>
     <DataTable enableCheckboxSelection={false} dataColumns={columns1} />

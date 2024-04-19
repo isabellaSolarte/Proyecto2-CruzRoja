@@ -27,6 +27,7 @@ const RouteProtector = ({ route, component }: RouteProtectorProps) => {
         PathNames.ACTIVITY,
         PathNames.STATISTICS,
         PathNames.CLOSE_SESSION,
+        PathNames.COMPONETS,
       ],
       permissions: [''],
     },
