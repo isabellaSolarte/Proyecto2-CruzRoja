@@ -2,7 +2,7 @@ import { Box, Icon, Tooltip, Typography, useTheme } from '@mui/material';
 
 interface PropiedadesEtiqueta {
   texto: string;
-  variante: 'titulo' | 'texto' | 'subtitulo';
+  variante: 'titulo' | 'texto' | 'subtitulo' | 'pequeño';
   mandatory?: boolean;
   icon?: JSX.Element;
 }
@@ -21,97 +21,31 @@ const CustomText = ({ texto, variante, mandatory, icon }: PropiedadesEtiqueta) =
   const style = {
     padding: 0,
     textAlign: 'justify',
+    color: variante === 'pequeño' ? theme.palette.text.secondary : theme.palette.text.primary,
+    fontWeight: variante === 'titulo' || variante === 'subtitulo' ? 'bold' : 'regular',
   };
 
-  switch (variante) {
-    case 'titulo':
-      return (
-        <>
-          {icon ? (
-            <Box display="flex" alignItems="center">
-              <Icon sx={{ marginRight: 1 }}>{icon}</Icon>
-              <Typography
-                variant="h4"
-                fontWeight={'bold'}
-                color={theme.palette.text.primary}
-                sx={style}
-              >
-                {texto}
-                {mandatory && putMandatoryAdornment()}
-              </Typography>
-            </Box>
-          ) : (
-            <Typography
-              variant="h4"
-              fontWeight={'bold'}
-              color={theme.palette.text.primary}
-              sx={style}
-            >
-              {texto}
-              {mandatory && putMandatoryAdornment()}
-            </Typography>
-          )}
-        </>
-      );
-    case 'texto':
-      return (
-        <>
-          {icon ? (
-            <Box display="flex" alignItems="center">
-              <Icon sx={{ marginRight: 1 }}>{icon}</Icon>
-              <Typography fontSize={'18px'} color={theme.palette.text.primary} sx={style}>
-                {texto}
-                {mandatory && putMandatoryAdornment()}
-              </Typography>
-            </Box>
-          ) : (
-            <Typography fontSize={'18px'} color={theme.palette.text.primary} sx={style}>
-              {texto}
-              {mandatory && putMandatoryAdornment()}
-            </Typography>
-          )}
-        </>
-      );
+  return (
+    <Box display="flex" alignItems="center">
+      {icon && <Icon sx={{ marginRight: 1 }}>{icon}</Icon>}
+      <Typography
+        variant={
+          variante === 'titulo'
+            ? 'h4'
+            : variante === 'texto'
+            ? 'body1'
+            : variante === 'subtitulo'
+            ? 'h6'
+            : 'subtitle2'
+        }
+        sx={style}
+      >
+        {texto}
+      </Typography>
 
-    case 'subtitulo':
-      return (
-        <>
-          {icon ? (
-            <Box display="flex" alignItems="center">
-              <Icon sx={{ marginRight: 1 }}>{icon}</Icon>
-              <Typography variant="subtitle2" color={theme.palette.text.secondary} sx={style}>
-                {texto}
-                {mandatory && putMandatoryAdornment()}
-              </Typography>
-            </Box>
-          ) : (
-            <Typography variant="subtitle2" color={theme.palette.text.secondary} sx={style}>
-              {texto}
-              {mandatory && putMandatoryAdornment()}
-            </Typography>
-          )}
-        </>
-      );
-    default:
-      return (
-        <>
-          {icon ? (
-            <Box display="flex" alignItems="center">
-              <Icon sx={{ marginRight: 1 }}>{icon}</Icon>
-              <Typography variant="h2" color={theme.palette.text.primary} sx={style}>
-                {texto}
-                {mandatory && putMandatoryAdornment()}
-              </Typography>
-            </Box>
-          ) : (
-            <Typography variant="h2" color={theme.palette.text.primary} sx={style}>
-              {texto}
-              {mandatory && putMandatoryAdornment()}
-            </Typography>
-          )}
-        </>
-      );
-  }
+      {mandatory && putMandatoryAdornment()}
+    </Box>
+  );
 };
 
 export default CustomText;

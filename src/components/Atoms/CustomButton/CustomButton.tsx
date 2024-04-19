@@ -11,6 +11,7 @@ interface CustomButtonProps extends MuiButtonProps {
   <CustomButton content="Ejemplo" variant="contained" color="info" sx={{ fontSize: '16px' }}/> (sin ícono)
   <CustomButton content="Ejemplo" icon={<AddIcon />} variant="contained" color="info" sx={{ fontSize: '16px' }} /> (con ícono)
 */
+
 const CustomButton = ({
   content,
   variant = 'contained',
@@ -35,6 +36,7 @@ const CustomButton = ({
         justifyContent: 'center',
         flexDirection: buttonSide === 'end' ? 'row-reverse' : 'row',
         color: '#fff',
+        gap: 1,
         ...sx,
       }}
       {...rest}

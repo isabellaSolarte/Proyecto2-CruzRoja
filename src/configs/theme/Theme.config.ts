@@ -13,6 +13,7 @@ declare module '@mui/material/styles' {
       paper?: string;
       placeholders?: string;
       green?: string;
+      red?: string;
     };
     selectionColors?: {
       darkBlue?: string;
@@ -39,6 +40,7 @@ declare module '@mui/material/styles' {
       paper?: string;
       placeholders?: string;
       green?: string;
+      red?: string;
     };
     selectionColors?: {
       darkBlue?: string;
@@ -115,6 +117,7 @@ export const theme: ThemeOptions = createTheme({
     paper: '#C8C8C8',
     placeholders: '#D9D9D9',
     green: '#65B741',
+    red: '#FF010B',
   },
   selectionColors: {
     darkBlue: '#3170DC',

@@ -1,8 +1,11 @@
-export * from './Button';
+export * from './CustomButton';
 export * from './CustomDrawerElements';
+export * from './CustomInput';
 export * from './CustomSelect';
+export * from './CustomTabs';
 export * from './CustomText';
-export * from './Inputs';
+export { default as Typography } from './Label/Typography';
 export * from './MenuButton';
-export * from './Tabs';
+export * from './Search';
+export * from './Switch';
 export * from './emptyBox';
