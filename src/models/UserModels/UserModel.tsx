@@ -11,4 +11,5 @@ export interface UserModel {
   password: string;
   roles: RoleModel[];
   state: boolean;
+  allowedRoutes: string[];
 }

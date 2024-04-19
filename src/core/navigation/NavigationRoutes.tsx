@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { RouterModel } from '../../models';
 import GroupsIcon from '@mui/icons-material/Groups';
 import BusinessIcon from '@mui/icons-material/Business';
 import { CreateRolePage } from '../../pages/CreateRole';
@@ -12,6 +11,7 @@ import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { RouterModel } from '../../models/SideMenuModels/RouteModel';
 
 export const NavigationRoutes = () => {
   const { t } = useTranslation('commons');
