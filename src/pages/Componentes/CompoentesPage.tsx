@@ -5,6 +5,7 @@ import {
   CustomInput,
   CustomLabelGroup,
   CustomSelect,
+  CustomStepper,
   CustomSwitch,
   CustomText,
   EmptyBox,
@@ -156,6 +157,11 @@ const CompoentesPage = () => {
           texto2="CustomLabelGroup con icono"
           icon={<AccountCircle />}
         />
+      </Container>
+
+      <CustomText texto="Organism CustomStepper" variante="subtitulo" />
+      <Container>
+        <CustomStepper />
       </Container>
     </Container>
   );
