@@ -12,12 +12,12 @@ const UsersPage = () => {
   const { t } = useTranslation('commons');
   const columns = [
     CustomColumn({ field: 'names', headerName: t('usersPages.userTable.name'), width: 250, format: 'text', variante: 'texto', content: '', buttonDetails: []  }),
-    CustomColumn({ field: 'rol', headerName: t('usersPages.userTable.rol'), width: 250, format: 'text', variante: 'texto', content: '', buttonDetails: []  }),
-    CustomColumn({ field: 'actions', headerName: t('usersPages.userTable.actions'), width:250, format: 'button', variante: 'texto', content: '', buttonDetails: [
+    CustomColumn({ field: 'rol', headerName: t('usersPages.userTable.rol'), width: 150, format: 'text', variante: 'texto', content: '', buttonDetails: []  }),
+    CustomColumn({ field: 'actions', headerName: t('usersPages.userTable.actions'), width:350, format: 'button', variante: 'texto', content: '', buttonDetails: [
       {
         content: t('generalButtonText.edit'),
         variant: 'contained',
-        color: 'primary',
+        color: 'info',
         icon: <EditIcon />
       },
       {
