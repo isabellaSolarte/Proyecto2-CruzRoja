@@ -1,11 +1,14 @@
 import { CustomColumn } from '../../components/Molecules/CustomColumn';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+
+
 
 const columns1 = [
-  CustomColumn({ field: 'companyName', headerName: 'Empresa', format: 'text', variante: 'texto', content: '', buttonDetails: [] }),
-  CustomColumn({ field: 'names', headerName: 'Nombre', format: 'text', variante: 'texto', content: '', buttonDetails: []  }),
-  CustomColumn({ field: 'actions', headerName: 'Acciones', format: 'button', variante: 'texto', content: '', sortable: false, buttonDetails: [
+  CustomColumn({ field: 'companyName', headerName: 'Empresa', format: 'text', icon: <AccountCircle/>, variante: 'texto', buttonDetails: [] }),
+  CustomColumn({ field: 'names', headerName: 'Nombre', format: 'text', variante: 'texto', buttonDetails: []  }),
+  CustomColumn({ field: 'actions', headerName: 'Acciones', format: 'button', variante: 'texto', sortable: false, buttonDetails: [
     {
       content: 'Editar',
       variant: 'contained',
@@ -19,7 +22,28 @@ const columns1 = [
       icon: <VisibilityIcon />
     }
   ] }),
-CustomColumn({ field: 'switchState', headerName: 'Estado', format: 'switch', variante: 'texto', content: '', buttonDetails: [] }),
+CustomColumn({ field: 'switchState', headerName: 'Estado', format: 'switch', variante: 'texto', buttonDetails: [] }),
 ];
 
-export {columns1};
+const rows1 = [
+  { "id": 1, "companyName": "Stark Industries", "names": "Tony Stark", "switchState": true },
+  { "id": 2, "companyName": "Lannister Holdings", "names": "Tyrion Lannister", "switchState": false },
+  { "id": 3, "companyName": "Targaryen Enterprises", "names": "Daenerys Targaryen", "switchState": true },
+  { "id": 4, "companyName": "Baratheon Co.", "names": "Robert Baratheon", "switchState": false },
+  { "id": 5, "companyName": "Greyjoy Shipping", "names": "Theon Greyjoy", "switchState": false },
+  { "id": 6, "companyName": "Tyrell Gardens", "names": "Margaery Tyrell", "switchState": true },
+  { "id": 7, "companyName": "Martell Spices", "names": "Oberyn Martell", "switchState": false },
+  { "id": 8, "companyName": "Arryn of the Eyrie", "names": "Jon Arryn", "switchState": false },
+  { "id": 9, "companyName": "Tully Fisheries", "names": "Catelyn Stark", "switchState": true },
+  { "id": 10, "companyName": "Frey Crossings", "names": "Walder Frey", "switchState": true },
+  { "id": 11, "companyName": "Bolton Leathers", "names": "Ramsay Bolton", "switchState": false },
+  { "id": 12, "companyName": "Stark Industries", "names": "Eddard Stark", "switchState": false },
+  { "id": 13, "companyName": "Lannister Holdings", "names": "Jaime Lannister", "switchState": true },
+  { "id": 14, "companyName": "Greyjoy Shipping", "names": "Yara Greyjoy", "switchState": true },
+  { "id": 15, "companyName": "Tyrell Gardens", "names": "Olenna Tyrell", "switchState": false },
+  { "id": 16, "companyName": "Martell Spices", "names": "Doran Martell", "switchState": true },
+  { "id": 17, "companyName": "Arryn of the Eyrie", "names": "Robin Arryn", "switchState": true },
+  { "id": 18, "companyName": "Tully Fisheries", "names": "Edmure Tully", "switchState": true },
+];
+
+export {columns1, rows1};
