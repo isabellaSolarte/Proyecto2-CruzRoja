@@ -8,15 +8,16 @@ const NavigationProccessButton = () => {
   const navigationHistory = ['Home', 'Business', 'Create'];
 
   const navigationItems = navigationHistory.map((item, index) => {
-    if (index == navigationHistory.length - 1) {
-      return {
-        title: <CustomText texto={item} variante="subtitulo" />,
-        path: item,
-      };
-    }
-    return {
-      title: <CustomText texto={item} variante="subtitulo" />,
+    const data = {
+      title: <CustomText texto={item} variante="pequeño" />,
       path: item,
+      icon: null,
+    };
+
+    if (index == navigationHistory.length - 1) return data;
+
+    return {
+      ...data,
       icon: (
         <KeyboardArrowRightIcon
           sx={{
