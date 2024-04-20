@@ -14,9 +14,9 @@ interface CustomColumnProps {
   //width?: number;
   format: 'text' | 'button' | 'switch';
   sortable?: boolean;
-  variante: 'titulo' | 'texto' | 'subtitulo';
+  variante?: 'titulo' | 'texto' | 'subtitulo';
   icon?: ReactElement;
-  buttonDetails: Array<{
+  buttonDetails?: Array<{
     content: string;
     variant: 'text' | 'outlined' | 'contained';
     color: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
@@ -30,7 +30,7 @@ const CustomColumn = ({
   headerName,
   format,
   buttonDetails,
-  variante,
+  variante = 'texto',
   sortable = true,
   icon,
 }: CustomColumnProps): GridColDef => ({
@@ -43,7 +43,7 @@ const CustomColumn = ({
     if (format === 'button') {
       return (
         <div style={{ display: 'flex', gap: '10px' }}>
-          {buttonDetails.map((button, index) => (
+          {buttonDetails?.map((button, index) => (
             <CustomButton
               key={index}
               content={button.content}

@@ -1,11 +1,9 @@
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import './DataTableStyle.css';
-
 interface DataTableProps {
   enableCheckboxSelection: boolean;
   dataColumns: GridColDef[]; 
   dataRows: GridColDef[]; 
-
 }
 
 const DataTable = ({ enableCheckboxSelection, dataColumns, dataRows }:DataTableProps) => {

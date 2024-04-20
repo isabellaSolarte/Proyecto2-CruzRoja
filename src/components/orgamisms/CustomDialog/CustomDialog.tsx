@@ -1,75 +1,80 @@
-import React from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
-import styled from 'styled-components';
-import CustomButton from './../../Atoms/Button/Button';
-import LabelGroup from './../../Molecules/CustomLabelGroup/CustomLabelGroup';
-import CustomText from './../../Atoms/CustomText/CustomText';
+import { Dialog, DialogContent, DialogTitle, Box } from "@material-ui/core";
+import { ReactElement } from 'react';
+import { CustomButton, CustomText } from '../../../components';
+import CloseIcon from '@mui/icons-material/Close';
 
-interface IAlertProps {
+interface CustomDialogProps {
   isOpen: boolean;
   title: string;
   content: string;
-  iconUrl: string;
-  onClose: () => void;
-  onContinue: () => void;
-  onCancel: () => void;
+  buttons: Array<{
+    key: string;
+    content: string;
+    variant: 'text' | 'outlined' | 'contained';
+    color: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
+    icon?: ReactElement;
+    onClick: () => void;
+  }>;
+  icon?: ReactElement;
+  onClose?: () => void;
   color: string;
-  backgroundColor: string;
 }
 
-const StyledDialog = styled(Dialog)`
-  .MuiDialog-paper {
-    border-radius: 8px;
-    border: 1px solid ${(props: IAlertProps) => props.color};
-  }
-`;
-
-const Header = styled(DialogTitle)`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px;
-  color: ${(props: IAlertProps) => props.color};
-  font-weight: 600;
-  font-size: 16px;
-`;
-
-const Content = styled(DialogContent)`
-  padding: 20px;
-  color: #333;
-`;
-
-const Actions = styled(DialogActions)`
-  padding: 16px 20px;
-  display: flex;
-  justify-content: flex-end;
-`;
-
-export const AlertDialog: React.FC<IAlertProps> = ({
+const CustomDialog = ({
   isOpen,
-  title,
   content,
-  iconUrl,
+  buttons,
   onClose,
-  onContinue,
-  onCancel,
+  title,
+  icon,
   color,
-  backgroundColor,
-}) => {
+}:CustomDialogProps) => {
   return (
-    <StyledDialog open={isOpen} onClose={onClose} color={color}>
-      <Header>
-        <Icon url={iconUrl} /> {/* Assuming an `url` prop for Icon */}
-        <Text>{title}</Text>
-        <Button onClick={onClose}>X</Button> {/* Assuming `onClick` prop for Button */}
-      </Header>
-      <Content>{content}</Content>
-      <Actions>
-        <Button onClick={onCancel}>Cancel</Button>
-        <Button onClick={onContinue} backgroundColor={color} textColor="#FFF">
-          Continue
-        </Button>
-      </Actions>
-    </StyledDialog>
+    <Dialog
+      open={isOpen}
+      onClose={onClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+      PaperProps={{
+        style: {
+          width: 560, // Set the width as per Figma properties
+          padding: 10,
+          borderRadius: 8,
+          borderColor: '#429a3a', // Border color from Figma
+          borderStyle: 'solid',
+          borderWidth: 3,
+          boxShadow: 'none', // Add this if you want to remove the shadow
+        },
+      }}
+      
+    >
+      <DialogTitle id="alert-dialog-title">
+        <Box style={{ display: 'flex', gap: '10px', justifyContent:'flex-end'}} color={color}>
+          <CustomText texto='' variante="subtitulo" icon={<CloseIcon />} />
+        </Box>
+        <Box style={{color:`${color}`}}>
+          <CustomText texto={title} variante="subtitulo" icon={icon} />
+        </Box>
+      </DialogTitle>
+      <DialogContent>
+        <Box style={{paddingLeft:'1.5rem'}}>
+        <CustomText texto={content} variante="texto" />
+        </Box>
+        <Box style={{ display: 'flex', gap: '10px', padding:'1.5rem', justifyContent: 'flex-end' }} >
+          {buttons.map((button, index) => (
+            <CustomButton
+              key={index}
+              content={button.content}
+              variant={button.variant}
+              color={button.color}
+              icon={button.icon}
+              onClick={button.onClick}
+            />
+          ))}
+        </Box>
+      </DialogContent>
+    </Dialog>
   );
 };
+
+export default CustomDialog;

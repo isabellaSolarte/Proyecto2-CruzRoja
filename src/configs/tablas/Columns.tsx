@@ -5,24 +5,26 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 
 
 
-const columns1 = [
-  CustomColumn({ field: 'companyName', headerName: 'Empresa', format: 'text', icon: <AccountCircle/>, variante: 'texto', buttonDetails: [] }),
-  CustomColumn({ field: 'names', headerName: 'Nombre', format: 'text', variante: 'texto', buttonDetails: []  }),
-  CustomColumn({ field: 'actions', headerName: 'Acciones', format: 'button', variante: 'texto', sortable: false, buttonDetails: [
+const columns1 = (onButtonClick)=>[
+  CustomColumn({ field: 'companyName', headerName: 'Empresa', format: 'text', icon: <AccountCircle/>}),
+  CustomColumn({ field: 'names', headerName: 'Nombre', format: 'text' }),
+  CustomColumn({ field: 'actions', headerName: 'Acciones', format: 'button', sortable: false, buttonDetails: [
     {
       content: 'Editar',
       variant: 'contained',
       color: 'info',
-      icon: <EditIcon />
+      icon: <EditIcon />,
+      onClick: (rowId: number) => onButtonClick('Editar', rowId)
     },
     {
       content: 'Observar',
       variant: 'contained',
       color: 'warning',
-      icon: <VisibilityIcon />
+      icon: <VisibilityIcon />,
+      onClick: (rowId: number) => onButtonClick('Editar', rowId)
     }
   ] }),
-CustomColumn({ field: 'switchState', headerName: 'Estado', format: 'switch', variante: 'texto', buttonDetails: [] }),
+CustomColumn({ field: 'switchState', headerName: 'Estado', format: 'switch'}),
 ];
 
 const rows1 = [
