@@ -25,9 +25,9 @@ const UsersPage = () => {
     navigate(`${PathNames.VIEW_USER}/${String(userId)}`);
   };
   const columns = [
-    CustomColumn({ field: 'names', headerName: t('usersPages.userTable.name'), width: 250, format: 'text', variante: 'texto', content: '', buttonDetails: []  }),
-    CustomColumn({ field: 'rol', headerName: t('usersPages.userTable.rol'), width: 150, format: 'text', variante: 'texto', content: '', buttonDetails: []  }),
-    CustomColumn({ field: 'actions', headerName: t('usersPages.userTable.actions'), width:350, format: 'button', variante: 'texto', content: '', buttonDetails: [
+    CustomColumn({ field: 'names', headerName: t('usersPages.userTable.name'), format: 'text', variante: 'texto'  }),
+    CustomColumn({ field: 'rol', headerName: t('usersPages.userTable.rol'),  format: 'text', variante: 'texto'  }),
+    CustomColumn({ field: 'actions', headerName: t('usersPages.userTable.actions'), format: 'button', variante: 'texto',  buttonDetails: [
       {
         content: t('generalButtonText.edit'),
         variant: 'contained',
@@ -44,7 +44,7 @@ const UsersPage = () => {
 
       }
     ] }),
-    CustomColumn({ field: 'state', headerName: t('generalButtonText.state'), format: 'switch', variante: 'texto', content: '', buttonDetails: [] })
+    CustomColumn({ field: 'state', headerName: t('generalButtonText.state'), format: 'switch', variante: 'texto'})
   ];
   const handleCreateButtonClick = () => {
     navigate(PathNames.VIEW_USER);
@@ -63,7 +63,7 @@ const UsersPage = () => {
       }
       inputBar={<SearchBar placeholder={t('generalButtonText.search')} />}
       generalContents={
-        <DataTable enableCheckboxSelection={false} dataColumns={columns} />
+        <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={[]}/>
       }
     />
   );

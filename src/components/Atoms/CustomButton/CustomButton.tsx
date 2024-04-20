@@ -5,7 +5,7 @@ interface CustomButtonProps extends MuiButtonProps {
   content: string;
   icon?: JSX.Element; // Propiedad para el ícono, opcional
   buttonSide?: 'start' | 'end'; // Propiedad para la posición del ícono
-  onClick: () => void; // Propiedad para el evento onPress
+  onClick?: (rowData: any) => void; // Propiedad para el evento onPress
 }
 /* Utilizar botones
   <CustomButton content="Ejemplo" variant="contained" color="info" sx={{ fontSize: '16px' }}/> (sin ícono)
