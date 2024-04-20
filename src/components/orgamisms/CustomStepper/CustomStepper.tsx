@@ -1,22 +1,46 @@
 import { Box, Button, Step, StepLabel, Stepper, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import { Dispatch, Fragment, ReactNode, SetStateAction, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { CustomButton } from '../../Atoms';
+import CustomText from '../../Atoms/CustomText/CustomText';
 
-interface CustomStepperProps {
-  optinalStep: number[];
+export interface StepProps {
+  completed: boolean;
+  label: string;
+  optional: boolean;
+  id: number;
 }
 
-const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+interface CustomStepperProps {
+  stepsData: StepProps[];
+  activeStep: number;
+  // eslint-disable-next-line no-unused-vars
+  setActiveStep: Dispatch<SetStateAction<number>>;
+  children: ReactNode;
+  // eslint-disable-next-line no-unused-vars
+  completeStep: (stepId: number) => void;
+}
 
-const CustomStepper = ({ optinalStep }: CustomStepperProps) => {
-  const [activeStep, setActiveStep] = useState(0);
+const CustomStepper = ({
+  stepsData,
+  activeStep,
+  setActiveStep,
+  children,
+  completeStep,
+}: CustomStepperProps) => {
   const [skipped, setSkipped] = useState(new Set<number>());
+  const { t } = useTranslation('commons');
 
-  const isStepOptional = (step: number) => {
-    return optinalStep.includes(step);
+  const isStepOptional = (stepId: number) => {
+    const currentStep = stepsData.find(stepData => stepData.id === stepId);
+    if (currentStep) return currentStep.optional;
+    return false;
   };
 
   const isStepSkipped = (step: number) => {
-    return skipped.has(step);
+    const currentStep = stepsData.find(stepData => stepData.id === step);
+    if (currentStep) return skipped.has(currentStep.id);
+    return false;
   };
 
   const handleNext = () => {
@@ -27,6 +51,7 @@ const CustomStepper = ({ optinalStep }: CustomStepperProps) => {
     }
 
     setActiveStep(prevActiveStep => prevActiveStep + 1);
+    completeStep(activeStep);
     setSkipped(newSkipped);
   };
 
@@ -56,50 +81,86 @@ const CustomStepper = ({ optinalStep }: CustomStepperProps) => {
   return (
     <Box sx={{ width: '100%' }}>
       <Stepper activeStep={activeStep}>
-        {steps.map((label, index) => {
-          const stepProps: { completed?: boolean } = {};
-          const labelProps: {
-            optional?: React.ReactNode;
-          } = {};
-          if (isStepOptional(index)) {
-            labelProps.optional = <Typography variant="caption">Optional</Typography>;
-          }
-          if (isStepSkipped(index)) {
-            stepProps.completed = false;
-          }
+        {stepsData.map((step, index) => {
+          const labelProps: { optional?: ReactNode } = {};
+          if (step.optional)
+            labelProps.optional = (
+              <CustomText texto={t('components.stepper.optional')} variante="pequeño" />
+            );
+
+          if (isStepSkipped(index)) step.completed = false;
+
           return (
-            <Step key={label} {...stepProps}>
-              <StepLabel {...labelProps}>{label}</StepLabel>
+            <Step
+              key={step.id}
+              completed={step.completed}
+              sx={{
+                '& .MuiStepLabel-root .Mui-completed': {
+                  color: 'success.main', // circle color (COMPLETED)
+                },
+                '& .MuiStepLabel-label.Mui-completed.MuiStepLabel-alternativeLabel': {
+                  color: 'grey.500', // Just text label (COMPLETED)
+                },
+                '& .MuiStepLabel-root .Mui-active': {
+                  color: 'info.main', // circle color (ACTIVE)
+                },
+                '& .MuiStepLabel-label.Mui-active.MuiStepLabel-alternativeLabel': {
+                  color: 'common.white', // Just text label (ACTIVE)
+                },
+                '& .MuiStepLabel-root .Mui-active .MuiStepIcon-text': {
+                  fill: '#fff', // circle's number (ACTIVE)
+                },
+              }}
+            >
+              <StepLabel {...labelProps}>{step.label}</StepLabel>
             </Step>
           );
         })}
       </Stepper>
-      {activeStep === steps.length ? (
-        <React.Fragment>
+
+      <Box sx={{ paddingBlock: 4 }}>{children}</Box>
+
+      {activeStep === stepsData.length ? (
+        <Fragment>
           <Typography sx={{ mt: 2, mb: 1 }}>All steps completed - you&apos;re finished</Typography>
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
             <Box sx={{ flex: '1 1 auto' }} />
             <Button onClick={handleReset}>Reset</Button>
           </Box>
-        </React.Fragment>
+        </Fragment>
       ) : (
-        <React.Fragment>
-          <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography>
-          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-            <Button color="inherit" disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }}>
-              Back
-            </Button>
-            <Box sx={{ flex: '1 1 auto' }} />
+        <Fragment>
+          <Box
+            sx={{ display: 'flex', flexDirection: 'row', pt: 2, justifyContent: 'space-between' }}
+          >
+            <CustomButton
+              content={t('components.stepper.back')}
+              onClick={handleBack}
+              color="warning"
+              disabled={activeStep === 0}
+            />
+
             {isStepOptional(activeStep) && (
               <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                Skip
+                {t('components.stepper.skip')}
               </Button>
             )}
-            <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-            </Button>
+
+            {activeStep === stepsData.length - 1 ? (
+              <CustomButton
+                content={t('components.stepper.end')}
+                onClick={handleNext}
+                color="info"
+              />
+            ) : (
+              <CustomButton
+                content={t('components.stepper.next')}
+                onClick={handleNext}
+                color="info"
+              />
+            )}
           </Box>
-        </React.Fragment>
+        </Fragment>
       )}
     </Box>
   );

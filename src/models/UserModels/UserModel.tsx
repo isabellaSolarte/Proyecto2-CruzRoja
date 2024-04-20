@@ -1,4 +1,4 @@
-import { RoleModel } from '../RoleModels/RoleModel';
+import { RoleModel } from '../RoleModels';
 
 export interface UserModel {
   documentNumber: number;
@@ -11,4 +11,5 @@ export interface UserModel {
   password: string;
   roles: RoleModel[];
   state: boolean;
+  allowedRoutes?: string[];
 }

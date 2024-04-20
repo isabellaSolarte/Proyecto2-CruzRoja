@@ -1,10 +1,10 @@
-import { UserModel } from '../../models/UserModel';
 import { Navigate } from 'react-router-dom';
 import { RouterModel } from '../../models/SideMenuModels/RouteModel';
 import React from 'react';
 import { AppLayout } from '../../components';
 import { getAllowedUserRoutePaths } from './getAllowedUserRoutes';
-import { PathNames } from '../PathNames';
+import { usuarioPruebas } from '../../App';
+import { UserModel } from '../../models/UserModels/UserModel';
 
 interface RouteProtectorProps {
   route: RouterModel;
@@ -12,31 +12,7 @@ interface RouteProtectorProps {
 }
 
 const RouteProtector = ({ route, component }: RouteProtectorProps) => {
-  const userTest: UserModel = {
-    id: 'id',
-    name: 'User Test',
-    email: '',
-    role: {
-      name: 'Admin',
-      routes: [
-        PathNames.USERS,
-        PathNames.ROLES,
-        PathNames.BUSINESS,
-        PathNames.PERMISSIONS,
-        PathNames.PLANS,
-        PathNames.ACTIVITY,
-        PathNames.STATISTICS,
-        PathNames.CLOSE_SESSION,
-        PathNames.COMPONETS,
-      ],
-      permissions: [''],
-    },
-    password: '',
-    avatar: '',
-    status: '',
-    created_at: '',
-    updated_at: '',
-  };
+  const userTest: UserModel = usuarioPruebas;
   const loggedUser: boolean = true;
   const allowedUserRoutes: string[] = getAllowedUserRoutePaths(userTest);
 

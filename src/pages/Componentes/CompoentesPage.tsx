@@ -21,6 +21,8 @@ const CompoentesPage = () => {
     setSwitchState(!switchState);
   };
 
+  const [step, setStep] = useState(0);
+
   return (
     <Container>
       <CustomText texto="Atomo CustomButton" variante="subtitulo" />
@@ -161,7 +163,24 @@ const CompoentesPage = () => {
 
       <CustomText texto="Organism CustomStepper" variante="subtitulo" />
       <Container>
-        <CustomStepper optinalStep={[]} />
+        <CustomStepper
+          stepsData={[
+            {
+              id: 1,
+              label: 'step 1',
+              completed: false,
+              optional: false,
+            },
+            {
+              id: 2,
+              label: 'step 2',
+              completed: false,
+              optional: true,
+            },
+          ]}
+          activeStep={step}
+          setActiveStep={setStep}
+        />
       </Container>
     </Container>
   );

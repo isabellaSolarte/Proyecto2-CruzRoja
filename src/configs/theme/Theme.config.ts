@@ -78,6 +78,16 @@ export const theme: ThemeOptions = createTheme({
         },
       },
     },
+    MuiRadio: {
+      styleOverrides: {
+        root: {
+          color: '#A4A4A8',
+          '&.Mui-checked': {
+            color: '#65B741',
+          },
+        },
+      },
+    },
   },
   typography: {
     fontFamily: 'Nunito Sans, sans-serif',
