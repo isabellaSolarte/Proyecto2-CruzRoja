@@ -1,0 +1,19 @@
+.custom-textarea{
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 100%;
+    font-family: "Nunito Sans", sans-serif;
+    height: 200px;
+    resize: vertical; 
+    overflow-x: hidden; 
+    overflow-y: auto; 
+    font-size: 16px; 
+}
+.custom-textarea:focus{
+    border: 2px solid #b9c0b6; 
+    outline: none;
+}
+.custom-textarea::placeholder{
+    color: #afaeae;
+    
+}

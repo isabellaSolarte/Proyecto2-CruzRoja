@@ -36,9 +36,8 @@
         },
         "roleForm": {
             "name": "Nombre del rol",
-            "description": "Descripción",
-            "color": "Color del rol",
-            "colorDescription": "Los usuarios con este rol tendrán este color en la aplicación"
+            "description": "Descripción del rol",
+            "textDescription": "Ingresa una descripción sobre el rol"
         }
     },
     "usersPages": {

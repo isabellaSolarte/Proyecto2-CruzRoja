@@ -2,7 +2,7 @@ import './InputStyle.css';
 
 interface CustomInputProps {
   placeholder: string;
-  size: 'small' | 'medium' | 'large'; // Define size prop
+  size: 'small' | 'medium' | 'large';
 }
 /*Ejmplo para usar el input 
       <CustomInput placeholder="Small Input" size="small" /> (input pequeño)
