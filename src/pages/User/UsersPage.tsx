@@ -13,6 +13,26 @@ import { useNavigate } from 'react-router-dom';
 const UsersPage = () => {
   const { t } = useTranslation('commons');
   const navigate = useNavigate(); // Utilize the useNavigate hook
+  const rows = [
+    { "id": 1, "names": "Tony Stark", "rol": "Admin", "switchState": true },
+    { "id": 2, "names": "Tyrion Lannister", "rol": "User", "switchState": false },
+    { "id": 3, "names": "Daenerys Targaryen", "rol": "User", "switchState": true },
+    { "id": 4, "names": "Robert Baratheon", "rol": "User", "switchState": false },
+    { "id": 5, "names": "Theon Greyjoy", "rol": "User", "switchState": false },
+    { "id": 6, "names": "Margaery Tyrell", "rol": "User", "switchState": true },
+    { "id": 7, "names": "Oberyn Martell", "rol": "User", "switchState": false },
+    { "id": 8, "names": "Jon Arryn", "rol": "User", "switchState": false },
+    { "id": 9, "names": "Catelyn Stark", "rol": "User", "switchState": true },
+    { "id": 10, "names": "Walder Frey", "rol": "User", "switchState": true },
+    { "id": 11, "names": "Ramsay Bolton", "rol": "User", "switchState": false },
+    { "id": 12, "names": "Eddard Stark", "rol": "User", "switchState": false },
+    { "id": 13, "names": "Jaime Lannister", "rol": "User", "switchState": true },
+    { "id": 14, "names": "Yara Greyjoy", "rol": "User", "switchState": true },
+    { "id": 15, "names": "Olenna Tyrell", "rol": "User", "switchState": false },
+    { "id": 16, "names": "Doran Martell", "rol": "User", "switchState": true },
+    { "id": 17, "names": "Robin Arryn", "rol": "User", "switchState": true },
+    { "id": 18, "names": "Edmure Tully", "rol": "User", "switchState": true },
+  ];
   const handleEditButtonClick = (rowData: { documentNumber: number }) => {
     console.log('¡Botón de editar clickeado! Implementa tu lógica de formulario aquí.');
     const userId = rowData.documentNumber;
@@ -47,7 +67,7 @@ const UsersPage = () => {
     CustomColumn({ field: 'state', headerName: t('generalButtonText.state'), format: 'switch', variante: 'texto'})
   ];
   const handleCreateButtonClick = () => {
-    navigate(PathNames.VIEW_USER);
+    navigate(PathNames.REGISTER_USER);
 
   };
   return (
@@ -63,7 +83,7 @@ const UsersPage = () => {
       }
       inputBar={<SearchBar placeholder={t('generalButtonText.search')} />}
       generalContents={
-        <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={[]}/>
+        <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={rows}/>
       }
     />
   );
