@@ -41,6 +41,18 @@ const CreateRolePage = () => {
     closeDialog();
   };
 
+  const handleEditar = () => {
+    // Lógica para manejar la acción de editar
+    console.log("Editar clickeado");
+  };
+
+  const handleDetails = () => {
+    // Lógica para manejar la acción de observar
+    setIsDialogOpen(true);
+
+    console.log("Observar clickeado");
+  };
+
   
   const [lastAction, setLastAction] = useState<{
     action: string | null;
@@ -91,7 +103,7 @@ const CreateRolePage = () => {
   };
 
   return <ThemeProvider theme={theme}>
-    <DataTable enableCheckboxSelection={false} dataColumns={columns1(handleActionClick)} dataRows = {rows1} />
+    <DataTable enableCheckboxSelection={false} dataColumns={columns1(handleEditar, handleDetails)} dataRows = {rows1} />
     <CustomDialog isOpen={isDialogOpen} closeDialog={closeDialog} title='Alert Dialog' content='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut bibendum placerat faucibus. Nullam quis vulputate purus. Aenean sed purus orci.' buttons={[
       {
       content: 'Cancel',
