@@ -17,6 +17,7 @@ export const usuarioPruebas: UserModel = {
   state: false,
   allowedRoutes: [
     PathNames.USERS,
+    PathNames.REGISTER_USER,
     PathNames.ROLES,
     PathNames.BUSINESS,
     PathNames.PERMISSIONS,

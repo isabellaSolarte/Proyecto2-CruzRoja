@@ -12,6 +12,7 @@ import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { RouterModel } from '../../models/SideMenuModels/RouteModel';
+import RegisterUserPage from '../../pages/RegisterUser/RegisterUserPage';
 
 export const NavigationRoutes = () => {
   const { t } = useTranslation('commons');
@@ -38,6 +39,11 @@ export const NavigationRoutes = () => {
       component: <UsersPage />,
       title: t('menuOptions.users'),
       icon: <GroupsIcon />,
+    },
+    {
+      path: PathNames.REGISTER_USER,
+      component: <RegisterUserPage />,
+      title: 'REGISTRAR USUARIO',
     },
     {
       path: PathNames.ROLES,
