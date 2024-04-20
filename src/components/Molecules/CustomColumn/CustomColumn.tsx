@@ -22,7 +22,10 @@ interface CustomColumnProps {
     color: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
     icon?: React.ReactElement;
     cellStyle?: React.CSSProperties;
+    onClick?: () => void;
   }>;
+  //openDialog?: () => void; // Agregamos openDialog como una función opcional
+  //closeDialog?: () => void; // Agregamos closeDialog como una función opcional
 }
 
 const CustomColumn = ({
@@ -33,6 +36,8 @@ const CustomColumn = ({
   variante = 'texto',
   sortable = true,
   icon,
+  //openDialog,
+  //closeDialog,
 }: CustomColumnProps): GridColDef => ({
   field,
   headerName,
@@ -50,9 +55,7 @@ const CustomColumn = ({
               variant={button.variant}
               color={button.color}
               icon={button.icon}
-              onClick={() => {
-                console.log(`click en boton de customColumn`);
-              }}
+              onClick={button.onClick}
             />
           ))}
         </div>

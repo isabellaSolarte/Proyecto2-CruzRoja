@@ -22,6 +22,26 @@ const theme = createTheme(
 
 const CreateRolePage = () => {
   // const { t } = useTranslation('commons');
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const openDialog = () => {
+    setIsDialogOpen(true);
+  };
+  
+  const closeDialog = () => {
+    setIsDialogOpen(false);
+  };
+
+  const handleCancelButtonClick = () => {
+    closeDialog();
+  };
+  
+  const handleContinueButtonClick = () => {
+    console.log("Continue button clicked");
+    closeDialog();
+  };
+
+  
   const [lastAction, setLastAction] = useState<{
     action: string | null;
     rowId: number | null;
@@ -40,7 +60,7 @@ const CreateRolePage = () => {
     // Perform different actions based on actionContent
     switch (actionContent) {
       case 'Edit':
-        editRow(rowId);
+        openDialog();
         break;
       case 'DetailSeeker':
         viewRowDetails(rowId);
@@ -72,18 +92,18 @@ const CreateRolePage = () => {
 
   return <ThemeProvider theme={theme}>
     <DataTable enableCheckboxSelection={false} dataColumns={columns1(handleActionClick)} dataRows = {rows1} />
-    <CustomDialog isOpen={true} title='Alert Dialog' content='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut bibendum placerat faucibus. Nullam quis vulputate purus. Aenean sed purus orci.' buttons={[
+    <CustomDialog isOpen={isDialogOpen} closeDialog={closeDialog} title='Alert Dialog' content='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut bibendum placerat faucibus. Nullam quis vulputate purus. Aenean sed purus orci.' buttons={[
       {
       content: 'Cancel',
       variant: 'contained',
       color: 'inherit',
-      onClick: (rowId: number) => onButtonClick('Editar', rowId)
+      onClick: handleCancelButtonClick
     },
     {
       content: 'Continue',
       variant: 'contained',
       color: 'success',
-      onClick: (rowId: number) => onButtonClick('Editar', rowId)
+      onClick: handleContinueButtonClick
     }
     ]} icon={<InfoIcon/>} color='#65B741'/>
   </ThemeProvider>;

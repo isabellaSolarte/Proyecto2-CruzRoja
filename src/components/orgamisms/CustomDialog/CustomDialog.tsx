@@ -5,6 +5,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 interface CustomDialogProps {
   isOpen: boolean;
+  closeDialog: boolean;
   title: string;
   content: string;
   buttons: Array<{
@@ -16,31 +17,29 @@ interface CustomDialogProps {
     onClick: () => void;
   }>;
   icon?: ReactElement;
-  onClose?: () => void;
   color: string;
 }
 
 const CustomDialog = ({
   isOpen,
+  closeDialog,
   content,
   buttons,
-  onClose,
   title,
   icon,
   color,
 }:CustomDialogProps) => {
   return (
     <Dialog
-      open={isOpen}
-      onClose={onClose}
+    open={isOpen} 
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
       PaperProps={{
         style: {
-          width: 560, // Set the width as per Figma properties
+          maxWidth: 560,
+          minWidth: 300, 
           padding: 10,
           borderRadius: 8,
-          borderColor: '#429a3a', // Border color from Figma
           borderStyle: 'solid',
           borderWidth: 3,
           boxShadow: 'none', // Add this if you want to remove the shadow
@@ -48,9 +47,16 @@ const CustomDialog = ({
       }}
       
     >
-      <DialogTitle id="alert-dialog-title">
-        <Box style={{ display: 'flex', gap: '10px', justifyContent:'flex-end'}} color={color}>
-          <CustomText texto='' variante="subtitulo" icon={<CloseIcon />} />
+      <DialogTitle id="alert-dialog-title" style={{ borderColor: `${color}`}}>
+        <Box style={{ display: 'flex', gap: '10px', justifyContent:'flex-end'}} >
+        <CustomButton
+              content=''
+              variant='contained'
+              color='error'
+              icon={<CloseIcon />}
+              //onClick={onClose}
+            />
+          {/* <CustomText texto='' variante="subtitulo" icon={<CloseIcon />} /> */}
         </Box>
         <Box style={{color:`${color}`}}>
           <CustomText texto={title} variante="subtitulo" icon={icon} />
