@@ -1,24 +1,19 @@
 // TODO: CREAR EL FORMULARIO CON VALIDACIONES
 
-import DataTable from "../../components/orgamisms/DataTable/DataTable";
+
 import { columns1, rows1 } from "../../configs/tablas/Columns";
-import { esES } from '@mui/material/locale';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import React, { useState } from 'react';
+
+import  { useState } from 'react';
 import CustomDialog from "../../components/orgamisms/CustomDialog/CustomDialog";
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import InfoIcon from '@mui/icons-material/Info';
 import WarningIcon from '@mui/icons-material/Warning';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
+import {ManagmentLayout, DataTable } from '../../components';
 
 
-const theme = createTheme(
-  {
-    // Aquí puedes añadir personalizaciones adicionales de tu tema si lo necesitas
-  },
-  esES  // Aplica el locale español a todos los componentes de MUI
-);
+
 
 const CreateRolePage = () => {
   // const { t } = useTranslation('commons');
@@ -41,9 +36,10 @@ const CreateRolePage = () => {
     closeDialog();
   };
 
-  const handleEditar = () => {
+  const handleEditar = (rowData: any) => {
     // Lógica para manejar la acción de editar
-    console.log("Editar clickeado");
+    const {id} = rowData;
+    console.log("Editar clickeado", id);
   };
 
   const handleDetails = () => {
@@ -86,6 +82,7 @@ const CreateRolePage = () => {
   };
 
   // Function to "edit" a row based on row ID
+  // 
   const editRow = (rowId: number) => {
     console.log(`Initiating edit for row ID ${rowId}`);
     // Your edit logic here...
@@ -102,23 +99,28 @@ const CreateRolePage = () => {
     // Your view logic here...
   };
 
-  return <ThemeProvider theme={theme}>
-    <DataTable enableCheckboxSelection={false} dataColumns={columns1(handleEditar, handleDetails)} dataRows = {rows1} />
-    <CustomDialog isOpen={isDialogOpen} closeDialog={closeDialog} title='Alert Dialog' content='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut bibendum placerat faucibus. Nullam quis vulputate purus. Aenean sed purus orci.' buttons={[
+  return <ManagmentLayout 
+  generalContents={
+    <>
+      <DataTable enableCheckboxSelection={false} dataColumns={columns1(handleEditar, handleDetails)} dataRows = {rows1} />
+      <CustomDialog isOpen={isDialogOpen} closeDialog={closeDialog} title='Alert Dialog' content='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut bibendum placerat faucibus. Nullam quis vulputate purus. Aenean sed purus orci.' buttons={[
+        {
+        content: 'Cancel',
+        variant: 'contained',
+        color: 'inherit',
+        onClick: handleCancelButtonClick
+      },
       {
-      content: 'Cancel',
-      variant: 'contained',
-      color: 'inherit',
-      onClick: handleCancelButtonClick
-    },
-    {
-      content: 'Continue',
-      variant: 'contained',
-      color: 'success',
-      onClick: handleContinueButtonClick
-    }
-    ]} icon={<InfoIcon/>} color='#65B741'/>
-  </ThemeProvider>;
+        content: 'Continue',
+        variant: 'contained',
+        color: 'success',
+        onClick: handleContinueButtonClick
+      }
+      ]} icon={<InfoIcon/>} color='green'/>
+    </>
+  }/>
+    
+
 };
 
 export default CreateRolePage;

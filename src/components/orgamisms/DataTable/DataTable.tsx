@@ -9,7 +9,7 @@ interface DataTableProps {
 const DataTable = ({ enableCheckboxSelection, dataColumns, dataRows }:DataTableProps) => {
 
   return (
-    <div style={{ height: 450, width: '100%', margin: '2.5em' }}>
+    <div style={{ height: 450, width: '100%' }}>
         <DataGrid
           className="my-data-grid"
           rows={dataRows}

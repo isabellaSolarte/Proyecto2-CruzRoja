@@ -4,7 +4,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 
 
-const columns1 = (handleEditar: () => void, handleDetails: () => void) =>[
+const columns1 = (handleEditar: (rowData: { documentNumber: number }) => void, handleDetails: () => void) =>[
   CustomColumn({ field: 'companyName', headerName: 'Empresa', format: 'text', icon: <AccountCircle/>}),
   CustomColumn({ field: 'names', headerName: 'Nombre', format: 'text' }),
   CustomColumn({ field: 'actions', headerName: 'Acciones', format: 'button', sortable: false, buttonDetails: [
@@ -31,7 +31,7 @@ const rows1 = [
   { "id": 3, "companyName": "Targaryen Enterprises", "names": "Daenerys Targaryen", "switchState": true },
   { "id": 4, "companyName": "Baratheon Co.", "names": "Robert Baratheon", "switchState": false },
   { "id": 5, "companyName": "Greyjoy Shipping", "names": "Theon Greyjoy", "switchState": false },
-  { "id": 6, "companyName": "Tyrell Gardens", "names": "Margaery Tyrell", "switchState": true },
+  { "id": 62, "companyName": "Tyrell Gardens", "names": "Margaery Tyrell", "switchState": true },
   { "id": 7, "companyName": "Martell Spices", "names": "Oberyn Martell", "switchState": false },
   { "id": 8, "companyName": "Arryn of the Eyrie", "names": "Jon Arryn", "switchState": false },
   { "id": 9, "companyName": "Tully Fisheries", "names": "Catelyn Stark", "switchState": true },
