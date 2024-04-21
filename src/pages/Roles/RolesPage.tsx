@@ -11,7 +11,7 @@ const theme = createTheme(
   esES
 );
 
-const CreateRolePage = () => {
+const RolesPage = () => {
   return (
     <ThemeProvider theme={theme}>
       <div>
@@ -44,4 +44,4 @@ const CreateRolePage = () => {
   );
 };
 
-export default CreateRolePage;
+export default RolesPage;
