@@ -7,9 +7,9 @@ import  { useState } from 'react';
 import CustomDialog from "../../components/orgamisms/CustomDialog/CustomDialog";
 /* import AccountCircle from '@mui/icons-material/AccountCircle'; */
 import InfoIcon from '@mui/icons-material/Info';
-/* import WarningIcon from '@mui/icons-material/Warning';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import QuestionMarkIcon from '@mui/icons-material/QuestionMark'; */
+import WarningIcon from '@mui/icons-material/Warning';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import {ManagmentLayout, DataTable, CustomText } from '../../components';
 
 
@@ -17,9 +17,28 @@ import {ManagmentLayout, DataTable, CustomText } from '../../components';
 
 const CreateRolePage = () => {
   // const { t } = useTranslation('commons');
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  type Color = 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
 
-  const openDialog = () => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [iconDialog, setIconDialog] = useState(<CheckCircleIcon/>);
+  const [colorDialog, setColorDialog] = useState('green');
+  const [colorButton, setColorButton] = useState<Color>('success');
+
+  const openDialog = (rowData: any) => {
+    console.log('datos row', rowData);
+    
+    const {switchState} = rowData;
+    if(switchState){
+      setIconDialog(<WarningIcon/>)
+      setColorDialog('red')
+      setColorButton('error')
+      
+    }else{
+      setIconDialog(<CheckCircleIcon/>)
+      setColorDialog('green')
+      setColorButton('success')
+
+    }
     setIsDialogOpen(true);
   };
   
@@ -77,10 +96,10 @@ const CreateRolePage = () => {
         key:'2',
         content: 'Continue',
         variant: 'contained',
-        color: 'success',
+        color: colorButton,
         onClick: handleContinueButtonClick
       }
-      ]} icon={<InfoIcon/>} color='green'/>
+      ]} icon={iconDialog} color={colorDialog} />
     </>
   }/>
     

@@ -42,13 +42,13 @@ const CustomDialog = ({
           borderRadius: 8,
           borderStyle: 'solid',
           borderWidth: 3,
-          borderColor: 'green',
+          borderColor: color,
           boxShadow: 'none', // Add this if you want to remove the shadow
         },
       }}
       
     >
-      <DialogTitle id="alert-dialog-title" style={{ borderColor: 'green'}}>
+      <DialogTitle id="alert-dialog-title" style={{ borderColor: color}}>
         <Box style={{ display: 'flex', gap: '10px', justifyContent:'flex-end'}} >
         <CustomButton
               content=''
@@ -59,7 +59,7 @@ const CustomDialog = ({
             />
           {/* <CustomText texto='' variante="subtitulo" icon={<CloseIcon />} onClick={onClose}/> */}
         </Box>
-        <Box style={{color: 'green'}}>
+        <Box style={{color: color}}>
           <CustomText texto={title} variante="subtitulo" icon={icon} />
         </Box>
       </DialogTitle>
