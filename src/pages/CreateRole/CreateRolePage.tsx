@@ -5,12 +5,12 @@ import { columns1, rows1 } from "../../configs/tablas/Columns";
 
 import  { useState } from 'react';
 import CustomDialog from "../../components/orgamisms/CustomDialog/CustomDialog";
-import AccountCircle from '@mui/icons-material/AccountCircle';
+/* import AccountCircle from '@mui/icons-material/AccountCircle'; */
 import InfoIcon from '@mui/icons-material/Info';
-import WarningIcon from '@mui/icons-material/Warning';
+/* import WarningIcon from '@mui/icons-material/Warning';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
-import {ManagmentLayout, DataTable } from '../../components';
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark'; */
+import {ManagmentLayout, DataTable, CustomText } from '../../components';
 
 
 
@@ -31,8 +31,10 @@ const CreateRolePage = () => {
     closeDialog();
   };
   
-  const handleContinueButtonClick = () => {
+  const handleContinueButtonClick = (rowData: any) => {
     console.log("Continue button clicked");
+    const {id} = rowData;
+    console.log("Editar clickeado", id);
     closeDialog();
   };
 
@@ -48,69 +50,31 @@ const CreateRolePage = () => {
 
     console.log("Observar clickeado");
   };
-
+  const handleSwitchState = (rowData: any) => {
+    // TODO hacer la peticion actulizar estado
+    const {switchState} = rowData;
+    console.log("Switch clickeado", switchState);
+    /* console.log("Switch clickeado", rowData);
+    rowData.switchState = !switchState;
+    console.log("Switch clickeado", rowData); */
+  };
   
-  const [lastAction, setLastAction] = useState<{
-    action: string | null;
-    rowId: number | null;
-  }>({
-    action: null,
-    rowId: null,
-  });
-
-  // Function to handle different actions
-  const handleActionClick = (actionContent: string, rowId: number) => {
-    console.log(`Action "${actionContent}" clicked for row ID ${rowId}`);
-    
-    // Update state with the action details
-    setLastAction({ action: actionContent, rowId });
-
-    // Perform different actions based on actionContent
-    switch (actionContent) {
-      case 'Edit':
-        openDialog();
-        break;
-      case 'DetailSeeker':
-        viewRowDetails(rowId);
-        break;
-        case 'Activation':
-          UserActivationHandler(rowId);
-          break;
-      default:
-        console.log('Unknown action:', actionContent);
-    }
-  };
-
-  // Function to "edit" a row based on row ID
-  // 
-  const editRow = (rowId: number) => {
-    console.log(`Initiating edit for row ID ${rowId}`);
-    // Your edit logic here...
-  };
-
-  // Function to "view" row details based on row ID
-  const viewRowDetails = (rowId: number) => {
-    console.log(`Viewing details for row ID ${rowId}`);
-    // Your view logic here...
-  };
-
-  const UserActivationHandler = (rowId: number) => {
-    console.log(`Viewing details for row ID ${rowId}`);
-    // Your view logic here...
-  };
 
   return <ManagmentLayout 
+  title={<CustomText texto='ss' variante="titulo" />}
   generalContents={
     <>
-      <DataTable enableCheckboxSelection={false} dataColumns={columns1(handleEditar, handleDetails)} dataRows = {rows1} />
-      <CustomDialog isOpen={isDialogOpen} closeDialog={closeDialog} title='Alert Dialog' content='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut bibendum placerat faucibus. Nullam quis vulputate purus. Aenean sed purus orci.' buttons={[
+      <DataTable enableCheckboxSelection={false} dataColumns={columns1(handleEditar, handleDetails, openDialog)} dataRows = {rows1} />
+      <CustomDialog isOpen={isDialogOpen} onClick= {handleCancelButtonClick} title='Alert Dialog' content='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut bibendum placerat faucibus. Nullam quis vulputate purus. Aenean sed purus orci.' buttons={[
         {
-        content: 'Cancel',
-        variant: 'contained',
-        color: 'inherit',
-        onClick: handleCancelButtonClick
+          key:'1',
+          content: 'Cancel',
+          variant: 'contained',
+          color: 'inherit',
+          onClick: handleCancelButtonClick
       },
       {
+        key:'2',
         content: 'Continue',
         variant: 'contained',
         color: 'success',
