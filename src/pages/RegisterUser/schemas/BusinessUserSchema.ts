@@ -22,7 +22,12 @@ export const defaulBusinessUserSchema: Pick<
 export const businessUserSchemaValidation = yup
   .object()
   .shape({
-    companyNit: yup.number().required(),
+    companyNit: yup
+      .number()
+      .test('len', 'El nit no puede tener más de 9 dígitos', val =>
+        val ? val.toString().length <= 9 : false,
+      )
+      .required(),
     companyName: yup.string().required(),
     companyPhone: yup.string().required(),
     companyEmail: yup.string().email().required(),

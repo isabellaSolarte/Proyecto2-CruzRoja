@@ -10,7 +10,6 @@ const ProfileBox = styled(Box)(({ theme }) => ({
 
 const CustomAppBar = () => {
   const theme = useTheme();
-  console.log(theme.breakpoints.down('md'));
 
   return (
     <Box

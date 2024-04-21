@@ -49,9 +49,7 @@ const CustomColumn = ({
               variant={button.variant}
               color={button.color}
               icon={button.icon}
-              onClick={() => {
-                console.log(`click en boton de customColumn`);
-              }}
+              onClick={() => {}}
             />
           ))}
         </div>

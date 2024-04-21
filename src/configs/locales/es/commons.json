@@ -66,7 +66,9 @@
             "companyNit": "NIT de la empresa",
             "companyPhone": "Teléfono de la empresa",
             "companyEmail": "Email de la empresa",
-            "position": "Cargo o posición"
+            "position": "Cargo o posición",
+            "validateData": "Validar datos",
+            "createUser": "Crear usuario"
         },
         "userTable": {
             "name": "Nombre",
@@ -109,5 +111,12 @@
         "business_representative": "Representante de empresa",
         "super_admin": "Super administrador",
         "volunteer": "Voluntario"
+    },
+    "positionsDescription": {
+        "admin": "Tiene acceso completo y control sobre la plataforma",
+        "business": "Representa una empresa en la plataforma",
+        "business_representative": "Representa a una empresa en la plataforma",
+        "super_admin": "Tiene privilegios administrativos elevados en la plataforma",
+        "volunteer": "Contribuye como voluntario en la plataforma"
     }
 }

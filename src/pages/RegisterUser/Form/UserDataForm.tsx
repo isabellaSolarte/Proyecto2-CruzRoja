@@ -1,21 +1,32 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { useTranslation } from 'react-i18next';
-import CustomInput from '../../../components/Atoms/CustomInput/CustomInput';
 import { Box, Grid } from '@mui/material';
 import { UserModel } from '../../../models/UserModels/UserModel';
 import useGeneralUserDataForm from '../Hooks/useGeneralUserDataForm';
 import { Fragment } from 'react/jsx-runtime';
+import { CustomButton, EmptyBox, CustomInput } from '../../../components';
 
 interface UserDataFormProps {
   // eslint-disable-next-line no-unused-vars
   updateUserData: (userData: UserModel) => void;
+  handleNextStep: () => void;
+  handleStepBack: () => void;
+  userData: UserModel;
 }
 
-const UserDataForm = ({ updateUserData }: UserDataFormProps) => {
-  const { register, errors, handleSubmit, onSubmit, addRole, fields } =
+const UserDataForm = ({ updateUserData, handleNextStep, handleStepBack }: UserDataFormProps) => {
+  const { t } = useTranslation('commons');
+  const { register, errors, handleSubmit, onSubmit, addRole, fields, validateData } =
     useGeneralUserDataForm(updateUserData);
 
-  const { t } = useTranslation('commons');
+  const handleNextButton = () => {
+    validateData()
+      .then(valid => {
+        if (valid) handleNextStep();
+      })
+      .catch(() => {});
+  };
+
   return (
     <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -50,6 +61,7 @@ const UserDataForm = ({ updateUserData }: UserDataFormProps) => {
               placeholder={t('usersPages.userForm.documentNumber')}
               size={'large'}
               props={register('documentNumber')}
+              type="number"
             />
             {errors.documentNumber && <span>{errors.documentNumber.message}</span>}
           </Grid>
@@ -112,9 +124,15 @@ const UserDataForm = ({ updateUserData }: UserDataFormProps) => {
             type="button"
             onClick={() => {
               addRole({
-                idRole: 0,
-                typeRole: 'rol de ejemplo',
-                permissions: [{ idPermission: 0, name: 'permiso 1', description: 'para usuarios' }],
+                idRole: 1,
+                typeRole: 'consulta de roles',
+                permissions: [
+                  {
+                    idPermission: 100,
+                    name: 'ROLE_Listar_Roles',
+                    description: 'Permiso para consultar todos los roles en el sistema',
+                  },
+                ],
               });
             }}
           >
@@ -122,7 +140,17 @@ const UserDataForm = ({ updateUserData }: UserDataFormProps) => {
           </button>
         </Grid>
 
-        <input type="submit" />
+        <EmptyBox height={50} width={10} />
+
+        <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+          <CustomButton content={t('components.stepper.back')} onClick={handleStepBack} />
+          <CustomButton
+            type="submit"
+            content={t('components.stepper.next')}
+            onClick={handleNextButton}
+            color="info"
+          />
+        </Box>
       </form>
     </Box>
   );

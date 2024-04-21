@@ -33,11 +33,6 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {/*<CustomCard 
-      texto1="Crear empresa"
-      icon={<SearchIcon />}
-      sx={{ backgroundColor: theme.backgroundContentColors?.green}} 
-      />*/}
       <Router />
     </ThemeProvider>
   );

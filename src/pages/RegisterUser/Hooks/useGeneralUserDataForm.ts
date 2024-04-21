@@ -26,17 +26,26 @@ const useGeneralUserDataForm = (
   });
 
   const addRole = (newRole: RoleModel) => {
-    console.log('newRole', newRole);
-    console.log('fields', fields);
-    console.log('errors', errors);
-    console.log('getValues', getValues());
     append(newRole);
     register(`roles.${fields.length}.idRole`);
+    console.log('error', errors);
   };
 
   const onSubmit = async (data: UserModel) => {
+    console.log('error', errors);
     await new Promise(resolve => setTimeout(resolve, 0));
-    updateUserData(data);
+    updateUserData({ ...data, roles: fields });
+  };
+
+  const validateData = (): Promise<boolean> => {
+    const valid = userSchemaValidation
+      .validate(getValues())
+      .then(() => {
+        updateUserData(getValues());
+        return true;
+      })
+      .catch(() => false);
+    return valid;
   };
 
   return {
@@ -45,8 +54,10 @@ const useGeneralUserDataForm = (
     onSubmit,
     addRole,
     update,
+    validateData,
     fields,
     errors,
+    defaulUserSchema,
   };
 };
 

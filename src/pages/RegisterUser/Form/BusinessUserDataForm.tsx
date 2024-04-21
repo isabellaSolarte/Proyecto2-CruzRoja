@@ -1,60 +1,58 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { useTranslation } from 'react-i18next';
-import CustomInput from '../../../components/Atoms/CustomInput/CustomInput';
-import { FieldErrors, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form';
 import { Box, Grid } from '@mui/material';
-import CustomButton from '../../../components/Atoms/CustomButton/CustomButton';
+import useBusinessUserDataForm from '../Hooks/useBusinessUserDataForm';
+import { BusinessRegisterFormType } from '../types';
+import { EmptyBox, CustomButton, CustomInput, CustomSelect } from '../../../components';
+import { useEffect } from 'react';
 
 interface UserDataFormProps {
-  // eslint-disable-next-line no-unused-vars
-  register: UseFormRegister<{
-    address: {
-      number: string;
-      street: string;
-      floorOrApartment: string;
-      neighborhood: string;
-      city: string;
-      country: string;
-    };
-    companyNit: number;
-    companyName: string;
-    companyPhone: string;
-    companyEmail: string;
-  }>;
-  errors: FieldErrors<{
-    address: {
-      number: string;
-      street: string;
-      floorOrApartment: string;
-      neighborhood: string;
-      city: string;
-      country: string;
-    };
-    companyNit: number;
-    companyName: string;
-    companyPhone: string;
-    companyEmail: string;
-  }>;
-  handleSubmit: UseFormHandleSubmit<{
-    address: {
-      number: string;
-      street: string;
-      floorOrApartment: string;
-      neighborhood: string;
-      city: string;
-      country: string;
-    };
-    companyNit: number;
-    companyName: string;
-    companyPhone: string;
-    companyEmail: string;
-  }>;
-  // eslint-disable-next-line no-unused-vars
-  onSubmit: (data: unknown) => Promise<void>;
+  updateUserData: (userData: BusinessRegisterFormType) => void;
+  handleNextStep: () => void;
+  handleStepBack: () => void;
 }
 
-const BusinessUserDataForm = ({ register, errors, handleSubmit, onSubmit }: UserDataFormProps) => {
+const BusinessUserDataForm = ({
+  updateUserData,
+  handleNextStep,
+  handleStepBack,
+}: UserDataFormProps) => {
   const { t } = useTranslation('commons');
+  const {
+    register,
+    handleSubmit,
+    onSubmit,
+    validateData,
+    loadCountries,
+    loadCities,
+    updateSelectedCountry,
+    countryList,
+    currentSelectedCountry,
+    cities,
+    control,
+    errors,
+  } = useBusinessUserDataForm(updateUserData);
+
+  const handleNextButton = () => {
+    validateData()
+      .then(valid => {
+        if (valid) handleNextStep();
+      })
+      .catch(() => {});
+  };
+
+  /** CARGAR LOS PAISES EN LA PRIMERA CARGA DE LA VISTA */
+  useEffect(() => {
+    void loadCountries();
+  }, []);
+
+  /** CARGAR LAS CIUDADES DEL PAIS SELECCIONADO */
+  useEffect(() => {
+    if (currentSelectedCountry) void loadCities(currentSelectedCountry);
+  }, [currentSelectedCountry]);
+
   return (
     <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -67,6 +65,7 @@ const BusinessUserDataForm = ({ register, errors, handleSubmit, onSubmit }: User
             />
             {errors.companyName && <span>{errors.companyName.message}</span>}
           </Grid>
+
           <Grid item sm={6} xs={12}>
             <CustomInput
               placeholder={t('usersPages.userForm.companyNit')}
@@ -75,6 +74,7 @@ const BusinessUserDataForm = ({ register, errors, handleSubmit, onSubmit }: User
             />
             {errors.companyNit && <span>{errors.companyNit.message}</span>}
           </Grid>
+
           <Grid item sm={6} xs={12}>
             <CustomInput
               placeholder={t('usersPages.userForm.companyPhone')}
@@ -83,6 +83,7 @@ const BusinessUserDataForm = ({ register, errors, handleSubmit, onSubmit }: User
             />
             {errors.companyPhone && <span>{errors.companyPhone.message}</span>}
           </Grid>
+
           <Grid item sm={6} xs={12}>
             <CustomInput
               placeholder={t('usersPages.userForm.companyEmail')}
@@ -91,22 +92,34 @@ const BusinessUserDataForm = ({ register, errors, handleSubmit, onSubmit }: User
             />
             {errors.companyEmail && <span>{errors.companyEmail.message}</span>}
           </Grid>
+
           <Grid item sm={2} xs={12}>
-            <CustomInput
-              placeholder={t('address.country')}
-              size={'large'}
-              props={register('address.country')}
+            <CustomSelect
+              label={t('address.country')}
+              labelId="address.country"
+              options={countryList}
+              control={control}
+              onChangeAction={(value: string) => {
+                updateSelectedCountry(value);
+              }}
+              {...register('address.country')}
             />
+
             {errors.address && <span>{errors.address.country?.message}</span>}
           </Grid>
+
           <Grid item sm={4} xs={12}>
-            <CustomInput
-              placeholder={t('address.city')}
-              size={'large'}
-              props={register('address.city')}
+            <CustomSelect
+              label={t('address.city')}
+              labelId="address.city"
+              options={cities}
+              control={control}
+              disabled={cities.length === 0}
+              {...register('address.city')}
             />
             {errors.address && <span>{errors.address.city?.message}</span>}
           </Grid>
+
           <Grid item sm={6} xs={12}>
             <CustomInput
               placeholder={t('address.neighborhood')}
@@ -115,6 +128,7 @@ const BusinessUserDataForm = ({ register, errors, handleSubmit, onSubmit }: User
             />
             {errors.address && <span>{errors.address.neighborhood?.message}</span>}
           </Grid>
+
           <Grid item sm={6} xs={12}>
             <CustomInput
               placeholder={t('address.street')}
@@ -123,6 +137,7 @@ const BusinessUserDataForm = ({ register, errors, handleSubmit, onSubmit }: User
             />
             {errors.address && <span>{errors.address.street?.message}</span>}
           </Grid>
+
           <Grid item sm={6} xs={12}>
             <CustomInput
               placeholder={t('address.number')}
@@ -131,6 +146,7 @@ const BusinessUserDataForm = ({ register, errors, handleSubmit, onSubmit }: User
             />
             {errors.address && <span>{errors.address.number?.message}</span>}
           </Grid>
+
           <Grid item sm={6} xs={12}>
             <CustomInput
               placeholder={t('address.floorOrApartment')}
@@ -141,13 +157,17 @@ const BusinessUserDataForm = ({ register, errors, handleSubmit, onSubmit }: User
           </Grid>
         </Grid>
 
-        <CustomButton
-          type="submit"
-          variant="contained"
-          color="primary"
-          content={'validar'}
-          onClick={() => {}}
-        />
+        <EmptyBox height={50} width={10} />
+
+        <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+          <CustomButton content={t('components.stepper.back')} onClick={handleStepBack} />
+          <CustomButton
+            type="submit"
+            content={t('components.stepper.next')}
+            onClick={handleNextButton}
+            color="info"
+          />
+        </Box>
       </form>
     </Box>
   );

@@ -6,6 +6,7 @@ interface CustomInputProps {
   size: 'small' | 'medium' | 'large'; // Define size prop
   type?: 'text' | 'password' | 'email' | 'number' | 'submit'; // Define type prop
   updateText?: Dispatch<SetStateAction<string>>;
+  value?: string | number;
   props?: object;
 }
 /*Ejmplo para usar el input 
