@@ -3,7 +3,7 @@ import Switch, { SwitchProps } from '@mui/material/Switch';
 
 interface CustomColumnSwitch {
   switchState: boolean;
-  onClick?: (rowData: any) => void;
+  onClick?: () => void;
 }
 
 const IOSSwitch = styled((props: SwitchProps) => (

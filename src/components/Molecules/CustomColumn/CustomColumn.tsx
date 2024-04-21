@@ -22,9 +22,9 @@ interface CustomColumnProps {
     color: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
     icon?: React.ReactElement;
     cellStyle?: React.CSSProperties;
-    onClick?: (rowData: any) => void;
+    onClick?: () => void;
   }>;
-  onClick?: (rowData: any) => void;
+  onClick?: () => void;
 }
 
 const CustomColumn = ({
@@ -53,7 +53,7 @@ const CustomColumn = ({
               variant={button.variant}
               color={button.color}
               icon={button.icon}
-              onClick={() => button.onClick && button.onClick(params.row)}
+              onClick={() => {button.onClick && button.onClick()}}
             />
           ))}
         </div>
@@ -61,10 +61,11 @@ const CustomColumn = ({
     } else if (format == 'text') {
       return <CustomText texto={params.value as string} variante={variante} icon={icon} />;
     } else {
+      
       return (
         <CustomSwitch
           switchState={params.row.switchState as boolean}
-          onClick={() => onClick && onClick(params.row)}
+          onClick={() => {onClick && onClick(params.row)}}
         />
       );
     }
