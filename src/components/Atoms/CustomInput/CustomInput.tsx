@@ -19,6 +19,7 @@ const CustomInput = ({
   size,
   type = 'text',
   updateText,
+  value,
   props = {},
 }: CustomInputProps) => {
   const inputClass = `custom-input-${size}`;
@@ -35,6 +36,7 @@ const CustomInput = ({
         type={type}
         placeholder={placeholder}
         className={inputClass}
+        //value={value}
         style={{
           width: '100%',
         }}

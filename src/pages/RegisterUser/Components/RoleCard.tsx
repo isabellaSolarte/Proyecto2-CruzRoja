@@ -23,7 +23,7 @@ const RoleCard = ({ rol, positiveAction, negativeAction }: RoleCardProps) => {
   };
   return (
     <CustomCard
-      key={rol.idRole}
+      key={rol.id}
       texto1={rol.typeRole}
       texto2={''}
       switchState={switchState}

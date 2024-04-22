@@ -19,10 +19,27 @@ const CompoentesPage = () => {
     setSwitchState(!switchState);
   };
 
+  const [disableInput, setDisableInput] = useState(false);
+
+  const handleInput = () => {
+    setDisableInput(!disableInput);
+  };
+
   //const [step, setStep] = useState(0);
 
   return (
     <Container>
+      <Container sx={{ display: 'flex', gap: 2 }}>
+        <CustomButton content="boton" onClick={handleInput} variant="contained" color="success" />
+        <CustomInput
+          placeholder="Small Input"
+          size="small"
+          updateText={() => {}}
+          value="pepito perez"
+          props={{ disabled: disableInput }}
+        />
+      </Container>
+
       <CustomText texto="Atomo CustomButton" variante="subtitulo" />
       <Container sx={{ display: 'flex', gap: 2 }}>
         <CustomButton content="boton" onClick={() => {}} variant="contained" color="success" />
