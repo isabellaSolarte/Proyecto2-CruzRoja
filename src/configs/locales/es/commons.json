@@ -27,7 +27,8 @@
         "users": "Gestión de usuarios",
         "business": "Gestión de empresas",
         "roles": "Gestionar roles",
-        "createRole": "Editar - Crear rol"
+        "createRole": "Editar - Crear rol",
+        "userView": "Visualizar usuario"
     },
     "rolesPages": {
         "tabs": {
