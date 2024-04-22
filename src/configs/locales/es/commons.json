@@ -26,7 +26,7 @@
     "pageTitles": {
         "users": "Gestión de usuarios",
         "business": "Gestión de empresas",
-        "roles": "Gestión de roles",
+        "roles": "Gestionar roles",
         "createRole": "Editar - Crear rol"
     },
     "rolesPages": {
@@ -37,7 +37,8 @@
         "roleForm": {
             "name": "Nombre del rol",
             "description": "Descripción del rol",
-            "textDescription": "Ingresa una descripción sobre el rol"
+            "textDescription": "Ingresa una descripción sobre el rol",
+            "rolePageDescription": "Usa los roles para asignar permisos en el sistema"
         }
     },
     "usersPages": {
@@ -73,7 +74,8 @@
         "userTable": {
             "name": "Nombre",
             "rol": "Rol",
-            "actions": "Acciones"            
+            "actions": "Acciones",
+            "users": "Usuarios"           
         }
     },
     "components": {

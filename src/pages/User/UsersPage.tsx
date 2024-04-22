@@ -5,7 +5,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
 
-
 // TODO: CREAR EL FORMULARIO CON VALIDACIONES
 
 const UsersPage = () => {
