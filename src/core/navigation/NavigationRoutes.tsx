@@ -93,11 +93,6 @@ export const NavigationRoutes = () => {
       component: <CompoentesPage />,
       title: 'COMPONENTES',
     },
-    {
-      path: PathNames.VIEW_USER,
-      component: <ViewUserPage />,
-      title: 'ViewUser',
-    },
   ];
 
   return routes;
