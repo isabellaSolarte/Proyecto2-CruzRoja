@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React, { useState } from 'react';
 import { Box } from '@mui/material';
-import InputLabel from '@mui/material/InputLabel';
+import InputLabel, { inputLabelClasses } from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
@@ -69,20 +69,42 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   };
 
   return (
-    <Box sx={{ minWidth: 120, ...sx }}>
-      <FormControl sx={{ m: 1, minWidth: 80 }} {...props} id={labelId}>
-        <InputLabel id={labelId}>{label}</InputLabel>
+    <Box sx={{ ...sx }}>
+      <FormControl
+        sx={{
+          minWidth: 80,
+        }}
+        {...props}
+        id={labelId}
+        fullWidth
+      >
+        <InputLabel
+          id={labelId}
+          sx={{
+            [`&.${inputLabelClasses.focused}`]: {
+              color: '#000',
+            },
+          }}
+        >
+          {label}
+        </InputLabel>
         <Controller
           name={labelId} // Should match the registered field name ('address.country')
           control={control}
           render={({ field }) => (
             <Select
               {...field}
+              variant="outlined"
               value={selectedValue}
               onChange={handleChange}
               label={label}
               inputProps={{ readOnly }}
               disabled={disabled ? disabled : false}
+              sx={{
+                ['.MuiSelect-select']: {
+                  padding: '10px',
+                },
+              }}
             >
               {options.map(option => (
                 <MenuItem key={option.value} value={option.value}>

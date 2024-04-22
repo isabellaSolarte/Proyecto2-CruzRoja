@@ -19,12 +19,6 @@ export const getUserPositionsList = () => {
       img: '/superAdmin.png',
     },
     {
-      title: UserPositions.BUSINESS_REPRESENTATIVE,
-      description: 'Voluntario',
-      id: 4,
-      img: '/representanteEmpresa.png',
-    },
-    {
       title: UserPositions.VOLUNTEER,
       description: 'Otro',
       id: 5,

@@ -48,7 +48,7 @@ const SelectUserForm = ({ handleUserType, userType, handleNext }: SelectUserForm
 
             <UserTypeCard
               value={'business'}
-              label={t('userTypes.business')}
+              label={t('userTypes.businessRepresntative')}
               banner="/personaLogoBG.png"
               active={userType === 'business'}
             />

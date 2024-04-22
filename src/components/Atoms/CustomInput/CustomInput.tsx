@@ -30,16 +30,18 @@ const CustomInput = ({
   };
 
   return (
-    <input
-      type={type}
-      placeholder={placeholder}
-      className={inputClass}
-      style={{
-        width: '100%',
-      }}
-      onChange={onChange}
-      {...props}
-    />
+    <div>
+      <input
+        type={type}
+        placeholder={placeholder}
+        className={inputClass}
+        style={{
+          width: '100%',
+        }}
+        onChange={onChange}
+        {...props}
+      />
+    </div>
   );
 };
 

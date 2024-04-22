@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StepProps } from '../../../components/orgamisms/CustomStepper/CustomStepper';
@@ -7,8 +9,11 @@ import { CompanyUserMode } from '../../../models/UserModels/CompanyUserModel';
 import { defaulUserSchema } from '../schemas/UserSchema';
 import { BusinessRegisterFormType, VolunterRegisterFormType } from '../types';
 import { postUserCompany, postVolunteer } from '../../../services';
+import { useNavigate } from 'react-router-dom';
+import { PathNames } from '../../../core';
 
 const useRegisterUser = () => {
+  const navigate = useNavigate();
   const { t } = useTranslation('commons');
 
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
@@ -111,17 +116,17 @@ const useRegisterUser = () => {
 
   const createUser = async () => {
     handleNextStep();
-    let postUserRequest;
-    if (userType === 'volunter') {
-      postUserRequest = await postVolunteer(userData as VolunterUserModel);
-    } else {
-      postUserRequest = await postUserCompany(userData as CompanyUserMode);
-    }
 
-    if (postUserRequest?.status === 200) {
-      alert(`User created usaurio creado tipo ${userType}`);
-    } else {
-      alert(`Error creating user ${postUserRequest}`);
+    try {
+      if (userType === 'volunter') {
+        await postVolunteer(userData as VolunterUserModel);
+      } else {
+        await postUserCompany(userData as CompanyUserMode);
+      }
+      alert(`User created usaurio creado tipo ${userType} correctamente`);
+      navigate(PathNames.USERS, { replace: true });
+    } catch (e: any) {
+      alert(`Error creating user ${e.message}`);
     }
   };
 

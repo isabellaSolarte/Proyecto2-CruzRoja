@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/use-unknown-in-catch-callback-variable */
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
@@ -5,7 +7,14 @@ import { useTranslation } from 'react-i18next';
 import { Box, Grid } from '@mui/material';
 import useBusinessUserDataForm from '../Hooks/useBusinessUserDataForm';
 import { BusinessRegisterFormType } from '../types';
-import { EmptyBox, CustomButton, CustomInput, CustomSelect } from '../../../components';
+import {
+  EmptyBox,
+  CustomButton,
+  CustomSelect,
+  ErrorText,
+  LabeledInput,
+  CustomText,
+} from '../../../components';
 import { useEffect } from 'react';
 
 interface UserDataFormProps {
@@ -56,44 +65,61 @@ const BusinessUserDataForm = ({
   return (
     <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Grid sx={{ columnGap: 2, rowGap: 4 }} container>
-          <Grid item sm={6} xs={12}>
-            <CustomInput
+        <Grid container>
+          <Grid item xs={12} paddingTop={3}>
+            <CustomText texto={'Datos de la empresa'} variante={'subtitulo'} />
+          </Grid>
+
+          <Grid item padding={2} sm={6} xs={12}>
+            <LabeledInput
+              label={t('usersPages.userForm.companyName')}
               placeholder={t('usersPages.userForm.companyName')}
-              size={'large'}
               props={register('companyName')}
+              type={'text'}
+              mandatory
             />
-            {errors.companyName && <span>{errors.companyName.message}</span>}
+            {errors.companyName && <ErrorText error={errors.companyName.message} />}
           </Grid>
 
-          <Grid item sm={6} xs={12}>
-            <CustomInput
+          <Grid item padding={2} sm={6} xs={12}>
+            <LabeledInput
+              label={t('usersPages.userForm.companyNit')}
               placeholder={t('usersPages.userForm.companyNit')}
-              size={'large'}
               props={register('companyNit')}
+              type={'number'}
+              mandatory
             />
-            {errors.companyNit && <span>{errors.companyNit.message}</span>}
+            {errors.companyNit && <ErrorText error={errors.companyNit.message} />}
           </Grid>
 
-          <Grid item sm={6} xs={12}>
-            <CustomInput
+          <Grid item padding={2} sm={6} xs={12}>
+            <LabeledInput
+              label={t('usersPages.userForm.companyPhone')}
               placeholder={t('usersPages.userForm.companyPhone')}
-              size={'large'}
               props={register('companyPhone')}
+              type={'text'}
+              mandatory
             />
-            {errors.companyPhone && <span>{errors.companyPhone.message}</span>}
+            {errors.companyPhone && <ErrorText error={errors.companyPhone.message} />}
           </Grid>
 
-          <Grid item sm={6} xs={12}>
-            <CustomInput
+          <Grid item padding={2} sm={6} xs={12}>
+            <LabeledInput
+              label={t('usersPages.userForm.companyEmail')}
               placeholder={t('usersPages.userForm.companyEmail')}
-              size={'large'}
               props={register('companyEmail')}
+              type={'email'}
+              mandatory
             />
-            {errors.companyEmail && <span>{errors.companyEmail.message}</span>}
+            {errors.companyEmail && <ErrorText error={errors.companyEmail.message} />}
           </Grid>
 
-          <Grid item sm={2} xs={12}>
+          <Grid item xs={12} paddingTop={5}>
+            <CustomText texto={'Datos de ubicación'} variante={'subtitulo'} />
+          </Grid>
+
+          {/* <Grid item padding={2} paddingTop={0} sm={6} xs={12}>
+            <CustomText texto={'Documento'} variante={'texto'} color={'#fff'} />
             <CustomSelect
               label={t('address.country')}
               labelId="address.country"
@@ -104,11 +130,26 @@ const BusinessUserDataForm = ({
               }}
               {...register('address.country')}
             />
+            {errors.address && <ErrorText error={errors.address.country?.message} />}
+          </Grid> */}
 
-            {errors.address && <span>{errors.address.country?.message}</span>}
+          <Grid item padding={2} paddingTop={0} sm={6} xs={12}>
+            <CustomText texto={'Documento'} variante={'texto'} color={'#fff'} />
+            <CustomSelect
+              label={t('address.country')}
+              labelId="address.country"
+              options={countryList}
+              control={control}
+              onChangeAction={(value: string) => {
+                updateSelectedCountry(value);
+              }}
+              {...register('address.country')}
+            />
+            {/* {errors.address && <ErrorText error={errors.address.country?.message} />} */}
           </Grid>
 
-          <Grid item sm={4} xs={12}>
+          <Grid item padding={2} paddingTop={0} sm={6} xs={12}>
+            <CustomText texto={'Documento'} variante={'texto'} color={'#fff'} />
             <CustomSelect
               label={t('address.city')}
               labelId="address.city"
@@ -117,43 +158,51 @@ const BusinessUserDataForm = ({
               disabled={cities.length === 0}
               {...register('address.city')}
             />
-            {errors.address && <span>{errors.address.city?.message}</span>}
+            {/* {errors.address && <ErrorText error={errors.address.city?.message} />} */}
           </Grid>
 
-          <Grid item sm={6} xs={12}>
-            <CustomInput
+          <Grid item padding={2} sm={6} xs={12}>
+            <LabeledInput
+              label={t('address.neighborhood')}
               placeholder={t('address.neighborhood')}
-              size={'large'}
+              mandatory
+              type="text"
               props={register('address.neighborhood')}
             />
-            {errors.address && <span>{errors.address.neighborhood?.message}</span>}
+            {errors.address && <ErrorText error={errors.address.neighborhood?.message} />}
           </Grid>
 
-          <Grid item sm={6} xs={12}>
-            <CustomInput
+          <Grid item padding={2} sm={6} xs={12}>
+            <LabeledInput
+              label={t('address.street')}
               placeholder={t('address.street')}
-              size={'large'}
+              mandatory
+              type="text"
               props={register('address.street')}
             />
-            {errors.address && <span>{errors.address.street?.message}</span>}
+            {errors.address && <ErrorText error={errors.address.street?.message} />}
           </Grid>
 
-          <Grid item sm={6} xs={12}>
-            <CustomInput
+          <Grid item padding={2} sm={6} xs={12}>
+            <LabeledInput
+              label={t('address.number')}
               placeholder={t('address.number')}
-              size={'large'}
+              mandatory
+              type="text"
               props={register('address.number')}
             />
-            {errors.address && <span>{errors.address.number?.message}</span>}
+            {errors.address && <ErrorText error={errors.address.number?.message} />}
           </Grid>
 
-          <Grid item sm={6} xs={12}>
-            <CustomInput
+          <Grid item padding={2} sm={6} xs={12}>
+            <LabeledInput
+              label={t('address.floorOrApartment')}
               placeholder={t('address.floorOrApartment')}
-              size={'large'}
+              mandatory
+              type="text"
               props={register('address.floorOrApartment')}
             />
-            {errors.address && <span>{errors.address.floorOrApartment?.message}</span>}
+            {errors.address && <ErrorText error={errors.address.floorOrApartment?.message} />}
           </Grid>
         </Grid>
 
