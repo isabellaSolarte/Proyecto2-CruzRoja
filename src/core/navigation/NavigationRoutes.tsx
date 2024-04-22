@@ -13,6 +13,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { RouterModel } from '../../models/SideMenuModels/RouteModel';
 import RegisterUserPage from '../../pages/RegisterUser/RegisterUserPage';
 import { RolesPage } from '../../pages/Roles';
+import { ViewUserPage } from '../../pages/ViewUser';
 
 export const NavigationRoutes = () => {
   const { t } = useTranslation('commons');
@@ -91,6 +92,11 @@ export const NavigationRoutes = () => {
       path: PathNames.COMPONETS,
       component: <CompoentesPage />,
       title: 'COMPONENTES',
+    },
+    {
+      path: PathNames.VIEW_USER,
+      component: <ViewUserPage />,
+      title: 'ViewUser',
     },
   ];
 
