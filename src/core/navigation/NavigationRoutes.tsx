@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import GroupsIcon from '@mui/icons-material/Groups';
 import BusinessIcon from '@mui/icons-material/Business';
-import { CreateRolePage } from '../../pages/CreateRole';
 import { CompoentesPage, UsersPage } from '../../pages';
 import { PathNames } from '../PathNames';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
@@ -13,6 +12,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { RouterModel } from '../../models/SideMenuModels/RouteModel';
 import RegisterUserPage from '../../pages/RegisterUser/RegisterUserPage';
+import { RolesPage } from '../../pages/Roles';
 
 export const NavigationRoutes = () => {
   const { t } = useTranslation('commons');
@@ -47,7 +47,7 @@ export const NavigationRoutes = () => {
     },
     {
       path: PathNames.ROLES,
-      component: <CreateRolePage />,
+      component: <RolesPage />,
       title: t('menuOptions.roles'),
       icon: <AdminPanelSettingsIcon />,
     },

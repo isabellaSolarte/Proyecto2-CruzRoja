@@ -1,46 +1,72 @@
-import DataTable from "../../components/orgamisms/DataTable/DataTable";
-import { columns1 } from "../../configs/tablas/Columns";
 import { esES } from '@mui/material/locale';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Typography } from '@mui/material'; 
-import { SearchBar } from '../../components';
-import CustomButton from '../../components/Atoms/CustomButton/CustomButton'; 
+import { createTheme, useTheme } from '@mui/material/styles';
+import { useTranslation } from "react-i18next";
+import { ManagmentLayout, CustomButton,CustomText, CustomColumn, SearchBar} from "../../components";
+import { Theme } from '@mui/material/styles';
+import DataTable from "../../components/orgamisms/DataTable/DataTable";
+import EditIcon from '@mui/icons-material/Edit';
+import { Box, Grid } from '@mui/material';
+
 
 const theme = createTheme(
-  {},
-  esES
+  {
+    // Aquí puedes añadir personalizaciones adicionales de tu tema si lo necesitas
+  },
+  esES  // Aplica el locale español a todos los componentes de MUI
 );
 
 const RolesPage = () => {
+  const { t } = useTranslation('commons');
+  const theme = useTheme<Theme>();
+  const columns = [
+    CustomColumn({ field: 'names', headerName: t('usersPages.userTable.rol'), width: 250, format: 'text', variante: 'texto', content: '', buttonDetails: []  }),
+    CustomColumn({ field: 'rol', headerName: t('usersPages.userTable.users'), width: 250, format: 'text', variante: 'texto', content: '', buttonDetails: []  }),
+    CustomColumn({ field: 'actions', headerName: t('usersPages.userTable.actions'), width:250, format: 'button', variante: 'texto', content: '', buttonDetails: [
+      {
+        content: t('generalButtonText.edit'),
+        variant: 'contained',
+        color: 'primary',
+        icon: <EditIcon />
+      } 
+    ] }),
+    CustomColumn({ field: 'state', headerName: t('generalButtonText.state'), format: 'switch', variante: 'texto', content: '', buttonDetails: [
+      {
+        content: t('generalButtonText.edit'),
+        variant: 'contained',
+        color: 'primary',
+        icon: <EditIcon />
+      } 
+    ] })
+  ];
   return (
-    <ThemeProvider theme={theme}>
-      <div>
-        <Typography variant="h4" align="left" sx={{ marginLeft: '40px' }}><strong>Roles</strong> </Typography> 
-        <br /> 
-        <Typography variant="subtitle1" align="left" sx={{ marginLeft: '40px' }} gutterBottom>Usa los roles para asignar permisos en el sistema</Typography> 
-        <br /> 
-        <div style={{ display: 'flex', alignItems: 'left', marginLeft: '40px', marginRight: '550px' }}> 
-          <div style={{ flex: '1' }}> 
-            <div style={{ width: '500px' }}>
-              <SearchBar 
-                placeholder="Buscar roles" 
-                onSearch={() => {}} 
-              />
-            </div>
-          </div>
-          <CustomButton
-            content="Crear rol"
+    <ManagmentLayout
+      title={<CustomText texto={t('pageTitles.roles')} variante="titulo" />}
+      
+      actionsContent={
+        <CustomButton
+            content={t('generalButtonText.create')}
             variant="contained"
             color="success"
             onClick={() => {
-              // lógica para crear un nuevo rol
+              
             }}
             style={{ marginLeft: '10px' }} 
           />
-        </div>
-        <DataTable enableCheckboxSelection={false} dataColumns={columns1} /> 
-      </div>
-    </ThemeProvider>
+      }
+      generalContents={
+        <Box>       
+          <CustomText texto={t('rolesPages.roleForm.rolePageDescription')} variante="subtitulo" />
+          <SearchBar placeholder={t('generalButtonText.search')} />
+          <Grid container spacing={2} direction={'column'} gap={5}>
+          <Grid item xs={12}>
+            <DataTable enableCheckboxSelection={false} dataColumns={columns} />
+          </Grid>  
+        </Grid>
+        </Box>
+  
+      }
+      
+    />
   );
 };
 
