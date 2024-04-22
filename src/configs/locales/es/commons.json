@@ -6,16 +6,16 @@
         "back": "Atrás",
         "save": "Guardar",
         "create": "Crear",
-        "edit": "EDITAR",
-        "view": "OBSERVAR",
-        "delete": "ELIMINAR",
+        "edit": "Editar",
+        "view": "Observar",
+        "delete": "Eliminar",
         "state": "Estado",
         "search": "Buscar"
     },
     "menuOptions": {
-        "users": "usuarios",
-        "business": "empresas",
-        "roles": "roles",
+        "users": "Usuarios",
+        "business": "Empresas",
+        "roles": "Roles",
         "logout": "Cerrar sesión",
         "settings": "Configuración",
         "statistics": "Estadísticas",
@@ -35,10 +35,9 @@
             "permissions": "Permisos"
         },
         "roleForm": {
-            "name": "Nombre",
-            "description": "Descripción",
-            "color": "Color",
-            "colorDescription": "Los usuarios con este rol tendrán este color en la aplicación"
+            "name": "Nombre del rol",
+            "description": "Descripción del rol",
+            "textDescription": "Ingresa una descripción sobre el rol"
         }
     },
     "usersPages": {
@@ -48,16 +47,67 @@
             "business": "Empresas"
         },
         "userForm": {
+            "usertype": "Tipo de usuario",
+            "userTypeSelection": "Selecciona el tipo de usuario que deseas registrar.",
+            "userInfo": "Información de usuario",
+            "businessInfo": "Empresa",
+            "volunteerInfo": "Voluntario",
             "name": "Nombre",
+            "lastname": "Apellidos",
+            "personalPhone": "Teléfono personal",
             "email": "Email",
             "password": "Contraseña",
             "passwordConfirmation": "Confirmación de contraseña",
-            "role": "Rol"
+            "role": "Rol",
+            "username": "Nombre de usuario",
+            "documentNumber": "Número de documento",
+            "documentType": "Tipo de documento",
+            "companyName": "Nombre de la empresa",
+            "companyNit": "NIT de la empresa",
+            "companyPhone": "Teléfono de la empresa",
+            "companyEmail": "Email de la empresa",
+            "position": "Cargo o posición"
         },
         "userTable": {
             "name": "Nombre",
             "rol": "Rol",
             "actions": "Acciones"            
         }
+    },
+    "components": {
+        "stepper": {
+            "next": "Siguiente",
+            "back": "Atrás",
+            "end": "Finalizar",
+            "optional": "Opcional",
+            "step": "Paso",
+            "skip": "Saltar"
+        }
+    },
+    "userTypes": {
+        "admin": "Administrador",
+        "user": "Usuario",
+        "business": "Empresa",
+        "client": "Cliente",
+        "employee": "Empleado",
+        "volunteer": "Voluntario",
+        "redCross": "Cruz Roja"
+    },
+    "address": {
+        "country": "País",
+        "city": "Ciudad",
+        "address": "Dirección",
+        "postalCode": "Código postal",
+        "neighborhood": "Barrio",
+        "street": "Calle",
+        "number": "Número",
+        "floorOrApartment": "Piso o apartamento"    
+    },
+    "positions": {
+        "admin": "Administrador",
+        "business": "Empresa",
+        "business_representative": "Representante de empresa",
+        "super_admin": "Super administrador",
+        "volunteer": "Voluntario"
     }
 }

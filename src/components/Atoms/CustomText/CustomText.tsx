@@ -36,7 +36,7 @@ const CustomText = ({ texto, variante, mandatory, icon }: PropiedadesEtiqueta) =
             ? 'body1'
             : variante === 'subtitulo'
             ? 'h6'
-            : 'subtitle2'
+            : 'caption'
         }
         sx={style}
       >

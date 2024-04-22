@@ -50,10 +50,12 @@ const ManagmentLayout = ({
         </div>
       )}
 
-      {inputBar && <>{inputBar}</>}
-
-      <EmptyBox height={30} width={100} />
-
+      {inputBar && (
+        <>
+          {inputBar}
+          <EmptyBox height={30} width={100} />
+        </>
+      )}
       {generalContents}
     </Container>
   );

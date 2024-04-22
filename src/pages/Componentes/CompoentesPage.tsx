@@ -5,6 +5,7 @@ import {
   CustomInput,
   CustomLabelGroup,
   CustomSelect,
+  CustomStepper,
   CustomSwitch,
   CustomText,
   EmptyBox,
@@ -19,6 +20,8 @@ const CompoentesPage = () => {
   const handleSwitchState = () => {
     setSwitchState(!switchState);
   };
+
+  const [step, setStep] = useState(0);
 
   return (
     <Container>
@@ -155,6 +158,28 @@ const CompoentesPage = () => {
           texto1="Texto 1"
           texto2="CustomLabelGroup con icono"
           icon={<AccountCircle />}
+        />
+      </Container>
+
+      <CustomText texto="Organism CustomStepper" variante="subtitulo" />
+      <Container>
+        <CustomStepper
+          stepsData={[
+            {
+              id: 1,
+              label: 'step 1',
+              completed: false,
+              optional: false,
+            },
+            {
+              id: 2,
+              label: 'step 2',
+              completed: false,
+              optional: true,
+            },
+          ]}
+          activeStep={step}
+          setActiveStep={setStep}
         />
       </Container>
     </Container>

@@ -1,6 +1,7 @@
 .custom-input-small,
 .custom-input-medium,
-.custom-input-large {
+.custom-input-large
+{
   /* Estilos comunes para todos los tamaños */
   font-size: 16px;
   padding: 8px 12px;
