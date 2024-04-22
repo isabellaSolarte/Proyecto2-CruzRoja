@@ -1,128 +1,201 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import { useTranslation } from 'react-i18next';
-import CustomInput from '../../../components/Atoms/CustomInput/CustomInput';
 import { Box, Grid } from '@mui/material';
 import { UserModel } from '../../../models/UserModels/UserModel';
 import useGeneralUserDataForm from '../Hooks/useGeneralUserDataForm';
-import { Fragment } from 'react/jsx-runtime';
-
+import {
+  CustomButton,
+  EmptyBox,
+  CustomSelect,
+  LabeledInput,
+  CustomText,
+  ErrorText,
+} from '../../../components';
+import { useEffect } from 'react';
+import { RoleCard } from '../Components';
+import BadgeOutlinedIcon from '@mui/icons-material/BadgeOutlined';
 interface UserDataFormProps {
   // eslint-disable-next-line no-unused-vars
   updateUserData: (userData: UserModel) => void;
+  handleNextStep: () => void;
+  handleStepBack: () => void;
+  userData: UserModel;
 }
 
-const UserDataForm = ({ updateUserData }: UserDataFormProps) => {
-  const { register, errors, handleSubmit, onSubmit, addRole, fields } =
-    useGeneralUserDataForm(updateUserData);
+const UserDataForm = ({ updateUserData, handleNextStep, handleStepBack }: UserDataFormProps) => {
+  const {
+    register,
+    handleSubmit,
+    onSubmit,
+    addRole,
+    validateData,
+    loadRoles,
+    remove,
+    errors,
+    roleList,
+    documents,
+    control,
+    t,
+  } = useGeneralUserDataForm(updateUserData);
 
-  const { t } = useTranslation('commons');
+  const handleNextButton = () => {
+    validateData()
+      .then(valid => {
+        if (valid) handleNextStep();
+      })
+      .catch(() => {});
+  };
+
+  useEffect(() => {
+    void loadRoles();
+  }, []);
+
   return (
     <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Grid sx={{ columnGap: 2, rowGap: 4 }} container>
-          <Grid item sm={6} xs={12}>
-            <CustomInput
+        <Grid container>
+          <Grid item xs={12} paddingTop={3}>
+            <CustomText texto={'Información personal'} variante={'subtitulo'} />
+          </Grid>
+
+          <Grid item sm={6} xs={12} padding={2}>
+            <LabeledInput
+              label={t('usersPages.userForm.name')}
               placeholder={t('usersPages.userForm.name')}
-              size={'large'}
+              mandatory
+              type="text"
               props={register('names')}
             />
-            {errors.names && <span>{errors.names.message}</span>}
+            {errors.names && <ErrorText error={errors.names.message} />}
           </Grid>
-          <Grid item sm={6} xs={12}>
-            <CustomInput
+          <Grid item sm={6} xs={12} padding={2}>
+            <LabeledInput
+              label={t('usersPages.userForm.lastname')}
               placeholder={t('usersPages.userForm.lastname')}
-              size={'large'}
+              mandatory
+              type="text"
               props={register('lastNames')}
             />
-            {errors.lastNames && <span>{errors.lastNames.message}</span>}
+            {errors.lastNames && <ErrorText error={errors.lastNames.message} />}
           </Grid>
 
-          <Grid item sm={2} xs={12}>
-            <CustomInput
-              placeholder={t('usersPages.userForm.documentType')}
-              size={'large'}
-              props={register('documentType')}
+          <Grid item sm={6} xs={12} padding={2}>
+            <CustomText texto={'Documento'} variante={'texto'} color={'#fff'} />
+            <CustomSelect
+              label={t('usersPages.userForm.documentType')}
+              labelId="documentType"
+              options={documents}
+              control={control}
+              {...register('documentType')}
             />
-            {errors.documentType && <span>{errors.documentType.message}</span>}
+            {errors.documentType && <ErrorText error={errors.documentType.message} />}
           </Grid>
-          <Grid item sm={4} xs={12}>
-            <CustomInput
+
+          <Grid item sm={6} xs={12} padding={2}>
+            <LabeledInput
+              label={t('usersPages.userForm.documentNumber')}
               placeholder={t('usersPages.userForm.documentNumber')}
-              size={'large'}
+              mandatory
+              type="number"
               props={register('documentNumber')}
+              icon={<BadgeOutlinedIcon />}
             />
-            {errors.documentNumber && <span>{errors.documentNumber.message}</span>}
+            {errors.documentNumber && <ErrorText error={errors.documentNumber.message} />}
           </Grid>
-          <Grid item sm={6} xs={12}>
-            <CustomInput
+
+          <Grid item xs={12} paddingTop={3}>
+            <CustomText texto={'Información de contacto'} variante={'subtitulo'} />
+          </Grid>
+
+          <Grid item sm={6} xs={12} padding={2}>
+            <LabeledInput
+              label={t('usersPages.userForm.personalPhone')}
               placeholder={t('usersPages.userForm.personalPhone')}
-              size={'large'}
+              mandatory
+              type="text"
               props={register('personalPhone')}
             />
-            {errors.personalPhone && <span>{errors.personalPhone.message}</span>}
+            {errors.personalPhone && <ErrorText error={errors.personalPhone.message} />}
           </Grid>
 
-          <Grid item sm={12} xs={12}>
-            <CustomInput
+          <Grid item sm={6} xs={12} padding={2}>
+            <LabeledInput
+              label={t('usersPages.userForm.email')}
               placeholder={t('usersPages.userForm.email')}
-              size={'large'}
+              mandatory
+              type="email"
               props={register('personalEmail')}
             />
-            {errors.personalEmail && <span>{errors.personalEmail.message}</span>}
+            {errors.personalEmail && <ErrorText error={errors.personalEmail.message} />}
           </Grid>
-          <Grid item sm={12} xs={12}>
-            <CustomInput
+
+          <Grid item xs={12} paddingTop={3}>
+            <CustomText texto={'Datos de usuario'} variante={'subtitulo'} />
+          </Grid>
+          <Grid item sm={12} xs={12} padding={2}>
+            <LabeledInput
+              label={t('usersPages.userForm.username')}
               placeholder={t('usersPages.userForm.username')}
-              size={'large'}
+              mandatory
+              type="text"
               props={register('username')}
             />
-            {errors.username && <span>{errors.username.message}</span>}
+            {errors.username && <ErrorText error={errors.username.message} />}
           </Grid>
-          <Grid item sm={6} xs={12}>
-            <CustomInput
+
+          <Grid item sm={12} xs={12} padding={2}>
+            <LabeledInput
+              label={t('usersPages.userForm.password')}
               placeholder={t('usersPages.userForm.password')}
-              size={'large'}
+              mandatory
+              type="password"
               props={register('password')}
             />
-            {errors.password && <span>{errors.password.message}</span>}
+            {errors.password && <ErrorText error={errors.password.message} />}
           </Grid>
-          <Grid item sm={6} xs={12}>
-            <CustomInput
-              placeholder={t('usersPages.userForm.password')}
-              size={'large'}
-              props={register('password')}
+
+          <Grid item sm={12} xs={12} padding={2}>
+            <LabeledInput
+              label={t('usersPages.userForm.passwordConfirmation')}
+              placeholder={t('usersPages.userForm.passwordConfirmation')}
+              mandatory
+              type="password"
             />
-            {errors.password && <span>{errors.password.message}</span>}
           </Grid>
-          <Grid item sm={6} xs={12}>
-            <CustomInput
-              placeholder={t('usersPages.userForm.password')}
-              size={'large'}
-              props={register('state')}
+
+          <Grid item xs={12} paddingTop={3}>
+            <CustomText texto={'Niveles de acceso'} variante={'subtitulo'} />
+          </Grid>
+          <Grid item sm={12} xs={12} padding={2}>
+            <CustomText
+              texto={'Para seleccionar un rol active el boton switch a la derecha.'}
+              variante={'texto'}
             />
-            {errors.state && <span>{errors.state.message}</span>}
-          </Grid>
-          <Grid item sm={6} xs={12}>
-            {fields.map(field => (
-              <Fragment key={field.id}>{JSON.stringify(field)}</Fragment>
+            {roleList.map((rol, index) => (
+              <RoleCard
+                key={rol.idRole}
+                rol={rol}
+                positiveAction={addRole}
+                negativeAction={() => {
+                  remove(index);
+                }}
+              />
             ))}
-            {errors.roles && <span>{errors.roles.message}</span>}
+            {errors.roles && <ErrorText error={errors.roles.message} />}
           </Grid>
-          <button
-            type="button"
-            onClick={() => {
-              addRole({
-                idRole: 0,
-                typeRole: 'rol de ejemplo',
-                permissions: [{ idPermission: 0, name: 'permiso 1', description: 'para usuarios' }],
-              });
-            }}
-          >
-            append
-          </button>
         </Grid>
 
-        <input type="submit" />
+        <EmptyBox height={50} width={10} />
+
+        <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+          <CustomButton content={t('components.stepper.back')} onClick={handleStepBack} />
+          <CustomButton
+            type="submit"
+            content={t('components.stepper.next')}
+            onClick={handleNextButton}
+            color="info"
+          />
+        </Box>
       </form>
     </Box>
   );

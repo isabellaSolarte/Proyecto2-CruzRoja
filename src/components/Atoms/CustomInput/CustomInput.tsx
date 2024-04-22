@@ -6,6 +6,7 @@ interface CustomInputProps {
   size: 'small' | 'medium' | 'large'; // Define size prop
   type?: 'text' | 'password' | 'email' | 'number' | 'submit'; // Define type prop
   updateText?: Dispatch<SetStateAction<string>>;
+  value?: string | number;
   props?: object;
 }
 /*Ejmplo para usar el input 
@@ -29,16 +30,18 @@ const CustomInput = ({
   };
 
   return (
-    <input
-      type={type}
-      placeholder={placeholder}
-      className={inputClass}
-      style={{
-        width: '100%',
-      }}
-      onChange={onChange}
-      {...props}
-    />
+    <div>
+      <input
+        type={type}
+        placeholder={placeholder}
+        className={inputClass}
+        style={{
+          width: '100%',
+        }}
+        onChange={onChange}
+        {...props}
+      />
+    </div>
   );
 };
 

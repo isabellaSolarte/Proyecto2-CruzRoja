@@ -1,153 +1,222 @@
+/* eslint-disable @typescript-eslint/use-unknown-in-catch-callback-variable */
+/* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { useTranslation } from 'react-i18next';
-import CustomInput from '../../../components/Atoms/CustomInput/CustomInput';
-import { FieldErrors, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form';
 import { Box, Grid } from '@mui/material';
-import CustomButton from '../../../components/Atoms/CustomButton/CustomButton';
+import useBusinessUserDataForm from '../Hooks/useBusinessUserDataForm';
+import { BusinessRegisterFormType } from '../types';
+import {
+  EmptyBox,
+  CustomButton,
+  CustomSelect,
+  ErrorText,
+  LabeledInput,
+  CustomText,
+} from '../../../components';
+import { useEffect } from 'react';
 
 interface UserDataFormProps {
-  // eslint-disable-next-line no-unused-vars
-  register: UseFormRegister<{
-    address: {
-      number: string;
-      street: string;
-      floorOrApartment: string;
-      neighborhood: string;
-      city: string;
-      country: string;
-    };
-    companyNit: number;
-    companyName: string;
-    companyPhone: string;
-    companyEmail: string;
-  }>;
-  errors: FieldErrors<{
-    address: {
-      number: string;
-      street: string;
-      floorOrApartment: string;
-      neighborhood: string;
-      city: string;
-      country: string;
-    };
-    companyNit: number;
-    companyName: string;
-    companyPhone: string;
-    companyEmail: string;
-  }>;
-  handleSubmit: UseFormHandleSubmit<{
-    address: {
-      number: string;
-      street: string;
-      floorOrApartment: string;
-      neighborhood: string;
-      city: string;
-      country: string;
-    };
-    companyNit: number;
-    companyName: string;
-    companyPhone: string;
-    companyEmail: string;
-  }>;
-  // eslint-disable-next-line no-unused-vars
-  onSubmit: (data: unknown) => Promise<void>;
+  updateUserData: (userData: BusinessRegisterFormType) => void;
+  handleNextStep: () => void;
+  handleStepBack: () => void;
 }
 
-const BusinessUserDataForm = ({ register, errors, handleSubmit, onSubmit }: UserDataFormProps) => {
+const BusinessUserDataForm = ({
+  updateUserData,
+  handleNextStep,
+  handleStepBack,
+}: UserDataFormProps) => {
   const { t } = useTranslation('commons');
+  const {
+    register,
+    handleSubmit,
+    onSubmit,
+    validateData,
+    loadCountries,
+    loadCities,
+    updateSelectedCountry,
+    countryList,
+    currentSelectedCountry,
+    cities,
+    control,
+    errors,
+  } = useBusinessUserDataForm(updateUserData);
+
+  const handleNextButton = () => {
+    validateData()
+      .then(valid => {
+        if (valid) handleNextStep();
+      })
+      .catch(() => {});
+  };
+
+  /** CARGAR LOS PAISES EN LA PRIMERA CARGA DE LA VISTA */
+  useEffect(() => {
+    void loadCountries();
+  }, []);
+
+  /** CARGAR LAS CIUDADES DEL PAIS SELECCIONADO */
+  useEffect(() => {
+    if (currentSelectedCountry) void loadCities(currentSelectedCountry);
+  }, [currentSelectedCountry]);
+
   return (
     <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Grid sx={{ columnGap: 2, rowGap: 4 }} container>
-          <Grid item sm={6} xs={12}>
-            <CustomInput
+        <Grid container>
+          <Grid item xs={12} paddingTop={3}>
+            <CustomText texto={'Datos de la empresa'} variante={'subtitulo'} />
+          </Grid>
+
+          <Grid item padding={2} sm={6} xs={12}>
+            <LabeledInput
+              label={t('usersPages.userForm.companyName')}
               placeholder={t('usersPages.userForm.companyName')}
-              size={'large'}
               props={register('companyName')}
+              type={'text'}
+              mandatory
             />
-            {errors.companyName && <span>{errors.companyName.message}</span>}
+            {errors.companyName && <ErrorText error={errors.companyName.message} />}
           </Grid>
-          <Grid item sm={6} xs={12}>
-            <CustomInput
+
+          <Grid item padding={2} sm={6} xs={12}>
+            <LabeledInput
+              label={t('usersPages.userForm.companyNit')}
               placeholder={t('usersPages.userForm.companyNit')}
-              size={'large'}
               props={register('companyNit')}
+              type={'number'}
+              mandatory
             />
-            {errors.companyNit && <span>{errors.companyNit.message}</span>}
+            {errors.companyNit && <ErrorText error={errors.companyNit.message} />}
           </Grid>
-          <Grid item sm={6} xs={12}>
-            <CustomInput
+
+          <Grid item padding={2} sm={6} xs={12}>
+            <LabeledInput
+              label={t('usersPages.userForm.companyPhone')}
               placeholder={t('usersPages.userForm.companyPhone')}
-              size={'large'}
               props={register('companyPhone')}
+              type={'text'}
+              mandatory
             />
-            {errors.companyPhone && <span>{errors.companyPhone.message}</span>}
+            {errors.companyPhone && <ErrorText error={errors.companyPhone.message} />}
           </Grid>
-          <Grid item sm={6} xs={12}>
-            <CustomInput
+
+          <Grid item padding={2} sm={6} xs={12}>
+            <LabeledInput
+              label={t('usersPages.userForm.companyEmail')}
               placeholder={t('usersPages.userForm.companyEmail')}
-              size={'large'}
               props={register('companyEmail')}
+              type={'email'}
+              mandatory
             />
-            {errors.companyEmail && <span>{errors.companyEmail.message}</span>}
+            {errors.companyEmail && <ErrorText error={errors.companyEmail.message} />}
           </Grid>
-          <Grid item sm={2} xs={12}>
-            <CustomInput
-              placeholder={t('address.country')}
-              size={'large'}
-              props={register('address.country')}
+
+          <Grid item xs={12} paddingTop={5}>
+            <CustomText texto={'Datos de ubicación'} variante={'subtitulo'} />
+          </Grid>
+
+          {/* <Grid item padding={2} paddingTop={0} sm={6} xs={12}>
+            <CustomText texto={'Documento'} variante={'texto'} color={'#fff'} />
+            <CustomSelect
+              label={t('address.country')}
+              labelId="address.country"
+              options={countryList}
+              control={control}
+              onChangeAction={(value: string) => {
+                updateSelectedCountry(value);
+              }}
+              {...register('address.country')}
             />
-            {errors.address && <span>{errors.address.country?.message}</span>}
-          </Grid>
-          <Grid item sm={4} xs={12}>
-            <CustomInput
-              placeholder={t('address.city')}
-              size={'large'}
-              props={register('address.city')}
+            {errors.address && <ErrorText error={errors.address.country?.message} />}
+          </Grid> */}
+
+          <Grid item padding={2} paddingTop={0} sm={6} xs={12}>
+            <CustomText texto={'Documento'} variante={'texto'} color={'#fff'} />
+            <CustomSelect
+              label={t('address.country')}
+              labelId="address.country"
+              options={countryList}
+              control={control}
+              onChangeAction={(value: string) => {
+                updateSelectedCountry(value);
+              }}
+              {...register('address.country')}
             />
-            {errors.address && <span>{errors.address.city?.message}</span>}
+            {/* {errors.address && <ErrorText error={errors.address.country?.message} />} */}
           </Grid>
-          <Grid item sm={6} xs={12}>
-            <CustomInput
+
+          <Grid item padding={2} paddingTop={0} sm={6} xs={12}>
+            <CustomText texto={'Documento'} variante={'texto'} color={'#fff'} />
+            <CustomSelect
+              label={t('address.city')}
+              labelId="address.city"
+              options={cities}
+              control={control}
+              disabled={cities.length === 0}
+              {...register('address.city')}
+            />
+            {/* {errors.address && <ErrorText error={errors.address.city?.message} />} */}
+          </Grid>
+
+          <Grid item padding={2} sm={6} xs={12}>
+            <LabeledInput
+              label={t('address.neighborhood')}
               placeholder={t('address.neighborhood')}
-              size={'large'}
+              mandatory
+              type="text"
               props={register('address.neighborhood')}
             />
-            {errors.address && <span>{errors.address.neighborhood?.message}</span>}
+            {errors.address && <ErrorText error={errors.address.neighborhood?.message} />}
           </Grid>
-          <Grid item sm={6} xs={12}>
-            <CustomInput
+
+          <Grid item padding={2} sm={6} xs={12}>
+            <LabeledInput
+              label={t('address.street')}
               placeholder={t('address.street')}
-              size={'large'}
+              mandatory
+              type="text"
               props={register('address.street')}
             />
-            {errors.address && <span>{errors.address.street?.message}</span>}
+            {errors.address && <ErrorText error={errors.address.street?.message} />}
           </Grid>
-          <Grid item sm={6} xs={12}>
-            <CustomInput
+
+          <Grid item padding={2} sm={6} xs={12}>
+            <LabeledInput
+              label={t('address.number')}
               placeholder={t('address.number')}
-              size={'large'}
+              mandatory
+              type="text"
               props={register('address.number')}
             />
-            {errors.address && <span>{errors.address.number?.message}</span>}
+            {errors.address && <ErrorText error={errors.address.number?.message} />}
           </Grid>
-          <Grid item sm={6} xs={12}>
-            <CustomInput
+
+          <Grid item padding={2} sm={6} xs={12}>
+            <LabeledInput
+              label={t('address.floorOrApartment')}
               placeholder={t('address.floorOrApartment')}
-              size={'large'}
+              mandatory
+              type="text"
               props={register('address.floorOrApartment')}
             />
-            {errors.address && <span>{errors.address.floorOrApartment?.message}</span>}
+            {errors.address && <ErrorText error={errors.address.floorOrApartment?.message} />}
           </Grid>
         </Grid>
 
-        <CustomButton
-          type="submit"
-          variant="contained"
-          color="primary"
-          content={'validar'}
-          onClick={() => {}}
-        />
+        <EmptyBox height={50} width={10} />
+
+        <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+          <CustomButton content={t('components.stepper.back')} onClick={handleStepBack} />
+          <CustomButton
+            type="submit"
+            content={t('components.stepper.next')}
+            onClick={handleNextButton}
+            color="info"
+          />
+        </Box>
       </form>
     </Box>
   );

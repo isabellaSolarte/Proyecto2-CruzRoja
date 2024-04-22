@@ -63,7 +63,7 @@ export const theme: ThemeOptions = createTheme({
         root: {
           margin: 0,
           '& .MuiGrid-item': {
-            padding: '0',
+            //padding: '1.5rem 1rem',
           },
         },
       },
@@ -85,6 +85,20 @@ export const theme: ThemeOptions = createTheme({
           '&.Mui-checked': {
             color: '#65B741',
           },
+        },
+      },
+    },
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          backgroundColor: '#fff',
+          color: '#3e8022',
+          fontSize: '14px',
+          padding: '10px',
+          borderRadius: '10px',
+          border: '1px solid #3e8022',
+          fontWeight: 'bold',
+          widht: 'auto',
         },
       },
     },

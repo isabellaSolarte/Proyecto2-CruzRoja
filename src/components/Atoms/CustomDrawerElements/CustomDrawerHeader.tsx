@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { IconButton, Typography, useTheme} from '@mui/material';
+import { IconButton, Typography, useTheme } from '@mui/material';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Theme } from '@mui/material/styles';
-
 
 interface CustomDrawerHeaderProps {
   open: boolean;
@@ -17,7 +15,7 @@ interface CustomDrawerHeaderProps {
  * @returns
  */
 const CustomDrawerHeader = ({ open, handleDrawerState }: CustomDrawerHeaderProps) => {
-  const theme = useTheme<Theme>();
+  const theme = useTheme();
   return (
     <div
       style={{
@@ -33,7 +31,7 @@ const CustomDrawerHeader = ({ open, handleDrawerState }: CustomDrawerHeaderProps
           opacity: open ? 1 : 0,
           transition: 'width 0.5s, opacity 0.5s',
           paddingLeft: open ? '1rem' : 0,
-          color: theme.backgroundContentColors?.contentBox
+          color: theme.backgroundContentColors?.contentBox,
         }}
       >
         FootPrint

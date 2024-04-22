@@ -6,27 +6,24 @@ import useRegisterUser from './Hooks/useRegisterUser';
 import { useEffect } from 'react';
 import UserDataForm from './Form/UserDataForm';
 import BusinessUserDataForm from './Form/BusinessUserDataForm';
-import useBusinessUserDataForm from './Hooks/useBusinessUserDataForm';
 import VolunterUserDataForm from './Form/VolunterUserDataForm';
+import { useTranslation } from 'react-i18next';
+import { ValidateUserData } from './Form';
 
 const RegisterUserPage = () => {
+  const { t } = useTranslation('commons');
   const {
+    userData,
     userType,
     currentStep,
     stepList,
-    hanldeCompleteStep,
-    setCurrentStep,
     updateUserSteps,
     handleUserType,
     updateUserData,
+    handleNextStep,
+    handleStepBack,
+    createUser,
   } = useRegisterUser();
-
-  const {
-    register: registerBusinesss,
-    errors: businessErrors,
-    handleSubmit: handleSubmitBusiness,
-    onSubmit: onSubmirBusiness,
-  } = useBusinessUserDataForm();
 
   useEffect(() => {
     updateUserSteps();
@@ -34,28 +31,47 @@ const RegisterUserPage = () => {
 
   return (
     <ManagmentLayout
-      title={<CustomText texto="Creación de usuario" variante="titulo" />}
+      title={<CustomText texto={t('Creación de usuario')} variante="titulo" />}
       generalContents={
-        <CustomStepper
-          completeStep={hanldeCompleteStep}
-          activeStep={currentStep}
-          setActiveStep={setCurrentStep}
-          stepsData={stepList}
-        >
+        <CustomStepper activeStep={currentStep} stepsData={stepList}>
           {currentStep === 0 && (
-            <SelectUserForm handleUserType={handleUserType} userType={userType} />
+            <SelectUserForm
+              handleUserType={handleUserType}
+              userType={userType}
+              handleNext={handleNextStep}
+            />
           )}
-          {currentStep === 1 && <UserDataForm {...{ updateUserData }} />}
+          {currentStep === 1 && (
+            <UserDataForm
+              {...{ updateUserData }}
+              handleNextStep={handleNextStep}
+              handleStepBack={handleStepBack}
+              userData={userData}
+            />
+          )}
           {currentStep === 2 && userType === 'business' && (
             <BusinessUserDataForm
-              errors={businessErrors}
-              handleSubmit={handleSubmitBusiness}
-              onSubmit={onSubmirBusiness}
-              register={registerBusinesss}
+              updateUserData={updateUserData}
+              handleNextStep={handleNextStep}
+              handleStepBack={handleStepBack}
             />
           )}
 
-          {currentStep === 2 && userType === 'volunter' && <VolunterUserDataForm />}
+          {currentStep === 2 && userType === 'volunter' && (
+            <VolunterUserDataForm
+              updateVolunterUserData={updateUserData}
+              handleNextStep={handleNextStep}
+              handleStepBack={handleStepBack}
+            />
+          )}
+
+          {currentStep === 3 && (
+            <ValidateUserData
+              userData={userData}
+              handleStepBack={handleStepBack}
+              handleNextStep={createUser}
+            />
+          )}
         </CustomStepper>
       }
     />
