@@ -45,7 +45,7 @@ export const userSchemaValidation = yup.object().shape({
     .array()
     .of(
       yup.object().shape({
-        idRole: yup
+        id: yup
           .number()
           .moreThan(0, 'roles.of.idRole.moreThan')
           .required('roles.of.idRole.required'),

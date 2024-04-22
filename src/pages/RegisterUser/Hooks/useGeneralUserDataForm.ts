@@ -36,7 +36,7 @@ const useGeneralUserDataForm = (
 
   const addRole = (newRole: RoleModel) => {
     append(newRole);
-    register(`roles.${fields.length}.idRole`);
+    register(`roles.${fields.length}.id`);
     console.log('error', errors);
   };
 
