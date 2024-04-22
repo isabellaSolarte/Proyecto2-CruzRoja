@@ -24,7 +24,16 @@ const CreateRolePage = () => {
   const [colorDialog, setColorDialog] = useState('green');
   const [colorButton, setColorButton] = useState<Color>('success');
 
-  const openDialog = (rowData: any) => {
+
+  interface RowData {
+    id: number;
+    companyName: string;
+    names: string;
+    switchState: boolean;
+    // Agrega más propiedades si es necesario
+  }
+
+  const openDialog = (rowData: RowData) => {
     console.log('datos row', rowData);
     
     const {switchState} = rowData;
@@ -50,14 +59,14 @@ const CreateRolePage = () => {
     closeDialog();
   };
   
-  const handleContinueButtonClick = (rowData: any) => {
+  const handleContinueButtonClick = (rowData: RowData) => {
     console.log("Continue button clicked");
     const {id} = rowData;
     console.log("Editar clickeado", id);
     closeDialog();
   };
 
-  const handleEditar = (rowData: any) => {
+  const handleEditar = (rowData: RowData) => {
     // Lógica para manejar la acción de editar
     const {id} = rowData;
     console.log("Editar clickeado", id);
@@ -69,7 +78,7 @@ const CreateRolePage = () => {
 
     console.log("Observar clickeado");
   };
-  const handleSwitchState = (rowData: any) => {
+  const handleSwitchState = (rowData: RowData) => {
     // TODO hacer la peticion actulizar estado
     const {switchState} = rowData;
     console.log("Switch clickeado", switchState);
