@@ -86,7 +86,6 @@ const CreateRolePage = () => {
     rowData.switchState = !switchState;
     console.log("Switch clickeado", rowData); */
   };
-  
 
   return <ManagmentLayout 
   title={<CustomText texto='ss' variante="titulo" />}

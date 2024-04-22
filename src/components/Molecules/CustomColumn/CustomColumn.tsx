@@ -22,9 +22,9 @@ interface CustomColumnProps {
     color: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
     icon?: React.ReactElement;
     cellStyle?: React.CSSProperties;
-    onClick?: () => void;
+    onClick?: (rowData: GridRenderCellParams['row']) => void;
   }>;
-  onClick?: () => void;
+  onClick?: (rowData: GridRenderCellParams['row']) => void;
 }
 
 const CustomColumn = ({
