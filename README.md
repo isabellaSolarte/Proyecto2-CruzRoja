@@ -2,7 +2,7 @@ CRUZ ROJA FOOT PRINT
 
 Configuración inicial
 
-1. npm i
+1. npm i --force
 2. configurar prettier y eslint con los archivos de configuración en la raíz del proyecto
 3. npm run dev para ejecutar el proyecto
 
@@ -29,3 +29,8 @@ GitFlow.
 leer - https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow - https://www.freecodecamp.org/news/practical-git-and-git-workflows/
 
 Fuente para los íconos: https://mui.com/material-ui/material-icons/
+
+API's externas
+
+- https://documenter.getpostman.com/view/1134062/T1LJjU52#2e131a94-a28e-4cfe-95fe-d10c0e40eae7
+- https://restcountries.com/

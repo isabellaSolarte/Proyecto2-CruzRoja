@@ -35,7 +35,7 @@ const CustomButton = ({
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: buttonSide === 'end' ? 'row-reverse' : 'row',
-        color: '#fff',
+        color: color === 'primary' ? '#000' : '#fff',
         gap: 1,
         ...sx,
       }}

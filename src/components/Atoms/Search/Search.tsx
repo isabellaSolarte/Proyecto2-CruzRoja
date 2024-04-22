@@ -1,5 +1,6 @@
-import { IconButton, InputBase, Paper, SxProps } from "@mui/material";
-import { useState } from "react";
+/* eslint-disable no-unused-vars */
+import { IconButton, InputBase, Paper, SxProps } from '@mui/material';
+import { useState } from 'react';
 import ClearIcon from '@mui/icons-material/Clear';
 import SearchIcon from '@mui/icons-material/Search';
 
@@ -22,22 +23,19 @@ interface SearchProps {
  * @param {SxProps} sx - Opcional. Las propiedades de estilo de MUI para personalizar el componente.
  * @returns {JSX.Element} El componente de búsqueda.
  */
-const Search: React.FC<SearchProps> = ({ placeholder='', onSearch, sx }) => {
+const Search: React.FC<SearchProps> = ({ placeholder = '', onSearch, sx }) => {
   const [searchText, setSearchText] = useState('');
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value);
-    console.log('Texto de búsqueda:', event.target.value);
   };
 
   const handleClearSearch = () => {
     setSearchText('');
-    console.log('Limpiando búsqueda');
   };
 
   const handleSearch = () => {
     // Lógica para realizar la búsqueda
-    console.log('Realizando búsqueda:', searchText);
     if (onSearch) {
       onSearch(searchText);
     }

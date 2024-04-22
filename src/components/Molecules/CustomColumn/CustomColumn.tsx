@@ -53,7 +53,7 @@ const CustomColumn = ({
               variant={button.variant}
               color={button.color}
               icon={button.icon}
-              onClick={() => button.onClick && button.onClick(params.row)}
+              onClick={() => {}}
             />
           ))}
         </div>

@@ -4,8 +4,6 @@ import { AccountCircle, Settings } from '@mui/icons-material';
 import {
   CustomInput,
   CustomLabelGroup,
-  CustomSelect,
-  CustomStepper,
   CustomSwitch,
   CustomText,
   EmptyBox,
@@ -21,32 +19,23 @@ const CompoentesPage = () => {
     setSwitchState(!switchState);
   };
 
+  //const [step, setStep] = useState(0);
+
   return (
     <Container>
       <CustomText texto="Atomo CustomButton" variante="subtitulo" />
       <Container sx={{ display: 'flex', gap: 2 }}>
+        <CustomButton content="boton" onClick={() => {}} variant="contained" color="success" />
         <CustomButton
           content="boton"
-          onClick={() => {
-            console.log('click en boton de exíto');
-          }}
-          variant="contained"
-          color="success"
-        />
-        <CustomButton
-          content="boton"
-          onClick={() => {
-            console.log('click en boton de advertencia');
-          }}
+          onClick={() => {}}
           variant="contained"
           color="warning"
           icon={<AccountCircle />}
         />
         <CustomButton
           content="boton"
-          onClick={() => {
-            console.log('click en boton de informacion');
-          }}
+          onClick={() => {}}
           variant="contained"
           color="info"
           icon={<AccountCircle />}
@@ -54,9 +43,7 @@ const CompoentesPage = () => {
         />
         <CustomButton
           content="boton"
-          onClick={() => {
-            console.log('click en boton de informacion');
-          }}
+          onClick={() => {}}
           variant="contained"
           color="error"
           icon={<AccountCircle />}
@@ -64,9 +51,7 @@ const CompoentesPage = () => {
         />
         <CustomButton
           content="boton"
-          onClick={() => {
-            console.log('click en boton de informacion');
-          }}
+          onClick={() => {}}
           variant="contained"
           color="secondary"
           icon={<AccountCircle />}
@@ -74,9 +59,7 @@ const CompoentesPage = () => {
         />
         <CustomButton
           content="boton"
-          onClick={() => {
-            console.log('click en boton de informacion');
-          }}
+          onClick={() => {}}
           variant="contained"
           color="inherit"
           icon={<AccountCircle />}
@@ -86,13 +69,13 @@ const CompoentesPage = () => {
 
       <CustomText texto="Atomo CustomSelect" variante="subtitulo" />
       <Container sx={{ display: 'flex', gap: 2 }}>
-        <CustomSelect
+        {/* <CustomSelect
           label="Seleccionar elemento"
           options={[
             { label: 'carro', value: 1 },
             { label: 'moto', value: 2 },
           ]}
-        />
+        /> */}
       </Container>
 
       <CustomText texto="Atomo CustomText" variante="subtitulo" />
@@ -122,19 +105,12 @@ const CompoentesPage = () => {
 
       <CustomText texto="Atomo SearchBar" variante="subtitulo" />
       <Container>
-        <Search
-          placeholder="search component"
-          onSearch={() => {
-            console.log('invocar funcion de busqueda');
-          }}
-        />
+        <Search placeholder="search component" onSearch={() => {}} />
         <EmptyBox height={10} width={18} />
         <SearchBar
           placeholder="search component 2 "
           additionalElements={<Settings />}
-          onSearch={() => {
-            console.log('invocar funcion de busqueda');
-          }}
+          onSearch={() => {}}
         />
       </Container>
 
@@ -161,7 +137,24 @@ const CompoentesPage = () => {
 
       <CustomText texto="Organism CustomStepper" variante="subtitulo" />
       <Container>
-        <CustomStepper optinalStep={[]} />
+        {/* <CustomStepper
+          stepsData={[
+            {
+              id: 1,
+              label: 'step 1',
+              completed: false,
+              optional: false,
+            },
+            {
+              id: 2,
+              label: 'step 2',
+              completed: false,
+              optional: true,
+            },
+          ]}
+          activeStep={step}
+          setActiveStep={setStep}
+        /> */}
       </Container>
     </Container>
   );

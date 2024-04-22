@@ -1,20 +1,26 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React, { useState } from 'react';
 import { Box } from '@mui/material';
-import InputLabel from '@mui/material/InputLabel';
+import InputLabel, { inputLabelClasses } from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { SxProps } from '@mui/material';
 import { OptionSelector } from '../../../models';
+import { Control, Controller } from 'react-hook-form';
 
 interface CustomSelectProps {
   options: OptionSelector[];
   label: string;
+  labelId: string;
   disabled?: boolean;
   error?: boolean;
   readOnly?: boolean;
   required?: boolean;
+  onChangeAction?: Function;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  control: Control<any>;
   sx?: SxProps;
 }
 /**
@@ -42,31 +48,72 @@ interface CustomSelectProps {
  * @param {SxProps} [sx] - Las propiedades de estilo para el componente select.
  * @returns {JSX.Element} El componente CustomSelect renderizado.
  */
-const CustomSelect: React.FC<CustomSelectProps> = ({ options, label, sx, readOnly, ...rest }) => {
+const CustomSelect: React.FC<CustomSelectProps> = ({
+  options,
+  label,
+  labelId,
+  control,
+  sx,
+  readOnly,
+  onChangeAction,
+  disabled,
+  ...props
+}) => {
   const [selectedValue, setSelectedValue] = useState('');
 
   const handleChange = (event: SelectChangeEvent) => {
     setSelectedValue(event.target.value);
+    if (onChangeAction) {
+      onChangeAction(event.target.value);
+    }
   };
 
   return (
-    <Box sx={{ minWidth: 120, ...sx }}>
-      <FormControl sx={{ m: 1, minWidth: 80 }} {...rest}>
-        <InputLabel id="custom-select-label">{label}</InputLabel>
-        <Select
-          labelId="custom-select-label"
-          id="custom-select"
-          value={selectedValue}
-          label={label}
-          onChange={handleChange}
-          inputProps={{ readOnly }}
+    <Box sx={{ ...sx }}>
+      <FormControl
+        sx={{
+          minWidth: 80,
+        }}
+        {...props}
+        id={labelId}
+        fullWidth
+      >
+        <InputLabel
+          id={labelId}
+          sx={{
+            [`&.${inputLabelClasses.focused}`]: {
+              color: '#000',
+            },
+          }}
         >
-          {options.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </Select>
+          {label}
+        </InputLabel>
+        <Controller
+          name={labelId} // Should match the registered field name ('address.country')
+          control={control}
+          render={({ field }) => (
+            <Select
+              {...field}
+              variant="outlined"
+              value={selectedValue}
+              onChange={handleChange}
+              label={label}
+              inputProps={{ readOnly }}
+              disabled={disabled ? disabled : false}
+              sx={{
+                ['.MuiSelect-select']: {
+                  padding: '10px',
+                },
+              }}
+            >
+              {options.map(option => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </Select>
+          )}
+        />
       </FormControl>
     </Box>
   );
