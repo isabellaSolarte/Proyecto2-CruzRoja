@@ -4,12 +4,18 @@
         "accept": "Aceptar",
         "cancel": "Cancelar",
         "back": "Atrás",
-        "save": "Guardar"
+        "save": "Guardar",
+        "create": "Crear",
+        "edit": "Editar",
+        "view": "Observar",
+        "delete": "Eliminar",
+        "state": "Estado",
+        "search": "Buscar"
     },
     "menuOptions": {
-        "users": "usuarios",
-        "business": "empresas",
-        "roles": "roles",
+        "users": "Usuarios",
+        "business": "Empresas",
+        "roles": "Roles",
         "logout": "Cerrar sesión",
         "settings": "Configuración",
         "statistics": "Estadísticas",
@@ -20,8 +26,9 @@
     "pageTitles": {
         "users": "Gestión de usuarios",
         "business": "Gestión de empresas",
-        "roles": "Gestión de roles",
-        "createRole": "Editar - Crear rol"
+        "roles": "Gestionar roles",
+        "createRole": "Editar - Crear rol",
+        "userView": "Visualizar usuario"
     },
     "rolesPages": {
         "tabs": {
@@ -29,10 +36,97 @@
             "permissions": "Permisos"
         },
         "roleForm": {
-            "name": "Nombre",
-            "description": "Descripción",
-            "color": "Color",
-            "colorDescription": "Los usuarios con este rol tendrán este color en la aplicación"
+            "name": "Nombre del rol",
+            "description": "Descripción del rol",
+            "textDescription": "Ingresa una descripción sobre el rol",
+            "rolePageDescription": "Usa los roles para asignar permisos en el sistema"
         }
+    },
+    "usersPages": {
+        "tabs": {
+            "general": "General",
+            "roles": "Roles",
+            "business": "Empresas"
+        },
+        "userForm": {
+            "usertype": "Tipo de usuario",
+            "userTypeSelection": "Selecciona el tipo de usuario que deseas registrar.",
+            "userInfo": "Información de usuario",
+            "businessInfo": "Empresa",
+            "volunteerInfo": "Voluntario",
+            "name": "Nombre",
+            "lastname": "Apellidos",
+            "personalPhone": "Teléfono personal",
+            "email": "Email",
+            "password": "Contraseña",
+            "passwordConfirmation": "Confirmación de contraseña",
+            "role": "Rol",
+            "username": "Nombre de usuario",
+            "documentNumber": "Número de documento",
+            "documentType": "Tipo de documento",
+            "companyName": "Nombre de la empresa",
+            "companyNit": "NIT de la empresa",
+            "companyPhone": "Teléfono de la empresa",
+            "companyEmail": "Email de la empresa",
+            "position": "Cargo o posición",
+            "validateData": "Validar datos",
+            "createUser": "Crear usuario"
+        },
+        "userTable": {
+            "name": "Nombre",
+            "rol": "Rol",
+            "actions": "Acciones",
+            "users": "Usuarios"           
+        }
+    },
+    "components": {
+        "stepper": {
+            "next": "Siguiente",
+            "back": "Atrás",
+            "end": "Finalizar",
+            "optional": "Opcional",
+            "step": "Paso",
+            "skip": "Saltar"
+        }
+    },
+    "userTypes": {
+        "admin": "Administrador",
+        "user": "Usuario",
+        "business": "Empresa",
+        "client": "Cliente",
+        "employee": "Empleado",
+        "volunteer": "Voluntario",
+        "redCross": "Cruz Roja",
+        "businessRepresntative": "Representante de empresa"
+    },
+    "address": {
+        "country": "País",
+        "city": "Ciudad",
+        "address": "Dirección",
+        "postalCode": "Código postal",
+        "neighborhood": "Barrio",
+        "street": "Calle",
+        "number": "Número",
+        "floorOrApartment": "Piso o apartamento"    
+    },
+    "positions": {
+        "admin": "Administrador",
+        "business": "Empresa",
+        "business_representative": "Representante de empresa",
+        "super_admin": "Super administrador",
+        "volunteer": "Voluntario"
+    },
+    "positionsDescription": {
+        "admin": "Tiene acceso completo y control sobre la plataforma",
+        "business": "Representa una empresa en la plataforma",
+        "business_representative": "Representa a una empresa en la plataforma",
+        "super_admin": "Tiene privilegios administrativos elevados en la plataforma",
+        "volunteer": "Contribuye como voluntario en la plataforma"
+    },
+    "documents": {
+        "CC": "Cédula de ciudadanía",
+        "CE": "Cédula de extranjería",
+        "PA": "Pasaporte",
+        "TI": "Tarjeta de identidad"
     }
 }

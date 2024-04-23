@@ -13,7 +13,6 @@ interface MenuButtonProps {
 
 const MenuButton = ({ title, icon, path, collapse = false }: MenuButtonProps) => {
   const [active, setActive] = useState(false);
-  console.log(collapse);
   return (
     <NavLink
       to={path}

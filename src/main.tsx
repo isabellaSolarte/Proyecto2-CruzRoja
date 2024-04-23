@@ -5,6 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './global.css';
 import commons_es from './configs/locales/es/commons.json';
+import formErrors_es from './configs/locales/es/formErrors.json';
 import i18next from 'i18next';
 import { I18nextProvider } from 'react-i18next';
 import App from './App';
@@ -15,6 +16,7 @@ i18next.init({
   resources: {
     es: {
       commons: commons_es,
+      formErrors: formErrors_es,
     },
   },
 });
