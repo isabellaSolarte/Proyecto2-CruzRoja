@@ -130,7 +130,7 @@ const UsersPage = () => {
 
       }
     ] }),
-    CustomColumn({ field: 'state', headerName: t('generalButtonText.state'), format: 'switch', variante: 'texto'})
+    CustomColumn({ field: 'state', headerName: t('generalButtonText.state'), format: 'switch', variante: 'texto', onClick: openDialog})
   ];
   const handleCreateButtonClick = () => {
     navigate(PathNames.REGISTER_USER);

@@ -5,7 +5,6 @@ import CloseIcon from '@mui/icons-material/Close';
 
 interface CustomDialogProps {
   isOpen: boolean;
-  closeDialog: boolean;
   title: string;
   content: string;
   buttons: Array<{
@@ -18,16 +17,17 @@ interface CustomDialogProps {
   }>;
   icon?: ReactElement;
   color: string;
+  onClick: () => void;
 }
 
 const CustomDialog = ({
   isOpen,
-  closeDialog,
   content,
   buttons,
   title,
   icon,
   color,
+  onClick,
 }:CustomDialogProps) => {
   return (
     <Dialog
@@ -42,24 +42,24 @@ const CustomDialog = ({
           borderRadius: 8,
           borderStyle: 'solid',
           borderWidth: 3,
-          borderColor: 'green',
+          borderColor: color,
           boxShadow: 'none', // Add this if you want to remove the shadow
         },
       }}
       
     >
-      <DialogTitle id="alert-dialog-title" style={{ borderColor: 'green'}}>
+      <DialogTitle id="alert-dialog-title" style={{ borderColor: color}}>
         <Box style={{ display: 'flex', gap: '10px', justifyContent:'flex-end'}} >
-        {/* <CustomButton
+        <CustomButton
               content=''
               variant='contained'
               color='error'
               icon={<CloseIcon />}
-              //onClick={onClose}
-            /> */}
-          <CustomText texto='' variante="subtitulo" icon={<CloseIcon />} />
+              onClick={onClick}
+            />
+          {/* <CustomText texto='' variante="subtitulo" icon={<CloseIcon />} onClick={onClose}/> */}
         </Box>
-        <Box style={{color:`${color}`}}>
+        <Box style={{color: color}}>
           <CustomText texto={title} variante="subtitulo" icon={icon} />
         </Box>
       </DialogTitle>
