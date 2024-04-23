@@ -7,7 +7,7 @@ import { VolunterUserModel } from '../models';
 
 export const VolunteerAdapter = (externVolunteer: any): VolunterUserModel => {
   return {
-    id: externVolunteer.documentNumber,
+    documentNumber: externVolunteer.documentNumber,
     documentType: externVolunteer.documentType,
     names: externVolunteer.names,
     lastNames: externVolunteer.lastNames,
