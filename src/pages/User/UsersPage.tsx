@@ -6,6 +6,10 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { PathNames } from '../../core/PathNames'
 import { useNavigate } from 'react-router-dom';
 import useVolunteers from './Hooks/useVolunteers';
+import  { useState } from 'react';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CustomDialog from '../../components/orgamisms/CustomDialog/CustomDialog';
+
 
 
 
@@ -14,6 +18,64 @@ import useVolunteers from './Hooks/useVolunteers';
 
 const UsersPage = () => {
   const { t } = useTranslation('commons');
+  type Color = 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
+
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [iconDialog, setIconDialog] = useState(<CheckCircleIcon/>);
+  const [colorDialog, setColorDialog] = useState('green');
+  const [colorButton, setColorButton] = useState<Color>('success');
+
+  interface RowData {
+    id: number;
+    companyName: string;
+    names: string;
+    switchState: boolean;
+    // Agrega más propiedades si es necesario
+  }
+  const initialRowData: RowData = {
+    id: 0, // Por ejemplo, podrías asignar un valor inicial a las propiedades numéricas
+    companyName: '', // Puedes asignar una cadena vacía como valor inicial a las propiedades de cadena
+    names: '',
+    switchState: false, // Puedes asignar un valor booleano adecuado como valor inicial
+    // Agrega más propiedades si es necesario y proporciona valores iniciales para ellas
+  };
+  
+  const [rowData1, setRowData1] = useState(initialRowData);
+
+
+
+  const openDialog = (rowData: RowData) => {
+    console.log('datos row', rowData);
+    setRowData1(rowData)
+    
+    const {switchState} = rowData;
+    if(switchState){
+      setIconDialog(<WarningIcon/>)
+      setColorDialog('red')
+      setColorButton('error')
+      
+    }else{
+      setIconDialog(<CheckCircleIcon/>)
+      setColorDialog('green')
+      setColorButton('success')
+
+    }
+    setIsDialogOpen(true);
+  };
+
+  const closeDialog = () => {
+    setIsDialogOpen(false);
+  };
+
+  const handleCancelButtonClick = () => {
+    closeDialog();
+  };
+  
+  const handleContinueButtonClick = () => {
+    console.log("Continue button clicked");
+    console.log('pruba de datos',rowData1)
+    closeDialog();
+  };
   const navigate = useNavigate(); // Utilize the useNavigate hook
   const { volunteers, loading } = useVolunteers();
   const rows = [
@@ -87,7 +149,25 @@ const UsersPage = () => {
       }
       inputBar={<SearchBar placeholder={t('generalButtonText.search')} />}
       generalContents={
+        <>
         <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={rows} loading={loading} />
+        <CustomDialog isOpen={isDialogOpen} onClick= {handleCancelButtonClick} title='Alert Dialog' content='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut bibendum placerat faucibus. Nullam quis vulputate purus. Aenean sed purus orci.' buttons={[
+          {
+            key:'1',
+            content: 'Cancel',
+            variant: 'contained',
+            color: 'inherit',
+            onClick: handleCancelButtonClick
+        },
+        {
+          key:'2',
+          content: 'Continue',
+          variant: 'contained',
+          color: colorButton,
+          onClick: handleContinueButtonClick
+        }
+        ]} icon={iconDialog} color={colorDialog} />
+        </>
       }
     />
   );
