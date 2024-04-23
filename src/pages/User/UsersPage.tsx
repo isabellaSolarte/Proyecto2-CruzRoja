@@ -104,13 +104,15 @@ const UsersPage = () => {
     console.log('datos row', rowData);
     //mostrar lo traido
     console.log("EDIT*******documentNumber***********",documentNumber);
-    navigate(`${PathNames.EDIT_USER}/${String(documentNumber)}`); // Convert userId to string
+    console.log("ruta: ",PathNames.VIEW_USER.replace(':id', String(documentNumber)));
+    navigate(PathNames.EDIT_USER.replace(':id', String(documentNumber)));
   };
 
   const handleViewButtonClick = (rowData: any) => {
     const {documentNumber} = rowData;
     console.log("View*******documentNumber***********",documentNumber);
-    navigate(`${PathNames.VIEW_USER}/${String(documentNumber)}`);
+    console.log("ruta: ",PathNames.VIEW_USER.replace(':id', String(documentNumber)));
+    navigate(PathNames.VIEW_USER.replace(':id', String(documentNumber)));
   };
   const columns = [
     CustomColumn({ field: 'names', headerName: t('usersPages.userTable.name'), format: 'text', variante: 'texto', icon: <AccountCircleIcon /> }),
