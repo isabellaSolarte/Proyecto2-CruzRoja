@@ -11,6 +11,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import WarningIcon from '@mui/icons-material/Warning';
 import CustomDialog from '../../components/orgamisms/CustomDialog/CustomDialog';
 import VolunteerInfoType from './types/VolunteerInfoType';
+import { putVolunteer } from '../../services';
 
 
 
@@ -73,13 +74,42 @@ const UsersPage = () => {
     closeDialog();
   };
   
-  const handleContinueButtonClick = () => {
-    console.log("Continue button clicked");
-    console.log('pruba de datos',rowData1)
-    closeDialog();
+  const handleContinueButtonClick = async () => {
+    try {
+      console.log("Continue button clicked");
+      console.log('pruba de datos',rowData1)
+      console.log('datos row', rowData1);
+      const { id } = rowData1;
+
+      // Find the volunteer in volunteerInfo based on the id
+      const selectedVolunteer = volunteers.find((volunteer) => volunteer.id === id);
+      if (selectedVolunteer) {
+        console.log('Selected Volunteer:', selectedVolunteer);
+        // Preparar los datos actualizados para enviar a la API
+        const updatedVolunteerData = {
+          //documentNumber: selectedVolunteer.id, // Usar el documentNumber como identificador
+          ...selectedVolunteer,
+          state: !selectedVolunteer.state,
+        };
+        // Realizar la solicitud PUT para actualizar el estado del voluntario
+        const response = await putVolunteer(updatedVolunteerData);
+        console.log('Response PUT:', response);
+        // Actualizar el estado local de los voluntarios después de una respuesta exitosa
+        const updatedVolunteers = volunteers.map((volunteer) =>
+          volunteer.id === id ? { ...volunteer, state: !volunteer.state } : volunteer
+        );
+        console.log('Updated Volunteers:', updatedVolunteers);
+        // Actualizar la lista de voluntarios con los datos actualizados
+        setVolunteers(updatedVolunteers);
+      } 
+      
+      closeDialog();
+    } catch (error) {
+      console.error('Error al actualizar el estado del voluntario:', error);
+    }
   };
   const navigate = useNavigate(); // Utilize the useNavigate hook
-  const { volunteers, loading, volunteerInfo } = useVolunteers();
+  const { volunteers, setVolunteers, loading, volunteerInfo } = useVolunteers();
   const rows = [
     { "id": 1, "documentNumber": 1, "names": "Tony Stark", "rol": "Admin", "switchState": true },
     { "id": 2, "documentNumber": 2, "names": "Tyrion Lannister", "rol": "User", "switchState": false },

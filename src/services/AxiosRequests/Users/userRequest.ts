@@ -15,6 +15,17 @@ export const getVolunteers = async (): Promise<VolunterUserModel[]> => {
     throw new Error(JSON.stringify(error));
   }
 };
+export const putVolunteer = async (data: VolunterUserModel) => {
+  try {
+    const response = await api.put<AxiosResponse>(
+      UsersEndpoints.putVolunteer,
+      data,
+    );
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 export const postVolunteer = async (data: VolunterUserModel) => {
   try {
