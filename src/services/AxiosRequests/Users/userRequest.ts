@@ -3,12 +3,16 @@ import { CompanyUserMode, VolunterUserModel } from '../../../models';
 import { api } from '../api';
 import { UsersEndpoints } from './Endpoints';
 
-export const getVolunteers = async () => {
+import { VolunteerAdapter } from '../../../adapters/VolunteerAdapter';
+export const getVolunteers = async (): Promise<VolunterUserModel[]> => {
   try {
-    const response = await api.get(UsersEndpoints.getAllVolunteers);
-    return response;
+    const response = await api.get<any[]>(UsersEndpoints.getAllVolunteers);
+    const adaptedVolunteers: VolunterUserModel[] = response.data.map((volunteer: any) => 
+      VolunteerAdapter(volunteer),
+    );
+    return adaptedVolunteers;
   } catch (error) {
-    console.error(error);
+    throw new Error(JSON.stringify(error));
   }
 };
 

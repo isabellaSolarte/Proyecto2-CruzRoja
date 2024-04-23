@@ -3,7 +3,7 @@ import Switch, { SwitchProps } from '@mui/material/Switch';
 
 interface CustomColumnSwitch {
   switchState: boolean;
-  handleSwitchState: () => void;
+  onClick?: () => void;
 }
 
 const IOSSwitch = styled((props: SwitchProps) => (
@@ -54,12 +54,9 @@ const IOSSwitch = styled((props: SwitchProps) => (
   },
 }));
 
-const CustomSwitch = ({ switchState, handleSwitchState }: CustomColumnSwitch) => {
-  const handleChange = () => {
-    handleSwitchState();
-  };
+const CustomSwitch = ({ switchState, onClick }: CustomColumnSwitch) => {
 
-  return <IOSSwitch checked={switchState} onChange={handleChange} />; // Utiliza el estado y la función de actualización
+  return <IOSSwitch checked={switchState} onClick={onClick} />; // Utiliza el estado y la función de actualización
 };
 
 export default CustomSwitch;
