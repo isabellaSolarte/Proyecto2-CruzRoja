@@ -1,11 +1,14 @@
 import { useTranslation } from 'react-i18next';
-import {ManagmentLayout,TabsAtomComponent,CustomButton,CustomText,CustomInput} from '../../components';
-import CustomTextArea from '../../components/Atoms/CustomTextArea/CustomTextArea';
+import {ManagmentLayout,TabsAtomComponent,CustomButton,CustomText,CustomInput} from '../../../components';
+import { CustomTextArea } from '../../../components';
 import { Box } from '@mui/material';
 
-//TODO preguntar sobre si se necesita una interfaz cuando manda el id del rol a editar
-const CreateRolePage = () => {
-  const { t } = useTranslation('commons');
+
+interface FormRoleDataProps{
+    idRolEdit?:number;
+}
+const FormRoleData = ({}: FormRoleDataProps) => {
+    const { t } = useTranslation('commons');
   return (
     <ManagmentLayout
       title={<CustomText texto={t('pageTitles.createRole')} variante="titulo" />}
@@ -40,6 +43,7 @@ const CreateRolePage = () => {
       }
     />
   );
-};
-
-export default CreateRolePage;
+  };
+  
+export default FormRoleData;
+  
