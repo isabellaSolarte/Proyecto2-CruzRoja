@@ -11,6 +11,10 @@ import WarningIcon from '@mui/icons-material/Warning';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import {ManagmentLayout, DataTable, CustomText } from '../../components';
+import { CustomColumn } from '../../components/Molecules/CustomColumn';
+import EditIcon from '@mui/icons-material/Edit';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 
 
 
@@ -32,9 +36,21 @@ const CreateRolePage = () => {
     switchState: boolean;
     // Agrega más propiedades si es necesario
   }
+  const initialRowData: RowData = {
+    id: 0, // Por ejemplo, podrías asignar un valor inicial a las propiedades numéricas
+    companyName: '', // Puedes asignar una cadena vacía como valor inicial a las propiedades de cadena
+    names: '',
+    switchState: false, // Puedes asignar un valor booleano adecuado como valor inicial
+    // Agrega más propiedades si es necesario y proporciona valores iniciales para ellas
+  };
+  
+  const [rowData1, setRowData1] = useState(initialRowData);
+
+
 
   const openDialog = (rowData: RowData) => {
     console.log('datos row', rowData);
+    setRowData1(rowData)
     
     const {switchState} = rowData;
     if(switchState){
@@ -51,6 +67,29 @@ const CreateRolePage = () => {
     setIsDialogOpen(true);
   };
   
+
+  const columns = [
+    CustomColumn({ field: 'companyName', headerName: 'Empresa', format: 'text', icon: <AccountCircle/>}),
+    CustomColumn({ field: 'names', headerName: 'Nombre', format: 'text' }),
+    CustomColumn({ field: 'actions', headerName: 'Acciones', format: 'button', sortable: false, buttonDetails: [
+      {
+        content: 'Editar',
+        variant: 'contained',
+        color: 'info',
+        icon: <EditIcon />,
+        //onClick: handleEditar,
+      },
+      {
+        content: 'Observar',
+        variant: 'contained',
+        color: 'warning',
+        icon: <VisibilityIcon />,
+        //onClick: handleDetails
+      }
+    ] }),
+  CustomColumn({ field: 'switchState', headerName: 'Estado', format: 'switch', onClick: openDialog}),
+  ];
+  
   const closeDialog = () => {
     setIsDialogOpen(false);
   };
@@ -59,10 +98,9 @@ const CreateRolePage = () => {
     closeDialog();
   };
   
-  const handleContinueButtonClick = (rowData: RowData) => {
+  const handleContinueButtonClick = () => {
     console.log("Continue button clicked");
-    const {id} = rowData;
-    console.log("Editar clickeado", id);
+    console.log('pruba de datos',rowData1)
     closeDialog();
   };
 
@@ -91,7 +129,7 @@ const CreateRolePage = () => {
   title={<CustomText texto='ss' variante="titulo" />}
   generalContents={
     <>
-      <DataTable enableCheckboxSelection={false} dataColumns={columns1(handleEditar, handleDetails, openDialog)} dataRows = {rows1} />
+      <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows = {rows1} />
       <CustomDialog isOpen={isDialogOpen} onClick= {handleCancelButtonClick} title='Alert Dialog' content='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut bibendum placerat faucibus. Nullam quis vulputate purus. Aenean sed purus orci.' buttons={[
         {
           key:'1',
