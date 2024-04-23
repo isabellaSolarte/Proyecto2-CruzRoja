@@ -87,8 +87,7 @@ const UsersPage = () => {
         console.log('Selected Volunteer:', selectedVolunteer);
         // Preparar los datos actualizados para enviar a la API
         const updatedVolunteerData = {
-          //documentNumber: selectedVolunteer.id, // Usar el documentNumber como identificador
-          ...selectedVolunteer,
+          ...selectedVolunteer, // Usar el documentNumber como identificador
           state: !selectedVolunteer.state,
         };
         // Realizar la solicitud PUT para actualizar el estado del voluntario

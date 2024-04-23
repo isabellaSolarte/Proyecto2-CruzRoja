@@ -17,9 +17,13 @@ export const getVolunteers = async (): Promise<VolunterUserModel[]> => {
 };
 export const putVolunteer = async (data: VolunterUserModel) => {
   try {
+    const updatedVolunteerData = {
+      ...data,
+      documentNumber: data.id, // Usar el documentNumber como identificador
+    };
     const response = await api.put<AxiosResponse>(
       UsersEndpoints.putVolunteer,
-      data,
+      updatedVolunteerData,
     );
     return response;
   } catch (error) {
