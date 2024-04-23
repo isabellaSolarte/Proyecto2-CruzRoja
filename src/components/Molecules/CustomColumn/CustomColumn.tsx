@@ -69,7 +69,7 @@ const CustomColumn = ({
         />
       );
     }
-  },
+  }
 });
 
 export default CustomColumn;
