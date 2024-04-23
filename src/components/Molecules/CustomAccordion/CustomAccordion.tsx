@@ -11,7 +11,7 @@ interface AccordionProps{
 }
 const StyledAccordion= withStyles({
     root: {
-      
+      //TO-DO styles
     },
   })(Accordion);
 const AccordionComponent = ({accordionSummary, contentAccordion}: AccordionProps) =>
