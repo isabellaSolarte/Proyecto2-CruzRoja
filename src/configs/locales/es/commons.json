@@ -37,8 +37,8 @@
         },
         "roleForm": {
             "name": "Nombre del rol",
-            "description": "Descripción del rol",
-            "textDescription": "Ingresa una descripción sobre el rol",
+            "type": "Tipo del rol",
+            "textTypeRol": "Ingresa el tipo de rol",
             "rolePageDescription": "Usa los roles para asignar permisos en el sistema"
         }
     },
