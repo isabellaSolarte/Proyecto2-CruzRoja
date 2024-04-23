@@ -2,8 +2,11 @@ import { CustomText, CustomButton, ManagmentLayout, SearchBar, DataTable, Custom
 import { useTranslation } from 'react-i18next';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { PathNames } from '../../core/PathNames'
 import { useNavigate } from 'react-router-dom';
+import useVolunteers from './Hooks/useVolunteers';
+
 
 
 
@@ -12,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 const UsersPage = () => {
   const { t } = useTranslation('commons');
   const navigate = useNavigate(); // Utilize the useNavigate hook
+  const { volunteers, loading } = useVolunteers();
   const rows = [
     { "id": 1, "documentNumber": 1, "names": "Tony Stark", "rol": "Admin", "switchState": true },
     { "id": 2, "documentNumber": 2, "names": "Tyrion Lannister", "rol": "User", "switchState": false },
@@ -45,7 +49,7 @@ const UsersPage = () => {
     navigate(`${PathNames.VIEW_USER}/${String(documentNumber)}`);
   };
   const columns = [
-    CustomColumn({ field: 'names', headerName: t('usersPages.userTable.name'), format: 'text', variante: 'texto'  }),
+    CustomColumn({ field: 'names', headerName: t('usersPages.userTable.name'), format: 'text', variante: 'texto', icon: <AccountCircleIcon /> }),
     CustomColumn({ field: 'rol', headerName: t('usersPages.userTable.rol'),  format: 'text', variante: 'texto'  }),
     CustomColumn({ field: 'actions', headerName: t('usersPages.userTable.actions'), format: 'button', variante: 'texto',  buttonDetails: [
       {
@@ -83,7 +87,7 @@ const UsersPage = () => {
       }
       inputBar={<SearchBar placeholder={t('generalButtonText.search')} />}
       generalContents={
-        <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={rows}/>
+        <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={rows} loading={loading} />
       }
     />
   );

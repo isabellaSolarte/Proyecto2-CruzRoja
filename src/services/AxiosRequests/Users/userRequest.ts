@@ -5,14 +5,16 @@ import { AxiosResponse } from 'axios';
 import { CompanyUserMode, VolunterUserModel } from '../../../models';
 import { api } from '../api';
 import { UsersEndpoints } from './Endpoints';
-
-export const getVolunteers = async (): VolunterUserModel[] => {
+import { VolunteerAdapter } from '../../../adapters/VolunteerAdapter';
+export const getVolunteers = async (): Promise<VolunterUserModel[]> => {
   try {
-    const response = await api.get(UsersEndpoints.getAllVolunteers);
-    //TODO: Adaptar la respuesta con la funcion VolunteerAdapter
-    return new Error('Function not implemented yet');
+    const response = await api.get<any[]>(UsersEndpoints.getAllVolunteers);
+    const adaptedVolunteers: VolunterUserModel[] = response.data.map((volunteer: any) => 
+      VolunteerAdapter(volunteer),
+    );
+    return adaptedVolunteers;
   } catch (error) {
-    console.error(error);
+    throw new Error(JSON.stringify(error));
   }
 };
 

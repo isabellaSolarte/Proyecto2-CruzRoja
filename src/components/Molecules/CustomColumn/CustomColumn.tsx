@@ -22,7 +22,7 @@ interface CustomColumnProps {
     color: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
     icon?: React.ReactElement;
     cellStyle?: React.CSSProperties;
-    onClick?: (rowData: any) => void;
+    onClick?: (rowData: GridRenderCellParams['row']) => void;
   }>;
 }
 
@@ -53,7 +53,7 @@ const CustomColumn = ({
               variant={button.variant}
               color={button.color}
               icon={button.icon}
-              onClick={() => {}}
+              onClick={() => { button.onClick && button.onClick(params.row) }}
             />
           ))}
         </div>
