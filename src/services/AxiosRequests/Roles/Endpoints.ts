@@ -1,3 +1,3 @@
-export const RolesEnpoints = {
-  getAllRoles: '/roles',
-};
+export const RolesEndpoints = {
+    getAllRoles: '/roles',
+  };

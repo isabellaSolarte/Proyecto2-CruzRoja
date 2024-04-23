@@ -1,71 +1,62 @@
-import { esES } from '@mui/material/locale';
-import { createTheme, useTheme } from '@mui/material/styles';
-import { useTranslation } from "react-i18next";
-import { ManagmentLayout, CustomButton,CustomText, CustomColumn, SearchBar} from "../../components";
-import { Theme } from '@mui/material/styles';
-import DataTable from "../../components/orgamisms/DataTable/DataTable";
+import { CustomButton, CustomText, CustomColumn, DataTable, ManagmentLayout } from "../../components";
+import { useEffect} from 'react';
+import { useTranslation } from 'react-i18next';
+import { useRolePage } from './hooks/useRolePage';
+import CircularProgress from '@mui/material/CircularProgress'; // Importa el indicador de carga
+import { useNavigate } from "react-router-dom";
+import { PathNames } from "../../core";
 import EditIcon from '@mui/icons-material/Edit';
-import { Box, Grid } from '@mui/material';
-
-
-const theme = createTheme(
-  {
-    // Aquí puedes añadir personalizaciones adicionales de tu tema si lo necesitas
-  },
-  esES  // Aplica el locale español a todos los componentes de MUI
-);
 
 const RolesPage = () => {
   const { t } = useTranslation('commons');
-  const theme = useTheme<Theme>();
+  const { roles, loading, fetchRoles } = useRolePage(); // Obtén el estado de carga desde el hook
+
+  useEffect(() => {
+    void fetchRoles();
+  }, []);
+  console.log(roles)
+
+  const navigate = useNavigate(); // Utilize the useNavigate hookk
+  
+  const handleEditButtonClick = (rowData: any) => {
+
+  };
+
+  const handleCreateButtonClick = () => {
+    navigate(PathNames.CREATE_ROLE); // Navega a la ruta PathNames.CREATE_ROLE al hacer clic en el botón
+  };
   const columns = [
-    CustomColumn({ field: 'names', headerName: t('usersPages.userTable.rol'), width: 250, format: 'text', variante: 'texto', content: '', buttonDetails: []  }),
-    CustomColumn({ field: 'rol', headerName: t('usersPages.userTable.users'), width: 250, format: 'text', variante: 'texto', content: '', buttonDetails: []  }),
-    CustomColumn({ field: 'actions', headerName: t('usersPages.userTable.actions'), width:250, format: 'button', variante: 'texto', content: '', buttonDetails: [
+    CustomColumn({ field: 'typeRole', headerName: t('usersPages.userTable.roles'), format: 'text', variante: 'texto'}),
+    CustomColumn({ field: 'actions', headerName: t('usersPages.userTable.actions'), format: 'button', variante: 'texto',  buttonDetails: [
       {
         content: t('generalButtonText.edit'),
         variant: 'contained',
-        color: 'primary',
-        icon: <EditIcon />
-      } 
+        color: 'info',
+        icon: <EditIcon />,
+        onClick: handleEditButtonClick,
+      }
     ] }),
-    CustomColumn({ field: 'state', headerName: t('generalButtonText.state'), format: 'switch', variante: 'texto', content: '', buttonDetails: [
-      {
-        content: t('generalButtonText.edit'),
-        variant: 'contained',
-        color: 'primary',
-        icon: <EditIcon />
-      } 
-    ] })
   ];
+  
   return (
     <ManagmentLayout
       title={<CustomText texto={t('pageTitles.roles')} variante="titulo" />}
-      
       actionsContent={
         <CustomButton
-            content={t('generalButtonText.create')}
-            variant="contained"
-            color="success"
-            onClick={() => {
-              
-            }}
-            style={{ marginLeft: '10px' }} 
-          />
+          content={t('generalButtonText.create')}
+          variant="contained"
+          color="success"
+          onClick= {handleCreateButtonClick}
+          style={{ marginLeft: '10px' }}
+        />
       }
       generalContents={
-        <Box>       
-          <CustomText texto={t('rolesPages.roleForm.rolePageDescription')} variante="subtitulo" />
-          <SearchBar placeholder={t('generalButtonText.search')} />
-          <Grid container spacing={2} direction={'column'} gap={5}>
-          <Grid item xs={12}>
-            <DataTable enableCheckboxSelection={false} dataColumns={columns} />
-          </Grid>  
-        </Grid>
-        </Box>
-  
+        loading ? (
+          <CircularProgress />
+        ) : (
+          <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={roles}  />
+        )
       }
-      
     />
   );
 };

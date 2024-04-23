@@ -1,10 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { AxiosResponse } from 'axios';
 import { CompanyUserMode, VolunterUserModel } from '../../../models';
 import { api } from '../api';
 import { UsersEndpoints } from './Endpoints';
+
 import { VolunteerAdapter } from '../../../adapters/VolunteerAdapter';
 export const getVolunteers = async (): Promise<VolunterUserModel[]> => {
   try {
@@ -30,6 +28,8 @@ export const postVolunteer = async (data: VolunterUserModel) => {
   }
 };
 
+
+
 export const postUserCompany = async (data: CompanyUserMode) => {
   try {
     const response = await api.post<AxiosResponse>(
@@ -37,11 +37,7 @@ export const postUserCompany = async (data: CompanyUserMode) => {
       data,
     );
     return response;
-  } catch (error: any) {
-    if (error.response) {
-      throw new Error(error.response.data.message); // Relanza el error con el mensaje del backend
-    } else {
-      throw new Error('Error de red al intentar crear usuario');
-    }
+  } catch (error) {
+    console.error(error);
   }
 };

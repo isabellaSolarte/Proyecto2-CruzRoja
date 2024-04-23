@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import GroupsIcon from '@mui/icons-material/Groups';
 import BusinessIcon from '@mui/icons-material/Business';
-import { CompoentesPage, UsersPage,CreateRolePage } from '../../pages';
+import { CompoentesPage, CreateRolePage, UsersPage } from '../../pages';
 import { PathNames } from '../PathNames';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
@@ -53,7 +53,7 @@ export const NavigationRoutes = () => {
     },
     {
       path: PathNames.ROLES,
-      component: <CreateRolePage />,
+      component: <RolesPage />,
       title: t('menuOptions.roles'),
       icon: <AdminPanelSettingsIcon />,
     },
@@ -97,6 +97,11 @@ export const NavigationRoutes = () => {
       path: PathNames.COMPONETS,
       component: <CompoentesPage />,
       title: 'COMPONENTES',
+    },
+    {
+      path: PathNames.CREATE_ROLE,
+      component: <CreateRolePage />,
+      title: 'CREAR ROLES',
     },
   ];
 

@@ -45,3 +45,5 @@ const DataTable = ({ enableCheckboxSelection, dataColumns, dataRows }:DataTableP
 }
 
 export default DataTable;
+
+

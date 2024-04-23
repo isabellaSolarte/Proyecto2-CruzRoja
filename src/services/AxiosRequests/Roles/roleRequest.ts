@@ -6,11 +6,11 @@
 import { RolAdapter } from '../../../adapters';
 import { RoleModel } from '../../../models';
 import { api } from '../api';
-import { RolesEnpoints } from './Endpoints';
+import { RolesEndpoints } from './Endpoints';
 
 export const getAllRoles = async (): Promise<RoleModel[]> => {
   try {
-    const response = await api.get(RolesEnpoints.getAllRoles);
+    const response = await api.get(RolesEndpoints.getAllRoles);
     const adaptedRoles: RoleModel[] = response.data.map((externalRol: any) =>
       RolAdapter(externalRol),
     );
