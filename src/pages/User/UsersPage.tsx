@@ -10,6 +10,7 @@ import  { useState } from 'react';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import WarningIcon from '@mui/icons-material/Warning';
 import CustomDialog from '../../components/orgamisms/CustomDialog/CustomDialog';
+import VolunteerInfoType from './types/VolunteerInfoType';
 
 
 
@@ -26,17 +27,10 @@ const UsersPage = () => {
   const [colorDialog, setColorDialog] = useState('green');
   const [colorButton, setColorButton] = useState<Color>('success');
 
-  interface RowData {
-    id: number;
-    names: string;
-    rol: string;
-    switchState: boolean;
-    // Agrega más propiedades si es necesario
-  }
-  const initialRowData: RowData = {
+  const initialRowData: VolunteerInfoType = {
     id: 0, // Por ejemplo, podrías asignar un valor inicial a las propiedades numéricas
     names: '',
-    rol: '', // Puedes asignar una cadena vacía como valor inicial a las propiedades de cadena
+    roles: '', // Puedes asignar una cadena vacía como valor inicial a las propiedades de cadena
     switchState: false, // Puedes asignar un valor booleano adecuado como valor inicial
     // Agrega más propiedades si es necesario y proporciona valores iniciales para ellas
   };
@@ -45,10 +39,16 @@ const UsersPage = () => {
 
 
 
-  const openDialog = (rowData: RowData) => {
+  const openDialog = (rowData: VolunteerInfoType) => {
     console.log('datos row', rowData);
     setRowData1(rowData)
-    
+    const { id } = rowData;
+
+    // Find the volunteer in volunteerInfo based on the id
+    const selectedVolunteer = volunteers.find((volunteer) => volunteer.id === id);
+    if (selectedVolunteer) {
+      console.log('Selected Volunteer:', selectedVolunteer);
+    }  
     const {switchState} = rowData;
     if(switchState){
       setIconDialog(<WarningIcon/>)
@@ -78,7 +78,7 @@ const UsersPage = () => {
     closeDialog();
   };
   const navigate = useNavigate(); // Utilize the useNavigate hook
-  const { volunteers, loading } = useVolunteers();
+  const { volunteers, loading, volunteerInfo } = useVolunteers();
   const rows = [
     { "id": 1, "documentNumber": 1, "names": "Tony Stark", "rol": "Admin", "switchState": true },
     { "id": 2, "documentNumber": 2, "names": "Tyrion Lannister", "rol": "User", "switchState": false },
@@ -116,7 +116,7 @@ const UsersPage = () => {
   };
   const columns = [
     CustomColumn({ field: 'names', headerName: t('usersPages.userTable.name'), format: 'text', variante: 'texto', icon: <AccountCircleIcon /> }),
-    CustomColumn({ field: 'roles.typeRole', headerName: t('usersPages.userTable.rol'),  format: 'text', variante: 'texto'  }),
+    CustomColumn({ field: 'roles', headerName: t('usersPages.userTable.roles'),  format: 'text', variante: 'texto'  }),
     CustomColumn({ field: 'actions', headerName: t('usersPages.userTable.actions'), format: 'button', variante: 'texto',  buttonDetails: [
       {
         content: t('generalButtonText.edit'),
@@ -154,7 +154,7 @@ const UsersPage = () => {
       inputBar={<SearchBar placeholder={t('generalButtonText.search')} />}
       generalContents={
         <>
-        <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={volunteers} loading={loading} />
+        <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={volunteerInfo} loading={loading} />
         <CustomDialog isOpen={isDialogOpen} onClick= {handleCancelButtonClick} title='Alert Dialog' content='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut bibendum placerat faucibus. Nullam quis vulputate purus. Aenean sed purus orci.' buttons={[
           {
             key:'1',
