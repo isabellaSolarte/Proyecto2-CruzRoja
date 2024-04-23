@@ -28,15 +28,15 @@ const UsersPage = () => {
 
   interface RowData {
     id: number;
-    companyName: string;
     names: string;
+    rol: string;
     switchState: boolean;
     // Agrega más propiedades si es necesario
   }
   const initialRowData: RowData = {
     id: 0, // Por ejemplo, podrías asignar un valor inicial a las propiedades numéricas
-    companyName: '', // Puedes asignar una cadena vacía como valor inicial a las propiedades de cadena
     names: '',
+    rol: '', // Puedes asignar una cadena vacía como valor inicial a las propiedades de cadena
     switchState: false, // Puedes asignar un valor booleano adecuado como valor inicial
     // Agrega más propiedades si es necesario y proporciona valores iniciales para ellas
   };
@@ -101,6 +101,7 @@ const UsersPage = () => {
   ];
   const handleEditButtonClick = (rowData: any) => {
     const {documentNumber} = rowData;
+    console.log('datos row', rowData);
     //mostrar lo traido
     console.log("EDIT*******documentNumber***********",documentNumber);
     navigate(`${PathNames.EDIT_USER}/${String(documentNumber)}`); // Convert userId to string
