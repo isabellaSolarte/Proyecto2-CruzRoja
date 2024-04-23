@@ -24,6 +24,7 @@ interface CustomColumnProps {
     cellStyle?: React.CSSProperties;
     onClick?: (rowData: GridRenderCellParams['row']) => void;
   }>;
+  onClick?: (rowData: GridRenderCellParams['row']) => void;
 }
 
 const CustomColumn = ({
@@ -34,6 +35,7 @@ const CustomColumn = ({
   variante = 'texto',
   sortable = true,
   icon,
+  onClick,
 }: CustomColumnProps): GridColDef => ({
   field,
   headerName,
@@ -41,9 +43,7 @@ const CustomColumn = ({
   sortable,
 
   renderCell: (params: GridRenderCellParams) => {
-    
     if (format === 'button') {
-      console.log(params);
       return (
         <div style={{ display: 'flex', gap: '10px' }}>
           {buttonDetails?.map((button, index) => (
@@ -53,7 +53,7 @@ const CustomColumn = ({
               variant={button.variant}
               color={button.color}
               icon={button.icon}
-              onClick={() => { button.onClick && button.onClick(params.row) }}
+              onClick={() => {button.onClick && button.onClick(params.row)}}
             />
           ))}
         </div>
@@ -61,10 +61,11 @@ const CustomColumn = ({
     } else if (format == 'text') {
       return <CustomText texto={params.value as string} variante={variante} icon={icon} />;
     } else {
+      
       return (
         <CustomSwitch
           switchState={params.row.switchState as boolean}
-          handleSwitchState={() => {}}
+          onClick={() => {onClick && onClick(params.row)}}
         />
       );
     }
