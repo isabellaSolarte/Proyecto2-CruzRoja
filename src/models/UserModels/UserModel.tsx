@@ -1,7 +1,7 @@
 import { RoleModel } from '../RoleModels';
 
 export interface UserModel {
-  documentNumber: number;
+  id: number;
   documentType: string;
   names: string;
   lastNames: string;
