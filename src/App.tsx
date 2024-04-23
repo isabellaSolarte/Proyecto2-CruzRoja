@@ -5,7 +5,7 @@ import { UserModel } from './models';
 import { PathNames } from './core/PathNames';
 
 export const usuarioPruebas: UserModel = {
-  documentNumber: 123456789,
+  id: 123456789,
   documentType: 'CC',
   names: 'Juan',
   lastNames: 'Perez',

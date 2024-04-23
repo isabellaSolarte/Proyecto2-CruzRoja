@@ -8,7 +8,7 @@ export const RolAdapter = (externRol: any): RoleModel => {
   const permissions: PermissionModel[] = externRol.permissions.map(
     (permission: any) => {
       return {
-        idPermission: permission.idPermission,
+        id: permission.idPermission,
         name: permission.name,
         description: permission.description,
       };

@@ -2,7 +2,7 @@ import { UserModel } from '../../../models';
 import * as yup from 'yup';
 
 export const defaulUserSchema: UserModel = {
-  documentNumber: 0,
+  id: 0,
   documentType: '',
   names: '',
   lastNames: '',
@@ -15,7 +15,7 @@ export const defaulUserSchema: UserModel = {
 };
 
 export const userSchemaValidation = yup.object().shape({
-  documentNumber: yup
+  id: yup
     .number()
     .moreThan(0, 'documentNumber.moreThan')
     .test('len', 'documentNumber.len', val =>
@@ -54,7 +54,7 @@ export const userSchemaValidation = yup.object().shape({
           .array()
           .of(
             yup.object().shape({
-              idPermission: yup
+              id: yup
                 .number()
                 .moreThan(0, 'roles.of.permissions.of.idPermission.moreThan')
                 .required('roles.of.permissions.of.idPermission.required'),

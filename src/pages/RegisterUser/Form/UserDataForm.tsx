@@ -97,10 +97,10 @@ const UserDataForm = ({ updateUserData, handleNextStep, handleStepBack }: UserDa
               placeholder={t('usersPages.userForm.documentNumber')}
               mandatory
               type="number"
-              props={register('documentNumber')}
+              props={register('id')}
               icon={<BadgeOutlinedIcon />}
             />
-            {errors.documentNumber && <ErrorText error={errors.documentNumber.message} />}
+            {errors.id && <ErrorText error={errors.id.message} />}
           </Grid>
 
           <Grid item xs={12} paddingTop={3}>
@@ -173,7 +173,7 @@ const UserDataForm = ({ updateUserData, handleNextStep, handleStepBack }: UserDa
             />
             {roleList.map((rol, index) => (
               <RoleCard
-                key={rol.idRole}
+                key={rol.id}
                 rol={rol}
                 positiveAction={addRole}
                 negativeAction={() => {
