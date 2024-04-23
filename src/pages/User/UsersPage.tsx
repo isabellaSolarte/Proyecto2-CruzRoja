@@ -100,23 +100,23 @@ const UsersPage = () => {
     { "id": 18, "documentNumber": 18, "names": "Edmure Tully", "rol": "User", "switchState": true },
   ];
   const handleEditButtonClick = (rowData: any) => {
-    const {documentNumber} = rowData;
+    const {id} = rowData;
     console.log('datos row', rowData);
     //mostrar lo traido
-    console.log("EDIT*******documentNumber***********",documentNumber);
-    console.log("ruta: ",PathNames.VIEW_USER.replace(':id', String(documentNumber)));
-    navigate(PathNames.EDIT_USER.replace(':id', String(documentNumber)));
+    console.log("EDIT*******id***********",id);
+    console.log("ruta: ",PathNames.VIEW_USER.replace(':id', String(id)));
+    navigate(PathNames.EDIT_USER.replace(':id', String(id)));
   };
 
   const handleViewButtonClick = (rowData: any) => {
-    const {documentNumber} = rowData;
-    console.log("View*******documentNumber***********",documentNumber);
-    console.log("ruta: ",PathNames.VIEW_USER.replace(':id', String(documentNumber)));
-    navigate(PathNames.VIEW_USER.replace(':id', String(documentNumber)));
+    const {id} = rowData;
+    console.log("View*******id***********",id);
+    console.log("ruta: ",PathNames.VIEW_USER.replace(':id', String(id)));
+    navigate(PathNames.VIEW_USER.replace(':id', String(id)));
   };
   const columns = [
     CustomColumn({ field: 'names', headerName: t('usersPages.userTable.name'), format: 'text', variante: 'texto', icon: <AccountCircleIcon /> }),
-    CustomColumn({ field: 'rol', headerName: t('usersPages.userTable.rol'),  format: 'text', variante: 'texto'  }),
+    CustomColumn({ field: 'roles.typeRole', headerName: t('usersPages.userTable.rol'),  format: 'text', variante: 'texto'  }),
     CustomColumn({ field: 'actions', headerName: t('usersPages.userTable.actions'), format: 'button', variante: 'texto',  buttonDetails: [
       {
         content: t('generalButtonText.edit'),
@@ -154,7 +154,7 @@ const UsersPage = () => {
       inputBar={<SearchBar placeholder={t('generalButtonText.search')} />}
       generalContents={
         <>
-        <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={rows} loading={loading} />
+        <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={volunteers} loading={loading} />
         <CustomDialog isOpen={isDialogOpen} onClick= {handleCancelButtonClick} title='Alert Dialog' content='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut bibendum placerat faucibus. Nullam quis vulputate purus. Aenean sed purus orci.' buttons={[
           {
             key:'1',
