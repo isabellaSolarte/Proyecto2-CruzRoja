@@ -24,7 +24,7 @@ const ValidateUserData = ({ userData, handleNextStep, handleStepBack }: Validate
       <Grid container>
         <Grid item md={6} xs={12}>
           <CustomText texto={castUserData.documentType} variante="texto" />
-          <CustomText texto={castUserData.documentNumber.toString()} variante="texto" />
+          <CustomText texto={castUserData.id.toString()} variante="texto" />
         </Grid>
         <Grid item md={6} xs={12}>
           <CustomText texto={`${castUserData.names} ${castUserData.lastNames}`} variante="texto" />
