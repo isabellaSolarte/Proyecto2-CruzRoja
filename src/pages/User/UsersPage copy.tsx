@@ -6,13 +6,12 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { PathNames } from '../../core/PathNames'
 import { useNavigate } from 'react-router-dom';
 import useVolunteers from './Hooks/useVolunteers';
-import useCompanyUser from './Hooks/useCompanyUser';
 import  { useState } from 'react';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import WarningIcon from '@mui/icons-material/Warning';
 import CustomDialog from '../../components/orgamisms/CustomDialog/CustomDialog';
+import VolunteerInfoType from './types/VolunteerInfoType';
 import { putVolunteer } from '../../services';
-import { GridRenderCellParams } from '@mui/x-data-grid';
 
 
 
@@ -23,11 +22,6 @@ import { GridRenderCellParams } from '@mui/x-data-grid';
 
 const UsersPage = () => {
   const { t } = useTranslation('commons');
-  const navigate = useNavigate(); // Utilize the useNavigate hook
-  const { volunteers, loading, volunteerInfo, updateVolunteerInfo } = useVolunteers();
-  const { companyUsers, loadingcompanyUsers, companyUserInfo } = useCompanyUser();
-
-
   type Color = 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -35,12 +29,19 @@ const UsersPage = () => {
   const [colorDialog, setColorDialog] = useState('green');
   const [colorButton, setColorButton] = useState<Color>('success');
 
+  const initialRowData: VolunteerInfoType = {
+    id: 0, // Por ejemplo, podrías asignar un valor inicial a las propiedades numéricas
+    names: '',
+    roles: '', // Puedes asignar una cadena vacía como valor inicial a las propiedades de cadena
+    switchState: false, // Puedes asignar un valor booleano adecuado como valor inicial
+    // Agrega más propiedades si es necesario y proporciona valores iniciales para ellas
+  };
   
-  const [rowData1, setRowData1] = useState({} as GridRenderCellParams['row']);
+  const [rowData1, setRowData1] = useState(initialRowData);
 
 
 
-  const openDialog = (rowData: GridRenderCellParams['row']) => {
+  const openDialog = (rowData: VolunteerInfoType) => {
     console.log('datos row', rowData);
     setRowData1(rowData)
  
@@ -107,9 +108,10 @@ const UsersPage = () => {
     }
   };
   
+  const navigate = useNavigate(); // Utilize the useNavigate hook
+  const { volunteers, loading, volunteerInfo, updateVolunteerInfo } = useVolunteers();
  
- 
-  const handleEditButtonClick = (rowData: GridRenderCellParams['row']) => {
+  const handleEditButtonClick = (rowData: VolunteerInfoType) => {
     const {id} = rowData;
     console.log('datos row', rowData);
     //mostrar lo traido
@@ -118,7 +120,7 @@ const UsersPage = () => {
     navigate(PathNames.EDIT_USER.replace(':id', String(id)));
   };
 
-  const handleViewButtonClick = (rowData: GridRenderCellParams['row']) => {
+  const handleViewButtonClick = (rowData: VolunteerInfoType) => {
     const {id} = rowData;
     console.log("View*******id***********",id);
     console.log("ruta: ",PathNames.VIEW_USER.replace(':id', String(id)));
@@ -165,8 +167,6 @@ const UsersPage = () => {
       generalContents={
         <>
         <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={volunteerInfo} loading={loading} />
-        <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={companyUserInfo} loading={loadingcompanyUsers} />
-        
         <CustomDialog isOpen={isDialogOpen} onClick= {handleCancelButtonClick} title='Alert Dialog' content='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut bibendum placerat faucibus. Nullam quis vulputate purus. Aenean sed purus orci.' buttons={[
         {
           key:'1',
