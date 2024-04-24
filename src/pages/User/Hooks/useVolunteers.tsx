@@ -1,4 +1,3 @@
-// src/hooks/useVolunteers.ts
 import { useEffect, useState } from 'react';
 import { getVolunteers } from '../../../services';
 import { VolunterUserModel } from '../../../models/UserModels/VolunterUserModel';
@@ -9,34 +8,39 @@ const useVolunteers = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [volunteerInfo, setVolunteerInfo] = useState<VolunteerInfoType[]>([]);
 
+  const updateVolunteerInfo = (updatedVolunteers: VolunterUserModel[]) => {
+    const mappedVolunteers = mapVolunteersToInfo(updatedVolunteers);
+      setVolunteerInfo(mappedVolunteers);
+  };
+
+  const mapVolunteersToInfo = (volunteersData: VolunterUserModel[]): VolunteerInfoType[] => {
+    return volunteersData.map((volunteer) => {
+      const rolesString = volunteer.roles.map((role) => role.typeRole as string).join(', ');
+      return {
+        id: volunteer.id,
+        names: volunteer.names,
+        roles: rolesString,
+        switchState: volunteer.state,
+      };
+    });
+  };
+
+  const fetchVolunteers = async () => {
+    setLoading(true);
+    try {
+      const volunteersData = await getVolunteers();
+      setVolunteers(volunteersData as VolunterUserModel[]);
+      console.log('Volunteers:', volunteersData);
+      const mappedVolunteers = mapVolunteersToInfo(volunteersData);
+      setVolunteerInfo(mappedVolunteers);
+      console.log('Volunteer Info:', mappedVolunteers);
+    } catch (error) {
+      console.error('Error fetching volunteers:', error);
+    }
+    setLoading(false);
+  };
+
   useEffect(() => {
-    const fetchVolunteers = async () => {
-      setLoading(true);
-      try {
-        const volunteersData = await getVolunteers();
-        setVolunteers(volunteersData as VolunterUserModel[]);
-        console.log('volunteersData:', volunteersData);
-        // Map the volunteersData to the desired format
-        const mappedVolunteers = volunteersData.map((volunteer) => {
-          // Concatenate typeRole values into a single string
-          const rolesString = volunteer.roles.map((role) => role.typeRole as string).join(', ');
-
-          return {
-            id: volunteer.id,
-            names: volunteer.names,
-            roles: rolesString, // Set roles to the concatenated string
-            switchState: volunteer.state,
-          };
-        });
-
-        setVolunteerInfo(mappedVolunteers as VolunteerInfoType[]);
-        console.log('mappedVolunteers:', mappedVolunteers);
-      } catch (error) {
-        console.error('Error fetching volunteers:', error);
-      }
-      setLoading(false);
-    };
-
     void fetchVolunteers();
 
     return () => {
@@ -44,7 +48,7 @@ const useVolunteers = () => {
     };
   }, []);
 
-  return { volunteers, setVolunteers, loading, volunteerInfo };
+  return { volunteers, loading, volunteerInfo, updateVolunteerInfo };
 };
 
 export default useVolunteers;

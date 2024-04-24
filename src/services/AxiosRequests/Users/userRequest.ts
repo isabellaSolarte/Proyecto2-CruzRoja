@@ -28,6 +28,7 @@ export const putVolunteer = async (data: VolunterUserModel) => {
     return response;
   } catch (error) {
     console.error(error);
+    throw error; // Lanzar el error para manejarlo en el componente
   }
 };
 
