@@ -146,6 +146,29 @@ const UsersPage = () => {
     ] }),
     CustomColumn({ field: 'state', headerName: t('generalButtonText.state'), format: 'switch', variante: 'texto', onClick: openDialog})
   ];
+  const columnsCompanyUsers = [
+    CustomColumn({ field: 'names', headerName: t('usersPages.userTable.name'), format: 'text', variante: 'texto', icon: <AccountCircleIcon /> }),
+    CustomColumn({ field: 'companyName', headerName: t('usersPages.userTable.companyName'),  format: 'text', variante: 'texto'  }),
+    CustomColumn({ field: 'roles', headerName: t('usersPages.userTable.roles'),  format: 'text', variante: 'texto'  }),
+    CustomColumn({ field: 'actions', headerName: t('usersPages.userTable.actions'), format: 'button', variante: 'texto',  buttonDetails: [
+      {
+        content: t('generalButtonText.edit'),
+        variant: 'contained',
+        color: 'info',
+        icon: <EditIcon />,
+        onClick: handleEditButtonClick,
+      },
+      {
+        content: t('generalButtonText.view'),
+        variant: 'contained',
+        color: 'warning',
+        icon: <VisibilityIcon />,
+        onClick: handleViewButtonClick,
+
+      }
+    ] }),
+    CustomColumn({ field: 'state', headerName: t('generalButtonText.state'), format: 'switch', variante: 'texto', onClick: openDialog})
+  ];
   const handleCreateButtonClick = () => {
     navigate(PathNames.REGISTER_USER);
 
@@ -165,7 +188,7 @@ const UsersPage = () => {
       generalContents={
         <>
         <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={volunteerInfo} loading={loading} />
-        <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={companyUserInfo} loading={loadingcompanyUsers} />
+        <DataTable enableCheckboxSelection={false} dataColumns={columnsCompanyUsers} dataRows={companyUserInfo} loading={loadingcompanyUsers} />
         
         <CustomDialog isOpen={isDialogOpen} onClick= {handleCancelButtonClick} title='Alert Dialog' content='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut bibendum placerat faucibus. Nullam quis vulputate purus. Aenean sed purus orci.' buttons={[
         {
