@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { CustomText } from '../../Atoms';
 import CustomInput from '../../Atoms/CustomInput/CustomInput';
 
@@ -7,6 +8,7 @@ interface LabeledInputProps {
   mandatory?: boolean;
   icon?: JSX.Element;
   type: 'text' | 'password' | 'email' | 'number' | 'submit';
+  updateText?: (text: string) => void;
   props?: object;
 }
 
@@ -15,6 +17,7 @@ const LabeledInput = ({
   placeholder,
   mandatory = false,
   type,
+  updateText,
   props,
 }: LabeledInputProps) => {
   return (
@@ -24,7 +27,13 @@ const LabeledInput = ({
       >
         <CustomText texto={label} variante={'texto'} mandatory={mandatory} />
       </div>
-      <CustomInput placeholder={placeholder} size={'large'} type={type} props={props} />
+      <CustomInput
+        placeholder={placeholder}
+        size={'large'}
+        type={type}
+        props={props}
+        updateText={updateText}
+      />
     </div>
   );
 };

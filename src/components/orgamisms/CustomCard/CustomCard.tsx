@@ -34,7 +34,7 @@ const CustomCard = ({
         <div className="icono">{icon && icon}</div>
         <LabelGroup texto1={texto1} texto2={texto2} />
       </div>
-      <CustomSwitch switchState={switchState} handleSwitchState={handleSwitchState} />
+      <CustomSwitch switchState={switchState} onClick={handleSwitchState} />
     </Card>
   );
 };

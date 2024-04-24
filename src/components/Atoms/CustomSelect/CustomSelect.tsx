@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import React, { useState } from 'react';
+import React from 'react';
 import { Box } from '@mui/material';
-import InputLabel, { inputLabelClasses } from '@mui/material/InputLabel';
+import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
@@ -59,51 +59,26 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   disabled,
   ...props
 }) => {
-  const [selectedValue, setSelectedValue] = useState('');
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setSelectedValue(event.target.value);
-    if (onChangeAction) {
-      onChangeAction(event.target.value);
-    }
-  };
-
   return (
     <Box sx={{ ...sx }}>
-      <FormControl
-        sx={{
-          minWidth: 80,
-        }}
-        {...props}
-        id={labelId}
-        fullWidth
-      >
-        <InputLabel
-          id={labelId}
-          sx={{
-            [`&.${inputLabelClasses.focused}`]: {
-              color: '#000',
-            },
-          }}
-        >
-          {label}
-        </InputLabel>
+      <FormControl sx={{ minWidth: 80 }} {...props} fullWidth>
+        <InputLabel id={labelId}>{label}</InputLabel>
         <Controller
-          name={labelId} // Should match the registered field name ('address.country')
+          name={labelId}
           control={control}
+          defaultValue=""
           render={({ field }) => (
             <Select
               {...field}
               variant="outlined"
-              value={selectedValue}
-              onChange={handleChange}
               label={label}
               inputProps={{ readOnly }}
-              disabled={disabled ? disabled : false}
-              sx={{
-                ['.MuiSelect-select']: {
-                  padding: '10px',
-                },
+              disabled={disabled}
+              onChange={(event: SelectChangeEvent) => {
+                field.onChange(event);
+                if (onChangeAction) {
+                  onChangeAction(event.target.value);
+                }
               }}
             >
               {options.map(option => (

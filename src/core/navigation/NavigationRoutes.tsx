@@ -103,6 +103,11 @@ export const NavigationRoutes = () => {
       component: <CreateRolePage />,
       title: 'CREAR ROLES',
     },
+    {
+      path: PathNames.EDIT_ROLE,
+      component: <CreateRolePage />,
+      title: 'EDITAR ROL',
+    },
   ];
 
   return routes;

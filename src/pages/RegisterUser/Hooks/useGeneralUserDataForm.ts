@@ -17,6 +17,9 @@ const useGeneralUserDataForm = (
   const { t } = useTranslation('commons');
   const [roleList, setRoleList] = useState<RoleModel[]>([]);
   const documents: OptionSelector[] = documentTypes(t);
+  const [confirmedPassword, setConfirmedPassword] = useState<string>('');
+  const [confirmedPasswordError, setConfirmedPasswordError] =
+    useState<boolean>(false);
 
   const {
     handleSubmit,
@@ -35,6 +38,7 @@ const useGeneralUserDataForm = (
   });
 
   const addRole = (newRole: RoleModel) => {
+    console.log('newRole', newRole);
     append(newRole);
     register(`roles.${fields.length}.id`);
     console.log('error', errors);
@@ -61,6 +65,20 @@ const useGeneralUserDataForm = (
     setRoleList(roles);
   };
 
+  const onChangeComfirmedPassword = (value: string) => {
+    setConfirmedPassword(value);
+  };
+
+  /**
+   *
+   *
+   * @returns boolean, if the password is the same as the confirmed password return true else return false
+   */
+  const validatePassword = (): boolean => {
+    setConfirmedPasswordError(getValues().password !== confirmedPassword);
+    return !confirmedPasswordError;
+  };
+
   return {
     handleSubmit,
     register,
@@ -70,6 +88,8 @@ const useGeneralUserDataForm = (
     validateData,
     loadRoles,
     remove,
+    onChangeComfirmedPassword,
+    validatePassword,
     fields,
     errors,
     defaulUserSchema,
@@ -77,6 +97,7 @@ const useGeneralUserDataForm = (
     documents,
     control,
     t,
+    confirmedPasswordError,
   };
 };
 

@@ -31,14 +31,20 @@ const UserDataForm = ({ updateUserData, handleNextStep, handleStepBack }: UserDa
     validateData,
     loadRoles,
     remove,
+    onChangeComfirmedPassword,
+    validatePassword,
     errors,
     roleList,
     documents,
     control,
     t,
+    confirmedPasswordError,
   } = useGeneralUserDataForm(updateUserData);
 
   const handleNextButton = () => {
+    if (!validatePassword()) {
+      return;
+    }
     validateData()
       .then(valid => {
         if (valid) handleNextStep();
@@ -144,6 +150,17 @@ const UserDataForm = ({ updateUserData, handleNextStep, handleStepBack }: UserDa
           </Grid>
 
           <Grid item sm={12} xs={12} padding={2}>
+            <CustomText texto={'La contraseña de contener al menos'} variante={'subtitulo'} />
+            <Box sx={{ marginBottom: 5 }}>
+              <CustomText texto={'8 caracteres'} variante={'texto'} />
+              <CustomText texto={'Una letra mayúscula'} variante={'texto'} />
+              <CustomText texto={'Una letra minúscula'} variante={'texto'} />
+              <CustomText texto={'Un número'} variante={'texto'} />
+              <CustomText
+                texto={'Un caracter especial (\t!\t@\t#\t$\t%\t^\t&\t*\t)'}
+                variante={'texto'}
+              />
+            </Box>
             <LabeledInput
               label={t('usersPages.userForm.password')}
               placeholder={t('usersPages.userForm.password')}
@@ -160,7 +177,9 @@ const UserDataForm = ({ updateUserData, handleNextStep, handleStepBack }: UserDa
               placeholder={t('usersPages.userForm.passwordConfirmation')}
               mandatory
               type="password"
+              updateText={onChangeComfirmedPassword}
             />
+            {confirmedPasswordError && <ErrorText error={'Las contraseñas no coinciden'} />}
           </Grid>
 
           <Grid item xs={12} paddingTop={3}>
