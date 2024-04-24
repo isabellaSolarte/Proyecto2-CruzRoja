@@ -4,6 +4,7 @@ import MuiDrawer from '@mui/material/Drawer';
 import { CustomDrawerContent, CustomDrawerHeader } from '../../Atoms';
 import { MenuOption } from '../../../models';
 import { useState } from 'react';
+import { PathNames } from '../../../core';
 
 const drawerWidth = 260;
 
@@ -58,6 +59,20 @@ const DrawerMenu = ({ options }: CollapseMenuProps) => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
+  const availableDrawerOptions = [
+    PathNames.BUSINESS,
+    PathNames.PLANS,
+    PathNames.ACTIVITY,
+    PathNames.STATISTICS,
+    PathNames.USERS,
+    PathNames.ROLES,
+    PathNames.PERMISSIONS,
+    PathNames.SETTINGS,
+    PathNames.CLOSE_SESSION,
+    PathNames.COMPONETS,
+  ];
+  const drawerOptions = options.filter(option => availableDrawerOptions.includes(option.path));
+
   const handleOpenMenu = () => {
     setOpen(!open);
   };
@@ -70,7 +85,7 @@ const DrawerMenu = ({ options }: CollapseMenuProps) => {
     >
       <Drawer variant="permanent" open={open}>
         <CustomDrawerHeader open={open} handleDrawerState={handleOpenMenu} />
-        <CustomDrawerContent open={open} navigationOptions={options} />
+        <CustomDrawerContent open={open} navigationOptions={drawerOptions} />
       </Drawer>
 
       {/* AQUI VA CONTENIDO */}

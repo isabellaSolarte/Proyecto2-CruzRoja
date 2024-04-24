@@ -19,16 +19,19 @@ const putMandatoryAdornment = () => {
 const CustomText = ({ texto, variante, mandatory, icon, color }: PropiedadesEtiqueta) => {
   const theme = useTheme();
 
+  const colorStyled =
+    variante === 'pequeño' ? theme.palette.text.secondary : theme.palette.text.primary;
+
   const style = {
     padding: 0,
     textAlign: 'justify',
-    color: variante === 'pequeño' ? theme.palette.text.secondary : theme.palette.text.primary,
+    color: colorStyled,
     fontWeight: variante === 'titulo' || variante === 'subtitulo' ? 'bold' : 'regular',
   };
 
   return (
-    <Box display="flex" alignItems="center">
-      {icon && <Icon sx={{ marginRight: 1 }}>{icon}</Icon>}
+    <Box display="flex" alignItems="center" gap={0.3}>
+      {icon && icon}
       <Typography
         variant={
           variante === 'titulo'

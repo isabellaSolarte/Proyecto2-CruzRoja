@@ -1,4 +1,4 @@
-import { Box, FormControlLabel, Radio } from '@mui/material';
+import { Button, FormControlLabel, Radio } from '@mui/material';
 import './UserTypeStyles.css';
 
 interface UserTypeCardProps {
@@ -6,6 +6,7 @@ interface UserTypeCardProps {
   banner: string;
   active: boolean;
   value: 'volunter' | 'business' | undefined;
+  onClick: () => void;
 }
 
 const userTypeCardStyle = {
@@ -17,9 +18,9 @@ const userTypeCardStyle = {
   alignItems: 'center',
 };
 
-const UserTypeCard = ({ value, label, banner, active }: UserTypeCardProps) => {
+const UserTypeCard = ({ value, label, banner, active, onClick }: UserTypeCardProps) => {
   return (
-    <Box sx={userTypeCardStyle}>
+    <Button sx={userTypeCardStyle} onClick={onClick}>
       <img
         src={banner}
         alt={value}
@@ -29,8 +30,13 @@ const UserTypeCard = ({ value, label, banner, active }: UserTypeCardProps) => {
         }}
         className="logo"
       />
-      <FormControlLabel value={value} control={<Radio />} label={label} />{' '}
-    </Box>
+      <FormControlLabel
+        value={value}
+        control={<Radio />}
+        label={label}
+        sx={{ color: '#000', textTransform: 'capitalize' }}
+      />
+    </Button>
   );
 };
 
