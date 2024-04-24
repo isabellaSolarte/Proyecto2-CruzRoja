@@ -194,14 +194,14 @@ const UsersPage = () => {
     CustomColumn({ field: 'roles', headerName: t('usersPages.userTable.roles'),  format: 'text', variante: 'texto'  }),
     CustomColumn({ field: 'actions', headerName: t('usersPages.userTable.actions'), format: 'button', variante: 'texto',  buttonDetails: [
       {
-        content: t('generalButtonText.edit'),
+        content: '',//t('generalButtonText.edit'),
         variant: 'contained',
         color: 'info',
         icon: <EditIcon />,
         onClick: handleEditButtonClick,
       },
       {
-        content: t('generalButtonText.view'),
+        content: '',//t('generalButtonText.view'),
         variant: 'contained',
         color: 'warning',
         icon: <VisibilityIcon />,
