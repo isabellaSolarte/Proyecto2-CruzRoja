@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AxiosResponse } from 'axios';
 import { CompanyUserMode, VolunterUserModel } from '../../../models';
 import { api } from '../api';
@@ -7,8 +8,8 @@ import { VolunteerAdapter } from '../../../adapters/VolunteerAdapter';
 export const getVolunteers = async (): Promise<VolunterUserModel[]> => {
   try {
     const response = await api.get<any[]>(UsersEndpoints.getAllVolunteers);
-    const adaptedVolunteers: VolunterUserModel[] = response.data.map((volunteer: any) => 
-      VolunteerAdapter(volunteer),
+    const adaptedVolunteers: VolunterUserModel[] = response.data.map(
+      (volunteer: any) => VolunteerAdapter(volunteer),
     );
     return adaptedVolunteers;
   } catch (error) {
@@ -34,9 +35,14 @@ export const putVolunteer = async (data: VolunterUserModel) => {
 
 export const postVolunteer = async (data: VolunterUserModel) => {
   try {
+    const newUserData = {
+      ...data,
+      documentNumber: data.id, // Usar el documentNumber como identificador
+    };
+
     const response = await api.post<AxiosResponse>(
       UsersEndpoints.postVolunteer,
-      data,
+      newUserData,
     );
     return response;
   } catch (error) {
@@ -44,13 +50,16 @@ export const postVolunteer = async (data: VolunterUserModel) => {
   }
 };
 
-
-
 export const postUserCompany = async (data: CompanyUserMode) => {
   try {
+    const newUserData = {
+      ...data,
+      documentNumber: data.id, // Usar el documentNumber como identificador
+    };
+
     const response = await api.post<AxiosResponse>(
       UsersEndpoints.postCompanyUser,
-      data,
+      newUserData,
     );
     return response;
   } catch (error) {
