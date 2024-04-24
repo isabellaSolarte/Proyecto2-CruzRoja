@@ -8,6 +8,7 @@ interface CustomInputProps {
   updateText?: Dispatch<SetStateAction<string>>;
   value?: string | number;
   props?: object;
+  defaultValue?: string;
 }
 /*Ejmplo para usar el input 
       <CustomInput placeholder="Small Input" size="small" /> (input pequeño)
@@ -20,6 +21,7 @@ const CustomInput = ({
   type = 'text',
   updateText,
   value,
+  defaultValue,
   props = {},
 }: CustomInputProps) => {
   const inputClass = `custom-input-${size}`;
@@ -35,6 +37,7 @@ const CustomInput = ({
       <input
         type={type}
         placeholder={placeholder}
+        defaultValue={defaultValue}
         className={inputClass}
         //value={value}
         style={{

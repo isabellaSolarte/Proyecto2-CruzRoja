@@ -2,46 +2,30 @@ import { useTranslation } from 'react-i18next';
 import {ManagmentLayout,TabsAtomComponent,CustomButton,CustomText,CustomInput} from '../../../components';
 import { CustomTextArea } from '../../../components';
 import { Box } from '@mui/material';
+import { RoleModel } from '../../../models';
 
 
 interface FormRoleDataProps{
-    idRolEdit?:number;
+    rolData?:RoleModel;
 }
-const FormRoleData = ({}: FormRoleDataProps) => {
+const FormRoleData = ({rolData}: FormRoleDataProps) => {
     const { t } = useTranslation('commons');
   return (
-    <ManagmentLayout
-      title={<CustomText texto={t('pageTitles.createRole')} variante="titulo" />}
-      actionsContent={
-        <CustomButton
-          content={t('generalButtonText.save')}
-          onClick={() => {}}
-          variant="contained"
-          color="success"
-        />
-      }
-      generalContents={
-        <Box>
-          <TabsAtomComponent
-            tabContentItem={[t('rolesPages.tabs.visualizar'), t('rolesPages.tabs.permissions')]}
-          />
-          <Box mt={5}>
+    <Box>
+          <Box mt={4}>
             <CustomText texto={t('rolesPages.roleForm.name')} variante="subtitulo" mandatory />
-            <CustomInput placeholder="Nombre rol" size="medium" />
+            <CustomInput placeholder="Nombre rol" defaultValue={rolData?.typeRole} size="medium" />
           </Box>
 
           <Box mt={5} sx={{ borderTop: '1px solid #C8C8C8', paddingTop: '20px' }}>
             <CustomText
-              texto={t('rolesPages.roleForm.type')}
+              texto={"Listar los permisos"}
               variante="subtitulo"
               mandatory
             />
-            <CustomTextArea placeholder={t('rolesPages.roleForm.textTypeRol')} />
           </Box>
           
         </Box>
-      }
-    />
   );
   };
   

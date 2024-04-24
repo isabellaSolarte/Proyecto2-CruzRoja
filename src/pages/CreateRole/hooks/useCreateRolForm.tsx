@@ -1,11 +1,16 @@
 import { useState, useEffect } from 'react';
 import { PermissionModel } from '../../../models';
+import { RoleModel } from '../../../models';
+import { defaultRolSchema } from '../schemas/RolSchema';
 import { getAllPermissions } from '../../../services/Permissions/permissionsRequest';
 // TODO agregarPermiso y  hacer la peticion de crear rol con la lista de permisos
 export const useCreateRolForm = () => {
   const [permissionList, setPermissionList] = useState<PermissionModel[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
+  const [rolData, setrolData] = useState<RoleModel>(
+    defaultRolSchema,
+  );
 
   const loadPermissions = async () => {
     setIsLoading(true);
@@ -25,5 +30,5 @@ export const useCreateRolForm = () => {
     loadPermissions();
   }, []); // Para renderizar los permisos solo en la carga inicial
 
-  return { permissionList, isLoading, error, loadPermissions };
+  return { permissionList, isLoading, error,rolData, loadPermissions };
 };
