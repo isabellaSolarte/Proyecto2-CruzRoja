@@ -8,6 +8,11 @@ const useCompanyUser = () => {
     const [loadingcompanyUsers, setLoadingcompanyUsers] = useState<boolean>(false);
     const [companyUserInfo, setCompanyUserInfo] = useState<CompanyUserType[]>([]);
 
+    const updateCompanyUserInfo = (updatedCompanyUsers: CompanyUserModel[]) => {
+        const mappedCompanyUsers = mapCompanyUsersToInfo(updatedCompanyUsers);
+        setCompanyUserInfo(mappedCompanyUsers);
+    }
+
     const mapCompanyUsersToInfo = (companyUsersData: CompanyUserModel[]): CompanyUserType[] => {
         return companyUsersData.map((companyUser) => {
             const rolesString = companyUser.roles.map((role) => role.typeRole as string).join(', ');
@@ -44,7 +49,7 @@ const useCompanyUser = () => {
         };
     }, []);
 
-    return {companyUsers, loadingcompanyUsers, companyUserInfo};
+    return {companyUsers, loadingcompanyUsers, companyUserInfo, updateCompanyUserInfo};
 };
 
 export default useCompanyUser;

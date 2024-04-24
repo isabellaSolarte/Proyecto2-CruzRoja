@@ -45,11 +45,7 @@ export const postVolunteer = async (data: VolunterUserModel) => {
     console.error(error);
   }
 };
-//user-company-rest-controller
 
-
-///GET
-///api/user/companies
 
 export const getCompanies = async (): Promise<CompanyUserModel[]> => {
   try {
@@ -75,3 +71,20 @@ export const postUserCompany = async (data: CompanyUserModel) => {
     console.error(error);
   }
 };
+
+export const putUserCompany = async (data: CompanyUserModel) => {
+  try {
+    const updatedCompanyData = {
+      ...data,
+      documentNumber: data.id, // Usar el documentNumber como identificador
+    };
+    const response = await api.put<AxiosResponse>(
+      UsersEndpoints.putCompanyUser,
+      updatedCompanyData,
+    );
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw error; // Lanzar el error para manejarlo en el componente
+  }
+}
