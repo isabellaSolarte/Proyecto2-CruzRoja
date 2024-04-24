@@ -31,7 +31,7 @@ const CreateRolePage = ({ updateRolData, initialId}: CreateRolFormProps) => {
       actionsContent={
         <CustomButton
           content={t('generalButtonText.save')}
-          onClick={() => {}}
+          onClick={() => onSubmit}
           variant="contained"
           color="success"
         />

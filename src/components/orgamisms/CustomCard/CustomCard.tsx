@@ -11,7 +11,7 @@ import './CustomCardStyle.css';
       sx={{ backgroundColor: theme.backgroundContentColors?.green}}
       switchState={switchState}
       handleSwitchState={handleSwitchState}
-    /> */
+    />*/
 interface CardCustomProps {
   texto1: string;
   texto2?: string;
@@ -34,7 +34,7 @@ const CustomCard = ({
         <div className="icono">{icon && icon}</div>
         <LabelGroup texto1={texto1} texto2={texto2} />
       </div>
-      <CustomSwitch switchState={switchState} handleSwitchState={handleSwitchState} />
+      <CustomSwitch switchState={switchState} onClick={handleSwitchState} />
     </Card>
   );
 };

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { useFieldArray, useForm } from 'react-hook-form';
 import { PermissionModel } from '../../../models';
 import { RoleModel } from '../../../models';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -7,6 +7,11 @@ import { defaultRolSchema } from '../schemas/RolSchema';
 import { rolSchemaValidation } from '../schemas/RolSchema';
 import { getRolId } from '../../../services/AxiosRequests/Roles/roleRequest';
 import { getAllPermissions } from '../../../services/Permissions/permissionsRequest';
+import { useNavigate } from 'react-router-dom';
+import { PathNames } from '../../../core';
+
+import { postRol } from './../../../services/AxiosRequests/Roles/roleRequest';
+
 // TODO agregarPermiso y  hacer la peticion de crear rol con la lista de permisos
 export const useCreateRolForm = (
   updateRolData: (newUserData: RoleModel) => void,
@@ -20,6 +25,8 @@ export const useCreateRolForm = (
     defaultRolSchema,
   );
 
+  const navigate = useNavigate();
+
   const {
     handleSubmit,
     control,
@@ -29,9 +36,41 @@ export const useCreateRolForm = (
   } = useForm<RoleModel>({
   });
 
-  const onSubmit = async (data: RoleModel) => {
-    await new Promise(resolve => setTimeout(resolve, 0));
-    updateRolData({ ...data});
+  const { fields, append, update, remove } = useFieldArray({
+    control,
+    name: 'permissions',
+  });
+
+  const addRole = (newRole: PermissionModel) => {
+    console.log('newRole', newRole);
+    append(newRole);
+    register(`permissions.${fields.length}.id`);
+    console.log('Permissions list:', fields);
+    console.log('error', errors);
+  };
+
+  const onSubmit = async () => {
+    const permisos = getValues().permissions.map(permiso => ({
+      idPermission: permiso.id,
+      name: permiso.name,
+      description: permiso.description
+    }));
+    const updateRol = {
+      ...getValues(),
+      permissions: permisos,
+      idRole: Math.floor(Math.random() * (6 - 1)) + 1
+    }
+    console.log(updateRol);
+    try {
+      await postRol(updateRol);
+      alert(`Se ha creado el rol ${updateRol.typeRole} correctamente`);
+      navigate(PathNames.ROLES, { replace: true });
+    } catch (error: any) {
+      alert(`Error creating user ${error.message}`);
+    }
+    //await new Promise(resolve => setTimeout(resolve, 0));
+    /* updateRolData({ ...getValues()}); */
+
   };
 
   const loadPermissions = async () => {
@@ -70,6 +109,8 @@ export const useCreateRolForm = (
     id,
     error,
     rolData, 
+    addRole,
+    remove,
     loadPermissions,
     loadRolData,
     register,
