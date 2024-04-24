@@ -42,11 +42,10 @@ export const useCreateRolForm = (
   });
 
   const addRole = (newRole: PermissionModel) => {
-    console.log('newRole', newRole);
+
     append(newRole);
     register(`permissions.${fields.length}.id`);
-    console.log('Permissions list:', fields);
-    console.log('error', errors);
+    //console.log('error', errors);
   };
 
   const onSubmit = async () => {
@@ -60,7 +59,6 @@ export const useCreateRolForm = (
       permissions: permisos,
       idRole: Math.floor(Math.random() * (6 - 1)) + 1
     }
-    console.log(updateRol);
     try {
       await postRol(updateRol);
       alert(`Se ha creado el rol ${updateRol.typeRole} correctamente`);
@@ -89,7 +87,6 @@ export const useCreateRolForm = (
   const loadRolData = async () => {
     setError(null);
     setId(initialId)
-    console.log(typeof Number(id))
     try {
       
       const rolDataById = await getRolId(Number(id)); // Obtengo la lista de permisos
