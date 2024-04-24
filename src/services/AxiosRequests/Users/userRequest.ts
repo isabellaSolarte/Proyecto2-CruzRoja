@@ -66,13 +66,15 @@ export const postUserCompany = async (data: CompanyUserMode) => {
     console.error(error);
   }
   
-  export const getVolunteerById = async (id: number): Promise<VolunterUserModel> => {
-    try {
-      const response = await api.get<any>(`/user/volunteers/${id}`);
-      const adaptedVolunteer: VolunterUserModel = VolunteerAdapter(response.data);
-      return adaptedVolunteer;
-    } catch (error) {
-      throw new Error(JSON.stringify(error));
-    }
-  };
+  
+};
+
+export const getVolunteerById = async (id: number): Promise<VolunterUserModel> => {
+  try {
+    const response = await api.get<any>(`/user/volunteers/${id}`);
+    const adaptedVolunteer: VolunterUserModel = VolunteerAdapter(response.data);
+    return adaptedVolunteer;
+  } catch (error) {
+    throw new Error(JSON.stringify(error));
+  }
 };
