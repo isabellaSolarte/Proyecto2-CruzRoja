@@ -15,6 +15,22 @@ export const getVolunteers = async (): Promise<VolunterUserModel[]> => {
     throw new Error(JSON.stringify(error));
   }
 };
+export const putVolunteer = async (data: VolunterUserModel) => {
+  try {
+    const updatedVolunteerData = {
+      ...data,
+      documentNumber: data.id, // Usar el documentNumber como identificador
+    };
+    const response = await api.put<AxiosResponse>(
+      UsersEndpoints.putVolunteer,
+      updatedVolunteerData,
+    );
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw error; // Lanzar el error para manejarlo en el componente
+  }
+};
 
 export const postVolunteer = async (data: VolunterUserModel) => {
   try {
