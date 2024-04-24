@@ -45,13 +45,13 @@ export const useCreateRolForm = (
   const loadRolData = async () => {
     setError(null);
     setId(initialId)
+    console.log(typeof Number(id))
     try {
-      const rolDataById = await getRolId(id); // Obtengo la lista de permisos
+      
+      const rolDataById = await getRolId(Number(id)); // Obtengo la lista de permisos
       setrolData(rolDataById);
     } catch (error) {
       setError(error as Error); 
-    } finally {
-      setIsLoading(false);
     }
   }
 

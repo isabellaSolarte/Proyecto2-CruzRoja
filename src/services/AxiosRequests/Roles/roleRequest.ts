@@ -1,8 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { RolAdapter } from '../../../adapters';
 import { RoleModel } from '../../../models';
 import { api } from '../api';
@@ -20,7 +15,7 @@ export const getAllRoles = async (): Promise<RoleModel[]> => {
   }
 };
 
-export const getRolId = async (id: string | undefined ): Promise<RoleModel> => {
+export const getRolId = async (id: number): Promise<RoleModel> => {
   try {
     const response = await api.get(`/roles/idRole/${id}`)
     const adaptedRoles: RoleModel = response.data.map((externalRol: any) =>
