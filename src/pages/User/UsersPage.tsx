@@ -163,7 +163,7 @@ const UsersPage = () => {
           color="success"
         />
       }
-      inputBar={<SearchBar placeholder={t('generalButtonText.search')} />}
+      // inputBar={<SearchBar placeholder={t('generalButtonText.search')} />}
       generalContents={
         <>
         <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={volunteerInfo} loading={loading} />
