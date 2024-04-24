@@ -3,6 +3,7 @@ import CustomText from '../../../components/Atoms/CustomText/CustomText';
 import UserTypeCard from '../Components/UserTypeCard';
 import { useTranslation } from 'react-i18next';
 import { CustomButton, EmptyBox } from '../../../components';
+import { useEffect } from 'react';
 
 interface SelectUserFormProps {
   // eslint-disable-next-line no-unused-vars
@@ -19,6 +20,10 @@ const SelectUserForm = ({ handleUserType, userType, handleNext }: SelectUserForm
     const type = (event.target as HTMLInputElement).value as 'volunter' | 'business';
     handleUserType(type);
   };
+
+  useEffect(() => {
+    console.log('userType', userType);
+  }, [userType]);
 
   return (
     <Box
@@ -44,6 +49,9 @@ const SelectUserForm = ({ handleUserType, userType, handleNext }: SelectUserForm
               label={t('userTypes.redCross')}
               banner="/voluntarioLogo.png"
               active={userType === 'volunter'}
+              onClick={() => {
+                handleUserType('volunter');
+              }}
             />
 
             <UserTypeCard
@@ -51,6 +59,9 @@ const SelectUserForm = ({ handleUserType, userType, handleNext }: SelectUserForm
               label={t('userTypes.businessRepresntative')}
               banner="/personaLogoBG.png"
               active={userType === 'business'}
+              onClick={() => {
+                handleUserType('business');
+              }}
             />
           </RadioGroup>
         </FormControl>

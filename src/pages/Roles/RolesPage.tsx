@@ -2,29 +2,29 @@ import { CustomButton, CustomText, CustomColumn, DataTable, ManagmentLayout } fr
 import { useEffect} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRolePage } from './hooks/useRolePage';
-import CircularProgress from '@mui/material/CircularProgress'; // Importa el indicador de carga
+import CircularProgress from '@mui/material/CircularProgress';
 import { useNavigate } from "react-router-dom";
 import { PathNames } from "../../core";
 import EditIcon from '@mui/icons-material/Edit';
 
 const RolesPage = () => {
   const { t } = useTranslation('commons');
-  const { roles, loading, fetchRoles } = useRolePage(); // Obtén el estado de carga desde el hook
+  const { roles, loading, fetchRoles } = useRolePage();
+  const navigate = useNavigate();
 
   useEffect(() => {
     void fetchRoles();
   }, []);
-  console.log(roles)
 
-  const navigate = useNavigate(); // Utilize the useNavigate hookk
-  
-  const handleEditButtonClick = (rowData: any) => {
-
+  const handleEditButtonClick = (roleId: string) => {
+    navigate(PathNames.EDIT_ROLE.replace(':id', roleId));
+    console.log("ruta: ",PathNames.EDIT_ROLE.replace(':id', roleId))
   };
 
   const handleCreateButtonClick = () => {
-    navigate(PathNames.CREATE_ROLE); // Navega a la ruta PathNames.CREATE_ROLE al hacer clic en el botón
+    navigate(PathNames.CREATE_ROLE);
   };
+
   const columns = [
     CustomColumn({ field: 'typeRole', headerName: t('usersPages.userTable.roles'), format: 'text', variante: 'texto'}),
     CustomColumn({ field: 'actions', headerName: t('usersPages.userTable.actions'), format: 'button', variante: 'texto',  buttonDetails: [
@@ -33,7 +33,7 @@ const RolesPage = () => {
         variant: 'contained',
         color: 'info',
         icon: <EditIcon />,
-        onClick: handleEditButtonClick,
+        onClick: (rowData: { id: string }) => handleEditButtonClick(rowData.id),
       }
     ] }),
   ];
@@ -46,7 +46,7 @@ const RolesPage = () => {
           content={t('generalButtonText.create')}
           variant="contained"
           color="success"
-          onClick= {handleCreateButtonClick}
+          onClick={handleCreateButtonClick}
           style={{ marginLeft: '10px' }}
         />
       }

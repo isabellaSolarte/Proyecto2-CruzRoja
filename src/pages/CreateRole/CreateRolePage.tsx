@@ -1,5 +1,11 @@
 import { useTranslation } from 'react-i18next';
-import {ManagmentLayout,TabsAtomComponent,CustomButton,CustomText,CustomInput} from '../../components';
+import {
+  ManagmentLayout,
+  TabsAtomComponent,
+  CustomButton,
+  CustomText,
+  CustomInput,
+} from '../../components';
 import CustomTextArea from '../../components/Atoms/CustomTextArea/CustomTextArea';
 import { Box } from '@mui/material';
 
@@ -28,14 +34,9 @@ const CreateRolePage = () => {
           </Box>
 
           <Box mt={5} sx={{ borderTop: '1px solid #C8C8C8', paddingTop: '20px' }}>
-            <CustomText
-              texto={t('rolesPages.roleForm.type')}
-              variante="subtitulo"
-              mandatory
-            />
+            <CustomText texto={t('rolesPages.roleForm.type')} variante="subtitulo" mandatory />
             <CustomTextArea placeholder={t('rolesPages.roleForm.textTypeRol')} />
           </Box>
-          
         </Box>
       }
     />

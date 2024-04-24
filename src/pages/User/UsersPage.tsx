@@ -62,7 +62,7 @@ const UsersPage = () => {
   const closeDialog = () => {
     setIsDialogOpen(false);
   };
-
+  
   const handleCancelButtonClick = () => {
     closeDialog();
   };
