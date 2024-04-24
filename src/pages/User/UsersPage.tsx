@@ -1,4 +1,4 @@
-import { CustomText, CustomButton, ManagmentLayout, SearchBar, DataTable, CustomColumn } from '../../components';
+import { CustomText, CustomButton, ManagmentLayout, SearchBar, DataTable, CustomColumn, TabsAtomComponent } from '../../components';
 import { useTranslation } from 'react-i18next';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -24,8 +24,8 @@ import { GridRenderCellParams } from '@mui/x-data-grid';
 const UsersPage = () => {
   const { t } = useTranslation('commons');
   const navigate = useNavigate(); // Utilize the useNavigate hook
-  const { volunteers, loading, volunteerInfo, updateVolunteerInfo } = useVolunteers();
-  const { companyUsers, loadingcompanyUsers, companyUserInfo, updateCompanyUserInfo } = useCompanyUser();
+  const { volunteers, setVolunteers, loading, volunteerInfo, updateVolunteerInfo } = useVolunteers();
+  const { companyUsers, setCompanyUsers,  loadingcompanyUsers, companyUserInfo, updateCompanyUserInfo } = useCompanyUser();
 
 
   type Color = 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
@@ -85,7 +85,7 @@ const UsersPage = () => {
           ...selectedCompanyUser,
           state: !selectedCompanyUser.state,
         };
-    
+        console.log('Updated Company User Data:', updatedCompanyUserData);
         // Realizar la solicitud PUT para actualizar el estado del usuario de la empresa
         putUserCompany(updatedCompanyUserData)
           .then((response) => {
@@ -94,6 +94,7 @@ const UsersPage = () => {
             const updatedCompanyUsers = companyUsers.map((companyUser) =>
               companyUser.id === id ? { ...companyUser, state: !companyUser.state } : companyUser
             );
+            setCompanyUsers(updatedCompanyUsers);
             console.log('Updated Company Users:', updatedCompanyUsers);
             updateCompanyUserInfo(updatedCompanyUsers); // Actualizar la información de los usuarios de la empresa en la interfaz de usuario
           })
@@ -129,6 +130,7 @@ const UsersPage = () => {
             const updatedVolunteers = volunteers.map((volunteer) =>
               volunteer.id === id ? { ...volunteer, state: !volunteer.state } : volunteer
             );
+            setVolunteers(updatedVolunteers);
             console.log('Updated Volunteers:', updatedVolunteers);
             updateVolunteerInfo(updatedVolunteers); // Actualizar la información de los voluntarios en la interfaz de usuario
           })
@@ -227,6 +229,7 @@ const UsersPage = () => {
       // inputBar={<SearchBar placeholder={t('generalButtonText.search')} />}
       generalContents={
         <>
+        {/* <TabsAtomComponent tabContentItem={[t("usersPages.tabs.volunteer"), t("usersPages.tabs.CompanyUser")]} /> */}
         <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={volunteerInfo} loading={loading} />
         <DataTable enableCheckboxSelection={false} dataColumns={columnsCompanyUsers} dataRows={companyUserInfo} loading={loadingcompanyUsers} />
         

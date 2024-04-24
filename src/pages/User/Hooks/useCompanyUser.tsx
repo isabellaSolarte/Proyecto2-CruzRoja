@@ -49,7 +49,7 @@ const useCompanyUser = () => {
         };
     }, []);
 
-    return {companyUsers, loadingcompanyUsers, companyUserInfo, updateCompanyUserInfo};
+    return {companyUsers, setCompanyUsers, loadingcompanyUsers, companyUserInfo, updateCompanyUserInfo};
 };
 
 export default useCompanyUser;
