@@ -34,6 +34,7 @@ const ValidateUserData = ({ userData, handleNextStep, handleStepBack }: Validate
 
   return (
     <div>
+      {JSON.stringify(userData)}
       <Grid container>
         <Grid item xs={12} paddingTop={3}>
           <CustomText texto={'Información personal'} variante={'subtitulo'} />
