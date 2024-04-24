@@ -29,6 +29,11 @@ export const useCreateRolForm = (
   } = useForm<RoleModel>({
   });
 
+  const onSubmit = async (data: RoleModel) => {
+    await new Promise(resolve => setTimeout(resolve, 0));
+    updateRolData({ ...data});
+  };
+
   const loadPermissions = async () => {
     setIsLoading(true);
     setError(null);
@@ -59,5 +64,16 @@ export const useCreateRolForm = (
     loadPermissions();
   }, []); // Para renderizar los permisos solo en la carga inicial
 
-  return { permissionList, isLoading, id,error,rolData, loadPermissions,loadRolData };
+  return { 
+    permissionList, 
+    isLoading, 
+    id,
+    error,
+    rolData, 
+    loadPermissions,
+    loadRolData,
+    register,
+    handleSubmit,
+    onSubmit
+  };
 };

@@ -10,7 +10,7 @@ import { useEffect } from 'react';
 
 
 interface CreateRolFormProps{
-  updateRolData : (rolData: RoleModel) => void;
+  updateRolData : (newUserData: RoleModel) => void;
   initialId?: string
 }
 //TODO preguntar sobre si se necesita una interfaz cuando manda el id del rol a editar
@@ -19,11 +19,7 @@ const CreateRolePage = ({ updateRolData, initialId}: CreateRolFormProps) => {
   const { id } = useParams();
   initialId = id
   const {
-    permissionList, 
-    isLoading, 
-    error,
-    rolData, 
-    loadPermissions,
+    rolData,
     loadRolData
   } = useCreateRolForm(updateRolData,initialId);
   useEffect(() =>{
@@ -43,6 +39,7 @@ const CreateRolePage = ({ updateRolData, initialId}: CreateRolFormProps) => {
       generalContents={
         <FormRoleData
           rolData={rolData}
+          updateRolData={updateRolData}
         />
       }
     />

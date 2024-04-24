@@ -18,9 +18,10 @@ export const getAllRoles = async (): Promise<RoleModel[]> => {
 export const getRolId = async (id: number): Promise<RoleModel> => {
   try {
     const response = await api.get(`/roles/idRole/${id}`)
-    const adaptedRoles: RoleModel = response.data.map((externalRol: any) =>
-      RolAdapter(externalRol),
-    );
+    console.log(response)
+    const adaptedRoles: RoleModel = RolAdapter(response.data)
+   
+    console.log(adaptedRoles)
     return adaptedRoles;
   } catch (err) {
     throw new Error(JSON.stringify(err));
