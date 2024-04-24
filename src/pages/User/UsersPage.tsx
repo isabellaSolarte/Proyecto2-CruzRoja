@@ -230,7 +230,10 @@ const UsersPage = () => {
       generalContents={
         <>
         {/* <TabsAtomComponent tabContentItem={[t("usersPages.tabs.volunteer"), t("usersPages.tabs.CompanyUser")]} /> */}
+        <CustomText texto={t('usersPages.tabs.volunteer')} variante="subtitulo" />
         <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={volunteerInfo} loading={loading} />
+        
+        <CustomText texto={t('usersPages.tabs.CompanyUser')} variante="subtitulo" />
         <DataTable enableCheckboxSelection={false} dataColumns={columnsCompanyUsers} dataRows={companyUserInfo} loading={loadingcompanyUsers} />
         
         <CustomDialog isOpen={isDialogOpen} onClick= {handleCancelButtonClick} title='Alert Dialog' content='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut bibendum placerat faucibus. Nullam quis vulputate purus. Aenean sed purus orci.' buttons={[
