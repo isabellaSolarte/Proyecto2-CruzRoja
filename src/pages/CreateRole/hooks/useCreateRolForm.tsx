@@ -1,16 +1,33 @@
 import { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import { PermissionModel } from '../../../models';
 import { RoleModel } from '../../../models';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { defaultRolSchema } from '../schemas/RolSchema';
+import { rolSchemaValidation } from '../schemas/RolSchema';
+import { getRolId } from '../../../services/AxiosRequests/Roles/roleRequest';
 import { getAllPermissions } from '../../../services/Permissions/permissionsRequest';
 // TODO agregarPermiso y  hacer la peticion de crear rol con la lista de permisos
-export const useCreateRolForm = () => {
+export const useCreateRolForm = (
+  updateRolData: (newUserData: RoleModel) => void,
+  initialId?: string  // Optional initial id
+) => {
+  const [id, setId] = useState<string | undefined >(initialId); // State for id
   const [permissionList, setPermissionList] = useState<PermissionModel[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const [rolData, setrolData] = useState<RoleModel>(
     defaultRolSchema,
   );
+
+  const {
+    handleSubmit,
+    control,
+    register,
+    formState: { errors },
+    getValues,
+  } = useForm<RoleModel>({
+  });
 
   const loadPermissions = async () => {
     setIsLoading(true);
@@ -24,11 +41,23 @@ export const useCreateRolForm = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }
+  const loadRolData = async () => {
+    setError(null);
+    setId(initialId)
+    try {
+      const rolDataById = await getRolId(id); // Obtengo la lista de permisos
+      setrolData(rolDataById);
+    } catch (error) {
+      setError(error as Error); 
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   useEffect(() => {
     loadPermissions();
   }, []); // Para renderizar los permisos solo en la carga inicial
 
-  return { permissionList, isLoading, error,rolData, loadPermissions };
+  return { permissionList, isLoading, id,error,rolData, loadPermissions,loadRolData };
 };

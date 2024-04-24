@@ -19,3 +19,15 @@ export const getAllRoles = async (): Promise<RoleModel[]> => {
     throw new Error(JSON.stringify(err));
   }
 };
+
+export const getRolId = async (id: string | undefined ): Promise<RoleModel> => {
+  try {
+    const response = await api.get(`/roles/idRole/${id}`)
+    const adaptedRoles: RoleModel = response.data.map((externalRol: any) =>
+      RolAdapter(externalRol),
+    );
+    return adaptedRoles;
+  } catch (err) {
+    throw new Error(JSON.stringify(err));
+  }
+};
