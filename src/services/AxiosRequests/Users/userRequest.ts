@@ -5,6 +5,10 @@ import { api } from '../api';
 import { UsersEndpoints } from './Endpoints';
 
 import { VolunteerAdapter } from '../../../adapters/VolunteerAdapter';
+import {
+  adaptFrontCompanyUserModelToDTO,
+  adaptFrontVolunterUserModelToDTO,
+} from '../../Adapters_DTO';
 export const getVolunteers = async (): Promise<VolunterUserModel[]> => {
   try {
     const response = await api.get<any[]>(UsersEndpoints.getAllVolunteers);
@@ -20,7 +24,7 @@ export const putVolunteer = async (data: VolunterUserModel) => {
   try {
     const updatedVolunteerData = {
       ...data,
-      documentNumber: data.id, // Usar el documentNumber como identificador
+      documentNumber: Number(data.id), // Usar el documentNumber como identificador
     };
     const response = await api.put<AxiosResponse>(
       UsersEndpoints.putVolunteer,
@@ -35,10 +39,8 @@ export const putVolunteer = async (data: VolunterUserModel) => {
 
 export const postVolunteer = async (data: VolunterUserModel) => {
   try {
-    const newUserData = {
-      ...data,
-      documentNumber: data.id, // Usar el documentNumber como identificador
-    };
+    const newUserData = adaptFrontVolunterUserModelToDTO(data);
+    console.log('new user', JSON.stringify(newUserData));
 
     const response = await api.post<AxiosResponse>(
       UsersEndpoints.postVolunteer,
@@ -52,10 +54,8 @@ export const postVolunteer = async (data: VolunterUserModel) => {
 
 export const postUserCompany = async (data: CompanyUserMode) => {
   try {
-    const newUserData = {
-      ...data,
-      documentNumber: data.id, // Usar el documentNumber como identificador
-    };
+    const newUserData = adaptFrontCompanyUserModelToDTO(data);
+    console.log('new user', JSON.stringify(newUserData));
 
     const response = await api.post<AxiosResponse>(
       UsersEndpoints.postCompanyUser,
