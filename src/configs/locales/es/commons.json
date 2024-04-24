@@ -46,7 +46,9 @@
         "tabs": {
             "general": "General",
             "roles": "Roles",
-            "business": "Empresas"
+            "business": "Empresas",
+            "volunteer": "Voluntario",
+            "CompanyUser": "Representante de compañia"
         },
         "userForm": {
             "usertype": "Tipo de usuario",
@@ -74,6 +76,7 @@
         },
         "userTable": {
             "name": "Nombre",
+            "companyName":"Nombre de la empresa",
             "roles": "Roles",
             "actions": "Acciones",
             "users": "Usuarios"           

@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useTranslation } from 'react-i18next';
 import { CustomButton, CustomText, EmptyBox } from '../../../components';
-import { CompanyUserMode, VolunterUserModel } from '../../../models';
+import { CompanyUserModel, VolunterUserModel } from '../../../models';
 import { Box, Grid } from '@mui/material';
 
 interface ValidateUserDataProps {
-  userData: CompanyUserMode | VolunterUserModel;
+  userData: CompanyUserModel | VolunterUserModel;
   handleNextStep: () => Promise<void>;
   handleStepBack: () => void;
 }

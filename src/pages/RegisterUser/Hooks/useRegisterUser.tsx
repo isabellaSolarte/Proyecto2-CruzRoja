@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { StepProps } from '../../../components/orgamisms/CustomStepper/CustomStepper';
 import { UserModel } from '../../../models/UserModels/UserModel';
 import { VolunterUserModel } from '../../../models/UserModels/VolunterUserModel';
-import { CompanyUserMode } from '../../../models/UserModels/CompanyUserModel';
+import { CompanyUserModel } from '../../../models/UserModels/CompanyUserModel';
 import { defaulUserSchema } from '../schemas/UserSchema';
 import { BusinessRegisterFormType, VolunterRegisterFormType } from '../types';
 import { postUserCompany, postVolunteer } from '../../../services';
@@ -17,7 +17,7 @@ const useRegisterUser = () => {
   const { t } = useTranslation('commons');
 
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-  const [userData, setUserData] = useState<UserModel | VolunterUserModel | CompanyUserMode>(
+  const [userData, setUserData] = useState<UserModel | VolunterUserModel | CompanyUserModel>(
     defaulUserSchema,
   );
 
@@ -121,7 +121,7 @@ const useRegisterUser = () => {
       if (userType === 'volunter') {
         await postVolunteer(userData as VolunterUserModel);
       } else {
-        await postUserCompany(userData as CompanyUserMode);
+        await postUserCompany(userData as CompanyUserModel);
       }
       alert(`User created usaurio creado tipo ${userType} correctamente`);
       navigate(PathNames.USERS, { replace: true });

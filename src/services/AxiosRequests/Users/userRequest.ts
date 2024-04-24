@@ -1,9 +1,11 @@
 import { AxiosResponse } from 'axios';
-import { CompanyUserMode, VolunterUserModel } from '../../../models';
+import { CompanyUserModel, VolunterUserModel } from '../../../models';
 import { api } from '../api';
 import { UsersEndpoints } from './Endpoints';
 
 import { VolunteerAdapter } from '../../../adapters/VolunteerAdapter';
+import { CompanyUserAdapter } from '../../../adapters/CompanyUserAdapter';
+
 export const getVolunteers = async (): Promise<VolunterUserModel[]> => {
   try {
     const response = await api.get<any[]>(UsersEndpoints.getAllVolunteers);
@@ -43,10 +45,26 @@ export const postVolunteer = async (data: VolunterUserModel) => {
     console.error(error);
   }
 };
+//user-company-rest-controller
 
 
+///GET
+///api/user/companies
 
-export const postUserCompany = async (data: CompanyUserMode) => {
+export const getCompanies = async (): Promise<CompanyUserModel[]> => {
+  try {
+    const response = await api.get<CompanyUserModel[]>(UsersEndpoints.getAllCompanyUsers);
+    const adaptedCompanies: CompanyUserModel[] = response.data.map((company: CompanyUserModel) => 
+      CompanyUserAdapter(company),
+    );
+    return adaptedCompanies;
+  } catch (error) {
+    throw new Error(JSON.stringify(error));
+  }
+};
+
+
+export const postUserCompany = async (data: CompanyUserModel) => {
   try {
     const response = await api.post<AxiosResponse>(
       UsersEndpoints.postCompanyUser,

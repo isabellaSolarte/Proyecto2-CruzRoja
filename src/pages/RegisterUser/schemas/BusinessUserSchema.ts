@@ -1,8 +1,8 @@
 import * as yup from 'yup';
-import { CompanyUserMode } from '../../../models/UserModels/CompanyUserModel';
+import { CompanyUserModel } from '../../../models/UserModels/CompanyUserModel';
 
 export const defaulBusinessUserSchema: Pick<
-  CompanyUserMode,
+  CompanyUserModel,
   'companyNit' | 'companyName' | 'companyPhone' | 'companyEmail' | 'address'
 > = {
   companyNit: 0,
