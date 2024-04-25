@@ -138,11 +138,7 @@ const ViewUserPage  = ({id}:ViewUserProps) => {
                 </Box>
             )}
             <Box>
-                <Grid container spacing={2} direction={'column'} gap={5}>
-                    <Grid item xs={12}>
-                        <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={[]} />
-                    </Grid>  
-                </Grid>  
+                <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={[]} />
             </Box>
            
         </Box>
