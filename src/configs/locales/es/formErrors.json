@@ -27,7 +27,9 @@
             "required": "El nombre de usuario es requerido"
         },
         "password": {
-            "required": "La contraseña es requerida"
+            "min": "La contraseña debe tener al menos 8 caracteres",
+            "required": "La contraseña es requerida",
+            "pattern": "La contraseña debe tener al menos una letra mayúscula, una minúscula, un número y un carácter especial"
         },
         "roles": {
             "min": "Por favor seleccione al menos un rol",

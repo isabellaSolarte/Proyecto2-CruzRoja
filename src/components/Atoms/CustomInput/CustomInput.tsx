@@ -1,11 +1,11 @@
-import { Dispatch, SetStateAction } from 'react';
+/* eslint-disable no-unused-vars */
 import './InputStyle.css';
 
 interface CustomInputProps {
   placeholder: string;
   size: 'small' | 'medium' | 'large'; // Define size prop
   type?: 'text' | 'password' | 'email' | 'number' | 'submit'; // Define type prop
-  updateText?: Dispatch<SetStateAction<string>>;
+  updateText?: (text: string) => void;
   value?: string | number;
   props?: object;
   defaultValue?: string;

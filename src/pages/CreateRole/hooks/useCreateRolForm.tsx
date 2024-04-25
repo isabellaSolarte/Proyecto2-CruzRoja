@@ -42,7 +42,7 @@ export const useCreateRolForm = (
       const permissions = await getAllPermissions(); // Obtengo la lista de permisos
       setPermissionList(permissions);
     } catch (error) {
-      setError(error as Error); 
+      setError(error as Error);
     } finally {
       setIsLoading(false);
     }

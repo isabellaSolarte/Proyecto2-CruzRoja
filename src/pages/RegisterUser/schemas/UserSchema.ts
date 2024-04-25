@@ -40,7 +40,14 @@ export const userSchemaValidation = yup.object().shape({
     .email('personalEmail.email')
     .required('personalEmail.required'),
   username: yup.string().required('username.required'),
-  password: yup.string().required('password.required'),
+  password: yup
+    .string()
+    .min(8, 'password.min')
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/,
+      'password.pattern',
+    )
+    .required('password.required'),
   roles: yup
     .array()
     .of(

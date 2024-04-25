@@ -11,6 +11,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import WarningIcon from '@mui/icons-material/Warning';
 import CustomDialog from '../../components/orgamisms/CustomDialog/CustomDialog';
 import VolunteerInfoType from './types/VolunteerInfoType';
+import { putVolunteer } from '../../services';
 
 
 
@@ -43,13 +44,7 @@ const UsersPage = () => {
   const openDialog = (rowData: VolunteerInfoType) => {
     console.log('datos row', rowData);
     setRowData1(rowData)
-    const { id } = rowData;
-
-    // Find the volunteer in volunteerInfo based on the id
-    const selectedVolunteer = volunteers.find((volunteer) => volunteer.id === id);
-    if (selectedVolunteer) {
-      console.log('Selected Volunteer:', selectedVolunteer);
-    }  
+ 
     const {switchState} = rowData;
     if(switchState){
       setIconDialog(<WarningIcon/>)
@@ -68,39 +63,55 @@ const UsersPage = () => {
   const closeDialog = () => {
     setIsDialogOpen(false);
   };
-
+  
   const handleCancelButtonClick = () => {
     closeDialog();
   };
   
   const handleContinueButtonClick = () => {
     console.log("Continue button clicked");
-    console.log('pruba de datos',rowData1)
-    closeDialog();
+    console.log('prueba de datos', rowData1);
+    console.log('datos row', rowData1);
+    const { id } = rowData1;
+  
+    // Find the volunteer in volunteerInfo based on the id
+    const selectedVolunteer = volunteers.find((volunteer) => volunteer.id === id);
+    if (selectedVolunteer) {
+      console.log('Selected Volunteer:', selectedVolunteer);
+  
+      // Preparar los datos actualizados para enviar a la API
+      const updatedVolunteerData = {
+        ...selectedVolunteer,
+        state: !selectedVolunteer.state,
+      };
+  
+      // Realizar la solicitud PUT para actualizar el estado del voluntario
+      putVolunteer(updatedVolunteerData)
+        .then((response) => {
+          console.log('Response PUT:', response);
+          // Actualizar el estado local de los voluntarios después de una respuesta exitosa
+          const updatedVolunteers = volunteers.map((volunteer) =>
+            volunteer.id === id ? { ...volunteer, state: !volunteer.state } : volunteer
+          );
+          console.log('Updated Volunteers:', updatedVolunteers);
+          updateVolunteerInfo(updatedVolunteers); // Actualizar la información de los voluntarios en la interfaz de usuario
+        })
+        .catch((error: unknown) => {
+          console.error('Error al actualizar el estado del voluntario:', error);
+          // Manejar errores aquí (por ejemplo, mostrar un mensaje de error al usuario)
+        })
+        .finally(() => {
+          closeDialog(); // Cerrar el diálogo después de completar la acción, tanto si tiene éxito como si falla
+        });
+    } else {
+      closeDialog(); // Cerrar el diálogo si no se encuentra el voluntario seleccionado
+    }
   };
+  
   const navigate = useNavigate(); // Utilize the useNavigate hook
-  const { volunteers, loading, volunteerInfo } = useVolunteers();
-  const rows = [
-    { "id": 1, "documentNumber": 1, "names": "Tony Stark", "rol": "Admin", "switchState": true },
-    { "id": 2, "documentNumber": 2, "names": "Tyrion Lannister", "rol": "User", "switchState": false },
-    { "id": 3, "documentNumber": 3, "names": "Daenerys Targaryen", "rol": "User", "switchState": true },
-    { "id": 4, "documentNumber": 4, "names": "Robert Baratheon", "rol": "User", "switchState": false },
-    { "id": 5, "documentNumber": 5, "names": "Theon Greyjoy", "rol": "User", "switchState": false },
-    { "id": 6, "documentNumber": 6, "names": "Margaery Tyrell", "rol": "User", "switchState": true },
-    { "id": 7, "documentNumber": 7, "names": "Oberyn Martell", "rol": "User", "switchState": false },
-    { "id": 8, "documentNumber": 8, "names": "Jon Arryn", "rol": "User", "switchState": false },
-    { "id": 9, "documentNumber": 9, "names": "Catelyn Stark", "rol": "User", "switchState": true },
-    { "id": 10, "documentNumber": 10, "names": "Walder Frey", "rol": "User", "switchState": true },
-    { "id": 11, "documentNumber": 11, "names": "Ramsay Bolton", "rol": "User", "switchState": false },
-    { "id": 12, "documentNumber": 12, "names": "Eddard Stark", "rol": "User", "switchState": false },
-    { "id": 13, "documentNumber": 13, "names": "Jaime Lannister", "rol": "User", "switchState": true },
-    { "id": 14, "documentNumber": 14, "names": "Yara Greyjoy", "rol": "User", "switchState": true },
-    { "id": 15, "documentNumber": 15, "names": "Olenna Tyrell", "rol": "User", "switchState": false },
-    { "id": 16, "documentNumber": 16, "names": "Doran Martell", "rol": "User", "switchState": true },
-    { "id": 17, "documentNumber": 17, "names": "Robin Arryn", "rol": "User", "switchState": true },
-    { "id": 18, "documentNumber": 18, "names": "Edmure Tully", "rol": "User", "switchState": true },
-  ];
-  const handleEditButtonClick = (rowData: any) => {
+  const { volunteers, loading, volunteerInfo, updateVolunteerInfo } = useVolunteers();
+ 
+  const handleEditButtonClick = (rowData: VolunteerInfoType) => {
     const {id} = rowData;
     console.log('datos row', rowData);
     //mostrar lo traido
@@ -109,7 +120,7 @@ const UsersPage = () => {
     navigate(PathNames.EDIT_USER.replace(':id', String(id)));
   };
 
-  const handleViewButtonClick = (rowData: any) => {
+  const handleViewButtonClick = (rowData: VolunteerInfoType) => {
     const {id} = rowData;
     console.log("View*******id***********",id);
     console.log("ruta: ",PathNames.VIEW_USER.replace(':id', String(id)));
@@ -152,17 +163,17 @@ const UsersPage = () => {
           color="success"
         />
       }
-      inputBar={<SearchBar placeholder={t('generalButtonText.search')} />}
+      // inputBar={<SearchBar placeholder={t('generalButtonText.search')} />}
       generalContents={
         <>
         <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={volunteerInfo} loading={loading} />
         <CustomDialog isOpen={isDialogOpen} onClick= {handleCancelButtonClick} title='Alert Dialog' content='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut bibendum placerat faucibus. Nullam quis vulputate purus. Aenean sed purus orci.' buttons={[
-          {
-            key:'1',
-            content: 'Cancel',
-            variant: 'contained',
-            color: 'inherit',
-            onClick: handleCancelButtonClick
+        {
+          key:'1',
+          content: 'Cancel',
+          variant: 'contained',
+          color: 'inherit',
+          onClick: handleCancelButtonClick
         },
         {
           key:'2',
