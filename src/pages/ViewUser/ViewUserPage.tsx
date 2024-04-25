@@ -10,15 +10,24 @@ import { useEffect, useState } from 'react';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import CancelIcon from '@mui/icons-material/Cancel';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useUserPage } from './Hooks/useUserPage';
 
+interface ViewUserProps{
+    id:string
 
-const ViewUserPage  = () => {
+}
+const ViewUserPage  = ({id}:ViewUserProps) => {
   const { t } = useTranslation('commons');
   const [disableInput, setDisableInput] = useState(true);
   const handleInput = () => {
     setDisableInput(!disableInput);
   };
   
+  useEffect(() =>{
+    loadIdVolunteerData();
+  },[id] );
+
+  const {volunteerData, volunteerInfo, loadIdVolunteerData} = useUserPage(id);
 
   const columns = [
     CustomColumn({ field: 'names', headerName: t('usersPages.userTable.name'), format: 'text', variante: 'texto', icon: <AccountCircleIcon /> }),
@@ -53,7 +62,7 @@ const ViewUserPage  = () => {
                 )}
                 
                 <CustomText 
-                    texto={'hola'} 
+                    texto={volunteerInfo?.names} 
                     variante="subtitulo"
                     icon={<AccountCircleIcon style={{ color: 'green', fontSize: '25px' }} />}
                 />
@@ -145,3 +154,4 @@ const ViewUserPage  = () => {
 };
 
 export default ViewUserPage ;
+
