@@ -3,7 +3,9 @@ import {ManagmentLayout,TabsAtomComponent,CustomButton,CustomText,CustomInput} f
 import { CustomTextArea } from '../../../components';
 import { Box } from '@mui/material';
 import { RoleModel } from '../../../models';
+import { PermissionCard } from '../components';
 import { useCreateRolForm } from '../hooks/useCreateRolForm';
+
 
 
 interface FormRoleDataProps{
@@ -22,12 +24,14 @@ const FormRoleData = ({updateRolData,rolData}: FormRoleDataProps) => {
       loadPermissions,
       loadRolData,
       register,
+      remove,
+      addRole,
       onSubmit,
       handleSubmit
     } = useCreateRolForm(updateRolData)
   return (
     <Box>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={() => handleSubmit(onSubmit)}>
       <Box mt={4}>
             <CustomText texto={t('rolesPages.roleForm.name')} variante="subtitulo" mandatory />
             <CustomInput placeholder="Nombre rol" defaultValue={rolData?.typeRole} props={register('typeRole')} size="medium" />
@@ -39,9 +43,27 @@ const FormRoleData = ({updateRolData,rolData}: FormRoleDataProps) => {
               variante="subtitulo"
               mandatory
             />
+            {permissionList.map((permission, index) => (
+              <PermissionCard
+                key={permission.id}
+                permission={permission}
+                positiveAction={addRole}
+                negativeAction={() => {
+                  remove(index);
+                }}
+              />
+            ))} 
           </Box>
+
+        <CustomButton
+          content={t('generalButtonText.save')}
+          onClick={()=>{onSubmit()}}
+          variant="contained"
+          color="success"
+        />
       </form>
       </Box>
+      
   );
   };
   

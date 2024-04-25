@@ -56,7 +56,7 @@ const IOSSwitch = styled((props: SwitchProps) => (
 
 const CustomSwitch = ({ switchState, onClick }: CustomColumnSwitch) => {
 
-  return <IOSSwitch checked={switchState} onClick={onClick} />; // Utiliza el estado y la función de actualización
+  return <IOSSwitch  checked={switchState} onClick={onClick} />; // Utiliza el estado y la función de actualización
 };
 
 export default CustomSwitch;

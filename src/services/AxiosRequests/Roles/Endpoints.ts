@@ -1,3 +1,4 @@
 export const RolesEndpoints = {
-    getAllRoles: '/roles'
+    getAllRoles: '/roles',
+    postRol: '/roles',
   };
