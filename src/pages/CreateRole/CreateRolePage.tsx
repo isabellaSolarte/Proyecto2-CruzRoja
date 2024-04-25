@@ -36,9 +36,9 @@ const CreateRolePage = ({ updateRolData, initialId}: CreateRolFormProps) => {
     <ManagmentLayout
       title={<CustomText texto={t('pageTitles.createRole')} variante="titulo" />}
       generalContents={
-        <FormRoleData
-          rolData={rolData}
+        <FormRoleData //todo implementar adaptador
           updateRolData={updateRolData}
+          rolData={rolData}
         />
       }
     />

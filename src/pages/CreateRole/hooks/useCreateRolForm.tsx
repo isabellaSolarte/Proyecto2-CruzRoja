@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { PathNames } from '../../../core';
 
 import { postRol } from './../../../services/AxiosRequests/Roles/roleRequest';
+import { RoleFormType } from '../types/RoleFormType';
 
 // TODO agregarPermiso y  hacer la peticion de crear rol con la lista de permisos
 export const useCreateRolForm = (
@@ -21,7 +22,7 @@ export const useCreateRolForm = (
   const [permissionList, setPermissionList] = useState<PermissionModel[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
-  const [rolData, setrolData] = useState<RoleModel>(
+  const [rolData, setrolData] = useState<RoleFormType>(
     defaultRolSchema,
   );
 
@@ -33,7 +34,7 @@ export const useCreateRolForm = (
     register,
     formState: { errors },
     getValues,
-  } = useForm<RoleModel>({
+  } = useForm({
     defaultValues: defaultRolSchema,
     resolver: yupResolver(rolSchemaValidation),
   });
@@ -51,16 +52,14 @@ export const useCreateRolForm = (
   };
 
   const onSubmit = async () => {
-    const permisos = getValues().permissions.map(permiso => ({
-      idPermission: permiso.id,
-      name: permiso.name,
-      description: permiso.description
-    }));
-    const updateRol = {
+    // const permisos = getValues().permissions.map(permiso => ({
+    //   name: permiso.name,
+    //   description: permiso.description
+    // }));
+    const updateRol: RoleFormType = {
       ...getValues(),
-      permissions: permisos,
-      idRole: Math.floor(Math.random() * (6 - 1)) + 1
     }
+    console.log('ROL EN ONSUBMIT', updateRol);
     try {
       await postRol(updateRol);
       alert(`Se ha creado el rol ${updateRol.typeRole} correctamente`);
@@ -89,10 +88,13 @@ export const useCreateRolForm = (
   const loadRolData = async () => {
     setError(null);
     setId(initialId)
+    console.log(id)
     try {
       
       const rolDataById = await getRolId(Number(id)); // Obtengo la lista de permisos
+      
       setrolData(rolDataById);
+      console.log(rolData)
     } catch (error) {
       setError(error as Error); 
     }
@@ -108,6 +110,7 @@ export const useCreateRolForm = (
     id,
     error,
     rolData, 
+    errors,
     addRole,
     remove,
     loadPermissions,
