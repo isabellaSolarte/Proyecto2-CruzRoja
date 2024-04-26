@@ -70,7 +70,7 @@ export const useCreateRolForm = (
       ...getValues(),
       permissions: permisos,
     }
- 
+
     console.log('ROL EN ONSUBMIT', updateRol);
     try {
       await postRol(updateRol);
