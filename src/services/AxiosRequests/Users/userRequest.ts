@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AxiosResponse } from 'axios';
-import { CompanyUserMode, VolunterUserModel } from '../../../models';
+import { CompanyUserModel, VolunterUserModel } from '../../../models';
 import { api } from '../api';
 import { UsersEndpoints } from './Endpoints';
 
 import { VolunteerAdapter } from '../../../adapters/VolunteerAdapter';
+import { CompanyUserAdapter } from '../../../adapters/CompanyUserAdapter';
+
 import {
   adaptFrontCompanyUserModelToDTO,
   adaptFrontVolunterUserModelToDTO,
@@ -52,10 +54,24 @@ export const postVolunteer = async (data: VolunterUserModel) => {
   }
 };
 
-export const postUserCompany = async (data: CompanyUserMode) => {
+export const getCompanies = async (): Promise<CompanyUserModel[]> => {
+  try {
+    const response = await api.get<CompanyUserModel[]>(
+      UsersEndpoints.getAllCompanyUsers,
+    );
+    const adaptedCompanies: CompanyUserModel[] = response.data.map(
+      (company: CompanyUserModel) => CompanyUserAdapter(company),
+    );
+    return adaptedCompanies;
+  } catch (error) {
+    throw new Error(JSON.stringify(error));
+  }
+};
+
+export const postUserCompany = async (data: CompanyUserModel) => {
   try {
     const newUserData = adaptFrontCompanyUserModelToDTO(data);
-    console.log('new user', JSON.stringify(newUserData));
+    console.log('new company user', JSON.stringify(newUserData));
 
     const response = await api.post<AxiosResponse>(
       UsersEndpoints.postCompanyUser,
@@ -65,16 +81,22 @@ export const postUserCompany = async (data: CompanyUserMode) => {
   } catch (error) {
     console.error(error);
   }
-  
-  
 };
 
-export const getVolunteerById = async (id: number): Promise<VolunterUserModel> => {
+export const putUserCompany = async (data: CompanyUserModel) => {
   try {
-    const response = await api.get<any>(`/user/volunteers/${id}`);
-    const adaptedVolunteer: VolunterUserModel = VolunteerAdapter(response.data);
-    return adaptedVolunteer;
+    const updatedCompanyData = {
+      ...data,
+      documentNumber: data.id, // Usar el documentNumber como identificador
+    };
+    const response = await api.put<AxiosResponse>(
+      UsersEndpoints.putCompanyUser,
+      updatedCompanyData,
+    );
+    return response;
   } catch (error) {
-    throw new Error(JSON.stringify(error));
+    console.error(error);
+    throw error; // Lanzar el error para manejarlo en el componente
   }
+  
 };
