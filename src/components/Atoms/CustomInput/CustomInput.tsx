@@ -37,6 +37,7 @@ const CustomInput = ({
     <div>
       <input
         type={type}
+        key={`${Math.floor((Math.random() * 1000))}-min`}
         placeholder={placeholder}
         defaultValue={defaultValue}
         className={inputClass}

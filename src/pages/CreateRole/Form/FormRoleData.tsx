@@ -55,13 +55,20 @@ const FormRoleData = ({updateRolData,rolData}: FormRoleDataProps) => {
               />
             ))} 
           </Box>
+          <Box mt={4} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+              
+              <CustomButton
+                  content={t('components.stepper.back')} 
+              />
+              <CustomButton
+              content={t('generalButtonText.save')}
+              type='submit'
+              variant="contained"
+              color="success"
+            />
+          </Box>
 
-        <CustomButton
-          content={t('generalButtonText.save')}
-          type='submit'
-          variant="contained"
-          color="success"
-        />
+        
       </form>
       </Box>
       

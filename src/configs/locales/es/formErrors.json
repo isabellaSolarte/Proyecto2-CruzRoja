@@ -93,13 +93,14 @@
             "number": {
                 "required": "El número es requerido"
             }
+        },
+        "userFormErrorsRole":{
+            "namesRol": {
+                "min": "El nombre del rol debe contar con mas de 3 caracteres",
+                "required": "El nombre del rol es requerido"
+            }
+    
         }
-    },
-    "userFormErrorsRole":{
-        "namesRol": {
-            "min": "El nombre del rol debe contar con mas de 3 caracteres",
-            "required": "El nombre del rol es requerido"
-        }
-
     }
+    
 }
