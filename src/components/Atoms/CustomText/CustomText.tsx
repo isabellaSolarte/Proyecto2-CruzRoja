@@ -6,6 +6,7 @@ interface PropiedadesEtiqueta {
   mandatory?: boolean;
   icon?: JSX.Element;
   color?: string;
+  styles?: object;
 }
 
 const putMandatoryAdornment = () => {
@@ -16,7 +17,14 @@ const putMandatoryAdornment = () => {
   );
 };
 
-const CustomText = ({ texto, variante, mandatory, icon, color }: PropiedadesEtiqueta) => {
+const CustomText = ({
+  texto,
+  variante,
+  mandatory,
+  icon,
+  color,
+  styles = {},
+}: PropiedadesEtiqueta) => {
   const theme = useTheme();
 
   const colorStyled =
@@ -27,6 +35,7 @@ const CustomText = ({ texto, variante, mandatory, icon, color }: PropiedadesEtiq
     textAlign: 'justify',
     color: colorStyled,
     fontWeight: variante === 'titulo' || variante === 'subtitulo' ? 'bold' : 'regular',
+    ...styles,
   };
 
   return (
