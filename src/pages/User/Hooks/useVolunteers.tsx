@@ -48,7 +48,7 @@ const useVolunteers = () => {
     };
   }, []);
 
-  return { volunteers, loading, volunteerInfo, updateVolunteerInfo };
+  return { volunteers, setVolunteers, loading, volunteerInfo, updateVolunteerInfo };
 };
 
 export default useVolunteers;

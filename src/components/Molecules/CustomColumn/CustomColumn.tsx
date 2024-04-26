@@ -2,16 +2,12 @@
 /* eslint-disable no-unused-vars */
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { ReactElement } from 'react';
-import {
-  CustomButton,
-  CustomSwitch,
-  CustomText,
-} from '../../../components';
+import { CustomButton, CustomSwitch, CustomText } from '../../../components';
 
 interface CustomColumnProps {
   field: string;
   headerName: string;
-  //width?: number;
+  width?: number;
   format: 'text' | 'button' | 'switch';
   sortable?: boolean;
   variante?: 'titulo' | 'texto' | 'subtitulo';
@@ -30,6 +26,7 @@ interface CustomColumnProps {
 const CustomColumn = ({
   field,
   headerName,
+  width,
   format,
   buttonDetails,
   variante = 'texto',
@@ -39,8 +36,13 @@ const CustomColumn = ({
 }: CustomColumnProps): GridColDef => ({
   field,
   headerName,
-  flex: 1,
+  flex: ['state', 'roles', 'companyName'].includes(field) ? undefined : 1,
   sortable,
+  width: ['state', 'roles'].includes(field)
+    ? 180
+    : ['companyName'].includes(field)
+    ? 150
+    : undefined,
 
   renderCell: (params: GridRenderCellParams) => {
     if (format === 'button') {
@@ -55,7 +57,7 @@ const CustomColumn = ({
               icon={button.icon}
               onClick={() => {
                 button.onClick && button.onClick(params.row);
-              }}
+              }}
             />
           ))}
         </div>
@@ -63,15 +65,16 @@ const CustomColumn = ({
     } else if (format == 'text') {
       return <CustomText texto={params.value as string} variante={variante} icon={icon} />;
     } else {
-      
       return (
         <CustomSwitch
           switchState={params.row.switchState as boolean}
-          onClick={() => {onClick && onClick(params.row)}}
+          onClick={() => {
+            onClick && onClick(params.row);
+          }}
         />
       );
     }
-  }
+  },
 });
 
 export default CustomColumn;

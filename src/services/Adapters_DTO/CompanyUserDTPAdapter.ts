@@ -1,4 +1,4 @@
-import { CompanyUserMode } from '../../models';
+import { CompanyUserModel } from '../../models';
 
 export interface CompanyUsetDTOModel {
   documentNumber: number;
@@ -40,7 +40,7 @@ export interface Permission {
 }
 
 export const adaptFrontCompanyUserModelToDTO = (
-  user: CompanyUserMode,
+  user: CompanyUserModel,
 ): CompanyUsetDTOModel => {
   return {
     documentNumber: Number(user.id),
