@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { CustomTextArea } from '../../../components';
 import { Box, TextField } from '@mui/material';
 import { RoleModel } from '../../../models';
+import { PermissionModel } from '../../../models';
 import { useCreateRolForm } from '../hooks/useCreateRolForm';
 import { UseFormHandleSubmit } from 'react-hook-form';
 import { PermissionCard } from '../Components';
@@ -15,16 +16,18 @@ import { PathNames } from '../../../core';
 interface FormRoleDataProps{
     updateRolData: (newUserData: RoleModel) => void,
     rolData?:RoleModel;
+    addedPermissions?: PermissionModel[]; 
 }
 
-const FormRoleData = ({updateRolData,rolData}: FormRoleDataProps) => {
+const FormRoleData = ({updateRolData, rolData, addedPermissions }: FormRoleDataProps) => {
     const navigate = useNavigate();
     const { t } = useTranslation('commons');
     const handleCreateButtonClick = () => {
       navigate(PathNames.ROLES);
       console.log("ruta: ",PathNames.CREATE_ROLE);
     };
-  
+    console.log(rolData);
+    
     const { 
       permissionList, 
       errors,
@@ -34,7 +37,6 @@ const FormRoleData = ({updateRolData,rolData}: FormRoleDataProps) => {
       onSubmit,
       handleSubmit
     } = useCreateRolForm(updateRolData)
-    console.log(rolData)
   return (
     <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -55,6 +57,7 @@ const FormRoleData = ({updateRolData,rolData}: FormRoleDataProps) => {
               <PermissionCard
                 key={permission.id}
                 permission={permission}
+                addedPermissions={rolData?.permissions}
                 positiveAction={addRole}
                 negativeAction={() => {
                   remove(index);

@@ -49,20 +49,28 @@ export const useCreateRolForm = (
 
 
   const addRole = (newRole: PermissionModel) => {
-
     append(newRole);
     register(`permissions.${fields.length}.id`);
     //console.log('error', errors);
   };
 
   const onSubmit = async () => {
-    // const permisos = getValues().permissions.map(permiso => ({
-    //   name: permiso.name,
-    //   description: permiso.description
-    // }));
+    console.log('Entra con el editar');
+    
+    const permisos = getValues().permissions.map(permiso => ({
+      idPermission: permiso.id,
+      name: permiso.name,
+      description: permiso.description
+    }));
+/*     const updateRol = {
+      ...getValues(),
+      permissions: permisos,
+    } */
     const updateRol: RoleFormType = {
       ...getValues(),
+      permissions: permisos,
     }
+ 
     console.log('ROL EN ONSUBMIT', updateRol);
     try {
       await postRol(updateRol);
@@ -90,13 +98,12 @@ export const useCreateRolForm = (
   const loadRolData = async () => {
     setError(null);
     setId(initialId)
-    console.log(id)
     try {
       
       const rolDataById = await getRolId(Number(id));   
       setrolData(rolDataById);
       
-      console.log(rolData)
+      addRole(rolDataById.permissions[0])
     } catch (error) {
       setError(error as Error); 
     }

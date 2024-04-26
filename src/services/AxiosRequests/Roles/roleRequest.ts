@@ -46,4 +46,20 @@ export const postRol = async (data: RoleFormType) => {
   }
 };
 
+export const putVolunteer = async (data: RoleFormType, id: number) => {
+  try {
+    const updatedRolData = {
+      ...data,
+      idRole: id, // Usar el id como identificador
+    };
+    const response = await api.put<AxiosResponse>(
+      RolesEndpoints.putRol,
+      updatedRolData,
+    );
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw error; // Lanzar el error para manejarlo en el componente
+  }
+};
 
