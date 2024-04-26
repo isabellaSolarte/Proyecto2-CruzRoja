@@ -6,7 +6,7 @@ import { Box } from '@mui/material';
 import { RoleModel } from '../../../models';
 import { useCreateRolForm } from '../hooks/useCreateRolForm';
 import { UseFormHandleSubmit } from 'react-hook-form';
-import { PermissionCard } from '../components';
+import { PermissionCard } from '../Components';
 import { RoleFormType } from '../types/RoleFormType';
 
 
