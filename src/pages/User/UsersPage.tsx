@@ -153,7 +153,7 @@ const UsersPage = () => {
     console.log('datos row', rowData);
     //mostrar lo traido
     console.log('EDIT*******id***********', id);
-    console.log('ruta: ', PathNames.VIEW_USER.replace(':id', String(id)));
+    console.log('ruta: ', PathNames.EDIT_USER.replace(':id', String(id)));
     navigate(PathNames.EDIT_USER.replace(':id', String(id)));
   };
 
