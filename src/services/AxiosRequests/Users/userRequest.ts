@@ -54,12 +54,13 @@ export const postVolunteer = async (data: VolunterUserModel) => {
   }
 };
 
-
 export const getCompanies = async (): Promise<CompanyUserModel[]> => {
   try {
-    const response = await api.get<CompanyUserModel[]>(UsersEndpoints.getAllCompanyUsers);
-    const adaptedCompanies: CompanyUserModel[] = response.data.map((company: CompanyUserModel) => 
-      CompanyUserAdapter(company),
+    const response = await api.get<CompanyUserModel[]>(
+      UsersEndpoints.getAllCompanyUsers,
+    );
+    const adaptedCompanies: CompanyUserModel[] = response.data.map(
+      (company: CompanyUserModel) => CompanyUserAdapter(company),
     );
     return adaptedCompanies;
   } catch (error) {
@@ -67,11 +68,9 @@ export const getCompanies = async (): Promise<CompanyUserModel[]> => {
   }
 };
 
-
 export const postUserCompany = async (data: CompanyUserModel) => {
   try {
     const newUserData = adaptFrontCompanyUserModelToDTO(data);
-    console.log('new user', JSON.stringify(newUserData));
 
     const response = await api.post<AxiosResponse>(
       UsersEndpoints.postCompanyUser,
@@ -98,4 +97,4 @@ export const putUserCompany = async (data: CompanyUserModel) => {
     console.error(error);
     throw error; // Lanzar el error para manejarlo en el componente
   }
-}
+};
