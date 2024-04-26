@@ -2,10 +2,8 @@ import {
   CustomText,
   CustomButton,
   ManagmentLayout,
-  SearchBar,
   DataTable,
   CustomColumn,
-  TabsAtomComponent,
 } from '../../components';
 import { useTranslation } from 'react-i18next';
 import EditIcon from '@mui/icons-material/Edit';
