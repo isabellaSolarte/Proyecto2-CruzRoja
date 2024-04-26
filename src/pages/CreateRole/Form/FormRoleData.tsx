@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import {ManagmentLayout,TabsAtomComponent,CustomButton,CustomText,CustomInput, ErrorText} from '../../../components';
-
+import { useNavigate } from "react-router-dom";
 import { CustomTextArea } from '../../../components';
 import { Box, TextField } from '@mui/material';
 import { RoleModel } from '../../../models';
@@ -8,6 +8,7 @@ import { useCreateRolForm } from '../hooks/useCreateRolForm';
 import { UseFormHandleSubmit } from 'react-hook-form';
 import { PermissionCard } from '../Components';
 import { RoleFormType } from '../types/RoleFormType';
+import { PathNames } from '../../../core';
 
 
 
@@ -17,8 +18,13 @@ interface FormRoleDataProps{
 }
 
 const FormRoleData = ({updateRolData,rolData}: FormRoleDataProps) => {
-
+    const navigate = useNavigate();
     const { t } = useTranslation('commons');
+    const handleCreateButtonClick = () => {
+      navigate(PathNames.ROLES);
+      console.log("ruta: ",PathNames.CREATE_ROLE);
+    };
+  
     const { 
       permissionList, 
       errors,
@@ -36,7 +42,7 @@ const FormRoleData = ({updateRolData,rolData}: FormRoleDataProps) => {
             <CustomText texto={t('rolesPages.roleForm.name')} variante="subtitulo" mandatory />
             
             <CustomInput placeholder="Nombre rol" defaultValue={rolData?.typeRole} props={register('typeRole')} size="medium" />
-            {errors.typeRole && <ErrorText error={errors.typeRole.message} />}
+            {errors.typeRole && <ErrorText  error={errors.typeRole.message} formErrorKey="userFormErrorsRole"/>}
           </Box>
 
           <Box mt={5} sx={{ borderTop: '1px solid #C8C8C8', paddingTop: '20px' }}>
@@ -60,6 +66,7 @@ const FormRoleData = ({updateRolData,rolData}: FormRoleDataProps) => {
               
               <CustomButton
                   content={t('components.stepper.back')} 
+                  onClick={handleCreateButtonClick}
               />
               <CustomButton
               content={t('generalButtonText.save')}
