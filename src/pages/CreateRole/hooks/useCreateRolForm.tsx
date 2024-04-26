@@ -16,13 +16,13 @@ import { adaptFrontRolModelToDTO } from '../../../services/Adapters_DTO';
 // TODO agregarPermiso y  hacer la peticion de crear rol con la lista de permisos
 export const useCreateRolForm = (
   updateRolData: (newUserData: RoleModel) => void,
-  initialId?: string  // Optional initial id
+  initialId?: string, // Optional initial id
 ) => {
-  const [id, setId] = useState<string | undefined >(initialId); // State for id
+  const [id, setId] = useState<string | undefined>(initialId); // State for id
   const [permissionList, setPermissionList] = useState<PermissionModel[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
-  const [rolData, setrolData] = useState<RoleFormType | undefined>(undefined)
+  const [rolData, setrolData] = useState<RoleFormType | undefined>(undefined);
 
   const navigate = useNavigate();
 
@@ -33,12 +33,12 @@ export const useCreateRolForm = (
     formState: { errors },
     getValues,
     setValue,
-    reset
+    reset,
   } = useForm({
     defaultValues: useMemo(() => {
       return rolData;
     }, [rolData]),
-    
+
     resolver: yupResolver(rolSchemaValidation),
   });
 
@@ -47,12 +47,9 @@ export const useCreateRolForm = (
     name: 'permissions',
   });
 
-
   const addRole = (newRole: PermissionModel) => {
-
     append(newRole);
     register(`permissions.${fields.length}.id`);
-    //console.log('error', errors);
   };
 
   const onSubmit = async () => {
@@ -62,7 +59,7 @@ export const useCreateRolForm = (
     // }));
     const updateRol: RoleFormType = {
       ...getValues(),
-    }
+    };
     console.log('ROL EN ONSUBMIT', updateRol);
     try {
       await postRol(updateRol);
@@ -71,7 +68,6 @@ export const useCreateRolForm = (
     } catch (error: any) {
       alert(`Error creating user ${error.message}`);
     }
-
   };
 
   const loadPermissions = async () => {
@@ -86,21 +82,20 @@ export const useCreateRolForm = (
     } finally {
       setIsLoading(false);
     }
-  }
+  };
   const loadRolData = async () => {
     setError(null);
-    setId(initialId)
-    console.log(id)
+    setId(initialId);
+    console.log(id);
     try {
-      
-      const rolDataById = await getRolId(Number(id));   
+      const rolDataById = await getRolId(Number(id));
       setrolData(rolDataById);
-      
-      console.log(rolData)
+
+      console.log(rolData);
     } catch (error) {
-      setError(error as Error); 
+      setError(error as Error);
     }
-  }
+  };
 
   useEffect(() => {
     reset(rolData);
@@ -110,12 +105,12 @@ export const useCreateRolForm = (
     loadPermissions();
   }, []); // Para renderizar los permisos solo en la carga inicial
 
-  return { 
-    permissionList, 
-    isLoading, 
+  return {
+    permissionList,
+    isLoading,
     id,
     error,
-    rolData, 
+    rolData,
     errors,
     addRole,
     remove,
@@ -123,6 +118,6 @@ export const useCreateRolForm = (
     loadRolData,
     register,
     handleSubmit,
-    onSubmit
+    onSubmit,
   };
 };

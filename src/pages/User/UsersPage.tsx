@@ -150,18 +150,14 @@ const UsersPage = () => {
 
   const handleEditButtonClick = (rowData: GridRenderCellParams['row']) => {
     const { id } = rowData;
-    console.log('datos row', rowData);
-    //mostrar lo traido
-    console.log('EDIT*******id***********', id);
-    console.log('ruta: ', PathNames.VIEW_USER.replace(':id', String(id)));
-    navigate(PathNames.EDIT_USER.replace(':id', String(id)));
+    const userType: string = rowData.companyName ? 'companyUser' : 'volunteer';
+    navigate(PathNames.EDIT_USER.replace(':id', String(id)).replace(':type', userType));
   };
 
   const handleViewButtonClick = (rowData: GridRenderCellParams['row']) => {
     const { id } = rowData;
-    console.log('View*******id***********', id);
-    console.log('ruta: ', PathNames.VIEW_USER.replace(':id', String(id)));
-    navigate(PathNames.VIEW_USER.replace(':id', String(id)));
+    const userType: string = rowData.companyName ? 'companyUser' : 'volunteer';
+    navigate(PathNames.VIEW_USER.replace(':id', String(id)).replace(':type', userType));
   };
   const columns = [
     CustomColumn({

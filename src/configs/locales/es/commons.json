@@ -72,7 +72,10 @@
             "companyEmail": "Email de la empresa",
             "position": "Cargo o posición",
             "validateData": "Validar datos",
-            "createUser": "Crear usuario"
+            "createUser": "Crear usuario",
+            "personalInfo": "Información personal",
+            "asignedRoles": "Roles asignados",
+            "companyInfo": "Información de la empresa"
         },
         "userTable": {
             "name": "Nombre",
@@ -131,5 +134,14 @@
         "CE": "Cédula de extranjería",
         "PA": "Pasaporte",
         "TI": "Tarjeta de identidad"
+    },
+    "company": {
+        "name": "Nombre de la empresa",
+        "nit": "NIT de la empresa",
+        "phone": "Teléfono de la empresa",
+        "email": "Email de la empresa",
+        "address": "Dirección de la empresa",
+        "addressInfo": "Información de la dirección de la empresa",
+        "title": "Empresa"
     }
 }

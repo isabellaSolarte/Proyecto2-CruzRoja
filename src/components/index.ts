@@ -16,7 +16,7 @@ export * from './Atoms';
 export * from './Layouts/MainLayout';
 export * from './Layouts/ManagmentLayout';
 export * from './Layouts';
-export { default as CustomAccordion } from './Molecules/CustomAccordion/CustomAccordion';
+export * from './Molecules/CustomAccordion';
 export * from './Molecules/CustomColumn';
 export { default as CustomLabelCard } from './Molecules/CustomLabelCard/CustomLabelCard';
 export { default as CustomLabelGroup } from './Molecules/CustomLabelGroup/CustomLabelGroup';

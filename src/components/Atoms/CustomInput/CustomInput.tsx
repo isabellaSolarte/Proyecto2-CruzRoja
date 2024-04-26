@@ -32,7 +32,6 @@ const CustomInput = ({
       updateText(e.target.value);
     }
   };
-  console.log(defaultValue)
 
   return (
     <div>
