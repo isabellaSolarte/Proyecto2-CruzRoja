@@ -62,7 +62,7 @@ const ViewUserPage  = ({id}:ViewUserProps) => {
                 )}
                 
                 <CustomText 
-                    texto={volunteerInfo?.names} 
+                    texto={"Vladimir"} 
                     variante="subtitulo"
                     icon={<AccountCircleIcon style={{ color: 'green', fontSize: '25px' }} />}
                 />
