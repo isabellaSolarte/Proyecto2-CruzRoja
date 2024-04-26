@@ -12,6 +12,7 @@ import { PathNames } from '../../../core';
 
 import { postRol } from './../../../services/AxiosRequests/Roles/roleRequest';
 import { RoleFormType } from '../types/RoleFormType';
+import { adaptFrontRolModelToDTO } from '../../../services/Adapters_DTO';
 
 // TODO agregarPermiso y  hacer la peticion de crear rol con la lista de permisos
 export const useCreateRolForm = (
@@ -91,8 +92,7 @@ export const useCreateRolForm = (
     console.log(id)
     try {
       
-      const rolDataById = await getRolId(Number(id)); // Obtengo la lista de permisos
-      
+      const rolDataById = await getRolId(Number(id)); 
       setrolData(rolDataById);
       console.log(rolData)
     } catch (error) {

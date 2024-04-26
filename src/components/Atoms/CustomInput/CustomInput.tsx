@@ -31,6 +31,7 @@ const CustomInput = ({
       updateText(e.target.value);
     }
   };
+  console.log(defaultValue)
 
   return (
     <div>
@@ -39,7 +40,6 @@ const CustomInput = ({
         placeholder={placeholder}
         defaultValue={defaultValue}
         className={inputClass}
-        //value={value}
         style={{
           width: '100%',
         }}

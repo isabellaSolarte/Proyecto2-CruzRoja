@@ -6,7 +6,8 @@ import { Box } from '@mui/material';
 import { RoleModel } from '../../../models';
 import { useCreateRolForm } from '../hooks/useCreateRolForm';
 import { UseFormHandleSubmit } from 'react-hook-form';
-import { PermissionCard } from '../Components';
+import { PermissionCard } from '../components';
+import { RoleFormType } from '../types/RoleFormType';
 
 
 
@@ -27,6 +28,7 @@ const FormRoleData = ({updateRolData,rolData}: FormRoleDataProps) => {
       onSubmit,
       handleSubmit
     } = useCreateRolForm(updateRolData)
+    console.log(rolData)
   return (
     <Box>
       <form onSubmit={handleSubmit(onSubmit)}>

@@ -1,6 +1,7 @@
 import { RolAdapter } from '../../../adapters';
 import { RoleModel } from '../../../models';
 import { RoleFormType } from '../../../pages/CreateRole/types/RoleFormType';
+import { adaptFrontRolModelToDTO } from '../../Adapters_DTO';
 import { api } from '../api';
 import { RolesEndpoints } from './Endpoints';
 import { AxiosResponse } from 'axios';
@@ -18,12 +19,13 @@ export const getAllRoles = async (): Promise<RoleModel[]> => {
   }
 };
 
-export const getRolId = async (id: number): Promise<RoleModel> => {
+export const getRolId = async (id: number): Promise<RoleFormType> => {
   try {
     const response = await api.get(`/roles/idRole/${id}`)
     console.log(response)
     const adaptedRoles: RoleModel = RolAdapter(response.data)
-    return adaptedRoles;
+    const adaptedRolData = adaptFrontRolModelToDTO(adaptedRoles);
+    return adaptedRolData;
   } catch (err) {
     throw new Error(JSON.stringify(err));
   }
