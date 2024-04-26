@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { PermissionModel } from '../../../models';
 import { RoleModel } from '../../../models';
@@ -23,9 +23,7 @@ export const useCreateRolForm = (
   const [permissionList, setPermissionList] = useState<PermissionModel[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
-  const [rolData, setrolData] = useState<RoleFormType>(
-    defaultRolSchema,
-  );
+  const [rolData, setrolData] = useState<RoleFormType | undefined>(undefined)
 
   const navigate = useNavigate();
 
@@ -35,8 +33,13 @@ export const useCreateRolForm = (
     register,
     formState: { errors },
     getValues,
+    setValue,
+    reset
   } = useForm({
-    defaultValues: defaultRolSchema,
+    defaultValues: useMemo(() => {
+      return rolData;
+    }, [rolData]),
+    
     resolver: yupResolver(rolSchemaValidation),
   });
 
@@ -68,8 +71,6 @@ export const useCreateRolForm = (
     } catch (error: any) {
       alert(`Error creating user ${error.message}`);
     }
-    //await new Promise(resolve => setTimeout(resolve, 0));
-    /* updateRolData({ ...getValues()}); */
 
   };
 
@@ -92,13 +93,18 @@ export const useCreateRolForm = (
     console.log(id)
     try {
       
-      const rolDataById = await getRolId(Number(id)); 
+      const rolDataById = await getRolId(Number(id));   
       setrolData(rolDataById);
+      
       console.log(rolData)
     } catch (error) {
       setError(error as Error); 
     }
   }
+
+  useEffect(() => {
+    reset(rolData);
+  }, [rolData]);
 
   useEffect(() => {
     loadPermissions();

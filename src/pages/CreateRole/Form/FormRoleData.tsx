@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import {ManagmentLayout,TabsAtomComponent,CustomButton,CustomText,CustomInput, ErrorText} from '../../../components';
 
 import { CustomTextArea } from '../../../components';
-import { Box } from '@mui/material';
+import { Box, TextField } from '@mui/material';
 import { RoleModel } from '../../../models';
 import { useCreateRolForm } from '../hooks/useCreateRolForm';
 import { UseFormHandleSubmit } from 'react-hook-form';
@@ -34,6 +34,7 @@ const FormRoleData = ({updateRolData,rolData}: FormRoleDataProps) => {
       <form onSubmit={handleSubmit(onSubmit)}>
       <Box mt={4}>
             <CustomText texto={t('rolesPages.roleForm.name')} variante="subtitulo" mandatory />
+            
             <CustomInput placeholder="Nombre rol" defaultValue={rolData?.typeRole} props={register('typeRole')} size="medium" />
             {errors.typeRole && <ErrorText error={errors.typeRole.message} />}
           </Box>

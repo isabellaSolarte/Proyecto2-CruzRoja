@@ -33,12 +33,13 @@ export const getRolId = async (id: number): Promise<RoleFormType> => {
 
 export const postRol = async (data: RoleFormType) => {
   try {
-
+    const adaptedRolData = adaptFrontRolModelToDTO(data);
+    console.log(JSON.stringify(adaptedRolData))
     // TODO: Hacer el adaptador de formRolType a un DTO válido para el backend
     const response = await api.post<AxiosResponse>(
       RolesEndpoints.postRol,
-      data,
-    );
+      adaptedRolData ,
+    );   
     return response;
   } catch (error) {
     console.error(error);
