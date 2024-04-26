@@ -76,7 +76,7 @@
         },
         "userTable": {
             "name": "Nombre",
-            "companyName":"Nombre de la empresa",
+            "companyName":"Empresa",
             "roles": "Roles",
             "actions": "Acciones",
             "users": "Usuarios"           
