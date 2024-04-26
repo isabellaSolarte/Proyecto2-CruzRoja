@@ -72,7 +72,9 @@ const UserDataForm = ({ updateUserData, handleNextStep, handleStepBack }: UserDa
               type="text"
               props={register('names')}
             />
-            {errors.names && <ErrorText error={errors.names.message} />}
+            {errors.names && (
+              <ErrorText error={errors.names.message} formErrorKey="userFormErrors" />
+            )}
           </Grid>
           <Grid item sm={6} xs={12} padding={2}>
             <LabeledInput
@@ -82,7 +84,9 @@ const UserDataForm = ({ updateUserData, handleNextStep, handleStepBack }: UserDa
               type="text"
               props={register('lastNames')}
             />
-            {errors.lastNames && <ErrorText error={errors.lastNames.message} />}
+            {errors.lastNames && (
+              <ErrorText error={errors.lastNames.message} formErrorKey="userFormErrors" />
+            )}
           </Grid>
 
           <Grid item sm={6} xs={12} padding={2}>
@@ -94,7 +98,9 @@ const UserDataForm = ({ updateUserData, handleNextStep, handleStepBack }: UserDa
               control={control}
               {...register('documentType')}
             />
-            {errors.documentType && <ErrorText error={errors.documentType.message} />}
+            {errors.documentType && (
+              <ErrorText error={errors.documentType.message} formErrorKey="userFormErrors" />
+            )}
           </Grid>
 
           <Grid item sm={6} xs={12} padding={2}>
@@ -106,7 +112,7 @@ const UserDataForm = ({ updateUserData, handleNextStep, handleStepBack }: UserDa
               props={register('id')}
               icon={<BadgeOutlinedIcon />}
             />
-            {errors.id && <ErrorText error={errors.id.message} />}
+            {errors.id && <ErrorText error={errors.id.message} formErrorKey="userFormErrors" />}
           </Grid>
 
           <Grid item xs={12} paddingTop={3}>
@@ -121,7 +127,9 @@ const UserDataForm = ({ updateUserData, handleNextStep, handleStepBack }: UserDa
               type="text"
               props={register('personalPhone')}
             />
-            {errors.personalPhone && <ErrorText error={errors.personalPhone.message} />}
+            {errors.personalPhone && (
+              <ErrorText error={errors.personalPhone.message} formErrorKey="userFormErrors" />
+            )}
           </Grid>
 
           <Grid item sm={6} xs={12} padding={2}>
@@ -132,7 +140,9 @@ const UserDataForm = ({ updateUserData, handleNextStep, handleStepBack }: UserDa
               type="email"
               props={register('personalEmail')}
             />
-            {errors.personalEmail && <ErrorText error={errors.personalEmail.message} />}
+            {errors.personalEmail && (
+              <ErrorText error={errors.personalEmail.message} formErrorKey="userFormErrors" />
+            )}
           </Grid>
 
           <Grid item xs={12} paddingTop={3}>
@@ -146,7 +156,9 @@ const UserDataForm = ({ updateUserData, handleNextStep, handleStepBack }: UserDa
               type="text"
               props={register('username')}
             />
-            {errors.username && <ErrorText error={errors.username.message} />}
+            {errors.username && (
+              <ErrorText error={errors.username.message} formErrorKey="userFormErrors" />
+            )}
           </Grid>
 
           <Grid item sm={12} xs={12} padding={2}>
@@ -168,7 +180,9 @@ const UserDataForm = ({ updateUserData, handleNextStep, handleStepBack }: UserDa
               type="password"
               props={register('password')}
             />
-            {errors.password && <ErrorText error={errors.password.message} />}
+            {errors.password && (
+              <ErrorText error={errors.password.message} formErrorKey="userFormErrors" />
+            )}
           </Grid>
 
           <Grid item sm={12} xs={12} padding={2}>
@@ -179,7 +193,9 @@ const UserDataForm = ({ updateUserData, handleNextStep, handleStepBack }: UserDa
               type="password"
               updateText={onChangeComfirmedPassword}
             />
-            {confirmedPasswordError && <ErrorText error={'Las contraseñas no coinciden'} />}
+            {confirmedPasswordError && (
+              <ErrorText error={'Las contraseñas no coinciden'} formErrorKey="userFormErrors" />
+            )}
           </Grid>
 
           <Grid item xs={12} paddingTop={3}>
@@ -200,7 +216,9 @@ const UserDataForm = ({ updateUserData, handleNextStep, handleStepBack }: UserDa
                 }}
               />
             ))}
-            {errors.roles && <ErrorText error={errors.roles.message} />}
+            {errors.roles && (
+              <ErrorText error={errors.roles.message} formErrorKey="userFormErrors" />
+            )}
           </Grid>
         </Grid>
 

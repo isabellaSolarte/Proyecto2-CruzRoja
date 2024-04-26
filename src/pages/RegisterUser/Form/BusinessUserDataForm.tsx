@@ -78,7 +78,9 @@ const BusinessUserDataForm = ({
               type={'text'}
               mandatory
             />
-            {errors.companyName && <ErrorText error={errors.companyName.message} />}
+            {errors.companyName && (
+              <ErrorText error={errors.companyName.message} formErrorKey="userFormErrors" />
+            )}
           </Grid>
 
           <Grid item padding={2} sm={6} xs={12}>
@@ -89,7 +91,9 @@ const BusinessUserDataForm = ({
               type={'number'}
               mandatory
             />
-            {errors.companyNit && <ErrorText error={errors.companyNit.message} />}
+            {errors.companyNit && (
+              <ErrorText error={errors.companyNit.message} formErrorKey="userFormErrors" />
+            )}
           </Grid>
 
           <Grid item padding={2} sm={6} xs={12}>
@@ -100,7 +104,9 @@ const BusinessUserDataForm = ({
               type={'text'}
               mandatory
             />
-            {errors.companyPhone && <ErrorText error={errors.companyPhone.message} />}
+            {errors.companyPhone && (
+              <ErrorText formErrorKey="userFormErrors" error={errors.companyPhone.message} />
+            )}
           </Grid>
 
           <Grid item padding={2} sm={6} xs={12}>
@@ -111,7 +117,9 @@ const BusinessUserDataForm = ({
               type={'email'}
               mandatory
             />
-            {errors.companyEmail && <ErrorText error={errors.companyEmail.message} />}
+            {errors.companyEmail && (
+              <ErrorText formErrorKey="userFormErrors" error={errors.companyEmail.message} />
+            )}
           </Grid>
 
           <Grid item xs={12} paddingTop={5}>
@@ -169,7 +177,12 @@ const BusinessUserDataForm = ({
               type="text"
               props={register('address.neighborhood')}
             />
-            {errors.address && <ErrorText error={errors.address.neighborhood?.message} />}
+            {errors.address && (
+              <ErrorText
+                formErrorKey="userFormErrors"
+                error={errors.address.neighborhood?.message}
+              />
+            )}
           </Grid>
 
           <Grid item padding={2} sm={6} xs={12}>
@@ -180,7 +193,9 @@ const BusinessUserDataForm = ({
               type="text"
               props={register('address.street')}
             />
-            {errors.address && <ErrorText error={errors.address.street?.message} />}
+            {errors.address && (
+              <ErrorText error={errors.address.street?.message} formErrorKey="userFormErrors" />
+            )}
           </Grid>
 
           <Grid item padding={2} sm={6} xs={12}>
@@ -191,7 +206,9 @@ const BusinessUserDataForm = ({
               type="text"
               props={register('address.number')}
             />
-            {errors.address && <ErrorText error={errors.address.number?.message} />}
+            {errors.address && (
+              <ErrorText error={errors.address.number?.message} formErrorKey="userFormErrors" />
+            )}
           </Grid>
 
           <Grid item padding={2} sm={6} xs={12}>
@@ -202,7 +219,12 @@ const BusinessUserDataForm = ({
               type="text"
               props={register('address.floorOrApartment')}
             />
-            {errors.address && <ErrorText error={errors.address.floorOrApartment?.message} />}
+            {errors.address && (
+              <ErrorText
+                error={errors.address.floorOrApartment?.message}
+                formErrorKey="userFormErrors"
+              />
+            )}
           </Grid>
         </Grid>
 
