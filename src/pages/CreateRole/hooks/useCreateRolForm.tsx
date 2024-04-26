@@ -55,7 +55,9 @@ export const useCreateRolForm = (
   };
 
   const onSubmit = async () => {
-    console.log('Entra con el editar');
+    console.log('Entra con el editar', getValues());
+    console.log('Entra con el editar', initialId);
+    console.log('Entra con el editar', id);
     
     const permisos = getValues().permissions.map(permiso => ({
       idPermission: permiso.id,
@@ -102,20 +104,26 @@ export const useCreateRolForm = (
       
       const rolDataById = await getRolId(Number(id));   
       setrolData(rolDataById);
-      
-      addRole(rolDataById.permissions[0])
+      setValue('permissions', rolDataById.permissions);
+      /* rolDataById.permissions.map((permiso)=>{
+        addRole(permiso)
+        console.log(permiso);
+        
+      }) */
+      /* addRole(rolDataById.permissions[0]) */
     } catch (error) {
       setError(error as Error); 
     }
   }
 
-  useEffect(() => {
+/*   useEffect(() => {
     reset(rolData);
-  }, [rolData]);
+  }, [rolData]); */
 
   useEffect(() => {
     loadPermissions();
-  }, []); // Para renderizar los permisos solo en la carga inicial
+    reset(rolData);
+  }, [rolData]); // Para renderizar los permisos solo en la carga inicial
 
   return { 
     permissionList, 

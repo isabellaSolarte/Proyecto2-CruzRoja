@@ -27,12 +27,13 @@ const CreateRolePage = ({ updateRolData, initialId}: CreateRolFormProps) => {
   const {
     rolData,
     loadRolData,
-    onSubmit
+    onSubmit,
   } = useCreateRolForm(updateRolData,initialId);
 
   useEffect(() =>{
     loadRolData();
   },[initialId] );
+  console.log('initialId(): ',initialId);
   
   return (
     <ManagmentLayout

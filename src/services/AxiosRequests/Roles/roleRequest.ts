@@ -25,7 +25,9 @@ export const getRolId = async (id: number): Promise<RoleFormType> => {
     console.log(response)
     const adaptedRoles: RoleModel = RolAdapter(response.data)
     const adaptedRolData = adaptFrontRolModelToDTO(adaptedRoles);
+    //console.log('Entra correctamente: ', response);
     return adaptedRolData;
+    
   } catch (err) {
     throw new Error(JSON.stringify(err));
   }
