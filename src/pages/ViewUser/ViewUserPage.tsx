@@ -12,28 +12,27 @@ import {
   CustomColumn,
   DataTable,
 } from '../../components';
-import { Box, Grid, Icon } from '@mui/material';
+import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import CancelIcon from '@mui/icons-material/Cancel';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useUserPage } from './Hooks/useUserPage';
+import { useParams } from 'react-router-dom';
 
-interface ViewUserProps {
-  id: string;
-}
-const ViewUserPage = ({ id }: ViewUserProps) => {
+const ViewUserPage = () => {
   const { t } = useTranslation('commons');
+  const { id } = useParams<{ id: string }>();
+
+  const { error, loadUserDataByID, loading, userData } = useUserPage();
   const [disableInput, setDisableInput] = useState(true);
   const handleInput = () => {
     setDisableInput(!disableInput);
   };
 
   useEffect(() => {
-    void loadIdVolunteerData();
+    void loadUserDataByID(Number(id));
   }, []);
-
-  const { volunteerData, volunteerInfo, loadIdVolunteerData } = useUserPage(id);
 
   const columns = [
     CustomColumn({
@@ -85,6 +84,7 @@ const ViewUserPage = ({ id }: ViewUserProps) => {
       }
       generalContents={
         <Box>
+          {JSON.stringify(userData)}
           {!disableInput && (
             <Box
               sx={{
