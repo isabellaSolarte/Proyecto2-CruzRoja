@@ -17,12 +17,14 @@ const RolesPage = () => {
   }, []);
 
   const handleEditButtonClick = (roleId: string) => {
-    navigate(PathNames.EDIT_ROLE.replace(':id', roleId));
     console.log("ruta: ",PathNames.EDIT_ROLE.replace(':id', roleId))
+    navigate(PathNames.EDIT_ROLE.replace(':id', roleId));
+    
   };
 
   const handleCreateButtonClick = () => {
     navigate(PathNames.CREATE_ROLE);
+    console.log("ruta: ",PathNames.CREATE_ROLE);
   };
 
   const columns = [

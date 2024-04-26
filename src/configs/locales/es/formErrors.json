@@ -3,7 +3,8 @@
         
         "documentNumber": {
             "moreThan": "El número de documento debe tener al menos 10 caracteres",
-            "required": "El número de documento es requerido"
+            "required": "El número de documento es requerido",
+            "len": "El número de documento debe tener 10 caracteres"
         },
         "documentType": {
             "min": "El tipo de documento debe tener al menos 6 caracteres",
@@ -94,12 +95,13 @@
                 "required": "El número es requerido"
             }
         }
+        
     },
     "userFormErrorsRole":{
         "namesRol": {
-            "min": "El nombre del rol debe contar con mas de 3 caracteres",
-            "required": "El nombre del rol es requerido"
+            "min": "El nombre del rol es requerido"
         }
 
     }
+    
 }

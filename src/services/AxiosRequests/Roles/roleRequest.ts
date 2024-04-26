@@ -1,12 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { RolAdapter } from '../../../adapters';
 import { RoleModel } from '../../../models';
+import { RoleFormType } from '../../../pages/CreateRole/types/RoleFormType';
+import { adaptFrontRolModelToDTO } from '../../Adapters_DTO';
 import { api } from '../api';
 import { RolesEndpoints } from './Endpoints';
+import { AxiosResponse } from 'axios';
+
 
 export const getAllRoles = async (): Promise<RoleModel[]> => {
   try {
@@ -19,3 +18,32 @@ export const getAllRoles = async (): Promise<RoleModel[]> => {
     throw new Error(JSON.stringify(err));
   }
 };
+
+export const getRolId = async (id: number): Promise<RoleFormType> => {
+  try {
+    const response = await api.get(`/roles/idRole/${id}`)
+    console.log(response)
+    const adaptedRoles: RoleModel = RolAdapter(response.data)
+    const adaptedRolData = adaptFrontRolModelToDTO(adaptedRoles);
+    return adaptedRolData;
+  } catch (err) {
+    throw new Error(JSON.stringify(err));
+  }
+};
+
+export const postRol = async (data: RoleFormType) => {
+  try {
+    const adaptedRolData = adaptFrontRolModelToDTO(data);
+    console.log(JSON.stringify(adaptedRolData))
+    // TODO: Hacer el adaptador de formRolType a un DTO válido para el backend
+    const response = await api.post<AxiosResponse>(
+      RolesEndpoints.postRol,
+      adaptedRolData ,
+    );   
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+

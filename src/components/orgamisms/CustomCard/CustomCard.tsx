@@ -11,7 +11,7 @@ import './CustomCardStyle.css';
       sx={{ backgroundColor: theme.backgroundContentColors?.green}}
       switchState={switchState}
       handleSwitchState={handleSwitchState}
-    /> */
+    />*/
 interface CardCustomProps {
   texto1: string;
   texto2?: string;

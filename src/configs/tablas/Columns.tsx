@@ -4,7 +4,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 
 
-const columns1 = (handleEditar: (rowData: { documentNumber: number }) => void, handleDetails: () => void) =>[
+const columns1 = (handleEditar: () => void, handleDetails: () => void, handleDialogState: () => void,) =>[
   CustomColumn({ field: 'companyName', headerName: 'Empresa', format: 'text', icon: <AccountCircle/>}),
   CustomColumn({ field: 'names', headerName: 'Nombre', format: 'text' }),
   CustomColumn({ field: 'actions', headerName: 'Acciones', format: 'button', sortable: false, buttonDetails: [
@@ -22,7 +22,7 @@ const columns1 = (handleEditar: (rowData: { documentNumber: number }) => void, h
       icon: <VisibilityIcon />,
       onClick: handleDetails}
   ] }),
-CustomColumn({ field: 'switchState', headerName: 'Estado', format: 'switch'}),
+CustomColumn({ field: 'switchState', headerName: 'Estado', format: 'switch', onClick: handleDialogState}),
 ];
 
 const rows1 = [

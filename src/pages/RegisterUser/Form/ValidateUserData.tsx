@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useTranslation } from 'react-i18next';
 import { CustomButton, CustomText, EmptyBox } from '../../../components';
-import { CompanyUserModel, PermissionModel, RoleModel, VolunterUserModel } from '../../../models';
+import { PermissionModel, RoleModel } from '../../../models';
 import { Box, Grid, useTheme } from '@mui/material';
 import PhoneAndroidOutlinedIcon from '@mui/icons-material/PhoneAndroidOutlined';
 import MarkEmailReadOutlinedIcon from '@mui/icons-material/MarkEmailReadOutlined';
@@ -16,7 +16,7 @@ import DomainAddOutlinedIcon from '@mui/icons-material/DomainAddOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 
 interface ValidateUserDataProps {
-  userData: CompanyUserModel | VolunterUserModel;
+  userData: any;
   handleNextStep: () => Promise<void>;
   handleStepBack: () => void;
 }
