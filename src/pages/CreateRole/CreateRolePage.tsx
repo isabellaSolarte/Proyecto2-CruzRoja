@@ -33,8 +33,7 @@ const CreateRolePage = ({ updateRolData, initialId}: CreateRolFormProps) => {
   useEffect(() =>{
     loadRolData();
   },[initialId] );
-  console.log('initialId(): ',initialId);
-  
+
   return (
     <ManagmentLayout
       title={<CustomText texto={t('pageTitles.createRole')} variante="titulo" />}

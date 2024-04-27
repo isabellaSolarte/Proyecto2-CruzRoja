@@ -5,7 +5,7 @@ import { RoleModel } from '../../../models';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { defaultRolSchema } from '../schemas/RolSchema';
 import { rolSchemaValidation } from '../schemas/RolSchema';
-import { getRolId } from '../../../services/AxiosRequests/Roles/roleRequest';
+import { getRolId, putRol } from '../../../services/AxiosRequests/Roles/roleRequest';
 import { getAllPermissions } from '../../../services/Permissions/permissionsRequest';
 import { useNavigate } from 'react-router-dom';
 import { PathNames } from '../../../core';
@@ -16,7 +16,7 @@ import { adaptFrontRolModelToDTO } from '../../../services/Adapters_DTO';
 // TODO agregarPermiso y  hacer la peticion de crear rol con la lista de permisos
 export const useCreateRolForm = (
   updateRolData: (newUserData: RoleModel) => void,
-  initialId?: string  // Optional initial id
+  initialId?: string,  // Optional initial id
 ) => {
   const [id, setId] = useState<string | undefined >(initialId); // State for id
   const [permissionList, setPermissionList] = useState<PermissionModel[]>([]);
@@ -51,32 +51,40 @@ export const useCreateRolForm = (
   const addRole = (newRole: PermissionModel) => {
     append(newRole);
     register(`permissions.${fields.length}.id`);
-    //console.log('error', errors);
+  };
+
+  const removeRole = (roleName: string) => {
+    const indexToRemove = fields.findIndex(field => field.name === roleName);
+    
+    if (indexToRemove !== -1) {
+      remove(indexToRemove);
+    }
+    //remove(Index);
+    //register(`permissions.${fields.length}.id`);
   };
 
   const onSubmit = async () => {
-    console.log('Entra con el editar', getValues());
-    console.log('Entra con el editar', initialId);
-    console.log('Entra con el editar', id);
     
-    const permisos = getValues().permissions.map(permiso => ({
-      idPermission: permiso.id,
-      name: permiso.name,
-      description: permiso.description
-    }));
-/*     const updateRol = {
+    const updateRol = {
       ...getValues(),
-      permissions: permisos,
-    } */
-    const updateRol: RoleFormType = {
-      ...getValues(),
-      permissions: permisos,
     }
-
-    console.log('ROL EN ONSUBMIT', updateRol);
+    
     try {
-      await postRol(updateRol);
-      alert(`Se ha creado el rol ${updateRol.typeRole} correctamente`);
+      if(PathNames.CREATE_ROLE.toString() === location.pathname){
+        if(updateRol.permissions.length > 0){
+          await postRol(updateRol);
+          alert(`Se ha creado el rol ${updateRol.typeRole} correctamente`);
+        }else{
+          alert(`Debe seleccionar permisos a el rol ${updateRol.typeRole}`);
+        }
+
+      }else{
+
+        const rolId = location.pathname.split('/').pop();
+        await putRol(updateRol, Number(rolId))
+        alert(`Se ha actualizado el rol ${updateRol.typeRole} correctamente`);
+
+      }
       navigate(PathNames.ROLES, { replace: true });
     } catch (error: any) {
       alert(`Error creating user ${error.message}`);
@@ -104,21 +112,16 @@ export const useCreateRolForm = (
       
       const rolDataById = await getRolId(Number(id));   
       setrolData(rolDataById);
-      setValue('permissions', rolDataById.permissions);
-      /* rolDataById.permissions.map((permiso)=>{
-        addRole(permiso)
-        console.log(permiso);
-        
-      }) */
-      /* addRole(rolDataById.permissions[0]) */
+      //setValue('permissions', rolDataById.permissions);
+  /*     addedPermissions = rolDataById.permissions
+      setActualPermissionList(rolDataById.permissions)
+      rolDataById.permissions.forEach((permiso) => {
+        addRole(permiso);
+      }); */
     } catch (error) {
       setError(error as Error); 
     }
   }
-
-/*   useEffect(() => {
-    reset(rolData);
-  }, [rolData]); */
 
   useEffect(() => {
     loadPermissions();
@@ -133,6 +136,7 @@ export const useCreateRolForm = (
     rolData, 
     errors,
     addRole,
+    removeRole,
     remove,
     loadPermissions,
     loadRolData,
