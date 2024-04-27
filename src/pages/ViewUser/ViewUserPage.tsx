@@ -1,105 +1,160 @@
-import { AccountCircle } from '@mui/icons-material';
-import EmailIcon from '@mui/icons-material/Email';
-import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
-import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EditIcon from '@mui/icons-material/Edit';
-import { useTranslation } from "react-i18next";
-import { ManagmentLayout,CustomButton,CustomText} from "../../components";
-import { Box,useTheme } from '@mui/material';
-import { Theme } from '@mui/material/styles';
+import { useTranslation } from 'react-i18next';
+import { ManagmentLayout, CustomButton, CustomText, CustomAccordion } from '../../components';
+import { Box, Grid } from '@mui/material';
+import { useEffect } from 'react';
+import { useUserPage } from './Hooks/useUserPage';
+import { useParams } from 'react-router-dom';
+import PhoneAndroidOutlinedIcon from '@mui/icons-material/PhoneAndroidOutlined';
+import MarkEmailReadOutlinedIcon from '@mui/icons-material/MarkEmailReadOutlined';
+import CreditScoreOutlinedIcon from '@mui/icons-material/CreditScoreOutlined';
+import MedicalInformationOutlinedIcon from '@mui/icons-material/MedicalInformationOutlined';
+import { PermissionModel } from '../../models/RoleModels/PermissionModel';
+import { RoleModel } from '../../models';
+import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
 
-
-const ViewUserPage  = () => {
+const ViewUserPage = () => {
   const { t } = useTranslation('commons');
-  const theme = useTheme<Theme>();
+  const { id } = useParams<{ id: string }>();
+  const { loadUserDataByID, userData, handleEdit } = useUserPage();
+  const userPosiion =
+    userData && userData.position ? userData.position : t('positions.business_representative');
+
+  useEffect(() => {
+    void loadUserDataByID(Number(id));
+  }, []);
+
   return (
     <ManagmentLayout
-      title={<CustomText texto={t('pageTitles.userView')} variante="titulo" />}
+      title={
+        <Box sx={{ display: 'flex' }}>
+          <AccountCircleIcon sx={{ fontSize: 64 }} />
+          <Box>
+            <CustomText
+              texto={`${userData?.names} ${userData?.lastNames}`}
+              variante={'subtitulo'}
+              styles={{ lineHeight: 1 }}
+            />
+            <CustomText texto={userPosiion} variante="texto" styles={{ lineHeight: 1.3 }} />
+            <CustomText
+              texto={`@${userData?.username}`}
+              variante="pequeño"
+              styles={{ lineHeight: 1.3 }}
+            />
+          </Box>
+        </Box>
+      }
       actionsContent={
-        <CustomButton
-            content="Editar"
-            onClick={() => {
-                console.log('click en boton de informacion');
-            }}
+        <Box>
+          <CustomButton
+            content={t('generalButtonText.edit')}
+            onClick={handleEdit}
             variant="contained"
             color="info"
             icon={<EditIcon />}
-            buttonSide="end"
-            
-        />
+            sx={{
+              height: '2rem',
+            }}
+          />
+        </Box>
       }
       generalContents={
         <Box>
-            <CustomText 
-                    texto="Vladimir Shmondenko" 
-                    variante="subtitulo"
-                    icon={<AccountCircle style={{ color: 'green', fontSize: '25px' }} />}
-                />
+          <Grid container>
+            <Grid item xs={12} paddingInline={3}>
+              <CustomText texto={t('usersPages.userForm.personalInfo')} variante={'subtitulo'} />
+            </Grid>
 
-                <CustomText texto="Sin roles asignados" variante="pequeño"  />
-                <CustomText texto="@anatoly" variante="pequeño"  />
+            <Grid item xs={12} md={6} sm={12} paddingInline={3} paddingBlock={2}>
+              <CustomText
+                texto={t('usersPages.userForm.personalPhone')}
+                variante="pequeño"
+                icon={<PhoneAndroidOutlinedIcon color="disabled" />}
+              />
+              <CustomText variante="texto" texto={userData ? userData.personalPhone : ''} />
+            </Grid>
+            <Grid item xs={12} md={6} sm={12} paddingInline={3} paddingBlock={2}>
+              <CustomText
+                texto={t('usersPages.userForm.email')}
+                variante="pequeño"
+                icon={<MarkEmailReadOutlinedIcon color="disabled" />}
+              />
+              <CustomText variante="texto" texto={userData ? userData.personalEmail : ''} />
+            </Grid>
 
-            <Box mt={5} style={{ display: 'flex', flexDirection: 'row' }}>
-          
-                <div style={{ marginRight: '200px' }}>
-                    <CustomText
-                        texto="Email" 
-                        variante="subtitulo"
-                        icon={<EmailIcon />}
-                    />
-                </div>
-                <div style={{ marginRight: '200px' }}>
-                    <CustomText
-                        texto="Teléfono" 
-                        variante="subtitulo"
-                        icon={<ContactPhoneIcon />}
-                    />
-                </div>
-                <div>
-                    <CustomText
-                        texto="Número de identificación" 
-                        variante="subtitulo"
-                        icon={<PermContactCalendarIcon />}
-                     />
-                </div>
-          </Box>
+            <Grid item xs={12} md={6} sm={12} paddingInline={3} paddingBlock={2}>
+              <CustomText
+                texto={t('usersPages.userForm.documentType')}
+                variante="pequeño"
+                icon={<CreditScoreOutlinedIcon color="disabled" />}
+              />
+              <CustomText variante="texto" texto={userData ? userData.documentType : ''} />
+            </Grid>
 
-          <Box mt={1} style={{ display: 'flex', flexDirection: 'row' }}>
-                <div style={{ marginRight: '90px' }}>
-                    <CustomText texto="anatoly@cruzroja.co" variante="subtitulo" />
-                </div>
-                <div style={{ marginRight: '160px' }}>
-                    <CustomText texto="+57 3120000000" variante="subtitulo" />
-                </div>
-                <div>
-                    <CustomText texto="1002963532" variante="subtitulo" />
-                </div>
-          </Box>
-          
-          <Box mt={5} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <CustomText texto="Roles" variante="subtitulo" />
-                <CustomButton
-                    content="ASIGNAR ROL"
-                    onClick={() => {
-                    console.log('click en boton de exíto');
-                    }}
+            <Grid item xs={12} md={6} sm={12} paddingInline={3} paddingBlock={2}>
+              <CustomText
+                texto={t('usersPages.userForm.documentNumber')}
+                variante="pequeño"
+                icon={<MedicalInformationOutlinedIcon color="disabled" />}
+              />
+              <CustomText variante="texto" texto={userData ? userData.id.toString() : ''} />
+            </Grid>
+
+            {userData && userData.companyNit && (
+              <>
+                <Grid item xs={12} md={12} sm={12} paddingInline={3} paddingBlock={2}>
+                  <CustomText texto={t('usersPages.userForm.companyInfo')} variante="subtitulo" />
+                </Grid>
+                <Grid item xs={12} md={6} sm={12} paddingInline={3} paddingBlock={2}>
+                  <CustomText
+                    texto={t('company.title')}
+                    variante="pequeño"
+                    icon={<BusinessOutlinedIcon color="disabled" />}
+                  />
+                  <CustomText variante="texto" texto={userData ? userData.companyName : ''} />
+                </Grid>
+                <Grid item xs={12} md={6} sm={12} paddingInline={3} paddingBlock={2}>
+                  <CustomButton
+                    content={t('generalButtonText.view') + ' empresa'}
+                    onClick={() => console.log('Ver empresa')}
                     variant="contained"
-                    color="success"
-                />
-                
-          </Box>
-        
-           <Box mt={5}style={{ display: 'flex', justifyContent: 'center' }}>
-            <CustomText texto="Sin Roles Asignados" variante="subtitulo" />
+                    color="warning"
+                    sx={{
+                      height: '2rem',
+                    }}
+                  />
+                </Grid>
+              </>
+            )}
 
-           </Box>
-           
+            {/* SECCIÓN DE ROLES ACTUALES QUE PERTENECEN AL USUARIO */}
+            <Grid item xs={12} md={12} sm={12} paddingInline={3} paddingBlock={2}>
+              <CustomText texto={t('usersPages.userForm.asignedRoles')} variante="subtitulo" />
+            </Grid>
+            <Grid item xs={12} md={12} sm={12} paddingInline={3} paddingBlock={2}>
+              {userData?.roles.map((rol: RoleModel) => (
+                <CustomAccordion
+                  key={rol.id}
+                  accordionSummary={rol.typeRole}
+                  contentAccordion={rol.permissions.map((permission: PermissionModel) => (
+                    <Box key={permission.id}>
+                      <CustomText key={permission.id} texto={permission.name} variante="texto" />
+                      <CustomText
+                        key={permission.id}
+                        texto={permission.description}
+                        variante="pequeño"
+                      />
+                    </Box>
+                  ))}
+                />
+              ))}
+            </Grid>
+          </Grid>
         </Box>
-        
       }
-      
     />
   );
 };
 
-export default ViewUserPage ;
+export default ViewUserPage;
