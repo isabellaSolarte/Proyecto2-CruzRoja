@@ -22,23 +22,34 @@ export const getAllRoles = async (): Promise<RoleModel[]> => {
 export const getRolId = async (id: number): Promise<RoleFormType> => {
   try {
     const response = await api.get(`/roles/idRole/${id}`)
-    console.log(response)
     const adaptedRoles: RoleModel = RolAdapter(response.data)
     const adaptedRolData = adaptFrontRolModelToDTO(adaptedRoles);
     return adaptedRolData;
+    
   } catch (err) {
     throw new Error(JSON.stringify(err));
   }
 };
 
 export const postRol = async (data: RoleFormType) => {
+
+  const permisos = data.permissions.map(permiso => ({
+    idPermission: permiso.id,
+    name: permiso.name,
+    description: permiso.description
+  }));
+
+  const RolData = {
+    ...data,
+    permissions: permisos,
+  };
+
   try {
-    const adaptedRolData = adaptFrontRolModelToDTO(data);
-    console.log(JSON.stringify(adaptedRolData))
+    //const adaptedRolData = adaptFrontRolModelToDTO(data);
     // TODO: Hacer el adaptador de formRolType a un DTO válido para el backend
     const response = await api.post<AxiosResponse>(
       RolesEndpoints.postRol,
-      adaptedRolData ,
+      RolData ,
     );   
     return response;
   } catch (error) {
@@ -46,4 +57,28 @@ export const postRol = async (data: RoleFormType) => {
   }
 };
 
+export const putRol = async (data: RoleFormType, id: number) => {
+  try {
+    const permisos = data.permissions.map(permiso => ({
+      idPermission: permiso.id,
+      name: permiso.name,
+      description: permiso.description
+    }));
+
+    const updatedRolData = {
+      ...data,
+      idRole: id, // Usar el id como identificador
+      permissions: permisos,
+    };
+
+    const response = await api.put<AxiosResponse>(
+      RolesEndpoints.putRol,
+      updatedRolData,
+    );
+    return response;
+  } catch (error) {
+    console.error(error);
+    throw error; // Lanzar el error para manejarlo en el componente
+  }
+};
 

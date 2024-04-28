@@ -27,6 +27,7 @@ export const rolSchemaValidation = yup.object().shape({
               .required('roles.of.permissions.of.description.required'),
           }),
         )
-        .min(1, 'debe seleccionar al menos un permiso.')
-        .required('Los permisos son un campo obligatorio')
+        .min(1, 'permissions.min')
+        .required('permissions.required')
+        
 }).required();
