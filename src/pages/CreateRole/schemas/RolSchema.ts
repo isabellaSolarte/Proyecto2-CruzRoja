@@ -4,6 +4,7 @@ import { RoleFormType } from '../types/RoleFormType';
 export const defaultRolSchema: RoleFormType = {
   typeRole: '',
   permissions: [],
+  state:true
 };
 export const rolSchemaValidation = yup
   .object()
