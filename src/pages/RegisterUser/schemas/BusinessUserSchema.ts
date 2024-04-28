@@ -24,8 +24,8 @@ export const businessUserSchemaValidation = yup
   .shape({
     companyNit: yup
       .number()
-      .test('len', 'El NIT debe tener al menos 9 dígitos', val =>
-        val ? val.toString().length >= 9 : false,
+      .test('len', 'El NIT debe tener 9 dígitos', val =>
+        val ? val.toString().length == 9 : false,
       )
       .moreThan(0, 'companyNit.number')
       .required('companyNit.required'),
@@ -34,9 +34,10 @@ export const businessUserSchemaValidation = yup
 
     companyPhone: yup
       .string()
-      .matches(/^\d+$/, 'companyPhone.length')
-      .test('len', 'El NIT debe tener máximo 9 dígitos', val =>
-        val ? val.toString().length >= 8 : true,
+      .matches(/^3/, 'El teléfono debe empezar por el número 3')
+      .matches(/^\d+$/, 'companyPhone.number')
+      .test('len', 'El número de teléfono debe tener 10 dígitos', val =>
+        val ? val.toString().length === 10 : false,
       )
       .required('companyPhone.required'),
 
