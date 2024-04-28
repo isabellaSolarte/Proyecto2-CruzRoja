@@ -9,6 +9,7 @@ import BusinessUserDataForm from './Form/BusinessUserDataForm';
 import VolunterUserDataForm from './Form/VolunterUserDataForm';
 import { useTranslation } from 'react-i18next';
 import { ValidateUserData } from './Form';
+import { CustomLoader } from '../../components';
 
 const RegisterUserPage = () => {
   const { t } = useTranslation('commons');
@@ -17,6 +18,7 @@ const RegisterUserPage = () => {
     userType,
     currentStep,
     stepList,
+    isLoading,
     updateUserSteps,
     handleUserType,
     updateUserData,
@@ -34,6 +36,7 @@ const RegisterUserPage = () => {
       title={<CustomText texto={t('Creación de usuario')} variante="titulo" />}
       generalContents={
         <CustomStepper activeStep={currentStep} stepsData={stepList}>
+          {isLoading && <CustomLoader />}
           {currentStep === 0 && (
             <SelectUserForm
               handleUserType={handleUserType}
