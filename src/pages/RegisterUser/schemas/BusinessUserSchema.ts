@@ -34,9 +34,10 @@ export const businessUserSchemaValidation = yup
 
     companyPhone: yup
       .string()
-      .matches(/^\d+$/, 'companyPhone.length')
+      .matches(/^3/, 'El teléfono debe empezar por el número 3')
+      .matches(/^\d+$/, 'companyPhone.number')
       .test('len', 'El número de teléfono debe tener 10 dígitos', val =>
-        val ? val.toString().length >= 8 : true,
+        val ? val.toString().length === 10 : false,
       )
       .required('companyPhone.required'),
 
