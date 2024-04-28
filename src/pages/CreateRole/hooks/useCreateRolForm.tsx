@@ -22,7 +22,7 @@ export const useCreateRolForm = (
   const [permissionList, setPermissionList] = useState<PermissionModel[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
-  const [rolData, setrolData] = useState<RoleFormType | undefined>(undefined)
+  const [rolData, setrolData] = useState<RoleFormType | undefined>();
 
   const navigate = useNavigate();
 
@@ -59,14 +59,13 @@ export const useCreateRolForm = (
     if (indexToRemove !== -1) {
       remove(indexToRemove);
     }
-    //remove(Index);
-    //register(`permissions.${fields.length}.id`);
   };
 
   const onSubmit = async () => {
     
     const updateRol = {
       ...getValues(),
+        state: true //le asigno el estado del rol en true
     }
     
     try {
@@ -112,12 +111,6 @@ export const useCreateRolForm = (
       
       const rolDataById = await getRolId(Number(id));   
       setrolData(rolDataById);
-      //setValue('permissions', rolDataById.permissions);
-  /*     addedPermissions = rolDataById.permissions
-      setActualPermissionList(rolDataById.permissions)
-      rolDataById.permissions.forEach((permiso) => {
-        addRole(permiso);
-      }); */
     } catch (error) {
       setError(error as Error); 
     }
