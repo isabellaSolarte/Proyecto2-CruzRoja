@@ -71,6 +71,7 @@ export const getCompanies = async (): Promise<CompanyUserModel[]> => {
 export const postUserCompany = async (data: CompanyUserModel) => {
   try {
     const newUserData = adaptFrontCompanyUserModelToDTO(data);
+    console.log('new user', JSON.stringify(newUserData));
 
     const response = await api.post<AxiosResponse>(
       UsersEndpoints.postCompanyUser,
@@ -78,7 +79,7 @@ export const postUserCompany = async (data: CompanyUserModel) => {
     );
     return response;
   } catch (error) {
-    console.error(error);
+    throw new Error(error.message);
   }
 };
 

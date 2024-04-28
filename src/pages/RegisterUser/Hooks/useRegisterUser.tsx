@@ -126,7 +126,7 @@ const useRegisterUser = () => {
       alert(`User created usaurio creado tipo ${userType} correctamente`);
       navigate(PathNames.USERS, { replace: true });
     } catch (e: any) {
-      alert(`Error creating user ${e.message}`);
+      alert(`Error creating user ${JSON.stringify(e.message)}`);
     }
   };
 
