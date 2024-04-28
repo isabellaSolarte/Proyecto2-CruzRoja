@@ -14,6 +14,7 @@ import { RouterModel } from '../../models/SideMenuModels/RouteModel';
 import RegisterUserPage from '../../pages/RegisterUser/RegisterUserPage';
 import { RolesPage } from '../../pages/Roles';
 import { ViewUserPage } from '../../pages/ViewUser';
+import EditUserPage from '../../pages/EditUser/EditUserPage';
 
 export const NavigationRoutes = () => {
   const { t } = useTranslation('commons');
@@ -107,7 +108,12 @@ export const NavigationRoutes = () => {
       path: PathNames.EDIT_ROLE,
       component: <CreateRolePage />,
       title: 'EDITAR ROL',
-    }
+    },
+    {
+      path: PathNames.EDIT_USER,
+      component: <EditUserPage />,
+      title: 'EDITAR USUARIO',
+    },
   ];
 
   return routes;

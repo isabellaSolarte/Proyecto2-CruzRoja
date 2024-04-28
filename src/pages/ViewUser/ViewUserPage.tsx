@@ -117,7 +117,7 @@ const ViewUserPage = () => {
                 <Grid item xs={12} md={6} sm={12} paddingInline={3} paddingBlock={2}>
                   <CustomButton
                     content={t('generalButtonText.view') + ' empresa'}
-                    onClick={() => console.log('Ver empresa')}
+                    onClick={() => {}}
                     variant="contained"
                     color="warning"
                     sx={{
