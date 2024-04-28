@@ -9,7 +9,6 @@ export const rolSchemaValidation = yup.object().shape({
 
     typeRole: yup
         .string()
-        .min(3, 'namesRol.min')
         .required('namesRol.required'),
         permissions: yup
         .array()
