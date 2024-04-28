@@ -24,6 +24,7 @@ export const rolSchemaValidation = yup.object().shape({
             description: yup
               .string()
               .required('roles.of.permissions.of.description.required'),
+              
           }),
         )
         .min(1, 'permissions.min')
