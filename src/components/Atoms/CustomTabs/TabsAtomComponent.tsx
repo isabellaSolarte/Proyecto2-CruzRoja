@@ -1,26 +1,26 @@
 import React from 'react';
 import { Tabs, Tab } from '@material-ui/core';
-
+import  { styled } from 'styled-components';
 interface TabProps {
   tabContentItem: string[];
 }
 
-// const StyledTabs = withStyles({
-//   root: {
-//     borderBottom: '1px solid #ccc',
-//     display: 'flex',
-//     justifyContent: 'flex-end',
-//     width: 'fit-content',
-//   },
-// })(Tabs);
+const StyledTabs = styled(Tabs)`
+  && { 
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: flex-end;
+    width: fit-content;
+  }
+`;
 
-// const StyledTab = withStyles({
-//   root: {
-//     minWidth: 100,
-//     textTransform: 'none',
-//     fontSize: 16,
-//   },
-// })(Tab);
+const StyledTab = styled(Tab)`
+  && {
+    min-width: 100px;
+    text-transform: none;
+    font-size: 16px;
+  }
+`;
 
 const TabsAtomComponent = ({ tabContentItem }: TabProps) => {
   const [selectedTab, setSelectedTab] = React.useState(0);
@@ -30,11 +30,11 @@ const TabsAtomComponent = ({ tabContentItem }: TabProps) => {
   };
 
   return (
-    <Tabs value={selectedTab} onChange={handleTabChange}>
+    <StyledTabs value={selectedTab} onChange={handleTabChange}>
       {tabContentItem.map((label, index) => (
-        <Tab key={index} label={label} />
+        <StyledTab key={index} label={label} />
       ))}
-    </Tabs>
+    </StyledTabs>
   );
 };
 
