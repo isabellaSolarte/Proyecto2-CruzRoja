@@ -11,15 +11,21 @@ export const useRolePage = () => {
       const rolesData = await getAllRoles();
       const adaptedRoles = rolesData.map((role) => ({
         id: role.id,
+        state: role.state,
         typeRole: role.typeRole,
         permissions: role.permissions,
+        switchState: role.state, // Agrega la propiedad switchState
       }));
       setRoles(adaptedRoles);
     } catch (error) {
       console.error("Error fetching roles:", error);
     } finally {
-      setLoading(false); // Cambia el estado de carga a false cuando se completó la obtención de datos
+      setLoading(false);
     }
+  };
+
+  const updateRoleInfo = (updatedRoles: RoleModel[]) => {
+    setRoles(updatedRoles);
   };
 
   useEffect(() => {
@@ -30,5 +36,6 @@ export const useRolePage = () => {
     roles,
     loading, // Devuelve el estado de carga para mostrar un indicador de carga si es necesario
     fetchRoles,
+    updateRoleInfo // Método para actualizar la información de los roles
   };
 };

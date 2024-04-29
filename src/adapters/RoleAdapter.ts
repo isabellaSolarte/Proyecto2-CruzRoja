@@ -18,6 +18,7 @@ export const RolAdapter = (externRol: any): RoleModel => {
   return {
     id: externRol.idRole,
     typeRole: externRol.typeRole,
+    state: externRol.state,
     permissions,
   };
 };

@@ -1,12 +1,14 @@
 import * as yup from 'yup';
-import { RoleFormType } from "../types/RoleFormType";
+import { RoleFormType } from '../types/RoleFormType';
 
-export const defaultRolSchema:RoleFormType = {
-    typeRole: '',
-    permissions: []
-}
-export const rolSchemaValidation = yup.object().shape({
-
+export const defaultRolSchema: RoleFormType = {
+  typeRole: '',
+  permissions: [],
+  state:true
+};
+export const rolSchemaValidation = yup
+  .object()
+  .shape({
     typeRole: yup
         .string()
         .required('namesRol.required'),

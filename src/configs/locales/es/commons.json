@@ -143,5 +143,8 @@
         "address": "Dirección de la empresa",
         "addressInfo": "Información de la dirección de la empresa",
         "title": "Empresa"
+    },
+    "alertText": {
+        "userCreated": "Usuario creado exitosamente"
     }
 }

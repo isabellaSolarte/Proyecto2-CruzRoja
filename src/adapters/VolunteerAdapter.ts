@@ -4,6 +4,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
 import { VolunterUserModel } from '../models';
+import { RolAdapter } from './RoleAdapter';
 
 export const VolunteerAdapter = (externVolunteer: any): VolunterUserModel => {
   return {
@@ -15,7 +16,7 @@ export const VolunteerAdapter = (externVolunteer: any): VolunterUserModel => {
     personalEmail: externVolunteer.personalEmail,
     username: externVolunteer.username,
     password: externVolunteer.password,
-    roles: externVolunteer.roles,
+    roles: externVolunteer.roles.map((role: any) => RolAdapter(role)),
     state: externVolunteer.state,
     allowedRoutes: externVolunteer.allowedRoutes,
     position: externVolunteer.position,
