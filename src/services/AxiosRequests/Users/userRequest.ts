@@ -41,7 +41,6 @@ export const putVolunteer = async (data: VolunterUserModel) => {
 export const postVolunteer = async (data: VolunterUserModel) => {
   try {
     const newUserData = adaptFrontVolunterUserModelToDTO(data);
-    console.log('new user', JSON.stringify(newUserData));
 
     const response = await api.post<AxiosResponse>(
       UsersEndpoints.postVolunteer,
