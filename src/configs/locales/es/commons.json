@@ -145,6 +145,8 @@
         "title": "Empresa"
     },
     "alertText": {
-        "userCreated": "Usuario creado exitosamente"
+        "userCreated": "Usuario creado exitosamente",
+        "rolCreate": "El rol se ha creado exitosamente",
+        "rolEdit": "El rol se ha actualizado exitosamente"
     }
 }

@@ -3,7 +3,6 @@ import { useFieldArray, useForm } from 'react-hook-form';
 import { PermissionModel } from '../../../models';
 import { RoleModel } from '../../../models';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { defaultRolSchema } from '../schemas/RolSchema';
 import { rolSchemaValidation } from '../schemas/RolSchema';
 import { getRolId, putRol } from '../../../services/AxiosRequests/Roles/roleRequest';
 import { getAllPermissions } from '../../../services/Permissions/permissionsRequest';
@@ -11,13 +10,15 @@ import { useNavigate } from 'react-router-dom';
 import { PathNames } from '../../../core';
 import { postRol } from './../../../services/AxiosRequests/Roles/roleRequest';
 import { RoleFormType } from '../types/RoleFormType';
-import { adaptFrontRolModelToDTO } from '../../../services/Adapters_DTO';
+import Swal from 'sweetalert2';
+import { useTranslation } from 'react-i18next';
 
 // TODO agregarPermiso y  hacer la peticion de crear rol con la lista de permisos
 export const useCreateRolForm = (
   updateRolData: (newUserData: RoleModel) => void,
   initialId?: string,  // Optional initial id
 ) => {
+  const { t } = useTranslation('commons');
   const [id, setId] = useState<string | undefined >(initialId); // State for id
   const [permissionList, setPermissionList] = useState<PermissionModel[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -70,21 +71,28 @@ export const useCreateRolForm = (
     
     try {
       if(PathNames.CREATE_ROLE.toString() === location.pathname){
-        if(updateRol.permissions.length > 0){
-          await postRol(updateRol);
-          alert(`Se ha creado el rol ${updateRol.typeRole} correctamente`);
-        }else{
-          alert(`Debe seleccionar permisos a el rol ${updateRol.typeRole}`);
-        }
+        
+        await postRol(updateRol);
+        void Swal.fire({
+          title: t('alertText.rolCreate'),
+          confirmButtonText: t('generalButtonText.accept'),
+        }).then(() => {
+          navigate(PathNames.ROLES, { replace: true });
+        });
+  
 
       }else{
 
         const rolId = location.pathname.split('/').pop();
         await putRol(updateRol, Number(rolId))
-        alert(`Se ha actualizado el rol ${updateRol.typeRole} correctamente`);
+        void Swal.fire({
+          title: t('alertText.rolEdit'),
+          confirmButtonText: t('generalButtonText.accept'),
+        }).then(() => {
+          navigate(PathNames.ROLES, { replace: true });
+        });
 
       }
-      navigate(PathNames.ROLES, { replace: true });
     } catch (error: any) {
       alert(`Error creating user ${error.message}`);
     }
