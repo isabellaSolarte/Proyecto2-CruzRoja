@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { ManagmentLayout, CustomButton, CustomText, CustomAccordion } from '../../components';
 import { Box, Grid } from '@mui/material';
 import { useEffect } from 'react';
-import { useUserPage } from './hooks/useUserPage';
+import { useUserPage } from './Hooks/useUserPage';
 import { useParams } from 'react-router-dom';
 import PhoneAndroidOutlinedIcon from '@mui/icons-material/PhoneAndroidOutlined';
 import MarkEmailReadOutlinedIcon from '@mui/icons-material/MarkEmailReadOutlined';
