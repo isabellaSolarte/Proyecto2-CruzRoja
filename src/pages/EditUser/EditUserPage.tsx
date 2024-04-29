@@ -1,4 +1,4 @@
-import { CustomInput, ManagmentLayout } from '../../components';
+import { CustomInput, CustomLoader, ManagmentLayout } from '../../components';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
@@ -18,16 +18,8 @@ import { VolunterUserModel } from '../../models';
 const EditUserPage = () => {
   const { t } = useTranslation('commons');
   const { id } = useParams<{ id: string }>();
-  const {
-    userData,
-    roles,
-    loadUserData,
-    handleSave,
-    handleCancel,
-    onSubmit,
-    handleSubmit,
-    register,
-  } = useEditUser();
+  const { userData, roles, loading, loadUserData, handleCancel, onSubmit, handleSubmit, register } =
+    useEditUser();
   const userPosition =
     (userData as VolunterUserModel)?.position || t('positions.business_representative');
 
@@ -65,20 +57,11 @@ const EditUserPage = () => {
               mr: 2,
             }}
           />
-          <CustomButton
-            content={t('generalButtonText.save')}
-            onClick={handleSave}
-            variant="contained"
-            color="success"
-            icon={<SaveAsIcon />}
-            sx={{
-              height: '2rem',
-            }}
-          />
         </Box>
       }
       generalContents={
         <Box>
+          {loading && <CustomLoader />}
           <form onSubmit={handleSubmit(onSubmit)}>
             <Grid container>
               <Grid item xs={12} paddingInline={3}>
@@ -157,6 +140,18 @@ const EditUserPage = () => {
                 />
               </Grid>
             </Grid>
+
+            <CustomButton
+              content={t('generalButtonText.save')}
+              //onClick={handleSave}
+              variant="contained"
+              color="success"
+              icon={<SaveAsIcon />}
+              type="submit"
+              sx={{
+                height: '2rem',
+              }}
+            />
           </form>
         </Box>
       }

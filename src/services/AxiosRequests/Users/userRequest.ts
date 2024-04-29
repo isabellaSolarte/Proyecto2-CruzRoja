@@ -24,10 +24,9 @@ export const getVolunteers = async (): Promise<VolunterUserModel[]> => {
 };
 export const putVolunteer = async (data: VolunterUserModel) => {
   try {
-    const updatedVolunteerData = {
-      ...data,
-      documentNumber: Number(data.id), // Usar el documentNumber como identificador
-    };
+    console.log('raw user', JSON.stringify(data));
+    const updatedVolunteerData = adaptFrontVolunterUserModelToDTO(data);
+    console.log('updated user', JSON.stringify(updatedVolunteerData));
     const response = await api.put<AxiosResponse>(
       UsersEndpoints.putVolunteer,
       updatedVolunteerData,
