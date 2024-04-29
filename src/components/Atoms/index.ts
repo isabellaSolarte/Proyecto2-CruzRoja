@@ -2,6 +2,7 @@ export * from './CustomButton';
 export * from './CustomDrawerElements';
 export * from './CustomIconDeatils';
 export * from './CustomInput';
+export * from './CustomLoader';
 export * from './CustomSelect';
 export * from './CustomTabs';
 export * from './CustomText';

@@ -2,6 +2,7 @@ export * from './Atoms/CustomButton';
 export * from './Atoms/CustomDrawerElements';
 export * from './Atoms/CustomIconDeatils';
 export * from './Atoms/CustomInput';
+export * from './Atoms/CustomLoader';
 export * from './Atoms/CustomSelect';
 export * from './Atoms/CustomTabs';
 export * from './Atoms/CustomText';

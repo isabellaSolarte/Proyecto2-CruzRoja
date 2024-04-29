@@ -11,12 +11,12 @@ import { BusinessRegisterFormType, VolunterRegisterFormType } from '../types';
 import { postUserCompany, postVolunteer } from '../../../services';
 import { useNavigate } from 'react-router-dom';
 import { PathNames } from '../../../core';
+import Swal from 'sweetalert2';
 
 const useRegisterUser = () => {
   const navigate = useNavigate();
   const { t } = useTranslation('commons');
-
-  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+  const [isLoading, setIsLoading] = useState(false);
   const [userData, setUserData] = useState<UserModel | VolunterUserModel | CompanyUserModel>(
     defaulUserSchema,
   );
@@ -116,15 +116,21 @@ const useRegisterUser = () => {
 
   const createUser = async () => {
     handleNextStep();
-
+    setIsLoading(true);
     try {
       if (userType === 'volunter') {
         await postVolunteer(userData as VolunterUserModel);
       } else {
         await postUserCompany(userData as CompanyUserModel);
       }
-      alert(`User created usaurio creado tipo ${userType} correctamente`);
-      navigate(PathNames.USERS, { replace: true });
+      setIsLoading(false);
+
+      void Swal.fire({
+        title: t('alertText.userCreated'),
+        confirmButtonText: t('generalButtonText.accept'),
+      }).then(() => {
+        navigate(PathNames.USERS, { replace: true });
+      });
     } catch (e: any) {
       alert(`Error creating user ${JSON.stringify(e.message)}`);
     }
@@ -135,6 +141,7 @@ const useRegisterUser = () => {
     userType,
     stepList,
     currentStep,
+    isLoading,
     handleUserType,
     hanldeCompleteStep,
     setCurrentStep,

@@ -54,6 +54,7 @@ export const adaptFrontCompanyUserModelToDTO = (
     roles: user.roles.map(role => ({
       idRole: Number(role.id),
       typeRole: role.typeRole,
+      state: role.state,
       permissions: role.permissions.map(permission => ({
         idPermission: Number(permission.id),
         name: permission.name,
