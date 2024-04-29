@@ -135,6 +135,7 @@ export const useCreateRolForm = (
     loadRolData,
     register,
     handleSubmit,
-    onSubmit
+    onSubmit,
+    reset
   };
 };

@@ -31,7 +31,8 @@ const FormRoleData = ({updateRolData, rolData }: FormRoleDataProps) => {
       addRole,
       removeRole,
       onSubmit,
-      handleSubmit
+      handleSubmit,
+      reset,
     } = useCreateRolForm(updateRolData)
   
     
@@ -41,6 +42,7 @@ const FormRoleData = ({updateRolData, rolData }: FormRoleDataProps) => {
           addRole(permission);
         });
       }
+      reset(rolData)
     }, [rolData]);
     
   return (

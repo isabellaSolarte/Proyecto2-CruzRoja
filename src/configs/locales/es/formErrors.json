@@ -99,7 +99,7 @@
     },
     "userFormErrorsRole":{
         "namesRol": {
-            "min": "El nombre del rol es requerido"
+            "required": "El nombre del rol es requerido"
         },
         "permissions": {
             "min": "Debe seleccionar al menos un permiso.",
