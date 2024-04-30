@@ -132,6 +132,7 @@ const useRegisterUser = () => {
         navigate(PathNames.USERS, { replace: true });
       });
     } catch (e: any) {
+      console.error(e);
       alert(`Error creating user ${JSON.stringify(e.message)}`);
     }
   };
