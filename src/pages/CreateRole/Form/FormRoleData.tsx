@@ -1,14 +1,13 @@
 import { useTranslation } from 'react-i18next';
-import {ManagmentLayout,TabsAtomComponent,CustomButton,CustomText,CustomInput, ErrorText} from '../../../components';
+import {CustomButton,CustomText,CustomInput, ErrorText} from '../../../components';
 import { useNavigate } from "react-router-dom";
-import { CustomTextArea } from '../../../components';
-import { Box, TextField } from '@mui/material';
+import { Box } from '@mui/material';
 import { RoleModel } from '../../../models';
+import { PermissionModel } from '../../../models';
 import { useCreateRolForm } from '../hooks/useCreateRolForm';
-import { UseFormHandleSubmit } from 'react-hook-form';
 import { PermissionCard } from '../Components';
-import { RoleFormType } from '../types/RoleFormType';
 import { PathNames } from '../../../core';
+import { useEffect } from 'react';
 
 
 
@@ -17,24 +16,35 @@ interface FormRoleDataProps{
     rolData?:RoleModel;
 }
 
-const FormRoleData = ({updateRolData,rolData}: FormRoleDataProps) => {
+const FormRoleData = ({updateRolData, rolData }: FormRoleDataProps) => {
     const navigate = useNavigate();
     const { t } = useTranslation('commons');
     const handleCreateButtonClick = () => {
       navigate(PathNames.ROLES);
-      console.log("ruta: ",PathNames.CREATE_ROLE);
     };
-  
+    
     const { 
       permissionList, 
       errors,
       register,
       remove,
       addRole,
+      removeRole,
       onSubmit,
-      handleSubmit
+      handleSubmit,
+      reset,
     } = useCreateRolForm(updateRolData)
-    console.log(rolData)
+  
+    
+    useEffect(() => {
+      if (rolData?.permissions) {
+        rolData.permissions.forEach((permission) => {
+          addRole(permission);
+        });
+      }
+      reset(rolData)
+    }, [rolData]);
+    
   return (
     <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -55,12 +65,13 @@ const FormRoleData = ({updateRolData,rolData}: FormRoleDataProps) => {
               <PermissionCard
                 key={permission.id}
                 permission={permission}
+                addedPermissions={rolData?.permissions}
                 positiveAction={addRole}
-                negativeAction={() => {
-                  remove(index);
-                }}
+                negativeAction={()=>{removeRole(permission.name)}}
+                props={register('permissions')}
               />
             ))} 
+            {errors.permissions && <ErrorText  error={errors.permissions.message} formErrorKey="userFormErrorsRole"/>}
           </Box>
           <Box mt={4} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
               
@@ -74,9 +85,8 @@ const FormRoleData = ({updateRolData,rolData}: FormRoleDataProps) => {
               variant="contained"
               color="success"
             />
-          </Box>
-
-        
+            
+          </Box>    
       </form>
       </Box>
       

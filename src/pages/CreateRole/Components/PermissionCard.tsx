@@ -1,19 +1,20 @@
-/* eslint-disable no-unused-vars */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CustomCard, CustomIconDetails } from '../../../components';
 import { PermissionModel } from '../../../models';
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip';
 
 interface PermissionCardProps {
   permission: PermissionModel;
+  addedPermissions: PermissionModel[]; // New prop for the list of added permissions
   positiveAction: (newRol: PermissionModel) => void;
   negativeAction: () => void;
 }
+
 interface PermissionMessageMap {
   [key: number]: string;
 }
 
-const permissionMessages:PermissionMessageMap = {
+const permissionMessages: PermissionMessageMap = {
   100: 'Listar roles',
   101: 'Crear roles',
   102: 'Actualizar roles',
@@ -21,8 +22,21 @@ const permissionMessages:PermissionMessageMap = {
   104: 'Consultar roles',
   105: 'Listar permisos'
 };
-const RoleCard = ({ permission, positiveAction, negativeAction }: PermissionCardProps) => {
+
+const PermissionCard = ({ permission, addedPermissions, positiveAction, negativeAction }: PermissionCardProps) => {
   const [switchState, setSwitchState] = useState(false);
+
+  const isPermissionAdded = () => {
+    addedPermissions?.map((permiso)=> {
+      if (permiso.id === permission.id){
+        setSwitchState(true)
+      }
+    })
+  };
+
+  useEffect(() => {
+    isPermissionAdded()
+  }, [addedPermissions, permission]);
 
   const handleSwitch = () => {
     setSwitchState(!switchState);
@@ -32,12 +46,13 @@ const RoleCard = ({ permission, positiveAction, negativeAction }: PermissionCard
       negativeAction();
     }
   };
+
   return (
     <CustomCard
       key={permission.id}
       texto1={permissionMessages[permission.id]}
       texto2={''}
-      sx={{marginBottom:'1rem', backgroundColor:'#D9D9D9'}}
+      sx={{ marginBottom: '1rem', backgroundColor: '#D9D9D9' }}
       switchState={switchState}
       handleSwitchState={handleSwitch}
       icon={
@@ -50,4 +65,4 @@ const RoleCard = ({ permission, positiveAction, negativeAction }: PermissionCard
   );
 };
 
-export default RoleCard;
+export default PermissionCard;

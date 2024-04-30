@@ -24,10 +24,9 @@ export const getVolunteers = async (): Promise<VolunterUserModel[]> => {
 };
 export const putVolunteer = async (data: VolunterUserModel) => {
   try {
-    const updatedVolunteerData = {
-      ...data,
-      documentNumber: Number(data.id), // Usar el documentNumber como identificador
-    };
+    console.log('raw user', JSON.stringify(data));
+    const updatedVolunteerData = adaptFrontVolunterUserModelToDTO(data);
+    console.log('updated user', JSON.stringify(updatedVolunteerData));
     const response = await api.put<AxiosResponse>(
       UsersEndpoints.putVolunteer,
       updatedVolunteerData,
@@ -42,7 +41,6 @@ export const putVolunteer = async (data: VolunterUserModel) => {
 export const postVolunteer = async (data: VolunterUserModel) => {
   try {
     const newUserData = adaptFrontVolunterUserModelToDTO(data);
-    console.log('new user', JSON.stringify(newUserData));
 
     const response = await api.post<AxiosResponse>(
       UsersEndpoints.postVolunteer,
@@ -71,7 +69,6 @@ export const getCompanies = async (): Promise<CompanyUserModel[]> => {
 export const postUserCompany = async (data: CompanyUserModel) => {
   try {
     const newUserData = adaptFrontCompanyUserModelToDTO(data);
-    console.log('new company user', JSON.stringify(newUserData));
 
     const response = await api.post<AxiosResponse>(
       UsersEndpoints.postCompanyUser,
@@ -79,7 +76,7 @@ export const postUserCompany = async (data: CompanyUserModel) => {
     );
     return response;
   } catch (error) {
-    console.error(error);
+    throw new Error(error.message);
   }
 };
 
@@ -98,14 +95,29 @@ export const putUserCompany = async (data: CompanyUserModel) => {
     console.error(error);
     throw error; // Lanzar el error para manejarlo en el componente
   }
-  
 };
 
-export const getVolunteerById = async (id: number): Promise<VolunterUserModel> => {
+export const getVolunteerById = async (
+  id: number,
+): Promise<VolunterUserModel> => {
   try {
-    const response = await api.get<any>(`/user/volunteers/${id}`);
+    const response = await api.get(`/user/volunteers/${id}`);
     const adaptedVolunteer: VolunterUserModel = VolunteerAdapter(response.data);
     return adaptedVolunteer;
+  } catch (error) {
+    throw new Error(JSON.stringify(error));
+  }
+};
+
+export const getCompayUserById = async (
+  id: number,
+): Promise<CompanyUserModel> => {
+  try {
+    const response = await api.get(UsersEndpoints.getCompanyUserById(id));
+    const adaptedCompanyUser: CompanyUserModel = CompanyUserAdapter(
+      response.data,
+    );
+    return adaptedCompanyUser;
   } catch (error) {
     throw new Error(JSON.stringify(error));
   }

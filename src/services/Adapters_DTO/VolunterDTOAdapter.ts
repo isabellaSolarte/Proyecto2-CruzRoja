@@ -1,4 +1,4 @@
-import { RoleModel, VolunterUserModel } from '../../models';
+import { VolunterUserModel } from '../../models';
 import { RoleFormType } from '../../pages/CreateRole/types/RoleFormType';
 
 interface VolunteerUserModelExternDTO {
@@ -28,7 +28,9 @@ interface Permission {
 }
 
 export const adaptFrontVolunterUserModelToDTO = (
-  volunteer: VolunterUserModel): VolunteerUserModelExternDTO => {
+  volunteer: VolunterUserModel,
+): VolunteerUserModelExternDTO => {
+  console.log('volunteer', volunteer.roles);
   return {
     documentNumber: Number(volunteer.id),
     documentType: volunteer.documentType,
@@ -41,8 +43,9 @@ export const adaptFrontVolunterUserModelToDTO = (
     roles: volunteer.roles.map(role => ({
       idRole: Number(role.id),
       typeRole: role.typeRole,
+      state: role.state,
       permissions: role.permissions.map(permission => ({
-        idPermission: Number(permission.id),
+        idPermission: permission.id,
         name: permission.name,
         description: permission.description,
       })),
@@ -52,8 +55,8 @@ export const adaptFrontVolunterUserModelToDTO = (
   };
 };
 export const adaptFrontRolModelToDTO = (role: RoleFormType): any => {
-  return{
+  return {
     typeRole: role.typeRole,
-    permissions: role.permissions
-  }
+    permissions: role.permissions,
+  };
 };

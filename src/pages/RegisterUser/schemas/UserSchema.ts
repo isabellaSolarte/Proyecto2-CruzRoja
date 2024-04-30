@@ -30,9 +30,10 @@ export const userSchemaValidation = yup.object().shape({
   lastNames: yup.string().required('lastNames.required'),
   personalPhone: yup
     .string()
+    .matches(/^3/, 'El teléfono debe empezar por el número 3')
     .matches(/^\d+$/, 'companyPhone.number')
-    .test('len', 'El NIT debe tener máximo 9 dígitos', val =>
-      val ? val.toString().length >= 8 : true,
+    .test('len', 'El número de teléfono debe tener 10 dígitos', val =>
+      val ? val.toString().length === 10 : false,
     )
     .required('personalPhone.required'),
   personalEmail: yup

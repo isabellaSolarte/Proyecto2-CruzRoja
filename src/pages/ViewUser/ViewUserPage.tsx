@@ -1,62 +1,29 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import EmailIcon from '@mui/icons-material/Email';
-import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
-import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
 import EditIcon from '@mui/icons-material/Edit';
 import { useTranslation } from 'react-i18next';
-import {
-  ManagmentLayout,
-  CustomButton,
-  CustomText,
-  CustomInput,
-  CustomColumn,
-  DataTable,
-} from '../../components';
-import { Box } from '@mui/material';
-import { useEffect, useState } from 'react';
-import SaveAsIcon from '@mui/icons-material/SaveAs';
-import CancelIcon from '@mui/icons-material/Cancel';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { ManagmentLayout, CustomButton, CustomText, CustomAccordion } from '../../components';
+import { Box, Grid } from '@mui/material';
+import { useEffect } from 'react';
 import { useUserPage } from './Hooks/useUserPage';
 import { useParams } from 'react-router-dom';
+import PhoneAndroidOutlinedIcon from '@mui/icons-material/PhoneAndroidOutlined';
+import MarkEmailReadOutlinedIcon from '@mui/icons-material/MarkEmailReadOutlined';
+import CreditScoreOutlinedIcon from '@mui/icons-material/CreditScoreOutlined';
+import MedicalInformationOutlinedIcon from '@mui/icons-material/MedicalInformationOutlined';
+import { PermissionModel } from '../../models/RoleModels/PermissionModel';
+import { RoleModel } from '../../models';
+import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
 
 const ViewUserPage = () => {
   const { t } = useTranslation('commons');
   const { id } = useParams<{ id: string }>();
-
-  const { error, loadUserDataByID, loading, userData } = useUserPage();
-  const [disableInput, setDisableInput] = useState(true);
-  const handleInput = () => {
-    setDisableInput(!disableInput);
-  };
+  const { loadUserDataByID, userData, handleEdit } = useUserPage();
+  const userPosiion =
+    userData && userData.position ? userData.position : t('positions.business_representative');
 
   useEffect(() => {
     void loadUserDataByID(Number(id));
   }, []);
-
-  const columns = [
-    CustomColumn({
-      field: 'names',
-      headerName: t('usersPages.userTable.name'),
-      format: 'text',
-      variante: 'texto',
-      icon: <AccountCircleIcon />,
-    }),
-    CustomColumn({
-      field: 'actions',
-      headerName: t('usersPages.userTable.actions'),
-      format: 'button',
-      variante: 'texto',
-      buttonDetails: [
-        {
-          content: t('generalButtonText.Eliminar'),
-          variant: 'contained',
-          color: 'error',
-          icon: <DeleteIcon />,
-        },
-      ],
-    }),
-  ];
 
   return (
     <ManagmentLayout
@@ -64,125 +31,126 @@ const ViewUserPage = () => {
         <Box sx={{ display: 'flex' }}>
           <AccountCircleIcon sx={{ fontSize: 64 }} />
           <Box>
-            <CustomText texto={'Vladimir'} variante="subtitulo" styles={{ lineHeight: 1 }} />
-            <CustomText texto="Sin roles asignados" variante="texto" styles={{ lineHeight: 1.3 }} />
-            <CustomText texto="@anatoly" variante="pequeño" styles={{ lineHeight: 1.3 }} />
+            <CustomText
+              texto={`${userData?.names} ${userData?.lastNames}`}
+              variante={'subtitulo'}
+              styles={{ lineHeight: 1 }}
+            />
+            <CustomText texto={userPosiion} variante="texto" styles={{ lineHeight: 1.3 }} />
+            <CustomText
+              texto={`@${userData?.username}`}
+              variante="pequeño"
+              styles={{ lineHeight: 1.3 }}
+            />
           </Box>
         </Box>
       }
       actionsContent={
-        <CustomButton
-          content="EDITAR"
-          onClick={handleInput}
-          variant="contained"
-          color="info"
-          icon={<EditIcon />}
-          sx={{
-            height: '2rem',
-          }}
-        />
+        <Box>
+          <CustomButton
+            content={t('generalButtonText.edit')}
+            onClick={handleEdit}
+            variant="contained"
+            color="info"
+            icon={<EditIcon />}
+            sx={{
+              height: '2rem',
+            }}
+          />
+        </Box>
       }
       generalContents={
         <Box>
-          {JSON.stringify(userData)}
-          {!disableInput && (
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'flex-end',
-                alignItems: 'center',
-                marginRight: '54px',
-              }}
-            >
-              <CustomButton
-                content="CANCELAR"
-                onClick={handleInput}
-                variant="contained"
-                color="warning"
-                style={{ marginRight: '40px' }}
-                icon={<CancelIcon />}
-              />
-              <CustomButton
-                content="ACTUALIZAR"
-                onClick={() => {
-                  console.log('click en boton de exíto');
-                }}
-                variant="contained"
-                color="success"
-                icon={<SaveAsIcon />}
-              />
-            </Box>
-          )}
+          <Grid container>
+            <Grid item xs={12} paddingInline={3}>
+              <CustomText texto={t('usersPages.userForm.personalInfo')} variante={'subtitulo'} />
+            </Grid>
 
-          <Box mt={5} style={{ display: 'flex', flexDirection: 'row' }}>
-            <div style={{ marginRight: '200px' }}>
-              <CustomText texto="Email" variante="subtitulo" icon={<EmailIcon />} />
-            </div>
-            <div style={{ marginRight: '200px' }}>
-              <CustomText texto="Teléfono" variante="subtitulo" icon={<ContactPhoneIcon />} />
-            </div>
-            <div>
+            <Grid item xs={12} md={6} sm={12} paddingInline={3} paddingBlock={2}>
               <CustomText
-                texto="Número de identificación"
-                variante="subtitulo"
-                icon={<PermContactCalendarIcon />}
+                texto={t('usersPages.userForm.personalPhone')}
+                variante="pequeño"
+                icon={<PhoneAndroidOutlinedIcon color="disabled" />}
               />
-            </div>
-          </Box>
+              <CustomText variante="texto" texto={userData ? userData.personalPhone : ''} />
+            </Grid>
+            <Grid item xs={12} md={6} sm={12} paddingInline={3} paddingBlock={2}>
+              <CustomText
+                texto={t('usersPages.userForm.email')}
+                variante="pequeño"
+                icon={<MarkEmailReadOutlinedIcon color="disabled" />}
+              />
+              <CustomText variante="texto" texto={userData ? userData.personalEmail : ''} />
+            </Grid>
 
-          <Box mt={1} style={{ display: 'flex', flexDirection: 'row' }}>
-            <div style={{ marginRight: '60px' }}>
-              <CustomInput
-                placeholder="Correo electrónico"
-                size="small"
-                updateText={() => {}}
-                value="anatoly@cruzroja.co"
-                props={{ disabled: disableInput }}
+            <Grid item xs={12} md={6} sm={12} paddingInline={3} paddingBlock={2}>
+              <CustomText
+                texto={t('usersPages.userForm.documentType')}
+                variante="pequeño"
+                icon={<CreditScoreOutlinedIcon color="disabled" />}
               />
-            </div>
-            <div style={{ marginRight: '98px' }}>
-              <CustomInput
-                placeholder="Teléfono"
-                size="small"
-                updateText={() => {}}
-                value="+57 3120000000"
-                props={{ disabled: disableInput }}
+              <CustomText variante="texto" texto={userData ? userData.documentType : ''} />
+            </Grid>
+
+            <Grid item xs={12} md={6} sm={12} paddingInline={3} paddingBlock={2}>
+              <CustomText
+                texto={t('usersPages.userForm.documentNumber')}
+                variante="pequeño"
+                icon={<MedicalInformationOutlinedIcon color="disabled" />}
               />
-            </div>
-            <div style={{ marginRight: '160px' }}>
-              <CustomInput
-                placeholder="Cédula"
-                size="small"
-                updateText={() => {}}
-                value="1002963532"
-                props={{ disabled: disableInput }}
-              />
-            </div>
-          </Box>
-          {!disableInput && (
-            <Box
-              mt={5}
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginRight: '52px',
-              }}
-            >
-              <CustomText texto="Roles" variante="subtitulo" />
-              <CustomButton
-                content="ASIGNAR ROL"
-                onClick={() => {
-                  console.log('click en boton de exíto');
-                }}
-                variant="contained"
-                color="info"
-              />
-            </Box>
-          )}
-          <Box>
-            {/* <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={[]} /> */}
-          </Box>
+              <CustomText variante="texto" texto={userData ? userData.id.toString() : ''} />
+            </Grid>
+
+            {userData && userData.companyNit && (
+              <>
+                <Grid item xs={12} md={12} sm={12} paddingInline={3} paddingBlock={2}>
+                  <CustomText texto={t('usersPages.userForm.companyInfo')} variante="subtitulo" />
+                </Grid>
+                <Grid item xs={12} md={6} sm={12} paddingInline={3} paddingBlock={2}>
+                  <CustomText
+                    texto={t('company.title')}
+                    variante="pequeño"
+                    icon={<BusinessOutlinedIcon color="disabled" />}
+                  />
+                  <CustomText variante="texto" texto={userData ? userData.companyName : ''} />
+                </Grid>
+                <Grid item xs={12} md={6} sm={12} paddingInline={3} paddingBlock={2}>
+                  <CustomButton
+                    content={t('generalButtonText.view') + ' empresa'}
+                    onClick={() => {}}
+                    variant="contained"
+                    color="warning"
+                    sx={{
+                      height: '2rem',
+                    }}
+                  />
+                </Grid>
+              </>
+            )}
+
+            {/* SECCIÓN DE ROLES ACTUALES QUE PERTENECEN AL USUARIO */}
+            <Grid item xs={12} md={12} sm={12} paddingInline={3} paddingBlock={2}>
+              <CustomText texto={t('usersPages.userForm.asignedRoles')} variante="subtitulo" />
+            </Grid>
+            <Grid item xs={12} md={12} sm={12} paddingInline={3} paddingBlock={2}>
+              {userData?.roles.map((rol: RoleModel) => (
+                <CustomAccordion
+                  key={rol.id}
+                  accordionSummary={rol.typeRole}
+                  contentAccordion={rol.permissions.map((permission: PermissionModel) => (
+                    <Box key={permission.id}>
+                      <CustomText key={permission.id} texto={permission.name} variante="texto" />
+                      <CustomText
+                        key={permission.id}
+                        texto={permission.description}
+                        variante="pequeño"
+                      />
+                    </Box>
+                  ))}
+                />
+              ))}
+            </Grid>
+          </Grid>
         </Box>
       }
     />
