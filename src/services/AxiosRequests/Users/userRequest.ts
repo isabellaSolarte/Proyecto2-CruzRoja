@@ -82,10 +82,7 @@ export const postUserCompany = async (data: CompanyUserModel) => {
 
 export const putUserCompany = async (data: CompanyUserModel) => {
   try {
-    const updatedCompanyData = {
-      ...data,
-      documentNumber: data.id, // Usar el documentNumber como identificador
-    };
+    const updatedCompanyData = adaptFrontCompanyUserModelToDTO(data);
     const response = await api.put<AxiosResponse>(
       UsersEndpoints.putCompanyUser,
       updatedCompanyData,
