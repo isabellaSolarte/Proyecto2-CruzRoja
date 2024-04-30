@@ -1,5 +1,6 @@
 import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 import './DataTableStyle.css';
+import { esES } from '@mui/x-data-grid/locales';
 interface DataTableProps {
   enableCheckboxSelection: boolean;
   dataColumns: GridColDef[]; 
@@ -11,6 +12,7 @@ const DataTable = ({ enableCheckboxSelection, dataColumns, dataRows }:DataTableP
   return (
     <div style={{ height: 450, width: '100%' }}>
         <DataGrid
+          localeText={esES.components.MuiDataGrid.defaultProps.localeText}
           className="my-data-grid"
           rows={dataRows}
           columns={dataColumns}
