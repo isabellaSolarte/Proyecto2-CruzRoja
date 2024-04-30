@@ -1,6 +1,9 @@
 import { Container, Grid } from '@mui/material';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Mesuares } from '../Mesearues';
 import { EmptyBox } from '../../Atoms';
+import {CustomButton} from '../../../components';
+import { mainRoutes } from '../../../core'; 
 
 interface ManagmentLayoutProps {
   title: JSX.Element;
@@ -10,16 +13,6 @@ interface ManagmentLayoutProps {
   inputBar?: JSX.Element;
 }
 
-/**
- *
- * @param title - Componente que contiene el título de la página. OBLIGATORIO
- * @param description - Componente que contiene la descripción de la página. - OPCIONAL
- * @param generalContents - Componente que contiene el contenido general de la página. OBLIGATORIO
- * @param actionsContent - Componente que contiene las acciones de la página, puede ser un boton un un label. - OPCIONAL
- * @param inputBar - Componente que contiene la barra de busqueda. OPCIONAL
- * @returns
- */
-
 const ManagmentLayout = ({
   title,
   description,
@@ -27,7 +20,19 @@ const ManagmentLayout = ({
   actionsContent,
   inputBar,
 }: ManagmentLayoutProps) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleGoBack = () => {
+    navigate(-1);
+  };
+
+  const isMainRoute = Object.values(mainRoutes).includes(location.pathname as mainRoutes);
+
+  const showBackButton = !isMainRoute;
+
   return (
+    
     <Container sx={{ padding: Mesuares.CONTENT_BOX_PADDING }}>
       <Grid container>
         <Grid item md={8} xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
@@ -56,7 +61,17 @@ const ManagmentLayout = ({
           <EmptyBox height={30} width={100} />
         </>
       )}
+
+
       {generalContents}
+      
+      {showBackButton && (
+        <CustomButton
+          content={'Atrás'}
+          onClick={handleGoBack}
+        />
+      )}
+      
     </Container>
   );
 };
