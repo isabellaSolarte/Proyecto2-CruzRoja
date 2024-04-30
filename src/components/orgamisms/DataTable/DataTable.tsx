@@ -1,4 +1,4 @@
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 import './DataTableStyle.css';
 interface DataTableProps {
   enableCheckboxSelection: boolean;
@@ -17,9 +17,12 @@ const DataTable = ({ enableCheckboxSelection, dataColumns, dataRows }:DataTableP
           getRowClassName={() => 'customRow'}
           initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 5 },
+              paginationModel: { page: 0, pageSize: 10 },
             },
+            
           }}
+          slots={{ toolbar: GridToolbar }}
+          
           sx={{ '&, [class^=MuiDataGrid]': { border: 'none' },
             '& .MuiDataGrid-columnHeaders': {
               borderBottom: '1px solid #000',
@@ -35,8 +38,12 @@ const DataTable = ({ enableCheckboxSelection, dataColumns, dataRows }:DataTableP
             '&.Mui-selected': {
               backgroundColor: 'transparent',
             },
+            '& .MuiButton-text': {
+              borderBottom: '1px solid #000',
+              color:'black'
+            },
           }}
-          pageSizeOptions={[5, 10]}
+          //pageSizeOptions={[5, 10]}
           checkboxSelection = {enableCheckboxSelection}
           disableRowSelectionOnClick
         />
