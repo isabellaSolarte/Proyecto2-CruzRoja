@@ -34,7 +34,7 @@
     "recoil": "^0.7.7",
     "sort-by": "^0.0.2",
     "styled-components": "^6.1.8",
-    "sweetalert2": "^11.10.8",
+    "sweetalert2": "^11.6.13",
     "yup": "^1.4.0"
   },
   "devDependencies": {
