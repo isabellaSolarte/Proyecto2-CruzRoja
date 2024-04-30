@@ -4,9 +4,9 @@
  * @returns allowedRoutes
  */
 
-import { UserModel } from '../../models/UserModel';
 import { NavigationRoutes } from './NavigationRoutes';
-import { RouterModel } from '../../models/RouteModel';
+import { RouterModel } from '../../models/SideMenuModels/RouteModel';
+import { UserModel } from '../../models/UserModels/UserModel';
 
 /**
  * Get all routes from the parent route and its children
@@ -46,7 +46,7 @@ const getAllRoutes = (): RouterModel[] => {
 export const getAllowedUserRoutePaths = (currentUser: UserModel): string[] => {
   const routerPathList: string[] = getAllRoutes().map(route => route.path);
 
-  const userRoutes: string[] = currentUser.role.routes;
+  const userRoutes: string[] = currentUser.allowedRoutes;
 
   const allowedRoutes: string[] = userRoutes.filter(route => routerPathList.includes(route));
 
@@ -60,7 +60,7 @@ export const getAllowedUserRoutePaths = (currentUser: UserModel): string[] => {
  */
 export const getAllowedUserRoutes = (currentUser: UserModel): RouterModel[] => {
   const allRoutes: RouterModel[] = getAllRoutes();
-  const userRoutes: string[] = currentUser.role.routes;
+  const userRoutes: string[] = currentUser.allowedRoutes;
 
   const allowedRoutes: RouterModel[] = allRoutes.filter(route => userRoutes.includes(route.path));
 

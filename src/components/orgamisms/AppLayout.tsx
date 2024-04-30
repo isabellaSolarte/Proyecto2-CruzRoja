@@ -1,39 +1,18 @@
 import React from 'react';
-import { MainLayout } from '../Layouts';
-import { Container } from '@mui/material';
 import { DrawerMenu } from '../Molecules';
-import { MenuOption, RouterModel, UserModel } from '../../models';
-import { PathNames, getAllowedUserRoutes } from '../../core';
+import { MenuOption, UserModel } from '../../models';
+import { getAllowedUserRoutes } from '../../core';
+import { MainLayout } from '../Layouts';
+import CustomAppBar from './CustomAppBar/CustomAppBar';
+import { usuarioPruebas } from '../../App';
+import { RouterModel } from '../../models/SideMenuModels/RouteModel';
 
 interface AppLayoutProps {
   content: React.ReactNode;
 }
 
 const AppLayout = ({ content }: AppLayoutProps) => {
-  const userTest: UserModel = {
-    id: 'id',
-    name: 'User Test',
-    email: '',
-    role: {
-      name: 'Admin',
-      routes: [
-        PathNames.USERS,
-        PathNames.ROLES,
-        PathNames.BUSINESS,
-        PathNames.PERMISSIONS,
-        PathNames.PLANS,
-        PathNames.ACTIVITY,
-        PathNames.STATISTICS,
-        PathNames.CLOSE_SESSION,
-      ],
-      permissions: [''],
-    },
-    password: '',
-    avatar: '',
-    status: '',
-    created_at: '',
-    updated_at: '',
-  };
+  const userTest: UserModel = usuarioPruebas;
 
   const allowedRoutes: RouterModel[] = getAllowedUserRoutes(userTest);
 
@@ -51,7 +30,7 @@ const AppLayout = ({ content }: AppLayoutProps) => {
 
   return (
     <MainLayout
-      appBar={<Container> COMPONENTE PARA EL APP BAR </Container>}
+      appBar={<CustomAppBar />}
       content={content}
       navigationMenu={<DrawerMenu options={adaptedMenuOptions} />}
     />

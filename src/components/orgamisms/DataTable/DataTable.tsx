@@ -1,51 +1,56 @@
-import { DataGrid } from '@mui/x-data-grid';
-import { CustomColumn } from '../../Molecules/CustomColumn';
-import EditIcon from '@mui/icons-material/Edit';
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
+import './DataTableStyle.css';
+interface DataTableProps {
+  enableCheckboxSelection: boolean;
+  dataColumns: GridColDef[]; 
+  dataRows: GridColDef[]; 
+}
 
-const columns = [
-  CustomColumn({ field: 'companyName', headerName: 'Empresa', width: 250, format: 'text', variante: 'texto', content: '', buttonDetails: [] }),
-  CustomColumn({ field: 'names', headerName: 'Nombre', width: 250, format: 'text', variante: 'texto', content: '', buttonDetails: []  }),
-  CustomColumn({ field: 'actions', headerName: 'Acciones', width:250, format: 'button', variante: 'texto', content: '', buttonDetails: [
-    {
-      content: 'Editar',
-      variant: 'contained',
-      color: 'primary',
-      icon: <EditIcon />
-    },
-    {
-      content: 'Observar',
-      variant: 'contained',
-      color: 'warning',
-      icon: <VisibilityIcon />
-    }
-  ] }),
-CustomColumn({ field: 'state', headerName: 'Estado', format: 'switch', variante: 'texto', content: '', buttonDetails: [] }),
-];
-
-  
-
-export default function DataTable(enableCheckboxSelection: boolean) {
-  const rows = [
-    { "id": 1, "companyName": "Stark Industries", "names": "Jon Snow", "state": "Active" },
-    { "id": 2, "companyName": "Lannister Holdings", "names": "Cersei Lannister", "state": "Inactive" }
-  ];
-  
-  
+const DataTable = ({ enableCheckboxSelection, dataColumns, dataRows }:DataTableProps) => {
 
   return (
-    <div style={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 5 },
-          },
-        }}
-        pageSizeOptions={[5, 10]}
-        checkboxSelection = {enableCheckboxSelection}
-      />
+    <div style={{ height: 450, width: '100%' }}>
+        <DataGrid
+          className="my-data-grid"
+          rows={dataRows}
+          columns={dataColumns}
+          getRowClassName={() => 'customRow'}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 10 },
+            },
+            
+          }}
+          slots={{ toolbar: GridToolbar }}
+          
+          sx={{ '&, [class^=MuiDataGrid]': { border: 'none' },
+            '& .MuiDataGrid-columnHeaders': {
+              borderBottom: '1px solid #000',
+              marginBottom: '0.5em',
+              fontSize: '1.3em',
+            },
+            '& .MuiDataGrid-columnHeaderTitle': {
+              fontWeight: 'bold', // Fuente en negrita
+            },
+            '& .MuiDataGrid-cell': {
+              paddingLeft: '1.3em', // Centra el contenido de cada celda
+            },
+            '&.Mui-selected': {
+              backgroundColor: 'transparent',
+            },
+            '& .MuiButton-text': {
+              borderBottom: '1px solid #000',
+              color:'black'
+            },
+          }}
+          //pageSizeOptions={[5, 10]}
+          checkboxSelection = {enableCheckboxSelection}
+          disableRowSelectionOnClick
+        />
     </div>
   );
 }
+
+export default DataTable;
+
+

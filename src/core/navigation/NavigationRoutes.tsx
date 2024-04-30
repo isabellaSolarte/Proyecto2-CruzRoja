@@ -1,8 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import { RouterModel } from '../../models';
 import GroupsIcon from '@mui/icons-material/Groups';
 import BusinessIcon from '@mui/icons-material/Business';
-import { CreateRolePage } from '../../pages/CreateRole';
+import { CompoentesPage, CreateRolePage, UsersPage } from '../../pages';
 import { PathNames } from '../PathNames';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
@@ -11,6 +10,11 @@ import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { RouterModel } from '../../models/SideMenuModels/RouteModel';
+import RegisterUserPage from '../../pages/RegisterUser/RegisterUserPage';
+import { RolesPage } from '../../pages/Roles';
+import { ViewUserPage } from '../../pages/ViewUser';
+import EditUserPage from '../../pages/EditUser/EditUserPage';
 
 export const NavigationRoutes = () => {
   const { t } = useTranslation('commons');
@@ -34,13 +38,23 @@ export const NavigationRoutes = () => {
     },
     {
       path: PathNames.USERS,
-      component: <CreateRolePage />,
+      component: <UsersPage />,
       title: t('menuOptions.users'),
       icon: <GroupsIcon />,
     },
     {
+      path: PathNames.REGISTER_USER,
+      component: <RegisterUserPage />,
+      title: 'REGISTRAR USUARIO',
+    },
+    {
+      path: PathNames.VIEW_USER,
+      component: <ViewUserPage />,
+      title: 'VER USUARIO',
+    },
+    {
       path: PathNames.ROLES,
-      component: <CreateRolePage />,
+      component: <RolesPage />,
       title: t('menuOptions.roles'),
       icon: <AdminPanelSettingsIcon />,
     },
@@ -79,6 +93,26 @@ export const NavigationRoutes = () => {
       component: <h1>CERRAR SESIÓN</h1>,
       title: t('menuOptions.logout'),
       icon: <LogoutIcon />,
+    },
+    {
+      path: PathNames.COMPONETS,
+      component: <CompoentesPage />,
+      title: 'COMPONENTES',
+    },
+    {
+      path: PathNames.CREATE_ROLE,
+      component: <CreateRolePage />,
+      title: 'CREAR ROLES',
+    },
+    {
+      path: PathNames.EDIT_ROLE,
+      component: <CreateRolePage />,
+      title: 'EDITAR ROL',
+    },
+    {
+      path: PathNames.EDIT_USER,
+      component: <EditUserPage />,
+      title: 'EDITAR USUARIO',
     },
   ];
 

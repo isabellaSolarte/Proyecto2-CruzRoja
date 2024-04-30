@@ -1,8 +1,8 @@
 export enum PathNames {
   USERS = '/users',
-  VIEW_USER = '/users/view/:id',
-  REGISTER_USER = '/users/register',
-  EDIT_USER = '/users/edit/:id',
+  VIEW_USER = '/users/view/:type/:id',
+  REGISTER_USER = '/users/register/',
+  EDIT_USER = '/users/edit/:type/:id',
 
   ROLES = '/roles',
   CREATE_ROLE = '/roles/create',
@@ -34,4 +34,6 @@ export enum PathNames {
   SETTINGS = '/settings',
 
   CLOSE_SESSION = '/close-session',
+
+  COMPONETS = '/components',
 }
