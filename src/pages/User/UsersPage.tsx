@@ -41,12 +41,16 @@ const UsersPage = () => {
   const [iconDialog, setIconDialog] = useState(<CheckCircleIcon />);
   const [colorDialog, setColorDialog] = useState('green');
   const [colorButton, setColorButton] = useState<Color>('success');
+  const [confirmationMessage, setConfirmationMessage] = useState('');
+
 
   const [rowData1, setRowData1] = useState({} as GridRenderCellParams['row']);
 
   const openDialog = (rowData: GridRenderCellParams['row']) => {
     console.log('datos row', rowData);
     setRowData1(rowData);
+    const userType = rowData.companyName ? 'representante de empresa' : 'voluntario';
+    setConfirmationMessage(t('alertText.updateStateConfirmation', { userType: userType }));
 
     const { switchState } = rowData;
     if (switchState) {
@@ -291,7 +295,7 @@ const UsersPage = () => {
             isOpen={isDialogOpen}
             onClick={handleCancelButtonClick}
             title="Alert Dialog"
-            content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut bibendum placerat faucibus. Nullam quis vulputate purus. Aenean sed purus orci."
+            content={confirmationMessage}
             buttons={[
               {
                 key: '1',
