@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AxiosResponse } from 'axios';
 import { CompanyUserModel, VolunterUserModel } from '../../../models';
@@ -24,9 +25,7 @@ export const getVolunteers = async (): Promise<VolunterUserModel[]> => {
 };
 export const putVolunteer = async (data: VolunterUserModel) => {
   try {
-    console.log('raw user', JSON.stringify(data));
     const updatedVolunteerData = adaptFrontVolunterUserModelToDTO(data);
-    console.log('updated user', JSON.stringify(updatedVolunteerData));
     const response = await api.put<AxiosResponse>(
       UsersEndpoints.putVolunteer,
       updatedVolunteerData,
@@ -48,7 +47,7 @@ export const postVolunteer = async (data: VolunterUserModel) => {
     );
     return response;
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 };
 
@@ -76,7 +75,7 @@ export const postUserCompany = async (data: CompanyUserModel) => {
     );
     return response;
   } catch (error) {
-    throw new Error(error.message);
+    throw error; // Lanzar el error para manejarlo en el componente
   }
 };
 

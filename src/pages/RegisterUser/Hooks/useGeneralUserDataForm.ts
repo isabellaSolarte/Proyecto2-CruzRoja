@@ -38,10 +38,8 @@ const useGeneralUserDataForm = (
   });
 
   const addRole = (newRole: RoleModel) => {
-    console.log('newRole', newRole);
     append(newRole);
     register(`roles.${fields.length}.id`);
-    console.log('error', errors);
   };
 
   const onSubmit = async (data: UserModel) => {

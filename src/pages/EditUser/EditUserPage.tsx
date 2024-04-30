@@ -27,7 +27,6 @@ const EditUserPage = () => {
     void loadUserData(Number(id));
   }, []);
 
-  console.log(roles);
   return (
     <ManagmentLayout
       title={

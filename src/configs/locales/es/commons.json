@@ -147,6 +147,8 @@
     "alertText": {
         "userCreated": "Usuario creado exitosamente",
         "rolCreate": "El rol se ha creado exitosamente",
-        "rolEdit": "El rol se ha actualizado exitosamente"
+        "rolEdit": "El rol se ha actualizado exitosamente",
+        "inputErrors": "Ha ocurrido un error, por favor verifique los datos ingresados",
+        "generalError": "Ups, lo sentimos"
     }
 }

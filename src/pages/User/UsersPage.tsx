@@ -45,7 +45,6 @@ const UsersPage = () => {
   const [rowData1, setRowData1] = useState({} as GridRenderCellParams['row']);
 
   const openDialog = (rowData: GridRenderCellParams['row']) => {
-    console.log('datos row', rowData);
     setRowData1(rowData);
 
     const { switchState } = rowData;
@@ -70,34 +69,25 @@ const UsersPage = () => {
   };
 
   const handleContinueButtonClick = () => {
-    console.log('Continue button clicked');
-    console.log('prueba de datos', rowData1);
-    console.log('datos row', rowData1);
     const { id, companyName } = rowData1;
     // Quiero identificar si es un usuario de la empresa o un voluntario
     if (companyName) {
-      console.log('User is a company user');
       // Find the company user in companyUsers based on the id
       const selectedCompanyUser = companyUsers.find(companyUser => companyUser.id === id);
       if (selectedCompanyUser) {
-        console.log('Selected Company User:', selectedCompanyUser);
-
         // Preparar los datos actualizados para enviar a la API
         const updatedCompanyUserData = {
           ...selectedCompanyUser,
           state: !selectedCompanyUser.state,
         };
-        console.log('Updated Company User Data:', updatedCompanyUserData);
         // Realizar la solicitud PUT para actualizar el estado del usuario de la empresa
         putUserCompany(updatedCompanyUserData)
           .then(response => {
-            console.log('Response PUT:', response);
             // Actualizar el estado local de los usuarios de la empresa después de una respuesta exitosa
             const updatedCompanyUsers = companyUsers.map(companyUser =>
               companyUser.id === id ? { ...companyUser, state: !companyUser.state } : companyUser,
             );
             setCompanyUsers(updatedCompanyUsers);
-            console.log('Updated Company Users:', updatedCompanyUsers);
             updateCompanyUserInfo(updatedCompanyUsers); // Actualizar la información de los usuarios de la empresa en la interfaz de usuario
           })
           .catch((error: unknown) => {
@@ -111,12 +101,9 @@ const UsersPage = () => {
         closeDialog(); // Cerrar el diálogo si no se encuentra el usuario de la empresa seleccionado
       }
     } else {
-      console.log('User is a volunteer');
       // Find the volunteer in volunteerInfo based on the id
       const selectedVolunteer = volunteers.find(volunteer => volunteer.id === id);
       if (selectedVolunteer) {
-        console.log('Selected Volunteer:', selectedVolunteer);
-
         // Preparar los datos actualizados para enviar a la API
         const updatedVolunteerData = {
           ...selectedVolunteer,
@@ -126,13 +113,11 @@ const UsersPage = () => {
         // Realizar la solicitud PUT para actualizar el estado del voluntario
         putVolunteer(updatedVolunteerData)
           .then(response => {
-            console.log('Response PUT:', response);
             // Actualizar el estado local de los voluntarios después de una respuesta exitosa
             const updatedVolunteers = volunteers.map(volunteer =>
               volunteer.id === id ? { ...volunteer, state: !volunteer.state } : volunteer,
             );
             setVolunteers(updatedVolunteers);
-            console.log('Updated Volunteers:', updatedVolunteers);
             updateVolunteerInfo(updatedVolunteers); // Actualizar la información de los voluntarios en la interfaz de usuario
           })
           .catch((error: unknown) => {
