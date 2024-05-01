@@ -43,7 +43,7 @@ const LoginPage = () => {
         </Container> */}
       <Grid container component="main" sx={{ height: '100vh' }}>
         <Grid container component="main" sx={{ height: '100vh' }}>  
-          <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <Grid item xs={12} sm={8} md={7} component={Paper} elevation={6} square>
               <Box
                 sx={{
                   my: 8,
@@ -150,14 +150,14 @@ const LoginPage = () => {
               item
               xs={false}
               sm={4}
-              md={7}
+              md={5}
               sx={{
-                backgroundImage: 'url(/fondo-login.png)',
+                backgroundImage: 'url(/fondo-login-vector.png)',
                 backgroundRepeat: 'no-repeat',
                 backgroundColor: (t) =>
                   t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
                 backgroundSize: 'cover',
-                backgroundPosition: 'center',
+                backgroundPosition: 'right',
               }}
             />
           
