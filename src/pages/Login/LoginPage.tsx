@@ -64,6 +64,7 @@ const LoginPage = () => {
               <CustomText
                 texto='CRUZ ROJA FOOTPRINT'
                 variante='titulo'
+                styles={{ textAlign: 'center'}}
               />
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                 <TextField
