@@ -1,10 +1,14 @@
 import { PathNames } from '../../../core';
 import { Credentials, UserModel } from '../../../models';
+import { api } from '../api';
 
 export const LoginRequest = async (
   loginData: Credentials,
 ): Promise<UserModel> => {
-  console.log('LoginRequest', loginData);
+  const response = await api.post('/auth', loginData);
+  // TODO: llamar a la API para hacer login con los datos de loginData
+  // TODO:
+  console.log('response login', response);
 
   return new Promise(resolve => {
     setTimeout(() => {

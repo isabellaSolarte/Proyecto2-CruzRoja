@@ -16,6 +16,7 @@ export * from './Atoms/emptyBox';
 export * from './Atoms';
 export * from './Layouts/MainLayout';
 export * from './Layouts/ManagmentLayout';
+export * from './Layouts/NotFoundLayout';
 export * from './Layouts';
 export * from './Molecules/CustomAccordion';
 export * from './Molecules/CustomColumn';

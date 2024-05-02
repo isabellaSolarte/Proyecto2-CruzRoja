@@ -10,7 +10,8 @@
         "view": "Observar",
         "delete": "Eliminar",
         "state": "Estado",
-        "search": "Buscar"
+        "search": "Buscar",
+        "previousPage": "Ir a página anterior"
     },
     "menuOptions": {
         "users": "Usuarios",
@@ -84,6 +85,12 @@
             "actions": "Acciones",
             "users": "Usuarios"           
         }
+    },
+    "notFoundPage": {
+        "sorry": "@LoSentimos",
+        "description": "Lo que buscas no existe o no está disponible en este momento.",
+        "rol": "Este rol no está disponible.",
+        "user": "Este usuario no está disponible."
     },
     "components": {
         "stepper": {
