@@ -13,6 +13,16 @@ const useUserActions = () => {
     try {
       const response = await LoginRequest(credentiasl);
       setUser(response);
+      
+      // Almacenar la informacion recibida en el response en el localStorage
+      localStorage.setItem('authTokens', JSON.stringify(response));
+
+      // Verificar si un elemento existe en el almacenamiento local
+      //if (localStorage.getItem('authTokens') !== null)
+
+      // Borrar un elemento del almacenamiento local (Log out)
+      //localStorage.removeItem('authTokens');
+
       navigate(PathNames.USERS);
     } catch (error) {
       console.error('Error login', error);
