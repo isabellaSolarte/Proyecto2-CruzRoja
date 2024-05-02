@@ -1,16 +1,17 @@
 import { atom } from 'recoil';
 import { LoggedUser } from '../../../models';
+import { recoilPersist } from 'recoil-persist';
 
-const authAtom = atom<LoggedUser | undefined>({
+const { persistAtom } = recoilPersist({
+  key: 'token',
+  storage: sessionStorage,
+  converter: JSON,
+});
+
+const authAtom = atom<LoggedUser | string | undefined>({
   key: 'authAtom',
   default: undefined,
-  effects: [
-    ({ onSet }) => {
-      onSet(newID => {
-        console.debug('Current user ID:', newID);
-      });
-    },
-  ],
+  effects_UNSTABLE: [persistAtom],
 });
 
 export default authAtom;

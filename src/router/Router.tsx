@@ -3,6 +3,7 @@
 import { RouteObject, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { NavigationRoutes, PublicProtector, RouteProtector } from '../core/navigation';
 import { RouterModel } from '../models/SideMenuModels/RouteModel';
+import Error404 from '../pages/404/ErrorPage';
 
 const getRouteObject = (route: RouterModel): RouteObject => {
   const routeChildren = route.children && route.children.map(child => getRouteObject(child));
@@ -23,7 +24,7 @@ const Router = () => {
   });
   routerObjects.push({
     path: '/404',
-    element: <div>ERROR 404</div>,
+    element: <Error404 />,
   });
 
   return <RouterProvider router={createBrowserRouter(routerObjects)} />;

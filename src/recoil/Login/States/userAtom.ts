@@ -1,16 +1,17 @@
 import { atom } from 'recoil';
 import { UserModel } from '../../../models';
+import { recoilPersist } from 'recoil-persist';
+
+const { persistAtom } = recoilPersist({
+  key: 'user',
+  storage: sessionStorage,
+  converter: JSON,
+});
 
 const userAtom = atom<UserModel | undefined>({
   key: 'userAtom',
   default: undefined,
-  effects_UNSTABLE: [
-    ({ onSet }) => {
-      onSet(newID => {
-        console.debug('Current user ID:', newID);
-      });
-    },
-  ],
+  effects_UNSTABLE: [persistAtom],
 });
 
 export default userAtom;

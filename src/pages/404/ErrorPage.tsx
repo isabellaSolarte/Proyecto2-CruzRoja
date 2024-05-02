@@ -1,19 +1,22 @@
 import { Typography, Button, Box, Grid, Paper } from '@mui/material';
-import { useNavigate } from 'react-router-dom'; 
-
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { authAtom, userAtom } from '../../recoil';
 
 const Error404 = () => {
-    
   const navigate = useNavigate();
+
+  const token = useRecoilValue(authAtom);
+  const user = useRecoilValue(userAtom);
+  console.log('user', user);
+  console.log('token', token);
 
   const handleGoHome = () => {
     navigate(-1); // Vuelve a la página de inicio
   };
-    
 
   return (
-    
-   <Grid container component="main" sx={{ height: '100vh' }}>
+    <Grid container component="main">
       <Grid item xs={12} sm={8} md={7} component={Paper} elevation={6} square>
         <Box
           sx={{
@@ -29,11 +32,7 @@ const Error404 = () => {
             ¡404!
           </Typography>
           <Box sx={{ width: '50%' }}>
-            <img 
-              src="/confused.png" 
-              alt="Error 404" 
-              style={{ maxWidth: '100%', height: 'auto' }} 
-            />
+            <img src="/confused.png" alt="Error 404" style={{ maxWidth: '100%', height: 'auto' }} />
           </Box>
           <Typography variant="h2" sx={{ mt: 4, mb: 2 }}>
             ¿QUÉ HACES AQUÍ?
@@ -42,11 +41,7 @@ const Error404 = () => {
             Lo sentimos, la página que estás buscando no existe.
           </Typography>
 
-          <Button
-            variant="contained"
-            color="info"
-            onClick={handleGoHome}
-          >
+          <Button variant="contained" color="info" onClick={handleGoHome}>
             Volver
           </Button>
         </Box>
@@ -67,7 +62,6 @@ const Error404 = () => {
       />
     </Grid>
   );
-  
 };
 
 export default Error404;

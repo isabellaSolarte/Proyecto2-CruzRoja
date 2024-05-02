@@ -16,11 +16,8 @@ const useUserActions = () => {
       const logedUser = await LoginRequest(credentiasl);
       const userData = await checkUserExist(logedUser.id);
 
-      setAuth(logedUser);
+      setAuth(logedUser.token);
       setUser(userData);
-
-      localStorage.setItem('auth', logedUser.token);
-      localStorage.setItem('user', JSON.stringify(userData));
 
       navigate(PathNames.USERS);
     } catch (error) {
@@ -34,6 +31,7 @@ const useUserActions = () => {
 
   function logout() {
     setAuth(undefined);
+    setUser(undefined);
     // remove user from local storage, set auth state to null and redirect to login page
     localStorage.removeItem('auth');
     // setAuth(null);
