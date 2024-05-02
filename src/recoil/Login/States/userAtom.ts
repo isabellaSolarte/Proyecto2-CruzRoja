@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
-import { UserModel } from '../../../models';
+import { LoggedUser } from '../../../models';
 
-const userAtom = atom<UserModel | undefined>({
+const userAtom = atom<LoggedUser | undefined>({
   key: 'userAtom',
   default: undefined,
   effects: [

@@ -6,7 +6,6 @@ import { LoginPage } from '../../pages/Login';
 
 const PublicProtector = () => {
   const user: UserModel | undefined = useUserActions().getLoggedUser();
-  console.log('user', user);
   if (user) return <Navigate to={PathNames.USERS} />;
   else return <LoginPage />;
 };
