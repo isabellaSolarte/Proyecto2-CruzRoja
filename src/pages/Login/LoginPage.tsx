@@ -34,9 +34,10 @@ const LoginPage = () => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      email: data.get('email'),
+      username: data.get('username'),
       password: data.get('password'),
     });
+    void handleLogin();
   };
 
   return (
@@ -137,9 +138,7 @@ const LoginPage = () => {
                   sx={{ mt: 3, mb: 2 }}
                   fullWidth
                   content={'INICIAR SESION'}
-                  onClick={() => {
-                    void handleLogin();
-                  }}
+                  type='submit'
                 />
               </Box>
             </Box>
