@@ -11,11 +11,11 @@ const useUserActions = () => {
 
   async function login(credentiasl: Credentials) {
     try {
-      const response = await LoginRequest(credentiasl);
-      setUser(response);
-      
+      const logedUser = await LoginRequest(credentiasl);
+      setUser(logedUser);
+
       // Almacenar la informacion recibida en el response en el localStorage
-      localStorage.setItem('authTokens', JSON.stringify(response));
+      localStorage.setItem('authTokens', logedUser.token);
 
       // Verificar si un elemento existe en el almacenamiento local
       //if (localStorage.getItem('authTokens') !== null)
