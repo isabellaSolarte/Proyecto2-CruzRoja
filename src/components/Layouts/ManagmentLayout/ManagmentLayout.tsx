@@ -68,6 +68,7 @@ const ManagmentLayout = ({
       {showBackButton && (
         <CustomButton
           content={'Atrás'}
+          color="info"
           onClick={handleGoBack}
         />
       )}
