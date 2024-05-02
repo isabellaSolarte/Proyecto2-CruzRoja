@@ -1,4 +1,5 @@
 import { PathNames } from '../../../core';
+<<<<<<< HEAD
 import { Credentials, UserModel } from '../../../models';
 import { api } from '../api';
 
@@ -9,6 +10,14 @@ export const LoginRequest = async (
   // TODO: llamar a la API para hacer login con los datos de loginData
   // TODO:
   console.log('response login', response);
+=======
+import { Credentials, LoggedUser } from '../../../models';
+
+export const LoginRequest = async (
+  loginData: Credentials,
+): Promise<LoggedUser> => {
+  console.log('LoginRequest', loginData);
+>>>>>>> origin/kjimenez
 
   return new Promise(resolve => {
     setTimeout(() => {
