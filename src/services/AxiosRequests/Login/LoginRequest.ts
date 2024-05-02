@@ -1,9 +1,9 @@
 import { PathNames } from '../../../core';
-import { Credentials, UserModel } from '../../../models';
+import { Credentials, LoggedUser } from '../../../models';
 
 export const LoginRequest = async (
   loginData: Credentials,
-): Promise<UserModel> => {
+): Promise<LoggedUser> => {
   console.log('LoginRequest', loginData);
 
   return new Promise(resolve => {
