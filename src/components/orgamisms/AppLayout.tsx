@@ -1,26 +1,31 @@
 import React from 'react';
 import { DrawerMenu } from '../Molecules';
 import { MenuOption, UserModel } from '../../models';
-import { getAllowedUserRoutes } from '../../core';
+import { PathNames, getAllowedUserRoutes } from '../../core';
 import { MainLayout } from '../Layouts';
 import CustomAppBar from './CustomAppBar/CustomAppBar';
-import { usuarioPruebas } from '../../App';
 import { RouterModel } from '../../models/SideMenuModels/RouteModel';
+import { useUserActions } from '../../recoil';
+import { Navigate } from 'react-router-dom';
 
 interface AppLayoutProps {
   content: React.ReactNode;
 }
 
 const AppLayout = ({ content }: AppLayoutProps) => {
-  const userTest: UserModel = usuarioPruebas;
+  const user: UserModel | undefined = useUserActions().getLoggedUser();
 
-  const allowedRoutes: RouterModel[] = getAllowedUserRoutes(userTest);
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
+
+  const allowedRoutes: RouterModel[] = getAllowedUserRoutes(user);
 
   const adaptRoutesToMenuOptions = (routes: RouterModel[]): MenuOption[] => {
     return routes.map(route => {
       return {
         title: route.title,
-        path: route.path,
+        path: route.path as PathNames,
         icon: route.icon,
       };
     });

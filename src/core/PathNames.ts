@@ -36,4 +36,8 @@ export enum PathNames {
   CLOSE_SESSION = '/close-session',
 
   COMPONETS = '/components',
+
+  LOGIN = '/login',
+
+  NOT_FOUND = '/404',
 }

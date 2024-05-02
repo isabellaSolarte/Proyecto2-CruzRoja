@@ -9,12 +9,12 @@ import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import SettingsIcon from '@mui/icons-material/Settings';
-import LogoutIcon from '@mui/icons-material/Logout';
 import { RouterModel } from '../../models/SideMenuModels/RouteModel';
 import RegisterUserPage from '../../pages/RegisterUser/RegisterUserPage';
 import { RolesPage } from '../../pages/Roles';
 import { ViewUserPage } from '../../pages/ViewUser';
 import EditUserPage from '../../pages/EditUser/EditUserPage';
+import { Navigate } from 'react-router-dom';
 
 export const NavigationRoutes = () => {
   const { t } = useTranslation('commons');
@@ -22,13 +22,8 @@ export const NavigationRoutes = () => {
   const routes: RouterModel[] = [
     {
       path: '/*',
-      component: <h1>404</h1>,
-      title: '404',
-    },
-    {
-      path: '/404',
-      component: <h1>404</h1>,
-      title: '404',
+      component: <Navigate to={PathNames.NOT_FOUND} />,
+      title: t('menuOptions.home'),
     },
     {
       path: PathNames.BUSINESS,
@@ -87,12 +82,6 @@ export const NavigationRoutes = () => {
       component: <h1>CONFIGURACIÓN</h1>,
       title: t('menuOptions.settings'),
       icon: <SettingsIcon />,
-    },
-    {
-      path: PathNames.CLOSE_SESSION,
-      component: <h1>CERRAR SESIÓN</h1>,
-      title: t('menuOptions.logout'),
-      icon: <LogoutIcon />,
     },
     {
       path: PathNames.COMPONETS,

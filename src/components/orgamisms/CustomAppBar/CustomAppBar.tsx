@@ -1,6 +1,10 @@
 import { AppBar, Box, Container, Toolbar, styled, useTheme } from '@mui/material';
-import { CustomText } from '../../Atoms';
+import { CustomButton, CustomText } from '../../Atoms';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useUserActions } from '../../../recoil';
+import { useNavigate } from 'react-router-dom';
+import { PathNames } from '../../../core';
 
 const ProfileBox = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
@@ -9,6 +13,8 @@ const ProfileBox = styled(Box)(({ theme }) => ({
 }));
 
 const CustomAppBar = () => {
+  const logout = useUserActions().logout;
+  const navigate = useNavigate();
   const theme = useTheme();
 
   return (
@@ -44,6 +50,17 @@ const CustomAppBar = () => {
               <CustomText variante="pequeño" texto="vadimir@unicauca.edu.co" />
               <CustomText variante="pequeño" texto="voluntario" />
             </ProfileBox>
+            <CustomButton
+              content="Cerrar sesión"
+              icon={<LogoutIcon sx={{ fontSize: 20 }} />}
+              buttonSide="end"
+              color="error"
+              sx={{ width: '9rem' }}
+              onClick={() => {
+                navigate(PathNames.LOGIN, { replace: true });
+                logout();
+              }}
+            />
           </Box>
         </Toolbar>
       </AppBar>
