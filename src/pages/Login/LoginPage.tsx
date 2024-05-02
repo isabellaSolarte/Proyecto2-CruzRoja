@@ -8,9 +8,9 @@ import {
   TextField,
   useTheme,
 } from '@mui/material';
-import { useUserActions } from '../../recoil';
 import { CustomButton, CustomText } from '../../components';
 import { styled } from '@mui/system';
+import { useLoginForm } from './hooks';
 
 // Estilos para el IconButton
 const LargeIconButton = styled(IconButton)({
@@ -20,30 +20,13 @@ const LargeIconButton = styled(IconButton)({
 });
 
 const LoginPage = () => {
-  const userActions = useUserActions();
   const theme = useTheme();
+  const { handleSubmit, register, errors, onSubmit } = useLoginForm();
 
-  const handleLogin = async () => {
-    await userActions.login({
-      username: 'ADMIN',
-      password: 'AdminHuellaCarbonoJDCE1002',
-    });
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      username: data.get('username'),
-      password: data.get('password'),
-    });
-    void handleLogin();
-  };
 
   return (
     <div>
       <Grid container component="main" sx={{ height: '100vh' }}>
-        <Grid container component="main" sx={{ height: '100vh' }}>
           <Grid item xs={12} sm={8} md={7} component={Paper} elevation={6} square>
             <Box
               sx={{
@@ -67,16 +50,19 @@ const LoginPage = () => {
                 variante="titulo"
                 styles={{ textAlign: 'center' }}
               />
-              <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+              <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
                 <TextField
                   margin="normal"
                   required
                   fullWidth
                   id="username"
                   label="Username"
-                  name="username"
+                  
                   autoComplete="username"
                   autoFocus
+                  {...register('username')}
+                  error={!!errors.username}
+                  helperText={errors.username?.message}
                   InputLabelProps={{
                     sx: {
                       '&.Mui-focused': {
@@ -93,16 +79,17 @@ const LoginPage = () => {
                     },
                   }}
                 />
-
                 <TextField
                   margin="normal"
                   required
                   fullWidth
-                  name="password"
                   label="Password"
                   type="password"
                   id="password"
                   autoComplete="current-password"
+                  {...register('password')}
+                  error={!!errors.password}
+                  helperText={errors.password?.message}
                   InputLabelProps={{
                     sx: {
                       '&.Mui-focused': {
@@ -157,7 +144,6 @@ const LoginPage = () => {
               backgroundPosition: 'right',
             }}
           />
-        </Grid>
       </Grid>
     </div>
   );
