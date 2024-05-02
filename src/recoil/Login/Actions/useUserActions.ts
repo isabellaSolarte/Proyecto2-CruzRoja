@@ -18,10 +18,10 @@ const useUserActions = () => {
       localStorage.setItem('authTokens', logedUser.token);
 
       // Verificar si un elemento existe en el almacenamiento local
-      //if (localStorage.getItem('authTokens') !== null)
+      //if (localStorage.getItem('auth') !== null)
 
       // Borrar un elemento del almacenamiento local (Log out)
-      //localStorage.removeItem('authTokens');
+      //localStorage.removeItem('auth');
 
       navigate(PathNames.USERS);
     } catch (error) {
@@ -32,7 +32,7 @@ const useUserActions = () => {
   function logout() {
     setUser(undefined);
     // remove user from local storage, set auth state to null and redirect to login page
-    // localStorage.removeItem('user');
+    localStorage.removeItem('auth');
     // setAuth(null);
     // history.push('/account/login');
   }
