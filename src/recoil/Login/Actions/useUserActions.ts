@@ -28,7 +28,7 @@ const useUserActions = () => {
   }
 
   function getLoggedUser() {
-    if (!user) {
+    if (user) {
       const defaultRole: RoleModel = {
         id: 1,
         typeRole: 'Default Role',
@@ -94,7 +94,7 @@ const useUserActions = () => {
 
       return defaultUser;
     }
-    return user;
+    return undefined;
   }
 
   //function update(id, params) {

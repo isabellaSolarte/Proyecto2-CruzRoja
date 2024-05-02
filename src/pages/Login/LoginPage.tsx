@@ -6,7 +6,6 @@ import {
   IconButton,
   Paper,
   TextField,
-  Typography,
   useTheme,
 } from '@mui/material';
 import { useUserActions } from '../../recoil';
@@ -26,7 +25,7 @@ const LoginPage = () => {
 
   const handleLogin = async () => {
     await userActions.login({
-      user: 'ADMIN',
+      username: 'ADMIN',
       password: 'AdminHuellaCarbonoJDCE1002',
     });
   };
