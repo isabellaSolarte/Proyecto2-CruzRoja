@@ -1,10 +1,10 @@
 import { atom } from 'recoil';
-import { UserModel } from '../../../models';
+import { LoggedUser } from '../../../models';
 
-const userAtom = atom<UserModel | undefined>({
-  key: 'userAtom',
+const authAtom = atom<LoggedUser | undefined>({
+  key: 'authAtom',
   default: undefined,
-  effects_UNSTABLE: [
+  effects: [
     ({ onSet }) => {
       onSet(newID => {
         console.debug('Current user ID:', newID);
@@ -13,4 +13,4 @@ const userAtom = atom<UserModel | undefined>({
   ],
 });
 
-export default userAtom;
+export default authAtom;

@@ -1,3 +1,4 @@
+import { PathNames } from '../../core';
 import { RoleModel } from '../RoleModels';
 
 export interface UserModel {
@@ -11,5 +12,5 @@ export interface UserModel {
   password: string;
   roles: RoleModel[];
   state: boolean;
-  allowedRoutes?: string[];
+  allowedRoutes: PathNames[];
 }
