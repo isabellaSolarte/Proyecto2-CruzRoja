@@ -28,7 +28,8 @@
         "business": "Gestión de empresas",
         "roles": "Gestionar roles",
         "createRole": "Editar - Crear rol",
-        "userView": "Visualizar usuario"
+        "userView": "Visualizar usuario",
+        "registerCategory": "Registro de categoria"
     },
     "rolesPages": {
         "tabs": {
@@ -151,5 +152,10 @@
         "inputErrors": "Ha ocurrido un error, por favor verifique los datos ingresados",
         "generalError": "Ups, lo sentimos",
         "updateStateConfirmation": "¿Estás seguro de cambiar el estado de este {{userType}}?"
+    },
+    "registerCategory": {
+        "nameCategory": "Nombre de la categoria",
+        "scope": "Alcance",
+        "description": "Breve descripción (máximo 50 caracteres)"
     }
 }
