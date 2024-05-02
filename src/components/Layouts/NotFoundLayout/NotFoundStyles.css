@@ -1,0 +1,33 @@
+.notFountLayout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.notFoundContainer{
+    display: flex;
+    flex-direction: row;
+    height: calc(100vh - 20rem);
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.imgNotFound{   
+    width: 10rem;
+    height: 10rem;
+    display: block;
+}
+
+.notFoundTexts{
+}
+
+
+
+@media only screen and (max-width: 600px) {
+    .notFoundContainer {
+        flex-direction: column;
+    }
+}

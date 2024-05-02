@@ -18,7 +18,7 @@ export const CompanyUserAdapter = (
     password: externCompanyUser.password,
     roles: externCompanyUser.roles.map((role: any) => RolAdapter(role)),
     state: externCompanyUser.state,
-    allowedRoutes: externCompanyUser.allowedRoutes,
+    allowedRoutes: [],
 
     companyName: externCompanyUser.companyName,
     companyNit: externCompanyUser.companyNit,

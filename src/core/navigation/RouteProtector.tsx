@@ -19,10 +19,6 @@ const RouteProtector = ({ route, component }: RouteProtectorProps) => {
 
   const allowedUserRoutes: string[] = getAllowedUserRoutePaths(user);
 
-  console.log('allowedUserRoutes', allowedUserRoutes);
-  console.log('route', route);
-  console.log('access', !allowedUserRoutes.includes(route.path));
-
   if (route.path === '/*') return <Navigate to={PathNames.NOT_FOUND} />;
   if (route.path === PathNames.LOGIN) return <Navigate to={PathNames.USERS} />;
 

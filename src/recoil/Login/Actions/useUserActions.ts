@@ -1,28 +1,39 @@
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import { Credentials } from '../../../models';
-import { userAtom } from '../States';
-import { LoginRequest } from '../../../services';
+import { authAtom, userAtom } from '../States';
+import { LoginRequest, checkUserExist } from '../../../services';
 import { useNavigate } from 'react-router-dom';
 import { PathNames } from '../../../core';
+import Swal from 'sweetalert2';
 
 const useUserActions = () => {
+  const [auth, setAuth] = useRecoilState(authAtom);
   const [user, setUser] = useRecoilState(userAtom);
   const navigate = useNavigate();
 
   async function login(credentiasl: Credentials) {
     try {
-      const response = await LoginRequest(credentiasl);
-      setUser(response);
+      const logedUser = await LoginRequest(credentiasl);
+      const userData = await checkUserExist(logedUser.id);
+
+      setAuth(logedUser.token);
+      setUser(userData);
+
       navigate(PathNames.USERS);
     } catch (error) {
-      console.error('Error login', error);
+      void Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Invalid credentials',
+      });
     }
   }
 
   function logout() {
+    setAuth(undefined);
     setUser(undefined);
     // remove user from local storage, set auth state to null and redirect to login page
-    // localStorage.removeItem('user');
+    localStorage.removeItem('auth');
     // setAuth(null);
     // history.push('/account/login');
   }
@@ -49,7 +60,7 @@ const useUserActions = () => {
     login,
     logout,
     getLoggedUser,
-    resetUser: useResetRecoilState(userAtom),
+    resetUser: useResetRecoilState(authAtom),
   };
 };
 

@@ -18,7 +18,7 @@ export const VolunteerAdapter = (externVolunteer: any): VolunterUserModel => {
     password: externVolunteer.password,
     roles: externVolunteer.roles.map((role: any) => RolAdapter(role)),
     state: externVolunteer.state,
-    allowedRoutes: externVolunteer.allowedRoutes,
+    allowedRoutes: [],
     position: externVolunteer.position,
   };
 };

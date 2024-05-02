@@ -118,3 +118,23 @@ export const getCompayUserById = async (
     throw new Error(JSON.stringify(error));
   }
 };
+
+export const checkUserExist = async (id: number) => {
+  try {
+    // Realizamos ambas solicitudes en paralelo
+    const [volunteer, companyUser] = await Promise.allSettled([
+      getVolunteerById(id),
+      getCompayUserById(id),
+    ]);
+
+    // Verificamos si al menos una solicitud tuvo éxito
+    if (volunteer.status === 'fulfilled') return volunteer.value;
+
+    if (companyUser.status === 'fulfilled') return companyUser.value;
+
+    return undefined;
+  } catch (error) {
+    console.error('Error:', error);
+    return undefined;
+  }
+};
