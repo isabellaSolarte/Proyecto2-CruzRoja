@@ -7,7 +7,7 @@ const Error404 = () => {
   const navigate = useNavigate();
 
   const handleGoHome = () => {
-    navigate('/'); // Vuelve a la página de inicio
+    navigate(-1); // Vuelve a la página de inicio
   };
     
 
