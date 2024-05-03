@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { CustomCard, CustomIconDetails } from '../../../components';
 import { PermissionModel } from '../../../models';
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip';
+import { PermissionsList } from '../../../utils/Permissions';
 
 interface PermissionCardProps {
   permission: PermissionModel;
@@ -9,19 +10,6 @@ interface PermissionCardProps {
   positiveAction: (newRol: PermissionModel) => void;
   negativeAction: () => void;
 }
-
-interface PermissionMessageMap {
-  [key: number]: string;
-}
-
-const permissionMessages: PermissionMessageMap = {
-  100: 'Listar roles',
-  101: 'Crear roles',
-  102: 'Actualizar roles',
-  103: 'Eliminar roles',
-  104: 'Consultar roles',
-  105: 'Listar permisos'
-};
 
 const PermissionCard = ({ permission, addedPermissions, positiveAction, negativeAction }: PermissionCardProps) => {
   const [switchState, setSwitchState] = useState(false);
@@ -50,7 +38,7 @@ const PermissionCard = ({ permission, addedPermissions, positiveAction, negative
   return (
     <CustomCard
       key={permission.id}
-      texto1={permissionMessages[permission.id]}
+      texto1={PermissionsList[permission.id]}
       texto2={''}
       sx={{ marginBottom: '1rem', backgroundColor: '#D9D9D9' }}
       switchState={switchState}

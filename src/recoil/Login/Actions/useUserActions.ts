@@ -26,6 +26,8 @@ const useUserActions = () => {
       const logedUser = await LoginRequest(credentiasl);
       setAuth(logedUser.token);
 
+      console.log('logedUser: ', logedUser);
+      
       const userData: UserModel = logedUser.user;
       setUser(userData);
 
