@@ -17,6 +17,7 @@ import EditUserPage from '../../pages/EditUser/EditUserPage';
 import { Navigate } from 'react-router-dom';
 import ClassIcon from '@mui/icons-material/Class';
 import CategoriesList from '../../pages/Categories/ListCategoriesPage';
+import { CreateCategoryPage } from '../../pages/CreateCategory';
 
 export const NavigationRoutes = () => {
   const { t } = useTranslation('commons');
@@ -110,7 +111,17 @@ export const NavigationRoutes = () => {
       path: PathNames.EDIT_USER,
       component: <EditUserPage />,
       title: 'EDITAR USUARIO',
-    }
+    },
+    {
+      path: PathNames.CREATE_CATEGORY,
+      component: <CreateCategoryPage />,
+      title: 'CREAR CATEOGRIA',
+    },
+    {
+      path: PathNames.EDIT_CATEGORY,
+      component: <CreateCategoryPage />,
+      title: 'EDITAR CATEGORIA',
+    },
     
   ];
 

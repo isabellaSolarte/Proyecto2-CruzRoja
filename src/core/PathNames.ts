@@ -30,6 +30,10 @@ export enum PathNames {
   EDIT_ACTIVITY = '/activity/edit/:id',
 
   CATEGORIES = '/categories',
+  CREATE_CATEGORY = '/category/create',
+  VIEW_CATEGORY = '/category/view/:id',
+  EDIT_CATEGORY = '/category/edit/:id',
+
 
   STATISTICS = '/statistics',
 

@@ -70,7 +70,8 @@ const DrawerMenu = ({ options }: CollapseMenuProps) => {
     PathNames.PERMISSIONS,
     PathNames.SETTINGS,
     PathNames.CLOSE_SESSION,
-    PathNames.COMPONETS
+    PathNames.COMPONETS,
+    PathNames.CREATE_CATEGORY
     
   ];
   const drawerOptions = options.filter(option => availableDrawerOptions.includes(option.path));

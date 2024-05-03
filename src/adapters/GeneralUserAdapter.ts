@@ -46,6 +46,8 @@ export const GeneralUserAdapter = (externalUser: any): UserModel => {
       PathNames.COMPONETS,
       PathNames.LOGIN,
       PathNames.NOT_FOUND,
+      PathNames.CREATE_CATEGORY,
+      PathNames.EDIT_CATEGORY
       
     ],
   };
