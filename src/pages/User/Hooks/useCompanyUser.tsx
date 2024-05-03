@@ -29,7 +29,7 @@ const useCompanyUser = () => {
   const fetchCompanyUsers = async () => {
     setLoadingcompanyUsers(true);
     try {
-      const CompaniesData = await getCompanies(); // Reemplaza con la URL correcta de tu API
+      const CompaniesData = await getCompanies();
       setCompanyUsers(CompaniesData);
       const mappedCompanyUsers = mapCompanyUsersToInfo(CompaniesData);
       setCompanyUserInfo(mappedCompanyUsers);
