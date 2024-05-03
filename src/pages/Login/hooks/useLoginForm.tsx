@@ -32,7 +32,8 @@ const useLoginForm = () => {
     setError(null);
 
     console.log('useLogin data:', data);
-    await handleLogin();
+    await userActions.login(data);
+    //await handleLogin();
     // Aquí puedes realizar la lógica de inicio de sesión, como enviar una solicitud al servidor.
 
     setIsLoading(false);
