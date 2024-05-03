@@ -7,6 +7,7 @@ import { getAllowedUserRoutePaths } from './getAllowedUserRoutes';
 import { UserModel } from '../../models/UserModels/UserModel';
 import { useUserActions } from '../../recoil';
 import { PathNames } from '../PathNames';
+import { LandingPage } from '../../pages';
 
 interface RouteProtectorProps {
   route: RouterModel;
@@ -20,6 +21,8 @@ const RouteProtector = ({ route, component }: RouteProtectorProps) => {
   const allowedUserRoutes: string[] = getAllowedUserRoutePaths(user);
 
   if (route.path === '/*') return <Navigate to={PathNames.NOT_FOUND} />;
+
+  if (route.path === PathNames.LANDIN_PAGE) return <LandingPage />;
 
   if (route.path === PathNames.LOGIN) return <Navigate to={PathNames.USERS} />;
 

@@ -45,6 +45,7 @@ export const GeneralUserAdapter = (externalUser: any): UserModel => {
       PathNames.COMPONETS,
       PathNames.LOGIN,
       PathNames.NOT_FOUND,
+      PathNames.LANDIN_PAGE,
     ],
   };
 };

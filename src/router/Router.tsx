@@ -4,6 +4,8 @@ import { RouteObject, RouterProvider, createBrowserRouter } from 'react-router-d
 import { NavigationRoutes, PublicProtector, RouteProtector } from '../core/navigation';
 import { RouterModel } from '../models/SideMenuModels/RouteModel';
 import Error404 from '../pages/404/ErrorPage';
+import { LandingPage } from '../pages';
+import { PathNames } from '../core';
 
 const getRouteObject = (route: RouterModel): RouteObject => {
   const routeChildren = route.children && route.children.map(child => getRouteObject(child));
@@ -18,6 +20,10 @@ const Router = () => {
   const routes: RouterModel[] = NavigationRoutes();
 
   const routerObjects: RouteObject[] = routes.map(getRouteObject);
+  routerObjects.push({
+    path: PathNames.LANDIN_PAGE,
+    element: <LandingPage />,
+  });
   routerObjects.push({
     path: '/login',
     element: <PublicProtector />,

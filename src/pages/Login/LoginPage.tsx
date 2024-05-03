@@ -12,7 +12,7 @@ import { CustomButton, CustomText } from '../../components';
 import { styled } from '@mui/system';
 import { useLoginForm } from './hooks';
 import { useRecoilValue } from 'recoil';
-import { userAtom, useUserActions } from '../../recoil';
+import { userAtom } from '../../recoil';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PathNames } from '../../core';
