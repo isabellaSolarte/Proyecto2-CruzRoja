@@ -11,6 +11,7 @@
         "delete": "Eliminar",
         "state": "Estado",
         "search": "Buscar",
+        "registerCategory": "Registar categoría",
         "previousPage": "Ir a página anterior"
     },
     "menuOptions": {
@@ -31,7 +32,8 @@
         "roles": "Gestionar roles",
         "createRole": "Editar - Crear rol",
         "userView": "Visualizar usuario",
-        "registerCategory": "Registro de categoria"
+        "registerCategory": "Registro de categoria",
+        "listCategories": "Categorías"
     },
     "rolesPages": {
         "tabs": {
@@ -45,6 +47,14 @@
             "rolePageDescription": "Usa los roles para asignar permisos en el sistema"
         }
     },
+    "categoryPages": {
+        "desciption": {
+            "generalDescription": "Las categorías en el contexto del cálculo de la huella de carbono son un conjunto de actividades, que ayudan a identificar y clasificar las diferentes fuentes de emisiones de carbono en función de su naturaleza. "
+        
+        }
+        
+    },
+
     "usersPages": {
         "tabs": {
             "general": "General",
