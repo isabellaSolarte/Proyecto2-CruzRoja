@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AxiosResponse } from 'axios';
 import { CompanyUserModel, VolunterUserModel } from '../../../models';
-import { api } from '../api';
 import { UsersEndpoints } from './Endpoints';
 
 import { VolunteerAdapter } from '../../../adapters/VolunteerAdapter';
@@ -12,24 +11,31 @@ import {
   adaptFrontCompanyUserModelToDTO,
   adaptFrontVolunterUserModelToDTO,
 } from '../../Adapters_DTO';
+import { api } from '../api';
+
 export const getVolunteers = async (): Promise<VolunterUserModel[]> => {
   try {
     const response = await api.get<any[]>(UsersEndpoints.getAllVolunteers);
+
     const adaptedVolunteers: VolunterUserModel[] = response.data.map(
       (volunteer: any) => VolunteerAdapter(volunteer),
     );
+
     return adaptedVolunteers;
   } catch (error) {
     throw new Error(JSON.stringify(error));
   }
 };
+
 export const putVolunteer = async (data: VolunterUserModel) => {
   try {
     const updatedVolunteerData = adaptFrontVolunterUserModelToDTO(data);
+
     const response = await api.put<AxiosResponse>(
       UsersEndpoints.putVolunteer,
       updatedVolunteerData,
     );
+
     return response;
   } catch (error) {
     console.error(error);
@@ -45,6 +51,7 @@ export const postVolunteer = async (data: VolunterUserModel) => {
       UsersEndpoints.postVolunteer,
       newUserData,
     );
+
     return response;
   } catch (error) {
     throw error;
@@ -56,9 +63,11 @@ export const getCompanies = async (): Promise<CompanyUserModel[]> => {
     const response = await api.get<CompanyUserModel[]>(
       UsersEndpoints.getAllCompanyUsers,
     );
+
     const adaptedCompanies: CompanyUserModel[] = response.data.map(
       (company: CompanyUserModel) => CompanyUserAdapter(company),
     );
+
     return adaptedCompanies;
   } catch (error) {
     throw new Error(JSON.stringify(error));
@@ -73,6 +82,7 @@ export const postUserCompany = async (data: CompanyUserModel) => {
       UsersEndpoints.postCompanyUser,
       newUserData,
     );
+
     return response;
   } catch (error) {
     throw error; // Lanzar el error para manejarlo en el componente
@@ -82,10 +92,12 @@ export const postUserCompany = async (data: CompanyUserModel) => {
 export const putUserCompany = async (data: CompanyUserModel) => {
   try {
     const updatedCompanyData = adaptFrontCompanyUserModelToDTO(data);
+
     const response = await api.put<AxiosResponse>(
       UsersEndpoints.putCompanyUser,
       updatedCompanyData,
     );
+
     return response;
   } catch (error) {
     console.error(error);
@@ -98,7 +110,9 @@ export const getVolunteerById = async (
 ): Promise<VolunterUserModel> => {
   try {
     const response = await api.get(`/user/volunteers/${id}`);
+
     const adaptedVolunteer: VolunterUserModel = VolunteerAdapter(response.data);
+
     return adaptedVolunteer;
   } catch (error) {
     throw new Error(JSON.stringify(error));
@@ -110,9 +124,11 @@ export const getCompayUserById = async (
 ): Promise<CompanyUserModel> => {
   try {
     const response = await api.get(UsersEndpoints.getCompanyUserById(id));
+
     const adaptedCompanyUser: CompanyUserModel = CompanyUserAdapter(
       response.data,
     );
+
     return adaptedCompanyUser;
   } catch (error) {
     throw new Error(JSON.stringify(error));
@@ -121,7 +137,6 @@ export const getCompayUserById = async (
 
 export const checkUserExist = async (id: number) => {
   try {
-    // Realizamos ambas solicitudes en paralelo
     const [volunteer, companyUser] = await Promise.allSettled([
       getVolunteerById(id),
       getCompayUserById(id),

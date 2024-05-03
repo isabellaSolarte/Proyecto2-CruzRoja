@@ -1,22 +1,33 @@
 import { useRecoilState, useResetRecoilState } from 'recoil';
-import { Credentials } from '../../../models';
+import { Credentials, UserModel } from '../../../models';
 import { authAtom, userAtom } from '../States';
-import { LoginRequest, checkUserExist } from '../../../services';
+import { LoginRequest, api } from '../../../services';
 import { useNavigate } from 'react-router-dom';
 import { PathNames } from '../../../core';
 import Swal from 'sweetalert2';
+import { UserAdapter } from '../../../adapters';
+import { useEffect } from 'react';
 
 const useUserActions = () => {
   const [auth, setAuth] = useRecoilState(authAtom);
   const [user, setUser] = useRecoilState(userAtom);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (auth) {
+      api.interceptors.request.use(config => {
+        config.headers.Authorization = `Bearer ${auth}`;
+        return config;
+      });
+    }
+  }, [auth]);
+
   async function login(credentiasl: Credentials) {
     try {
       const logedUser = await LoginRequest(credentiasl);
-      const userData = await checkUserExist(logedUser.id);
-
       setAuth(logedUser.token);
+
+      const userData: UserModel = UserAdapter(logedUser.user);
       setUser(userData);
 
       navigate(PathNames.USERS);

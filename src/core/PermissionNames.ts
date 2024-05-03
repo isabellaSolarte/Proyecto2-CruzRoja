@@ -1,0 +1,18 @@
+enum PermissionNames {
+ROLE_Listar_Roles = 'Listar Roles'
+ROLE_Crear_Roles = 'Crear Roles'
+ROLE_Actualizar_Roles = 'Actualizar Roles'
+ROLE_Eliminar_Roles = 'Eliminar Roles'
+ROLE_Consultar_Rol = 'Consultar Rol'
+ROLE_Listar_permisos = 'Listar permisos'
+ROLE_Listar_Voluntarios = 'Listar Voluntarios'
+ROLE_Crear_Voluntarios = 'Crear Voluntarios'
+ROLE_Actualizar_Voluntarios = 'Actualizar Voluntarios'
+ROLE_Consultar_Voluntario = 'Consultar Voluntario'
+ROLE_Consultar_Voluntario_Posicion = 'Consultar Voluntario Por Posicion'
+ROLE_Listar_Empresas = 'Listar Empresas'
+ROLE_Crear_Empresas = 'Crear Empresas'
+ROLE_Actualizar_Empresas = 'Actualizar Empresas'
+ROLE_Consultar_Empresa_NIT = 'Consultar Empresa Por NIT'
+ROLE_Consultar_Empresa_Documento = 'Consultar Empresa Por Documento'
+}
