@@ -1,1 +1,16 @@
-import axios from 'axios';
+import { CategoryAdapter } from "../../../adapters";
+import { api } from '../api';
+import { CategoriesEndpoints } from "./Endpoints";
+import { CategoryModel } from "../../../models";
+
+export const getCategories = async():Promise<CategoryModel[]> => {
+    try {
+      const response = await api.get<any[]>(CategoriesEndpoints.getAllCategories);
+      const adaptedCategories: CategoryModel[] = response.data.map(
+        (category: any) => CategoryAdapter(category),
+      );
+      return adaptedCategories;
+    } catch (error) {
+      throw new Error(JSON.stringify(error));
+    }
+  };
