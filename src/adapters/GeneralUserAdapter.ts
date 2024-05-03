@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { PathNames } from '../core';
 import { UserModel } from '../models';
 import { RolAdapter } from './RoleAdapter';
-import { PathNames } from '../core/PathNames';
 
-export const UserAdapter = (externalUser: any): UserModel => {
+export const GeneralUserAdapter = (externalUser: any): UserModel => {
   return {
     id: externalUser.documentNumber,
     documentType: externalUser.documentType,
