@@ -4,21 +4,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
 import { VolunterUserModel } from '../models';
-import { RolAdapter } from './RoleAdapter';
+import { GeneralUserAdapter } from './GeneralUserAdapter';
 
 export const VolunteerAdapter = (externVolunteer: any): VolunterUserModel => {
   return {
-    id: externVolunteer.documentNumber,
-    documentType: externVolunteer.documentType,
-    names: externVolunteer.names,
-    lastNames: externVolunteer.lastNames,
-    personalPhone: externVolunteer.personalPhone,
-    personalEmail: externVolunteer.personalEmail,
-    username: externVolunteer.username,
-    password: externVolunteer.password,
-    roles: externVolunteer.roles.map((role: any) => RolAdapter(role)),
-    state: externVolunteer.state,
-    allowedRoutes: [],
+    ...GeneralUserAdapter(externVolunteer),
     position: externVolunteer.position,
   };
 };

@@ -5,12 +5,14 @@ import { loginSchema, defaultCredentials } from '../schemas';
 import { useUserActions } from '../../../recoil';
 import { Credentials } from '../../../models';
 
-
-
 const useLoginForm = () => {
   const userActions = useUserActions();
 
-  const { handleSubmit, register, formState: { errors } } = useForm({
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm({
     defaultValues: defaultCredentials,
     resolver: yupResolver(loginSchema),
   });
@@ -19,8 +21,6 @@ const useLoginForm = () => {
   const [error, setError] = useState<string | null>(null);
 
   const handleLogin = async () => {
-    console.log('credenciales quemadas\n username: ADMIN\n password: AdminHuellaCarbonoJDCE1002');
-    
     await userActions.login({
       username: 'ADMIN',
       password: 'AdminHuellaCarbonoJDCE1002',
@@ -31,8 +31,9 @@ const useLoginForm = () => {
     setIsLoading(true);
     setError(null);
 
-    console.log('useLogin data:',data);
-    await handleLogin();
+    console.log('useLogin data:', data);
+    await userActions.login(data);
+    //await handleLogin();
     // Aquí puedes realizar la lógica de inicio de sesión, como enviar una solicitud al servidor.
 
     setIsLoading(false);

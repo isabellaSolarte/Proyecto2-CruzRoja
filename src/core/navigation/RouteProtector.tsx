@@ -20,12 +20,10 @@ const RouteProtector = ({ route, component }: RouteProtectorProps) => {
   const allowedUserRoutes: string[] = getAllowedUserRoutePaths(user);
 
   if (route.path === '/*') return <Navigate to={PathNames.NOT_FOUND} />;
+
   if (route.path === PathNames.LOGIN) return <Navigate to={PathNames.USERS} />;
 
-  if (!allowedUserRoutes.includes(route.path)) {
-    console.log('no tiene permisos');
-    return <Navigate to="/404" />;
-  }
+  if (!allowedUserRoutes.includes(route.path)) return <Navigate to="/404" />;
 
   return <AppLayout content={component} />;
 };

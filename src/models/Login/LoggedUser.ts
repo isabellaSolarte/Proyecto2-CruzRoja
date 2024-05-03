@@ -1,5 +1,6 @@
+import { UserModel } from '../UserModels';
+
 export interface LoggedUser {
-  id: number;
-  username: string;
+  user: UserModel;
   token: string;
 }

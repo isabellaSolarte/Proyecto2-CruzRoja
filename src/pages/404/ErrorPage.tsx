@@ -1,15 +1,8 @@
 import { Typography, Button, Box, Grid, Paper } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import { authAtom, userAtom } from '../../recoil';
 
 const Error404 = () => {
   const navigate = useNavigate();
-
-  const token = useRecoilValue(authAtom);
-  const user = useRecoilValue(userAtom);
-  console.log('user', user);
-  console.log('token', token);
 
   const handleGoHome = () => {
     navigate(-1); // Vuelve a la página de inicio

@@ -1,5 +1,4 @@
 import { atom } from 'recoil';
-import { LoggedUser } from '../../../models';
 import { recoilPersist } from 'recoil-persist';
 
 const { persistAtom } = recoilPersist({
@@ -8,7 +7,7 @@ const { persistAtom } = recoilPersist({
   converter: JSON,
 });
 
-const authAtom = atom<LoggedUser | string | undefined>({
+const authAtom = atom<string | undefined>({
   key: 'authAtom',
   default: undefined,
   effects_UNSTABLE: [persistAtom],
