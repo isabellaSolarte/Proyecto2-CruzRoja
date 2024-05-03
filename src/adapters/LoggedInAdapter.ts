@@ -1,9 +1,9 @@
 import { LoggedUser } from '../models';
-import { UserAdapter } from './UserAdapter';
+import { GeneralUserAdapter } from './GeneralUserAdapter';
 
 const LoggedInAdapter = (externalUserLogged: any): LoggedUser => {
   return {
-    user: UserAdapter(externalUserLogged.user),
+    user: GeneralUserAdapter(externalUserLogged.user),
     token: externalUserLogged.token,
   };
 };
