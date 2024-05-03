@@ -26,6 +26,7 @@ export const GeneralUserAdapter = (externalUser: any): UserModel => {
       PathNames.PERMISSIONS,
       PathNames.CREATE_PERMISSION,
       PathNames.VIEW_PERMISSION,
+      PathNames.CATEGORIES,
       PathNames.EDIT_PERMISSION,
       PathNames.BUSINESS,
       PathNames.CREATE_BUSINESS,
@@ -45,6 +46,7 @@ export const GeneralUserAdapter = (externalUser: any): UserModel => {
       PathNames.COMPONETS,
       PathNames.LOGIN,
       PathNames.NOT_FOUND,
+      
     ],
   };
 };
