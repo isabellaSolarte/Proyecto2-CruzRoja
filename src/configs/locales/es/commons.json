@@ -22,7 +22,8 @@
         "statistics": "Estadísticas",
         "activities": "Actividades",
         "plans": "Planes de compensación",
-        "permissions": "Permisos"
+        "permissions": "Permisos",
+        "categories": "Categorías"
     },
     "pageTitles": {
         "users": "Gestión de usuarios",

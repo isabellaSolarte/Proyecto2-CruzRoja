@@ -29,6 +29,8 @@ export enum PathNames {
   VIEW_ACTIVITY = '/activity/view/:id',
   EDIT_ACTIVITY = '/activity/edit/:id',
 
+  CATEGORIES = '/categories',
+
   STATISTICS = '/statistics',
 
   SETTINGS = '/settings',

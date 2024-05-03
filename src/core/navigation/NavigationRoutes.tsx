@@ -15,6 +15,7 @@ import { RolesPage } from '../../pages/Roles';
 import { ViewUserPage } from '../../pages/ViewUser';
 import EditUserPage from '../../pages/EditUser/EditUserPage';
 import { Navigate } from 'react-router-dom';
+import CategoriesList from '../../pages/Categories/ListCategoriesPage';
 
 export const NavigationRoutes = () => {
   const { t } = useTranslation('commons');
@@ -103,6 +104,12 @@ export const NavigationRoutes = () => {
       component: <EditUserPage />,
       title: 'EDITAR USUARIO',
     },
+    {
+      path: PathNames.CATEGORIES,
+      component: <CategoriesList />,
+      title: t('menuOptions.categories'),
+      icon: <QueryStatsIcon />
+    }
   ];
 
   return routes;
