@@ -29,8 +29,13 @@ export const getVolunteers = async (): Promise<VolunterUserModel[]> => {
 
 export const putVolunteer = async (data: VolunterUserModel) => {
   try {
+    console.log('data', data);
+    
     const updatedVolunteerData = adaptFrontVolunterUserModelToDTO(data);
+    updatedVolunteerData.password = 'otracontraseña';
+    console.log('updatedVolunteerData', updatedVolunteerData);
 
+    
     const response = await api.put<AxiosResponse>(
       UsersEndpoints.putVolunteer,
       updatedVolunteerData,
@@ -46,6 +51,7 @@ export const putVolunteer = async (data: VolunterUserModel) => {
 export const postVolunteer = async (data: VolunterUserModel) => {
   try {
     const newUserData = adaptFrontVolunterUserModelToDTO(data);
+    
 
     const response = await api.post<AxiosResponse>(
       UsersEndpoints.postVolunteer,
@@ -92,7 +98,7 @@ export const postUserCompany = async (data: CompanyUserModel) => {
 export const putUserCompany = async (data: CompanyUserModel) => {
   try {
     const updatedCompanyData = adaptFrontCompanyUserModelToDTO(data);
-
+    updatedCompanyData.password = 'otracontraseña';
     const response = await api.put<AxiosResponse>(
       UsersEndpoints.putCompanyUser,
       updatedCompanyData,
