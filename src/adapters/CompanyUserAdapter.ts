@@ -3,12 +3,12 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { CompanyUserModel } from '../models';
-import { UserAdapter } from './UserAdapter';
+import { GeneralUserAdapter } from './GeneralUserAdapter';
 export const CompanyUserAdapter = (
   externCompanyUser: any,
 ): CompanyUserModel => {
   return {
-    ...UserAdapter(externCompanyUser),
+    ...GeneralUserAdapter(externCompanyUser),
 
     companyName: externCompanyUser.companyName,
     companyNit: externCompanyUser.companyNit,

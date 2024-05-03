@@ -4,11 +4,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
 import { VolunterUserModel } from '../models';
-import { UserAdapter } from './UserAdapter';
+import { GeneralUserAdapter } from './GeneralUserAdapter';
 
 export const VolunteerAdapter = (externVolunteer: any): VolunterUserModel => {
   return {
-    ...UserAdapter(externVolunteer),
+    ...GeneralUserAdapter(externVolunteer),
     position: externVolunteer.position,
   };
 };

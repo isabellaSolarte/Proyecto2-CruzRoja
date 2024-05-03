@@ -5,7 +5,6 @@ import { LoginRequest, api } from '../../../services';
 import { useNavigate } from 'react-router-dom';
 import { PathNames } from '../../../core';
 import Swal from 'sweetalert2';
-import { UserAdapter } from '../../../adapters';
 import { useEffect } from 'react';
 
 const useUserActions = () => {
@@ -27,7 +26,7 @@ const useUserActions = () => {
       const logedUser = await LoginRequest(credentiasl);
       setAuth(logedUser.token);
 
-      const userData: UserModel = UserAdapter(logedUser.user);
+      const userData: UserModel = logedUser.user;
       setUser(userData);
 
       navigate(PathNames.USERS);
