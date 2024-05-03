@@ -14,3 +14,17 @@ export const getCategories = async():Promise<CategoryModel[]> => {
       throw new Error(JSON.stringify(error));
     }
   };
+
+  export const getCategoryById = async (categoryId: number): Promise<CategoryModel> => {
+    try {
+      const response = await api.get(`/categories/${categoryId}`);
+      const adaptedCategory: CategoryModel = CategoryAdapter(response.data);
+      return adaptedCategory;
+    } catch (error) {
+      throw new Error(JSON.stringify(error));
+    }
+  };
+
+  
+
+
