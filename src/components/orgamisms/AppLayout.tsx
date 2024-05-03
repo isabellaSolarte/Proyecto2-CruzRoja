@@ -34,11 +34,13 @@ const AppLayout = ({ content }: AppLayoutProps) => {
   const adaptedMenuOptions: MenuOption[] = adaptRoutesToMenuOptions(allowedRoutes);
 
   return (
-    <MainLayout
-      appBar={<CustomAppBar />}
-      content={content}
-      navigationMenu={<DrawerMenu options={adaptedMenuOptions} />}
-    />
+    <>
+      <MainLayout
+        appBar={<CustomAppBar />}
+        content={content}
+        navigationMenu={<DrawerMenu options={adaptedMenuOptions} />}
+      />
+    </>
   );
 };
 
