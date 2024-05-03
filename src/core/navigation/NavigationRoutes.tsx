@@ -15,6 +15,7 @@ import { RolesPage } from '../../pages/Roles';
 import { ViewUserPage } from '../../pages/ViewUser';
 import EditUserPage from '../../pages/EditUser/EditUserPage';
 import { Navigate } from 'react-router-dom';
+import ClassIcon from '@mui/icons-material/Class';
 import CategoriesList from '../../pages/Categories/ListCategoriesPage';
 
 export const NavigationRoutes = () => {
@@ -37,6 +38,12 @@ export const NavigationRoutes = () => {
       component: <UsersPage />,
       title: t('menuOptions.users'),
       icon: <GroupsIcon />,
+    },
+    {
+      path: PathNames.CATEGORIES,
+      component: <CategoriesList />,
+      title: t('menuOptions.categories'),
+      icon: <ClassIcon />
     },
     {
       path: PathNames.REGISTER_USER,
@@ -103,13 +110,8 @@ export const NavigationRoutes = () => {
       path: PathNames.EDIT_USER,
       component: <EditUserPage />,
       title: 'EDITAR USUARIO',
-    },
-    {
-      path: PathNames.CATEGORIES,
-      component: <CategoriesList />,
-      title: t('menuOptions.categories'),
-      icon: <QueryStatsIcon />
     }
+    
   ];
 
   return routes;
