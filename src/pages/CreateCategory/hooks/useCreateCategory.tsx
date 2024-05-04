@@ -31,9 +31,7 @@ export const useCreateCategory = () => {
       let response;
       if (PathNames.CREATE_CATEGORY === location.pathname) {
         console.log("Intentando crear")
-        console.log("datos enviados para crear:",data)
         response = await postCategory(data);
-        console.log(response)
         Swal.fire({
           title: '¡Éxito!',
           text: 'Categoría creada correctamente',
@@ -43,12 +41,7 @@ export const useCreateCategory = () => {
       } else {
         const CategoryId = location.pathname.split('/').pop();
         console.log("Intentando actualizar")
-        console.log("datos enviados para actualizar:",data)
-        console.log(CategoryId)
-        
         response = await putCategory(data,Number(CategoryId));
-
-        console.log(response)
         Swal.fire({
           title: '¡Éxito!',
           text: 'Categoría actualizada correctamente',

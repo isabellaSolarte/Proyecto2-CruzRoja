@@ -30,11 +30,15 @@ export const getCategories = async():Promise<CategoryModel[]> => {
 
   export const postCategory = async (data: CategoryType) => {
     try {
-      const newCategoryData = adaptCategoryModelToDTO(data);
-  
+      const AdaptedCategory = adaptCategoryModelToDTO( data)
+      
+      const updatedCategoryData = {
+        ...AdaptedCategory
+      };
+      console.log("datos a enviar a put:",updatedCategoryData)
       const response = await api.post<AxiosResponse>(
         CategoriesEndpoints.postCategory,
-        newCategoryData,
+        updatedCategoryData,
       );
   
       return response;
@@ -43,19 +47,18 @@ export const getCategories = async():Promise<CategoryModel[]> => {
     }
   };
   
-  export const putCategory = async (data: CategoryType, idCategory: number) => {
+  export const putCategory = async (data: CategoryType, id: number) => {
     try {
-          const updatedCategoryData = {
-      ...data,
-      id: idCategory, // Usar el id como identificador
- 
+      const AdaptedCategory = adaptCategoryModelToDTO( data)
+      const updatedCategoryData = {
+      ...AdaptedCategory,
+      categoryId: id
     };
       console.log("datos a enviar a put:",updatedCategoryData)
       const response = await api.put<AxiosResponse>(
         CategoriesEndpoints.putCategory,
         updatedCategoryData,
       );
-  
       return response;
     } catch (error) {
       throw error;
