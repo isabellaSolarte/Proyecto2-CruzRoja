@@ -1,7 +1,13 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EditIcon from '@mui/icons-material/Edit';
 import { useTranslation } from 'react-i18next';
-import { ManagmentLayout, CustomButton, CustomText, CustomAccordion } from '../../components';
+import {
+  ManagmentLayout,
+  CustomButton,
+  CustomText,
+  CustomAccordion,
+  NotFoundLayout,
+} from '../../components';
 import { Box, Grid } from '@mui/material';
 import { useEffect } from 'react';
 import { useUserPage } from './Hooks/useUserPage';
@@ -17,13 +23,17 @@ import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
 const ViewUserPage = () => {
   const { t } = useTranslation('commons');
   const { id } = useParams<{ id: string }>();
-  const { loadUserDataByID, userData, handleEdit } = useUserPage();
+  const { loadUserDataByID, userData, handleEdit, loading } = useUserPage();
   const userPosiion =
     userData && userData.position ? userData.position : t('positions.business_representative');
 
   useEffect(() => {
     void loadUserDataByID(Number(id));
   }, []);
+
+  if (!loading && !userData) {
+    return <NotFoundLayout title="user" />;
+  }
 
   return (
     <ManagmentLayout

@@ -1,5 +1,6 @@
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 import './DataTableStyle.css';
+import { esES } from '@mui/x-data-grid/locales';
 interface DataTableProps {
   enableCheckboxSelection: boolean;
   dataColumns: GridColDef[]; 
@@ -11,15 +12,19 @@ const DataTable = ({ enableCheckboxSelection, dataColumns, dataRows }:DataTableP
   return (
     <div style={{ height: 450, width: '100%' }}>
         <DataGrid
+          localeText={esES.components.MuiDataGrid.defaultProps.localeText}
           className="my-data-grid"
           rows={dataRows}
           columns={dataColumns}
           getRowClassName={() => 'customRow'}
           initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 5 },
+              paginationModel: { page: 0, pageSize: 10 },
             },
+            
           }}
+          slots={{ toolbar: GridToolbar }}
+          
           sx={{ '&, [class^=MuiDataGrid]': { border: 'none' },
             '& .MuiDataGrid-columnHeaders': {
               borderBottom: '1px solid #000',
@@ -35,8 +40,12 @@ const DataTable = ({ enableCheckboxSelection, dataColumns, dataRows }:DataTableP
             '&.Mui-selected': {
               backgroundColor: 'transparent',
             },
+            '& .MuiButton-text': {
+              borderBottom: '1px solid #000',
+              color:'black'
+            },
           }}
-          pageSizeOptions={[5, 10]}
+          //pageSizeOptions={[5, 10]}
           checkboxSelection = {enableCheckboxSelection}
           disableRowSelectionOnClick
         />

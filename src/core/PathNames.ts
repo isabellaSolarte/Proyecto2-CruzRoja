@@ -29,6 +29,8 @@ export enum PathNames {
   VIEW_ACTIVITY = '/activity/view/:id',
   EDIT_ACTIVITY = '/activity/edit/:id',
 
+  CATEGORIES = '/categories',
+
   STATISTICS = '/statistics',
 
   SETTINGS = '/settings',
@@ -36,4 +38,8 @@ export enum PathNames {
   CLOSE_SESSION = '/close-session',
 
   COMPONETS = '/components',
+
+  LOGIN = '/login',
+
+  NOT_FOUND = '/404',
 }

@@ -30,7 +30,6 @@ interface Permission {
 export const adaptFrontVolunterUserModelToDTO = (
   volunteer: VolunterUserModel,
 ): VolunteerUserModelExternDTO => {
-  console.log('volunteer', volunteer.roles);
   return {
     documentNumber: Number(volunteer.id),
     documentType: volunteer.documentType,

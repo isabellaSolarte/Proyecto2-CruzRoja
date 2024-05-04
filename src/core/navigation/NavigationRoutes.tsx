@@ -9,12 +9,14 @@ import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import SettingsIcon from '@mui/icons-material/Settings';
-import LogoutIcon from '@mui/icons-material/Logout';
 import { RouterModel } from '../../models/SideMenuModels/RouteModel';
 import RegisterUserPage from '../../pages/RegisterUser/RegisterUserPage';
 import { RolesPage } from '../../pages/Roles';
 import { ViewUserPage } from '../../pages/ViewUser';
 import EditUserPage from '../../pages/EditUser/EditUserPage';
+import { Navigate } from 'react-router-dom';
+import ClassIcon from '@mui/icons-material/Class';
+import CategoriesList from '../../pages/Categories/ListCategoriesPage';
 
 export const NavigationRoutes = () => {
   const { t } = useTranslation('commons');
@@ -22,13 +24,8 @@ export const NavigationRoutes = () => {
   const routes: RouterModel[] = [
     {
       path: '/*',
-      component: <h1>404</h1>,
-      title: '404',
-    },
-    {
-      path: '/404',
-      component: <h1>404</h1>,
-      title: '404',
+      component: <Navigate to={PathNames.NOT_FOUND} />,
+      title: t('menuOptions.home'),
     },
     {
       path: PathNames.BUSINESS,
@@ -41,6 +38,12 @@ export const NavigationRoutes = () => {
       component: <UsersPage />,
       title: t('menuOptions.users'),
       icon: <GroupsIcon />,
+    },
+    {
+      path: PathNames.CATEGORIES,
+      component: <CategoriesList />,
+      title: t('menuOptions.categories'),
+      icon: <ClassIcon />
     },
     {
       path: PathNames.REGISTER_USER,
@@ -89,12 +92,6 @@ export const NavigationRoutes = () => {
       icon: <SettingsIcon />,
     },
     {
-      path: PathNames.CLOSE_SESSION,
-      component: <h1>CERRAR SESIÓN</h1>,
-      title: t('menuOptions.logout'),
-      icon: <LogoutIcon />,
-    },
-    {
       path: PathNames.COMPONETS,
       component: <CompoentesPage />,
       title: 'COMPONENTES',
@@ -113,7 +110,8 @@ export const NavigationRoutes = () => {
       path: PathNames.EDIT_USER,
       component: <EditUserPage />,
       title: 'EDITAR USUARIO',
-    },
+    }
+    
   ];
 
   return routes;

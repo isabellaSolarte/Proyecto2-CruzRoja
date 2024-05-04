@@ -22,9 +22,10 @@ export const useUserPage = () => {
         response = await getCompayUserById(userId);
       }
       setUserData(response);
-      setLoading(false);
     } catch (error) {
       setError(error as Error);
+    } finally {
+      setLoading(false);
     }
   };
 

@@ -21,10 +21,6 @@ const SelectUserForm = ({ handleUserType, userType, handleNext }: SelectUserForm
     handleUserType(type);
   };
 
-  useEffect(() => {
-    console.log('userType', userType);
-  }, [userType]);
-
   return (
     <Box
       sx={{

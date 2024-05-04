@@ -10,7 +10,9 @@
         "view": "Observar",
         "delete": "Eliminar",
         "state": "Estado",
-        "search": "Buscar"
+        "search": "Buscar",
+        "registerCategory": "Registar categoría",
+        "previousPage": "Ir a página anterior"
     },
     "menuOptions": {
         "users": "Usuarios",
@@ -21,14 +23,17 @@
         "statistics": "Estadísticas",
         "activities": "Actividades",
         "plans": "Planes de compensación",
-        "permissions": "Permisos"
+        "permissions": "Permisos",
+        "categories": "Categorías"
     },
     "pageTitles": {
         "users": "Gestión de usuarios",
         "business": "Gestión de empresas",
         "roles": "Gestionar roles",
         "createRole": "Editar - Crear rol",
-        "userView": "Visualizar usuario"
+        "userView": "Visualizar usuario",
+        "registerCategory": "Registro de categoria",
+        "listCategories": "Categorías"
     },
     "rolesPages": {
         "tabs": {
@@ -42,6 +47,14 @@
             "rolePageDescription": "Usa los roles para asignar permisos en el sistema"
         }
     },
+    "categoryPages": {
+        "desciption": {
+            "generalDescription": "Las categorías en el contexto del cálculo de la huella de carbono son un conjunto de actividades, que ayudan a identificar y clasificar las diferentes fuentes de emisiones de carbono en función de su naturaleza. "
+        
+        }
+        
+    },
+
     "usersPages": {
         "tabs": {
             "general": "General",
@@ -84,6 +97,12 @@
             "actions": "Acciones",
             "users": "Usuarios"           
         }
+    },
+    "notFoundPage": {
+        "sorry": "@LoSentimos",
+        "description": "Lo que buscas no existe o no está disponible en este momento.",
+        "rol": "Este rol no está disponible.",
+        "user": "Este usuario no está disponible."
     },
     "components": {
         "stepper": {
@@ -145,6 +164,16 @@
         "title": "Empresa"
     },
     "alertText": {
-        "userCreated": "Usuario creado exitosamente"
+        "userCreated": "Usuario creado exitosamente",
+        "rolCreate": "El rol se ha creado exitosamente",
+        "rolEdit": "El rol se ha actualizado exitosamente",
+        "inputErrors": "Ha ocurrido un error, por favor verifique los datos ingresados",
+        "generalError": "Ups, lo sentimos",
+        "updateStateConfirmation": "¿Estás seguro de cambiar el estado de este {{userType}}?"
+    },
+    "registerCategory": {
+        "nameCategory": "Nombre de la categoria",
+        "scope": "Alcance",
+        "description": "Breve descripción (máximo 50 caracteres)"
     }
 }

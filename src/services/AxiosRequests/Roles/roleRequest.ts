@@ -6,7 +6,6 @@ import { api } from '../api';
 import { RolesEndpoints } from './Endpoints';
 import { AxiosResponse } from 'axios';
 
-
 export const getAllRoles = async (): Promise<RoleModel[]> => {
   try {
     const response = await api.get(RolesEndpoints.getAllRoles);
@@ -21,22 +20,20 @@ export const getAllRoles = async (): Promise<RoleModel[]> => {
 
 export const getRolId = async (id: number): Promise<RoleFormType> => {
   try {
-    const response = await api.get(`/roles/idRole/${id}`)
-    const adaptedRoles: RoleModel = RolAdapter(response.data)
+    const response = await api.get(`/roles/idRole/${id}`);
+    const adaptedRoles: RoleModel = RolAdapter(response.data);
     const adaptedRolData = adaptFrontRolModelToDTO(adaptedRoles);
     return adaptedRolData;
-    
   } catch (err) {
     throw new Error(JSON.stringify(err));
   }
 };
 
 export const postRol = async (data: RoleFormType) => {
-
   const permisos = data.permissions.map(permiso => ({
     idPermission: permiso.id,
     name: permiso.name,
-    description: permiso.description
+    description: permiso.description,
   }));
 
   const RolData = {
@@ -47,11 +44,10 @@ export const postRol = async (data: RoleFormType) => {
   try {
     //const adaptedRolData = adaptFrontRolModelToDTO(data);
     // TODO: Hacer el adaptador de formRolType a un DTO válido para el backend
-    console.log(data.state)
     const response = await api.post<AxiosResponse>(
       RolesEndpoints.postRol,
-      RolData ,
-    );   
+      RolData,
+    );
     return response;
   } catch (error) {
     console.error(error);
@@ -63,7 +59,7 @@ export const putRol = async (data: RoleFormType, id: number) => {
     const permisos = data.permissions.map(permiso => ({
       idPermission: permiso.id,
       name: permiso.name,
-      description: permiso.description
+      description: permiso.description,
     }));
 
     const updatedRolData = {
@@ -82,4 +78,3 @@ export const putRol = async (data: RoleFormType, id: number) => {
     throw error; // Lanzar el error para manejarlo en el componente
   }
 };
-

@@ -118,13 +118,9 @@ const useRegisterUser = () => {
     handleNextStep();
     setIsLoading(true);
     try {
-      if (userType === 'volunter') {
-        await postVolunteer(userData as VolunterUserModel);
-      } else {
-        await postUserCompany(userData as CompanyUserModel);
-      }
+      if (userType === 'volunter') await postVolunteer(userData as VolunterUserModel);
+      else await postUserCompany(userData as CompanyUserModel);
       setIsLoading(false);
-
       void Swal.fire({
         title: t('alertText.userCreated'),
         confirmButtonText: t('generalButtonText.accept'),
@@ -132,7 +128,13 @@ const useRegisterUser = () => {
         navigate(PathNames.USERS, { replace: true });
       });
     } catch (e: any) {
-      alert(`Error creating user ${JSON.stringify(e.message)}`);
+      setIsLoading(false);
+      void Swal.fire({
+        title: t('alertText.generalError'),
+        text: e.response.data ? e.response.data.message : t('alertText.inputErrors'),
+        icon: 'error',
+        confirmButtonText: t('generalButtonText.accept'),
+      });
     }
   };
 

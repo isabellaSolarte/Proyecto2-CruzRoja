@@ -12,6 +12,9 @@ import {
 } from '../../components';
 import { useState } from 'react';
 import TabsAtomComponent from '../../components/Atoms/CustomTabs/TabsAtomComponent';
+import { useUserActions } from '../../recoil';
+import { useNavigate } from 'react-router-dom';
+import { PathNames } from '../../core';
 
 const CompoentesPage = () => {
   const [switchState, setSwitchState] = useState(false);
@@ -25,10 +28,20 @@ const CompoentesPage = () => {
     setDisableInput(!disableInput);
   };
 
+  const user = useUserActions().getLoggedUser();
+  const navigate = useNavigate();
+
   //const [step, setStep] = useState(0);
 
   return (
     <Container>
+      {JSON.stringify(user)}
+      <CustomButton
+        content="NAVEGAR A LOGIN"
+        onClick={() => {
+          navigate(PathNames.LOGIN, { replace: true });
+        }}
+      />
       <Container sx={{ display: 'flex', gap: 2 }}>
         <CustomButton content="boton" onClick={handleInput} variant="contained" color="success" />
         <CustomInput
