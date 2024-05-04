@@ -164,6 +164,9 @@
         "title": "Empresa"
     },
     "alertText": {
+        "error": "Error",
+        "errorDescription": "Hubo un problema al procesar la solicitud",
+        "correctOperation": "¡Éxito!",
         "userCreated": "Usuario creado exitosamente",
         "rolCreate": "El rol se ha creado exitosamente",
         "rolEdit": "El rol se ha actualizado exitosamente",
@@ -175,6 +178,6 @@
         "placeholderSearch": "Buscar por nombre",
         "nameCategory": "Nombre de la categoria",
         "scope": "Alcance",
-        "description": "Breve descripción (máximo 50 caracteres)"
+        "description": "Breve descripción (máximo 250 caracteres)"
     }
 }

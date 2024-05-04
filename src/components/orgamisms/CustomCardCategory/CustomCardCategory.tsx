@@ -55,7 +55,7 @@ const CustomCardCategory = ({idCategory, categoryName ,categoryScope ,categoryDe
       </CardActionArea>
       <Collapse in={expanded} timeout="auto" unmountOnExit></Collapse>
       <CardActions disableSpacing>
-        <Box sx={{ display: 'flex',justifyContent: 'space-between', width: '100%' }}>
+        <Box sx={{ display: 'flex',justifyContent: 'space-between', width: '100%',height:'100%'  }}>
           <CustomButton
             variant="contained"
             color="info"

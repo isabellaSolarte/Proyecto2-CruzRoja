@@ -73,10 +73,12 @@ export const useCreateRolForm = (
       if(PathNames.CREATE_ROLE.toString() === location.pathname){
         
         await postRol(updateRol);
-        console.log("Datos enviador rol:", updateRol)
         void Swal.fire({
-          title: t('alertText.rolCreate'),
+          title: t('alertText.correctOperation'),
+          text: t('alertText.rolCreate'),
+          icon: 'success',
           confirmButtonText: t('generalButtonText.accept'),
+          
         }).then(() => {
           navigate(PathNames.ROLES, { replace: true });
         });
@@ -85,11 +87,11 @@ export const useCreateRolForm = (
       }else{
 
         const rolId = location.pathname.split('/').pop();
-        await putRol(updateRol, Number(rolId))
-        console.log("Datos enviador rol:", updateRol)
-        console.log("Datos id rol:", updateRol)
+        await putRol(updateRol, Number(rolId));
         void Swal.fire({
-          title: t('alertText.rolEdit'),
+          title: t('alertText.correctOperation'),
+          text: t('alertText.rolEdit'),
+          icon: 'success',
           confirmButtonText: t('generalButtonText.accept'),
         }).then(() => {
           navigate(PathNames.ROLES, { replace: true });
@@ -97,7 +99,15 @@ export const useCreateRolForm = (
 
       }
     } catch (error: any) {
-      alert(`Error creating user ${error.message}`);
+      void Swal.fire({
+        title: t('alertText.error'),
+        text:  t('alertText.errorDescription'),
+        icon: 'error',
+        confirmButtonText: t('generalButtonText.accept'),
+      }).then(() => {
+        navigate(PathNames.ROLES, { replace: true });
+      });
+      throw error;
     }
 
   };
@@ -130,7 +140,7 @@ export const useCreateRolForm = (
   useEffect(() => {
     loadPermissions();
     reset(rolData);
-  }, [rolData]); // Para renderizar los permisos solo en la carga inicial
+  }, [rolData]);
 
   return { 
     permissionList, 

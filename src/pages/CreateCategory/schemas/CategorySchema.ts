@@ -10,7 +10,7 @@ export const categorySchema = yup
     descripction: yup.string()
     .required('La descripción no puede estar vacia')
     .min(2, 'La descripción debe tener mas de 2 caracteres')
-    .max(50, 'La descripción no puede tener mas de 50 caracteres'),
+    .max(255, 'La descripción no puede tener mas de 255 caracteres'),
     scope: yup.string()
     .required('no puede estar vacio')
         
