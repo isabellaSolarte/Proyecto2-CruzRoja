@@ -5,66 +5,73 @@ import { CustomButton } from '../../Atoms';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { PathNames } from '../../../core';
+import './CustomCardStyle.css';
 
+interface CustomCardCategoryProps{
+  idCategory:number;
+  categoryName: string;
+  categoryScope: string;
+  categoryDescription: string;
+}
+const CustomCardCategory = ({idCategory, categoryName ,categoryScope ,categoryDescription }:CustomCardCategoryProps) => {
+  const { t } = useTranslation('commons');
+  const navigate = useNavigate();
+  const [expanded, setExpanded] = useState(false);
+  const maxDescriptionLength = 130;
 
-const CustomCardCategory = () => {
-    const [expanded, setExpanded] = useState(false);
-    const maxTextLength = 100; // Define la longitud máxima del texto que se mostrará sin expandir
-  
-    const handleExpandClick = () => {
-      setExpanded(!expanded);
-    };
-  
-    const getContent = () => {
-      if (expanded) {
-        return (
-          <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica. Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica.
-          </Typography>
-        );
-      } else {
-        return (
-          <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica...
-          </Typography>
-        );
-      }
-    };
-  
-    return (
-      <Card sx={{ maxWidth: 345 }}>
-        <CardActionArea onClick={handleExpandClick}>
-          <CardMedia
-            component="img"
-            height="140"
-            src="/icono-calculadora.png"
-            alt="categoría"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              Lizard
-            </Typography>
-            <Collapse in={true} collapsedHeight={maxTextLength}>
-              {getContent()}
-            </Collapse>
-          </CardContent>
-        </CardActionArea>
-        <CardActions disableSpacing>
-          <IconButton
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more"
-          >
-            {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-          </IconButton>
-          <Button size="small" color="primary">
-            Share
-          </Button>
-        </CardActions>
-      </Card>
-    );
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
   };
 
+  const getDescriptionToShow = () => {
+    return expanded ? categoryDescription : `${categoryDescription.slice(0, maxDescriptionLength)}...`;
+  };
+
+  const handleEditButtonClick = () => {
+    navigate(PathNames.EDIT_CATEGORY.replace(':id', idCategory.toString()));
+    console.log(PathNames.EDIT_CATEGORY.replace(':id', idCategory.toString()))
+  };
+
+  return (
+    <Card sx={{ width: 345, transition: 'transform 0.2s', '&:hover': { transform: 'scale(1.01)' } }}>
+      <CardActionArea onClick={handleExpandClick}>
+        <CardMedia
+          component="img"
+          height="140"
+          src="/imagen-categoria.png"
+          alt="categoría"
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h6" component="div">
+            {categoryName}
+          </Typography>
+          <Typography variant="body1" component="div">
+            {categoryScope}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {getDescriptionToShow()}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      <Collapse in={expanded} timeout="auto" unmountOnExit></Collapse>
+        <CardActions disableSpacing>
+          <CustomButton 
+          variant="contained"
+          color="info"
+          sx={{ mt: 1, mb: 1 }}
+          fullWidth
+          onClick={handleEditButtonClick}
+          content={t('generalButtonText.edit')}
+          />
+          <IconButton
+              aria-expanded={expanded}
+              aria-label="show more"
+              onClick={handleExpandClick}
+            >
+              {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            </IconButton>     
+      </CardActions>
+    </Card>
+  );
+};
 export default CustomCardCategory;

@@ -4,11 +4,7 @@ import React from "react";
 import { Box, Container, Grid } from "@mui/material";
 import { CustomButton, CustomText, ManagmentLayout } from "../../components";
 import { PathNames } from "../../core";
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
+import { useCategoriesForm } from "./hooks/useCategoriesForm";
 import CustomCardCategory from "../../components/orgamisms/CustomCardCategory/CustomCardCategory";
 
 
@@ -19,6 +15,9 @@ const CategoriesList = () => {
     const handleCreateButtonClick = () => {
         navigate(PathNames.CREATE_CATEGORY);
       };
+    const{
+        categoryList
+    }= useCategoriesForm()
    
   
     return (
@@ -44,11 +43,21 @@ const CategoriesList = () => {
                 </Box>
             }
             generalContents={
+                <Box mt={2} sx={{ borderTop: '1px solid #C8C8C8', paddingTop: '20px', display: "flex", flexWrap: 'wrap', gap: '20px' }}>
+                    {categoryList.map((category, index) => (
+                        <CustomCardCategory
+                            idCategory={category.id}
+                            categoryName={category.name}
+                            categoryScope={category.scope}
+                            categoryDescription={category.descripction}
+                        
+                        />
+                    ))} 
+                       
+                </Box>
 
+               
           
-               <CustomCardCategory 
-            
-             />
             }
       />
     );
