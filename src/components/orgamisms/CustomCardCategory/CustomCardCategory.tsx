@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ExpandMore as ExpandMoreIcon, ExpandLess as ExpandLessIcon } from '@mui/icons-material';
-import { Card, CardActionArea, CardContent, CardActions, CardMedia, Typography, Button, Collapse, IconButton, Box } from '@mui/material';
+import { Card, CardActionArea, CardContent, CardActions, CardMedia, Typography, Collapse, IconButton, Box} from '@mui/material';
 import { CustomButton } from '../../Atoms';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -54,22 +54,23 @@ const CustomCardCategory = ({idCategory, categoryName ,categoryScope ,categoryDe
         </CardContent>
       </CardActionArea>
       <Collapse in={expanded} timeout="auto" unmountOnExit></Collapse>
-        <CardActions disableSpacing>
-          <CustomButton 
-          variant="contained"
-          color="info"
-          sx={{ mt: 1, mb: 1 }}
-          fullWidth
-          onClick={handleEditButtonClick}
-          content={t('generalButtonText.edit')}
+      <CardActions disableSpacing>
+        <Box sx={{ display: 'flex',justifyContent: 'space-between', width: '100%' }}>
+          <CustomButton
+            variant="contained"
+            color="info"
+            sx={{ mt: 1, mb: 1 }}
+            onClick={handleEditButtonClick}
+            content={t('generalButtonText.edit')}
           />
           <IconButton
-              aria-expanded={expanded}
-              aria-label="show more"
-              onClick={handleExpandClick}
-            >
-              {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-            </IconButton>     
+            aria-expanded={expanded}
+            aria-label="show more"
+            onClick={handleExpandClick}
+          >
+            {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          </IconButton>
+        </Box>
       </CardActions>
     </Card>
   );

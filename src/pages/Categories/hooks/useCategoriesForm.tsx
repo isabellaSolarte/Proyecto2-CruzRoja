@@ -13,7 +13,7 @@ export const useCategoriesForm = ()=>{
         setError(null);
 
         try {
-            const categories = await getCategories(); // Obtengo la lista de permisos
+            const categories = await getCategories(); 
             setCategoryList(categories);
         } catch (error) {
             setError(error as Error);

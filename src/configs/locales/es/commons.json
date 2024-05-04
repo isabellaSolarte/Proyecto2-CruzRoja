@@ -172,6 +172,7 @@
         "updateStateConfirmation": "¿Estás seguro de cambiar el estado de este {{userType}}?"
     },
     "registerCategory": {
+        "placeholderSearch": "Buscar por nombre",
         "nameCategory": "Nombre de la categoria",
         "scope": "Alcance",
         "description": "Breve descripción (máximo 50 caracteres)"
