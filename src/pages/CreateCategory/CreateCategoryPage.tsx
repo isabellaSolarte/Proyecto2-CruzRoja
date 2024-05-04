@@ -5,7 +5,7 @@ import { Box, Grid } from '@mui/material';
 import EnergySavingsLeafIcon from '@mui/icons-material/EnergySavingsLeaf';
 import { useCreateCategory } from './hooks/useCreateCategory';
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react'; // Importa useState
 import { CategoryType } from './types/CategoryTypes';
 import { OptionSelector } from '../../models';
 import { yupResolver } from '@hookform/resolvers/yup'; 
@@ -15,7 +15,7 @@ const CreateCategoryPage = () => {
   const { t } = useTranslation('commons');
   const { id } = useParams<{ id: string }>();
   const { category, loadCategoryById, createOrUpdateCategory } = useCreateCategory();
-  const { register, handleSubmit, control, formState: { errors } } = useForm<CategoryType>({
+  const { register, handleSubmit, control, formState: { errors }, setValue } = useForm<CategoryType>({ // Agrega setValue
     resolver: yupResolver(categorySchema), 
   });
   const options: OptionSelector[] = [
@@ -23,9 +23,18 @@ const CreateCategoryPage = () => {
     { value: 'Alcance 2', label: 'Alcance 2' },
     { value: 'Alcance 3', label: 'Alcance 3' }
   ];
+
   useEffect(() => {
     void loadCategoryById(Number(id));
-  }, []);
+  }, [id]);
+
+  useEffect(() => {
+    if (category) {
+      setValue('name', category.name); // Actualiza el valor por defecto del nombre
+      setValue('descripction', category.descripction); // Actualiza el valor por defecto de la descripción
+      setValue('scope', category.scope); // Actualiza el valor por defecto del alcance
+    }
+  }, [category, setValue]); // Ejecuta el efecto cuando category o setValue cambien
 
   const onSubmit = handleSubmit((data) => {
     createOrUpdateCategory(data);
@@ -34,7 +43,7 @@ const CreateCategoryPage = () => {
   return (
     <ManagmentLayout
       title={<CustomText texto={t('pageTitles.registerCategory')} variante="titulo" />}
-      generalContents={
+      generalContents={ // Renderiza el formulario independientemente de la carga de la categoría
         <Box>
           <form onSubmit={onSubmit}>
             <Grid container spacing={2}>
@@ -48,7 +57,6 @@ const CreateCategoryPage = () => {
                 <CustomInput
                   placeholder={t('Nombre')}
                   size="medium"
-                  defaultValue={category ? category?.name : '' }
                   props={register('name')}
                 />
                 {errors.name && <span>{errors.name.message}</span>} 
@@ -65,14 +73,12 @@ const CreateCategoryPage = () => {
                   label={t('Alcance')} 
                   labelId="scope" 
                   control={control} 
-                  sx={{ backgroundColor: '#f5f5f5' }}
+                  sx={{ backgroundColor: '#FCFCFC' }}
                   disabled={false}
                   error={!!errors.scope} 
                   readOnly={false}
                   required={true}
-                  defaultValue={category ? category?.scope : '' }
                 />
-                {errors.scope && <span>{errors.scope.message}</span>} 
               </Grid>
               <Grid item xs={12}>
                 <CustomText
@@ -82,20 +88,13 @@ const CreateCategoryPage = () => {
                   mandatory
                 />
                 <CustomInput
-                  placeholder={t('Descripcion')}
+                  placeholder={t('Descripción')}
                   size="medium"
-                  defaultValue={category ? category?.descripction : '' }
                   props={register('descripction')}
                 />
                 {errors.descripction && <span>{errors.descripction.message}</span>} 
               </Grid>
               <Grid item xs={12} md={6}>
-                <CustomButton
-                  content={t('components.stepper.back')}
-                  onClick={() => {
-                    // Acciones para ir hacia atrás
-                  }}
-                />
               </Grid>
               <Grid item xs={12} md={6}>
                 <CustomButton
