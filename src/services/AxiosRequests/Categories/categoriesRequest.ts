@@ -2,6 +2,9 @@ import { CategoryAdapter } from "../../../adapters";
 import { api } from '../api';
 import { CategoriesEndpoints } from "./Endpoints";
 import { CategoryModel } from "../../../models";
+import { adaptCategoryModelToDTO } from "../../Adapters_DTO/CategoryDTOAdapter";
+import { AxiosResponse } from "axios";
+import { CategoryType } from "../../../pages/CreateCategory/types/CategoryTypes";
 
 export const getCategories = async():Promise<CategoryModel[]> => {
     try {
@@ -22,6 +25,40 @@ export const getCategories = async():Promise<CategoryModel[]> => {
       return adaptedCategory;
     } catch (error) {
       throw new Error(JSON.stringify(error));
+    }
+  };
+
+  export const postCategory = async (data: CategoryType) => {
+    try {
+      const newCategoryData = adaptCategoryModelToDTO(data);
+  
+      const response = await api.post<AxiosResponse>(
+        CategoriesEndpoints.postCategory,
+        newCategoryData,
+      );
+  
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  };
+  
+  export const putCategory = async (data: CategoryType, idCategory: number) => {
+    try {
+          const updatedCategoryData = {
+      ...data,
+      id: idCategory, // Usar el id como identificador
+ 
+    };
+      console.log("datos a enviar a put:",updatedCategoryData)
+      const response = await api.put<AxiosResponse>(
+        CategoriesEndpoints.putCategory,
+        updatedCategoryData,
+      );
+  
+      return response;
+    } catch (error) {
+      throw error;
     }
   };
 
