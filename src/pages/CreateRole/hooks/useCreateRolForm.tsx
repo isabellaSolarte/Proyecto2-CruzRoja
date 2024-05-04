@@ -73,6 +73,7 @@ export const useCreateRolForm = (
       if(PathNames.CREATE_ROLE.toString() === location.pathname){
         
         await postRol(updateRol);
+        console.log("Datos enviador rol:", updateRol)
         void Swal.fire({
           title: t('alertText.rolCreate'),
           confirmButtonText: t('generalButtonText.accept'),
@@ -85,6 +86,8 @@ export const useCreateRolForm = (
 
         const rolId = location.pathname.split('/').pop();
         await putRol(updateRol, Number(rolId))
+        console.log("Datos enviador rol:", updateRol)
+        console.log("Datos id rol:", updateRol)
         void Swal.fire({
           title: t('alertText.rolEdit'),
           confirmButtonText: t('generalButtonText.accept'),

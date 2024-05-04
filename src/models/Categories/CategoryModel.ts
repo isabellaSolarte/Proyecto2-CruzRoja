@@ -4,3 +4,4 @@ export interface CategoryModel {
   descripction: string;
   scope: string;
 }
+

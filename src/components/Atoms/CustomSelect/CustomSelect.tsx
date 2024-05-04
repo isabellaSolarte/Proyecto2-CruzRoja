@@ -19,6 +19,7 @@ interface CustomSelectProps {
   readOnly?: boolean;
   required?: boolean;
   onChangeAction?: Function;
+  defaultValue?: string | number; 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control: Control<any>;
   sx?: SxProps;
@@ -66,7 +67,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
         <Controller
           name={labelId}
           control={control}
-          defaultValue=""
+          defaultValue={props.defaultValue || ""}
           render={({ field }) => (
             <Select
               {...field}
