@@ -5,14 +5,17 @@ import { Box, Grid } from '@mui/material';
 import EnergySavingsLeafIcon from '@mui/icons-material/EnergySavingsLeaf';
 import { useCreateCategory } from './hooks/useCreateCategory';
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react'; // Importa useState
+import { useEffect, useState } from 'react'; 
 import { CategoryType } from './types/CategoryTypes';
 import { OptionSelector } from '../../models';
 import { yupResolver } from '@hookform/resolvers/yup'; 
 import { categorySchema } from './schemas/CategorySchema'; 
+import { useNavigate } from "react-router-dom";
+import { PathNames } from '../../core';
 
 const CreateCategoryPage = () => {
   const { t } = useTranslation('commons');
+  const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const { category, loadCategoryById, createOrUpdateCategory } = useCreateCategory();
   const { register, handleSubmit, control, formState: { errors }, setValue } = useForm<CategoryType>({ // Agrega setValue
@@ -23,6 +26,9 @@ const CreateCategoryPage = () => {
     { value: 'Alcance 2', label: 'Alcance 2' },
     { value: 'Alcance 3', label: 'Alcance 3' }
   ];
+  const handleCreateButtonClick = () => {
+    navigate(PathNames.CATEGORIES);
+  };
 
   useEffect(() => {
     void loadCategoryById(Number(id));
@@ -94,17 +100,21 @@ const CreateCategoryPage = () => {
                 />
                 {errors.descripction && <span>{errors.descripction.message}</span>} 
               </Grid>
-              <Grid item xs={12} md={6}>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <CustomButton
-                  content={t('generalButtonText.save')}
-                  type="submit"
-                  variant="contained"
-                  color="success"
-                />
-              </Grid>
+              
             </Grid>
+            <Box mt={4} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+              
+                  <CustomButton
+                      content={t('components.stepper.back')} 
+                      onClick={handleCreateButtonClick}
+                  />
+                   <CustomButton
+                    content={t('generalButtonText.save')}
+                    type="submit"
+                    variant="contained"
+                    color="success"
+                  />
+                 </Box>    
           </form>
         </Box>
       }
