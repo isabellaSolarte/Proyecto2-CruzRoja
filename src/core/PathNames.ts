@@ -46,4 +46,6 @@ export enum PathNames {
   LOGIN = '/login',
 
   NOT_FOUND = '/404',
+
+  LANDIN_PAGE = '/landingpage',
 }

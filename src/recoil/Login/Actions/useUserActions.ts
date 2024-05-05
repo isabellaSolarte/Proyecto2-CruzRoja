@@ -11,17 +11,24 @@ const useUserActions = () => {
   const [auth, setAuth] = useRecoilState(authAtom);
   const [user, setUser] = useRecoilState(userAtom);
   const navigate = useNavigate();
-
+ 
   useEffect(() => {
+    // Verificar si hay datos guardados en el almacenamiento local al cargar la aplicación
+    const savedAuth = localStorage.getItem('authAtom');
+    const savedUser = localStorage.getItem('user');    
+    if (savedAuth && savedUser) {
+      setAuth(savedAuth);
+      setUser(JSON.parse(savedUser));
+    }
     if (auth) {
       api.interceptors.request.use(config => {
         config.headers.Authorization = `Bearer ${auth}`;
         return config;
       });
     }
-  }, [auth]);
+  }, [auth, setAuth, setUser]);
 
-  async function login(credentiasl: Credentials) {
+  async function login(credentiasl: Credentials, rememberMe: boolean) {
     try {
       const logedUser = await LoginRequest(credentiasl);
       setAuth(logedUser.token);
@@ -30,6 +37,19 @@ const useUserActions = () => {
       
       const userData: UserModel = logedUser.user;
       setUser(userData);
+
+      // Guardar datos en localStorage si se marcó "Recuérdame"
+      console.log('rememberMe:', rememberMe);
+      
+      if (rememberMe) {
+        //"authAtom"
+        localStorage.setItem('authAtom', logedUser.token);
+        localStorage.setItem('user', JSON.stringify(userData));
+      } else {
+        // Limpiar datos guardados si no se marcó "Recuérdame"
+        localStorage.removeItem('authAtom');
+        localStorage.removeItem('user');
+      }
 
       navigate(PathNames.USERS);
     } catch (error) {
@@ -44,8 +64,9 @@ const useUserActions = () => {
   function logout() {
     setAuth(undefined);
     setUser(undefined);
+    localStorage.removeItem('authAtom');
+    localStorage.removeItem('user');
     // remove user from local storage, set auth state to null and redirect to login page
-    localStorage.removeItem('auth');
     // setAuth(null);
     // history.push('/account/login');
   }
@@ -72,7 +93,7 @@ const useUserActions = () => {
     login,
     logout,
     getLoggedUser,
-    resetUser: useResetRecoilState(authAtom),
+    resetUser: useResetRecoilState(authAtom)
   };
 };
 
