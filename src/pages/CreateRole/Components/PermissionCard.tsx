@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { CustomCard, CustomIconDetails } from '../../../components';
 import { PermissionModel } from '../../../models';
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip';
+import { PermissionsList } from '../../../utils/Permissions';
 
 interface PermissionCardProps {
   permission: PermissionModel;
@@ -10,42 +11,24 @@ interface PermissionCardProps {
   negativeAction: () => void;
 }
 
-interface PermissionMessageMap {
-  [key: number]: string;
-}
-
-const permissionMessages: PermissionMessageMap = {
-  100: 'Listar roles',
-  101: 'Crear roles',
-  102: 'Actualizar roles',
-  103: 'Eliminar roles',
-  104: 'Consultar roles',
-  105: 'Listar permisos',
-  200: 'Listar voluntarios',
-  201: 'Crear voluntarios',
-  202: 'Actualizar voluntarios',
-  203: 'Consultar voluntarios',
-  204: 'Actualizar posición voluntario',
-  300: 'Listar empresas',
-  301: 'Crear empresa',
-  302: 'Actualizar empresa',
-  303: 'Consultar empresa',
-  304: 'Consultar documento de empresa'
-};
-
-const PermissionCard = ({ permission, addedPermissions, positiveAction, negativeAction }: PermissionCardProps) => {
+const PermissionCard = ({
+  permission,
+  addedPermissions,
+  positiveAction,
+  negativeAction,
+}: PermissionCardProps) => {
   const [switchState, setSwitchState] = useState(false);
 
   const isPermissionAdded = () => {
-    addedPermissions?.map((permiso)=> {
-      if (permiso.id === permission.id){
-        setSwitchState(true)
+    addedPermissions?.map(permiso => {
+      if (permiso.id === permission.id) {
+        setSwitchState(true);
       }
-    })
+    });
   };
 
   useEffect(() => {
-    isPermissionAdded()
+    isPermissionAdded();
   }, [addedPermissions, permission]);
 
   const handleSwitch = () => {
@@ -60,7 +43,7 @@ const PermissionCard = ({ permission, addedPermissions, positiveAction, negative
   return (
     <CustomCard
       key={permission.id}
-      texto1={permissionMessages[permission.id]}
+      texto1={PermissionsList[permission.id]}
       texto2={''}
       sx={{ marginBottom: '1rem', backgroundColor: '#D9D9D9' }}
       switchState={switchState}
