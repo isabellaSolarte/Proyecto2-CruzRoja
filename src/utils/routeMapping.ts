@@ -1,4 +1,4 @@
-import { PathNames } from "../core";
+import { PathNames } from '../core';
 
 const mapRoutes = new Map();
 mapRoutes.set(100, PathNames.ROLES);
@@ -20,8 +20,12 @@ mapRoutes.set(301, PathNames.CREATE_BUSINESS);
 mapRoutes.set(302, PathNames.EDIT_BUSINESS);
 mapRoutes.set(303, PathNames.VIEW_BUSINESS);
 
+mapRoutes.set(400, PathNames.CATEGORIES);
+mapRoutes.set(401, PathNames.CREATE_CATEGORY);
+mapRoutes.set(402, PathNames.EDIT_CATEGORY);
+mapRoutes.set(403, PathNames.VIEW_CATEGORY);
 
-export default mapRoutes
+export default mapRoutes;
 
 /*   allowedRoutes: [
     PathNames.USERS,

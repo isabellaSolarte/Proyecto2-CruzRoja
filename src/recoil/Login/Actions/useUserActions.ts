@@ -11,11 +11,11 @@ const useUserActions = () => {
   const [auth, setAuth] = useRecoilState(authAtom);
   const [user, setUser] = useRecoilState(userAtom);
   const navigate = useNavigate();
- 
+
   useEffect(() => {
     // Verificar si hay datos guardados en el almacenamiento local al cargar la aplicación
     const savedAuth = localStorage.getItem('authAtom');
-    const savedUser = localStorage.getItem('user');    
+    const savedUser = localStorage.getItem('user');
     if (savedAuth && savedUser) {
       setAuth(savedAuth);
       setUser(JSON.parse(savedUser));
@@ -33,14 +33,9 @@ const useUserActions = () => {
       const logedUser = await LoginRequest(credentiasl);
       setAuth(logedUser.token);
 
-      console.log('logedUser: ', logedUser);
-      
       const userData: UserModel = logedUser.user;
       setUser(userData);
 
-      // Guardar datos en localStorage si se marcó "Recuérdame"
-      console.log('rememberMe:', rememberMe);
-      
       if (rememberMe) {
         //"authAtom"
         localStorage.setItem('authAtom', logedUser.token);
@@ -93,7 +88,7 @@ const useUserActions = () => {
     login,
     logout,
     getLoggedUser,
-    resetUser: useResetRecoilState(authAtom)
+    resetUser: useResetRecoilState(authAtom),
   };
 };
 
