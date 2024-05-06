@@ -4,16 +4,21 @@ const mapRoutes = new Map();
 mapRoutes.set(100, PathNames.ROLES);
 mapRoutes.set(101, PathNames.CREATE_ROLE);
 mapRoutes.set(102, PathNames.EDIT_ROLE);
-mapRoutes.set(103, PathNames.PERMISSIONS);
-mapRoutes.set(104, PathNames.CREATE_PERMISSION);
-mapRoutes.set(105, PathNames.EDIT_PERMISSION);
+mapRoutes.set(103, PathNames.VIEW_ROLE);
+
+mapRoutes.set(105, PathNames.PERMISSIONS);
+mapRoutes.set(106, PathNames.CREATE_PERMISSION);
+mapRoutes.set(107, PathNames.EDIT_PERMISSION);
 
 mapRoutes.set(200, PathNames.USERS);
 mapRoutes.set(201, PathNames.REGISTER_USER);
 mapRoutes.set(202, PathNames.EDIT_USER);
-mapRoutes.set(203, PathNames.CREATE_BUSINESS);
-mapRoutes.set(204, PathNames.BUSINESS);
-mapRoutes.set(205, PathNames.EDIT_BUSINESS);
+mapRoutes.set(203, PathNames.VIEW_USER);
+
+mapRoutes.set(300, PathNames.BUSINESS);
+mapRoutes.set(301, PathNames.CREATE_BUSINESS);
+mapRoutes.set(302, PathNames.EDIT_BUSINESS);
+mapRoutes.set(303, PathNames.VIEW_BUSINESS);
 
 
 export default mapRoutes
