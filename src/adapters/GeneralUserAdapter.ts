@@ -20,8 +20,6 @@ export const GeneralUserAdapter = (externalUser: any): UserModel => {
     });
   });
 
-  console.log('rutas disponibles: ', allowedRoutes);
-
   return {
     id: externalUser.documentNumber,
     documentType: externalUser.documentType,
