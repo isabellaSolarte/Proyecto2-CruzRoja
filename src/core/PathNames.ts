@@ -37,6 +37,8 @@ export enum PathNames {
 
   STATISTICS = '/statistics',
 
+  ASSESSMENT = '/assessment',
+
   SETTINGS = '/settings',
 
   CLOSE_SESSION = '/close-session',

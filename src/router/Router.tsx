@@ -21,6 +21,10 @@ const Router = () => {
 
   const routerObjects: RouteObject[] = routes.map(getRouteObject);
   routerObjects.push({
+    path: PathNames.ASSESSMENT,
+    element: <h1>ASSESSMENT</h1>,
+  });
+  routerObjects.push({
     path: PathNames.LANDIN_PAGE,
     element: <LandingPage />,
   });
