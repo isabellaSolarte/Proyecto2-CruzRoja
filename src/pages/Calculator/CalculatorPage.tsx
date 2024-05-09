@@ -1,15 +1,10 @@
-import { CustomStepper, CustomText, ManagmentLayout } from '../../components';
+import { CustomStepper } from '../../components';
 
 const CalculatorPage = () => {
   return (
-    <ManagmentLayout
-      title={<CustomText texto={''} variante={'texto'} />}
-      generalContents={
-        <CustomStepper stepsData={[]} activeStep={0}>
-          <div></div>
-        </CustomStepper>
-      }
-    />
+    <CustomStepper stepsData={[]} activeStep={0}>
+      <div></div>
+    </CustomStepper>
   );
 };
 
