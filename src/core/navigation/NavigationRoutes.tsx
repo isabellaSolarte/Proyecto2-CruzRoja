@@ -18,6 +18,7 @@ import { Navigate } from 'react-router-dom';
 import ClassIcon from '@mui/icons-material/Class';
 import CategoriesList from '../../pages/Categories/ListCategoriesPage';
 import { CreateCategoryPage } from '../../pages/CreateCategory';
+import CalculateIcon from '@mui/icons-material/Calculate';
 
 export const NavigationRoutes = () => {
   const { t } = useTranslation('commons');
@@ -126,6 +127,7 @@ export const NavigationRoutes = () => {
       path: PathNames.CALCULATOR,
       component: <h1>CALCULADORA</h1>,
       title: t('menuOptions.calculator'),
+      icon: <CalculateIcon />,
     },
   ];
 
