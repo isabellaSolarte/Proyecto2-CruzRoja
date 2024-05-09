@@ -2,9 +2,10 @@
 import { UserModel } from '../models';
 import { RolAdapter } from './RoleAdapter';
 import mapRoutes from '../utils/routeMapping';
+import { PathNames } from '../core';
 
 export const GeneralUserAdapter = (externalUser: any): UserModel => {
-  const allowedRoutes: any[] = [];
+  const allowedRoutes: any[] = [PathNames.CALCULATOR];
 
   externalUser.roles.forEach((rol: any) => {
     rol.permissions.forEach((permiso: any) => {

@@ -44,7 +44,7 @@ export const NavigationRoutes = () => {
       path: PathNames.CATEGORIES,
       component: <CategoriesList />,
       title: t('menuOptions.categories'),
-      icon: <ClassIcon />
+      icon: <ClassIcon />,
     },
     {
       path: PathNames.REGISTER_USER,
@@ -54,7 +54,7 @@ export const NavigationRoutes = () => {
     {
       path: PathNames.VIEW_USER,
       component: <ViewUserPage />,
-      title: 'VER USUARIO',
+      title: t('menuOptions.userView'),
     },
     {
       path: PathNames.ROLES,
@@ -100,29 +100,33 @@ export const NavigationRoutes = () => {
     {
       path: PathNames.CREATE_ROLE,
       component: <CreateRolePage />,
-      title: 'CREAR ROLES',
+      title: t('menuOptions.createRoles'),
     },
     {
       path: PathNames.EDIT_ROLE,
       component: <CreateRolePage />,
-      title: 'EDITAR ROL',
+      title: t('menuOptions.editRoles'),
     },
     {
       path: PathNames.EDIT_USER,
       component: <EditUserPage />,
-      title: 'EDITAR USUARIO',
+      title: t('menuOptions.editUser'),
     },
     {
       path: PathNames.CREATE_CATEGORY,
       component: <CreateCategoryPage />,
-      title: 'CREAR CATEOGRIA',
+      title: t('menuOptions.createCategory'),
     },
     {
       path: PathNames.EDIT_CATEGORY,
       component: <CreateCategoryPage />,
-      title: 'EDITAR CATEGORIA',
+      title: t('menuOptions.editCategory'),
     },
-    
+    {
+      path: PathNames.CALCULATOR,
+      component: <h1>CALCULADORA</h1>,
+      title: t('menuOptions.calculator'),
+    },
   ];
 
   return routes;
