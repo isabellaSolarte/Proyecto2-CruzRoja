@@ -1,7 +1,11 @@
 import SourceCategory from '../types/SourcesCategory';
 import * as yup from 'yup';
 
-
+export const defaulCategorySchema: SourceCategory = {
+    id: 0,
+    name: '',
+    sources: []
+};
 export const defaultSourcesCategory: SourceCategory[] = [
     {
         id: 1,
@@ -71,19 +75,25 @@ export const defaultSourcesCategory: SourceCategory[] = [
 export const sourcesCategoryValidation = yup
     .object()
     .shape({
+        id: yup
+            .number()
+            .required('El id es requerido de SourcesCategory'),
         name: yup
             .string()
-            .required('El nombre es requerido'),
+            .required('El nombre es requerido de SourcesCategory'),
         sources: yup
             .array()
             .of(
                 yup.object().shape({
+                    id: yup
+                        .number()
+                        .required('El id es requerido de sources'),
                     name: yup
                         .string()
-                        .required('El nombre es requerido'),
+                        .required('El nombre es requerido de sources'),
                     state: yup
                         .boolean()
-                        .required('El estado es requerido')
+                        .required('El estado es requerido de sources')
                 })
             )
             .min(1, 'Se requiere al menos una fuente')

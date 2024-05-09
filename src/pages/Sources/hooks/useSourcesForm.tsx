@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { defaultSourcesCategory, sourcesCategoryValidation, defaulCategorySchema } from '../Schemas/SourcesSchema';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 interface SourcesFormState {
     // TODO: Definir el tipo de las propiedades del formulario
@@ -11,9 +13,12 @@ const useSourcesForm = () => {
         handleSubmit,
         register,
         formState: { errors },
-      } = useForm();
+      } = useForm({
+        defaultValues: defaulCategorySchema,
+        resolver: yupResolver(sourcesCategoryValidation),
+      });
       
-
+      
       const [isLoading, setIsLoading] = useState(false);
       const [error, setError] = useState<string | null>(null);
       const onSubmit = async (data: any) => {
