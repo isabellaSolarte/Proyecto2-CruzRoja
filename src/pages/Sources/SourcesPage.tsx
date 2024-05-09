@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { CustomText, ManagmentLayout } from "../../components";
-import { FuentesDataForm } from "./Form";
+import { SourcesDataForm } from "./Form";
 
 const SourcesPage = () => {
     const { t } = useTranslation('commons');
@@ -11,7 +11,7 @@ const SourcesPage = () => {
         generalContents={
             <div>
                 <CustomText texto="Seleccione sus fuentes de emision." variante="texto"/>
-                <FuentesDataForm/>
+                <SourcesDataForm/>
             </div>
         }
         />

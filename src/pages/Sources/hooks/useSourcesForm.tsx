@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-interface FuentesFormState {
+interface SourcesFormState {
     // TODO: Definir el tipo de las propiedades del formulario
 }
 
