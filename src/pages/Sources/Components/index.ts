@@ -1,1 +1,1 @@
-export {default as FuentesCard} from './FuentesCard';
+export {default as SourcesCard} from './SourcesCard';
