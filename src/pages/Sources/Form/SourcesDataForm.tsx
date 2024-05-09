@@ -12,7 +12,7 @@ import { FuentesCard } from "../Components";
       handleSwitchState={handleSwitchState}
       sx={{ marginBottom: '1rem', backgroundColor: '#D9D9D9' }}
     />*/
-const FuentesDataForm = () => {
+const SourcesDataForm = () => {
     const {
         handleSubmit,
         onSubmit,
@@ -49,4 +49,4 @@ const FuentesDataForm = () => {
     );
 };
 
-export default FuentesDataForm;
+export default SourcesDataForm;

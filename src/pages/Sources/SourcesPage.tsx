@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { CustomText, ManagmentLayout } from "../../components";
 import { FuentesDataForm } from "./Form";
 
-const FuentesPage = () => {
+const SourcesPage = () => {
     const { t } = useTranslation('commons');
 
     return (
@@ -18,4 +18,4 @@ const FuentesPage = () => {
     );
 };
 
-export default FuentesPage;
+export default SourcesPage;

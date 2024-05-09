@@ -5,7 +5,7 @@ interface FuentesFormState {
     // TODO: Definir el tipo de las propiedades del formulario
 }
 
-const useFuentesForm = () => {
+const useSourcesForm = () => {
     
     const {
         handleSubmit,
@@ -36,4 +36,4 @@ const useFuentesForm = () => {
     };
 };
 
-export default useFuentesForm;
+export default useSourcesForm;
