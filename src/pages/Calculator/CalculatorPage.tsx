@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-
-const CalculatorPage = () => {
-  
-  
-    
-=======
 import { CustomStepper } from '../../components';
 
 const CalculatorPage = () => {
@@ -13,7 +6,6 @@ const CalculatorPage = () => {
       <div>{/* AQUI PONER SUS FORMULARIOS POR AHORA PARA QUE PRUEBEN */}</div>
     </CustomStepper>
   );
->>>>>>> origin/DevelopAll
 };
 
 export default CalculatorPage;
