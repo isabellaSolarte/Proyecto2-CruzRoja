@@ -60,6 +60,7 @@ const DrawerMenu = ({ options }: CollapseMenuProps) => {
   const [open, setOpen] = useState(false);
 
   const availableDrawerOptions = [
+    PathNames.CALCULATOR,
     PathNames.BUSINESS,
     PathNames.PLANS,
     PathNames.ACTIVITY,
