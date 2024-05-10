@@ -1,9 +1,14 @@
 import { CustomStepper } from '../../components';
+import { CategoriesForm } from './forms';
+import CoverageForm from './forms/CoverageForm';
 
 const CalculatorPage = () => {
   return (
     <CustomStepper stepsData={[]} activeStep={0}>
-      <div>{/* AQUI PONER SUS FORMULARIOS POR AHORA PARA QUE PRUEBEN */}</div>
+      
+          <CategoriesForm //todo implementar adaptador
+          />
+
     </CustomStepper>
   );
 };

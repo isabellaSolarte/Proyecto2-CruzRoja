@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { CategoryModel } from '../../../models';
 import { getCategories } from '../../../services/AxiosRequests/Categories';
 
-export const useCategoriesForm = ()=>{
+export const useCategoriesCalculatorForm = ()=>{
 
     const[categoryList,setCategoryList] = useState<CategoryModel[]>([]);
     const [isLoading, setIsLoading] = useState(false);

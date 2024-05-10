@@ -24,7 +24,8 @@
         "activities": "Actividades",
         "plans": "Planes de compensación",
         "permissions": "Permisos",
-        "categories": "Categorías"
+        "categories": "Categorías",
+        "calculator": "Calculadora"
     },
     "pageTitles": {
         "users": "Gestión de usuarios",
@@ -55,11 +56,16 @@
         }
     },
     "categoryPages": {
-        "desciption": {
+        "description": {
             "generalDescription": "Las categorías en el contexto del cálculo de la huella de carbono son un conjunto de actividades, que ayudan a identificar y clasificar las diferentes fuentes de emisiones de carbono en función de su naturaleza. "
-        
         }
         
+    },
+    "calculatorPage":{
+        "descriptions":{
+            "descriptionCategories": "Seleccione las categorías a las que le realizará el cálculo de emisión"
+        }
+       
     },
 
     "usersPages": {
