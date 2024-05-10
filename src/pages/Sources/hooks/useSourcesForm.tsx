@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { defaultSourcesCategory, sourcesCategoryValidation, defaulCategorySchema } from '../Schemas/SourcesSchema';
+import { defaulSourcesSchema,defaulSourceSchema, sourcesSchema,sourceSchema } from '../Schemas/SourcesSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 interface SourcesFormState {
@@ -14,8 +14,8 @@ const useSourcesForm = () => {
         register,
         formState: { errors },
       } = useForm({
-        defaultValues: defaulCategorySchema,
-        resolver: yupResolver(sourcesCategoryValidation),
+        defaultValues: defaulSourceSchema,
+        resolver: yupResolver(sourceSchema),
       });
       
       

@@ -1,102 +1,27 @@
-import SourceCategory from '../types/SourcesCategory';
+import SourcesType from '../types/SourcesType';
 import * as yup from 'yup';
 
-export const defaulCategorySchema: SourceCategory = {
+export const defaulSourceSchema: SourcesType = {
     id: 0,
+    categoryName: '',
     name: '',
-    sources: []
+    description: '',
+    state: false,
 };
-export const defaultSourcesCategory: SourceCategory[] = [
+export const defaulSourcesSchema: SourcesType[] = [
     {
-        id: 1,
-        name: 'Category 1',
-        sources: [
-            {
-                id: 1,
-                name: 'Source 1',
-                state: false
-            },
-            {
-                id: 2,
-                name: 'Source 2',
-                state: false
-            },
-            {
-                id: 3,
-                name: 'Source 3',
-                state: false
-            }
-        ]
+        ...defaulSourceSchema
     },
-    {
-        id: 2,
-        name: 'Category 2',
-        sources: [
-            {
-                id: 4,
-                name: 'Source 4',
-                state: false
-            },
-            {
-                id: 5,
-                name: 'Source 5',
-                state: false
-            },
-            {
-                id: 6,
-                name: 'Source 6',
-                state: false
-            }
-        ]
-    },
-    {
-        id: 3,
-        name: 'Category 3',
-        sources: [
-            {
-                id: 7,
-                name: 'Source 7',
-                state: false
-            },
-            {
-                id: 8,
-                name: 'Source 8',
-                state: false
-            },
-            {
-                id: 9,
-                name: 'Source 9',
-                state: false
-            }
-        ]
-    }
 ];
 
-export const sourcesCategoryValidation = yup
-    .object()
-    .shape({
-        id: yup
-            .number()
-            .required('El id es requerido de SourcesCategory'),
-        name: yup
-            .string()
-            .required('El nombre es requerido de SourcesCategory'),
-        sources: yup
-            .array()
-            .of(
-                yup.object().shape({
-                    id: yup
-                        .number()
-                        .required('El id es requerido de sources'),
-                    name: yup
-                        .string()
-                        .required('El nombre es requerido de sources'),
-                    state: yup
-                        .boolean()
-                        .required('El estado es requerido de sources')
-                })
-            )
-            .min(1, 'Se requiere al menos una fuente')
-            .required('Se requiere al menos una fuente')
-    })
-    .required();
+export const sourceSchema = yup.object().shape({
+    id: yup.number().required('El campo "id" es requerido.'),
+    categoryName: yup.string().required('El campo "categoryName" es requerido.'),
+    name: yup.string().required('El campo "name" es requerido.'),
+    description: yup.string().required('El campo "description" es requerido.'),
+    state: yup.boolean().required('El campo "state" es requerido.'),
+});
+
+export const sourcesSchema = yup.array().of(
+    sourceSchema
+).min(1, 'Debe tener al menos una fuente.').required();

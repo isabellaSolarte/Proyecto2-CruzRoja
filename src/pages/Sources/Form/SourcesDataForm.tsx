@@ -1,61 +1,68 @@
 import { Box } from '@mui/material';
-import { CustomAccordion, CustomButton, CustomCard } from '../../../components';
+import { CustomAccordion, CustomButton, CustomCard, ErrorText } from '../../../components';
 import { useSourcesForm } from '../hooks';
-import { sourcesDictionaryPrueba } from './sourcesDictionary';
+import { sourcesDictionaryPrueba2 } from './sourcesDictionary';
 import { SourcesCard } from '../Components';
 import { useEffect, useState } from 'react';
-import { defaultSourcesCategory } from '../Schemas';
+import { defaulSourceSchema } from '../Schemas';
+import { Category } from '@mui/icons-material';
+import SourcesType from '../types/SourcesType';
 
 const SourcesDataForm = () => {
-  const { handleSubmit, onSubmit, register } = useSourcesForm();
-  const [sourcesDictionary, setSourcesDictionary] = useState(defaultSourcesCategory);
+  const { handleSubmit, onSubmit, register, errors } = useSourcesForm();
+  const [sourcesDictionary, setSourcesDictionary] = useState([defaulSourceSchema]);
   useEffect(() => {
-    setSourcesDictionary(sourcesDictionaryPrueba);
+    setSourcesDictionary(sourcesDictionaryPrueba2);
   }, []);
 
   const handleSwitchState = (sourceId: number) => {
-    // TODO: Implementar la lógica para cambiar el estado de la fuente en sourcesDictionary
-    // 1. Crear una copia de sourcesDictionary
     const updatedSourcesDictionary = [...sourcesDictionary];
-
-    // 2. Buscar la fuente con el id sourceId
-    const categoryIndex = updatedSourcesDictionary.findIndex(category =>
-      category.sources.some(source => source.id === sourceId),
-    );
-    const sourceIndex = updatedSourcesDictionary[categoryIndex].sources.findIndex(
-      source => source.id === sourceId,
-    );
-
-    // 3. Cambiar el estado de la fuente
-    updatedSourcesDictionary[categoryIndex].sources[sourceIndex].state =
-      !updatedSourcesDictionary[categoryIndex].sources[sourceIndex].state;
-
-    // 4. Actualizar sourcesDictionary con la nueva fuente
-    setSourcesDictionary(updatedSourcesDictionary);
+    const sourceIndex = updatedSourcesDictionary.findIndex(source => source.id === sourceId);
+    if (sourceIndex !== -1) {
+      const updatedSource = { ...updatedSourcesDictionary[sourceIndex] };
+      updatedSource.state = !updatedSource.state;
+      updatedSourcesDictionary[sourceIndex] = updatedSource;
+      setSourcesDictionary(updatedSourcesDictionary);
+    }
   };
+  const groupedBycategoryName: { [categoryName: string]: SourcesType[] } = sourcesDictionary.reduce((acc, curr) => {
+    if (acc[curr.categoryName]) {
+        acc[curr.categoryName].push(curr);
+    } else {
+        acc[curr.categoryName] = [curr];
+    }
+    return acc;
+}, {});
 
   return (
     <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mt={4}>
-          {sourcesDictionary.map(category => (
-            <CustomAccordion
-              key={category.id}
-              accordionSummary={category.name}
-              contentAccordion={
-                <Box>
-                  {category.sources.map(source => (
-                    <SourcesCard
-                      key={source.id}
-                      Sources={source}
-                      handleSwitchState={() => handleSwitchState(source.id)}
-                      props={register('source')}
-                    />
-                  ))}
-                </Box>
-              }
-            />
-          ))}
+          {
+            Object.entries(groupedBycategoryName).map(([categoryName, source]) => (
+              <CustomAccordion 
+                key={categoryName}
+                accordionSummary={categoryName} 
+                contentAccordion={
+                  <Box>
+                    {
+                      source.map((source) => (
+                        <SourcesCard
+                          key={source.id}
+                          source={source}
+                          handleSwitchState={() => handleSwitchState(source.id)}
+                          props={register('source')}
+                        />
+                      ))
+                    }
+                    {errors.name && <ErrorText  error={errors.name.message} formErrorKey="userFormErrorsSources"/>}
+                  </Box>
+                }
+              />
+              )
+            )
+          }
+          {errors.categoryName && <ErrorText  error={errors.categoryName.message} formErrorKey="userFormErrorsSources"/>}
         </Box>
         <Box mt={4} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
           <CustomButton content="Atras" onClick={() => {}} />

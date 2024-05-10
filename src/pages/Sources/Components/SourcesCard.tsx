@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
-import { CustomCard } from '../../../components';
+import { CustomCard, CustomIconDetails } from '../../../components';
 import SourcesType from '../types/SourcesType';
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip';
 
 interface SourcesCardProps {
-  Sources: SourcesType;
+  source: SourcesType;
   handleSwitchState: () => void;
 }
 
 const SourcesCard = (
-    { Sources, handleSwitchState }: SourcesCardProps
+    { source, handleSwitchState }: SourcesCardProps
 ) => {
   const [switchState, setSwitchState] = useState(false);
 
@@ -24,12 +24,17 @@ const SourcesCard = (
 
   return (
     <CustomCard
-      key={Sources.id}
-      texto1={Sources.name}
+      key={source.id}
+      texto1={source.name}
       sx={{ marginBottom: '1rem', backgroundColor: '#D9D9D9' }}
-      switchState={Sources.state}
+      switchState={source.state}
       handleSwitchState={handleSwitch}
-      icon={<PrivacyTipIcon color={'warning'} />}
+      icon={
+        <CustomIconDetails
+            description={source.description}
+            icon={<PrivacyTipIcon color={'warning'} />}
+          />
+        }
     />
   );
 };
