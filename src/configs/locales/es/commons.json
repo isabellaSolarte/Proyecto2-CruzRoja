@@ -35,7 +35,14 @@
         "userView": "Visualizar usuario",
         "registerCategory": "Registro de categoria",
         "listCategories": "Categorías",
-        "sources": "Fuentes"
+        "sources": "Fuentes",
+        "createRoles": "Crear rol",
+        "editRoles": "Editar rol",
+        "editCategory": "Editar categoria",
+        "viewCategory": "Visualizar categoria",
+        "createCategory": "Crear categoria",
+        "calculator": "Calculadora",
+        "editUser": "Editar usuario"
     },
     "rolesPages": {
         "tabs": {
