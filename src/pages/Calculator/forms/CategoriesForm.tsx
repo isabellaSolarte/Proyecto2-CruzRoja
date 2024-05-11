@@ -3,6 +3,7 @@ import { CustomText, ManagmentLayout } from "../../../components";
 import { useTranslation }  from 'react-i18next';
 import { useCategoriesCalculatorForm } from "../hooks/userCategoriesCalculatorForm";
 import CustomCardCategory from "../../../components/orgamisms/CustomCardCategory/CustomCardCategory";
+import CustomCardCalculatorCategory from "../../../components/orgamisms/CustomCardCalculatorCategory/CustomCardCalculatorCategory";
 
 const CategoriesForm = () => {
     const {t} = useTranslation('commons');
@@ -14,7 +15,7 @@ const CategoriesForm = () => {
             title={
                     <Box>
                         <CustomText 
-                            texto={t('pageTitles.listCategories')} 
+                            texto={t('pageTitles.caculatorCatogories')} 
                             variante={'titulo'} 
                          />
                         <Box mt = {2}>
@@ -23,9 +24,9 @@ const CategoriesForm = () => {
                     </Box>
                 }
             generalContents={
-                <Box mt={1} sx={{ borderTop: '1px solid #C8C8C8', paddingTop: '20px', display: "flex", flexWrap: 'wrap', gap: '20px' }}>
+                <Box mt={1} sx={{ borderTop: '1px solid #C8C8C8', paddingTop: '20px', display: "flex", flexWrap: 'wrap', gap: '50px' }}>
                     {categoryList.map((category) => (
-                        <CustomCardCategory
+                        <CustomCardCalculatorCategory
                             idCategory={category.id}
                             categoryName={category.name}
                             categoryScope={category.scope}

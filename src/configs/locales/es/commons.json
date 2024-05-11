@@ -41,7 +41,8 @@
         "viewCategory": "Visualizar categoria",
         "createCategory": "Crear categoria",
         "calculator": "Calculadora",
-        "editUser": "Editar usuario"
+        "editUser": "Editar usuario",
+        "caculatorCatogories": "Categorías de calculadora"
     },
     "rolesPages": {
         "tabs": {
