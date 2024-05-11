@@ -1,15 +1,14 @@
 import { Box } from '@mui/material';
-import { CustomAccordion, CustomButton, CustomCard, ErrorText } from '../../../components';
+import { CustomAccordion, CustomButton, ErrorText } from '../../../components';
 import { useSourcesForm } from '../hooks';
 import { sourcesDictionaryPrueba2 } from './sourcesDictionary';
 import { SourcesCard } from '../Components';
 import { useEffect, useState } from 'react';
 import { defaulSourceSchema } from '../Schemas';
-import { Category } from '@mui/icons-material';
 import SourcesType from '../types/SourcesType';
 
 const SourcesDataForm = () => {
-  const { handleSubmit, onSubmit, register, errors } = useSourcesForm();
+  const { handleSubmit, onSubmit, register, errors, addSource, removeSource } = useSourcesForm();
   const [sourcesDictionary, setSourcesDictionary] = useState([defaulSourceSchema]);
   useEffect(() => {
     setSourcesDictionary(sourcesDictionaryPrueba2);
@@ -21,6 +20,14 @@ const SourcesDataForm = () => {
     if (sourceIndex !== -1) {
       const updatedSource = { ...updatedSourcesDictionary[sourceIndex] };
       updatedSource.state = !updatedSource.state;
+      if (updatedSource.state) {
+        addSource(updatedSource);
+      } else {
+        console.log('removeSource:', updatedSource.name);
+        console.log('updatedSource:', updatedSource);
+        
+        removeSource(updatedSource.name);
+      }
       updatedSourcesDictionary[sourceIndex] = updatedSource;
       setSourcesDictionary(updatedSourcesDictionary);
     }
@@ -51,18 +58,17 @@ const SourcesDataForm = () => {
                           key={source.id}
                           source={source}
                           handleSwitchState={() => handleSwitchState(source.id)}
-                          props={register('source')}
+                          props={register('sources')}
                         />
                       ))
                     }
-                    {errors.name && <ErrorText  error={errors.name.message} formErrorKey="userFormErrorsSources"/>}
                   </Box>
                 }
               />
               )
             )
           }
-          {errors.categoryName && <ErrorText  error={errors.categoryName.message} formErrorKey="userFormErrorsSources"/>}
+          {errors.sources && <ErrorText  error={errors.sources.message} formErrorKey="userFormErrorsSources"/>}
         </Box>
         <Box mt={4} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
           <CustomButton content="Atras" onClick={() => {}} />
