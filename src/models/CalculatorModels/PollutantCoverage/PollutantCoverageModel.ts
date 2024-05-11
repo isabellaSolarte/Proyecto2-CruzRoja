@@ -1,7 +1,7 @@
 import { PollutantCostModel } from '../PollutantCost/PollutantCostModel';
 
 export interface PollutantCoverageModel {
-  totalSouces: number;
+  totalSources: number;
   informedSources: number;
-  cost: PollutantCostModel;
+  //cost: PollutantCostModel;
 }

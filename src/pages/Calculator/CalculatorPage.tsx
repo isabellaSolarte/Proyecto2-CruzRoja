@@ -1,9 +1,10 @@
 import { CustomStepper } from '../../components';
+import CoverageForm from './forms/CoverageForm';
 
 const CalculatorPage = () => {
   return (
     <CustomStepper stepsData={[]} activeStep={0}>
-      <div>{/* AQUI PONER SUS FORMULARIOS POR AHORA PARA QUE PRUEBEN */}</div>
+      <CoverageForm />
     </CustomStepper>
   );
 };
