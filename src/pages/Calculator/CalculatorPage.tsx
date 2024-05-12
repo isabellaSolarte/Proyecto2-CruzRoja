@@ -1,9 +1,10 @@
 import { CustomStepper } from '../../components';
+import { CostsAndUsage } from './forms';
 
 const CalculatorPage = () => {
   return (
     <CustomStepper stepsData={[]} activeStep={0}>
-      <div>{/* AQUI PONER SUS FORMULARIOS POR AHORA PARA QUE PRUEBEN */}</div>
+      <div>{<CostsAndUsage/>}</div>
     </CustomStepper>
   );
 };
