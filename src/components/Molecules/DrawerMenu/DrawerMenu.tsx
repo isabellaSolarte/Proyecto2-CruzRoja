@@ -60,6 +60,7 @@ const DrawerMenu = ({ options }: CollapseMenuProps) => {
   const [open, setOpen] = useState(false);
 
   const availableDrawerOptions = [
+    PathNames.CALCULATOR,
     PathNames.BUSINESS,
     PathNames.PLANS,
     PathNames.ACTIVITY,
@@ -70,8 +71,7 @@ const DrawerMenu = ({ options }: CollapseMenuProps) => {
     PathNames.PERMISSIONS,
     PathNames.SETTINGS,
     PathNames.CLOSE_SESSION,
-    PathNames.COMPONETS
-    
+    PathNames.COMPONETS,
   ];
   const drawerOptions = options.filter(option => availableDrawerOptions.includes(option.path));
 

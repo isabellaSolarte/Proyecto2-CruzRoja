@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PathNames } from '../../core';
 
+
 // Estilos para el IconButton
 const LargeIconButton = styled(IconButton)({
   width: '150px', // ajusta el tamaño según sea necesario
@@ -26,7 +27,7 @@ const LargeIconButton = styled(IconButton)({
 
 const LoginPage = () => {
   const theme = useTheme();
-  const { handleSubmit, register, errors, onSubmit } = useLoginForm();
+  const { handleSubmit, register, errors, onSubmit, rememberMe, setRememberMe } = useLoginForm();
 
   const user = useRecoilValue(userAtom);
   const navigate = useNavigate();
@@ -119,7 +120,7 @@ const LoginPage = () => {
                 }}
               />
               <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
+                control={<Checkbox value="remember" color="primary" checked={rememberMe} onChange={(e) => { setRememberMe(e.target.checked); }}/>}
                 label="Recuerdame"
                 sx={{
                   '& .MuiTypography-root': {
