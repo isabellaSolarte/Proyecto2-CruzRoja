@@ -6,6 +6,6 @@ export interface PollutionTypeModel {
   name: string;
   description: string;
   unity: PollutionUnity;
-  categoryId: number;
+  emissionFactor: number;
   sources: SourceModel[];
 }

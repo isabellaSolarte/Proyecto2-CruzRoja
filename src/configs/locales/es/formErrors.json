@@ -106,6 +106,12 @@
             "required": "Los permisos son un campo obligatorio."
         }
 
+    },
+    "calculator": {
+        "coverageForm": {
+            "totalSource": "El número de fuentes totales es requerido",
+            "informedSource": "El número de fuentes informadas es requerido"
+        }
     }
     
 }
