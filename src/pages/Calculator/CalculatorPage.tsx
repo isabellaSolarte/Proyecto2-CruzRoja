@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import { CustomButton, CustomStepper } from '../../components';
-import useCalculatorSteps from './hooks/useCalculator'; // Asegúrate de ajustar la ruta según la ubicación del hook
+import useCalculatorSteps from './hooks/useCalculator';
 import { CoverageForm } from './CoverageForm';
 
 const CalculatorPage = () => {
