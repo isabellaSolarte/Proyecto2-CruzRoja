@@ -1,36 +1,39 @@
 import { Box, Grid } from '@mui/material';
 import { CustomInput, CustomSelect, CustomText, ManagmentLayout } from '../../../components';
-import { useCoverageForm } from '../CoverageForm/hooks';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { costsAndUsageSchema } from './Schemas/CostsAndUsageSchema';
 import { OptionSelector, PollutantCostModel } from '../../../models';
 
 const options: OptionSelector[] = [
-    { value: 1, label: 'Enero' },
-    { value: 2, label: 'Febrero' },
-    { value: 3, label: 'Marzo' },
-    { value: 4, label: 'Abril' },
-    { value: 5, label: 'Mayo' },
-    { value: 6, label: 'Junio' },
-    { value: 7, label: 'Julio' },
-    { value: 8, label: 'Agosto' },
-    { value: 9, label: 'Septiembre' },
-    { value: 10, label: 'Octubre' },
-    { value: 11, label: 'Noviembre' },
-    { value: 12, label: 'Diciembre' }
-  ];
-  
+  { value: 1, label: 'Enero' },
+  { value: 2, label: 'Febrero' },
+  { value: 3, label: 'Marzo' },
+  { value: 4, label: 'Abril' },
+  { value: 5, label: 'Mayo' },
+  { value: 6, label: 'Junio' },
+  { value: 7, label: 'Julio' },
+  { value: 8, label: 'Agosto' },
+  { value: 9, label: 'Septiembre' },
+  { value: 10, label: 'Octubre' },
+  { value: 11, label: 'Noviembre' },
+  { value: 12, label: 'Diciembre' },
+];
+
 const CostsAndUsageForm = () => {
   //const { t } = useCoverageForm();
-  const { register, handleSubmit, control, formState: { errors }, setValue } = useForm<PollutantCostModel>({ 
-    resolver: yupResolver(costsAndUsageSchema), 
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+    setValue,
+  } = useForm<PollutantCostModel>({
+    resolver: yupResolver(costsAndUsageSchema),
   });
 
-
   const onSubmit = (data: any) => {
-    console.log('Datos a enviar', data); 
-  
+    console.log('Datos a enviar', data);
   };
 
   return (
@@ -45,16 +48,16 @@ const CostsAndUsageForm = () => {
                 <CustomInput placeholder={'Ingrese costo'} size="medium" props={register('cost')} />
                 {errors.cost && <span>{errors.cost.message}</span>}
               </Grid>
-              <Grid item xs={12} md={6} sx={{ marginBottom: 2 }}> 
-              <CustomText texto={'Mes de evaluación'} variante="subtitulo" mandatory />             
-              <CustomSelect
+              <Grid item xs={12} md={6} sx={{ marginBottom: 2 }}>
+                <CustomText texto={'Mes de evaluación'} variante="subtitulo" mandatory />
+                <CustomSelect
                   options={options}
-                  label={'Mes'} 
-                  labelId="month" 
-                  control={control} 
-                  sx={{ backgroundColor: '#FCFCFC'}}
+                  label={'Mes'}
+                  labelId="month"
+                  control={control}
+                  sx={{ backgroundColor: '#FCFCFC' }}
                   disabled={false}
-                  error={!!errors.month} 
+                  error={!!errors.month}
                   readOnly={false}
                   required={true}
                 />
