@@ -5,5 +5,6 @@ export interface CategoryModel {
   name: string;
   descripction: string;
   scope: string;
+  state: boolean;
   pollutans: PollutionTypeModel[];
 }
