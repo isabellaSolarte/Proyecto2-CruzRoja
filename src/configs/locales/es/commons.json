@@ -186,5 +186,14 @@
         "nameCategory": "Nombre de la categoria",
         "scope": "Alcance",
         "description": "Breve descripción (máximo 250 caracteres)"
+    },
+    "calculator": {
+        "coverageForm": {
+            "title": "Coberturas",
+            "description": "Indique el número total de fuentes y el número total de fuentes informadas",
+            "totalSources": "totales",
+            "informedSources": "informadas",
+            "source": "Fuente"
+        }
     }
 }

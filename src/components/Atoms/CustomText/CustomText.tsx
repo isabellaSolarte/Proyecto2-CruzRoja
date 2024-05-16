@@ -7,6 +7,7 @@ interface PropiedadesEtiqueta {
   icon?: JSX.Element;
   color?: string;
   styles?: object;
+  textAlign?: 'center' | 'justify' | 'left' | 'right' | 'start';
 }
 
 const putMandatoryAdornment = () => {
@@ -24,6 +25,7 @@ const CustomText = ({
   icon,
   color,
   styles = {},
+  textAlign = 'start',
 }: PropiedadesEtiqueta) => {
   const theme = useTheme();
 
@@ -39,7 +41,7 @@ const CustomText = ({
   };
 
   return (
-    <Box display="flex" alignItems="center" gap={0.3}>
+    <Box display="flex" alignItems="center" justifyContent={textAlign} gap={0.3}>
       {icon && icon}
       <Typography
         variant={

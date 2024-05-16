@@ -19,7 +19,7 @@ import ClassIcon from '@mui/icons-material/Class';
 import CategoriesList from '../../pages/Categories/ListCategoriesPage';
 import { CreateCategoryPage } from '../../pages/CreateCategory';
 import CalculateIcon from '@mui/icons-material/Calculate';
-import { CalculatorPage } from '../../pages/Calculator';
+import CalculatorPage from '../../pages/Calculator/CalculatorPage';
 
 export const NavigationRoutes = () => {
   const { t } = useTranslation('commons');

@@ -3,12 +3,15 @@ import { useTranslation } from 'react-i18next';
 
 interface ErrorTextProps {
   error: string | undefined;
-  formErrorKey: string;
+  formErrorKey: string | undefined;
 }
 
 const ErrorText = ({ error, formErrorKey }: ErrorTextProps) => {
   const { t } = useTranslation('formErrors');
   if (!error) return null;
+  if (!formErrorKey) formErrorKey = 'default';
+  console.log(error);
+  console.log(formErrorKey);
   return (
     <span style={{ fontSize: 13, display: 'flex', alignItems: 'center' }}>
       <ErrorOutlineIcon sx={{ fontSize: 16 }} color="error" />
