@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import { CustomButton, CustomStepper } from '../../components';
-import useCalculatorSteps from './hooks/useCalculator';
+import useCalculatorSteps from './hooks/useCalculator'; // Asegúrate de ajustar la ruta según la ubicación del hook
 import { CoverageForm } from './CoverageForm';
 
 const CalculatorPage = () => {
@@ -29,7 +29,41 @@ const CalculatorPage = () => {
           />
         </div>
       )}
-      {currentStep === 1 && <CoverageForm sources={[]} />}
+      {currentStep > 0 && (
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+          <Box sx={{ width: '50%', textAlign: 'center' }}>
+            <Typography variant="h5" sx={{ mt: 4, mb: 2 }}>
+              {stepList[currentStep].label}
+            </Typography>
+          </Box>
+          <Box sx={{ width: '100%', textAlign: 'center' }}>
+            <div>
+              {currentStep === 2 && <div> </div>}
+              {currentStep === 3 && <div> </div>}
+              {currentStep === 4 && <div> <CoverageForm sources={[]} /> </div>}
+              {currentStep === 5 && <div>  </div>}
+              {currentStep === 6 && <div> </div>}
+              {currentStep === 7 && <div> </div>}
+            </div>
+          </Box>
+          <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', padding: '0 20%' }}>
+            <CustomButton
+              variant="contained"
+              color="primary"
+              content={'Atrás'}
+              onClick={handleStepBack}
+            />
+            {currentStep < stepList.length - 1 && (
+              <CustomButton
+                variant="contained"
+                color="info"
+                content={'Siguiente'}
+                onClick={handleNextStep}
+              />
+            )}
+          </Box>
+        </div>
+      )}
     </CustomStepper>
   );
 };

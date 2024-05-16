@@ -12,15 +12,45 @@ const useCalculator = () => {
   const [stepList, setStepList] = useState<StepProps[]>([
     {
       completed: false,
-      label: 'Inicio',
+      label: 'Bienvenido',
       optional: false,
       id: 0,
     },
     {
       completed: false,
-      label: 'Paso 1',
+      label: 'Categorías',
       optional: false,
       id: 1,
+    },
+    {
+      completed: false,
+      label: 'Contaminantes',
+      optional: false,
+      id: 2,
+    },
+    {
+      completed: false,
+      label: 'Fuentes',
+      optional: false,
+      id: 3,
+    },
+    {
+      completed: false,
+      label: 'Coberturas',
+      optional: false,
+      id: 4,
+    },
+    {
+      completed: false,
+      label: 'Consumos y Costos',
+      optional: false,
+      id: 5,
+    },
+    {
+      completed: false,
+      label: 'Validación',
+      optional: false,
+      id: 6,
     },
   ]);
 
