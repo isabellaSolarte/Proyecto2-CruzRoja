@@ -7,11 +7,17 @@ import { useEffect, useState } from 'react';
 import { defaulSourceSchema } from '../Schemas';
 import SourcesType from '../types/SourcesType';
 
-const SourcesDataForm = () => {
+interface SourcesDataFormProps {
+  sources: SourcesType[];
+}
+
+const SourcesDataForm = (
+  { sources }: SourcesDataFormProps,
+) => {
   const { handleSubmit, onSubmit, register, errors, addSource, removeSource } = useSourcesForm();
   const [sourcesDictionary, setSourcesDictionary] = useState([defaulSourceSchema]);
   useEffect(() => {
-    setSourcesDictionary(sourcesDictionaryPrueba2);
+    setSourcesDictionary(sources || sourcesDictionaryPrueba2);
   }, []);
 
   const handleSwitchState = (sourceId: number) => {
@@ -21,11 +27,10 @@ const SourcesDataForm = () => {
       const updatedSource = { ...updatedSourcesDictionary[sourceIndex] };
       updatedSource.state = !updatedSource.state;
       if (updatedSource.state) {
+        console.log('addSource:', updatedSource.name);
         addSource(updatedSource);
       } else {
         console.log('removeSource:', updatedSource.name);
-        console.log('updatedSource:', updatedSource);
-        
         removeSource(updatedSource.name);
       }
       updatedSourcesDictionary[sourceIndex] = updatedSource;

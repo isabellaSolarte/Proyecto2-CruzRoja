@@ -7,6 +7,10 @@ export const defaulSourceSchema: SourcesType = {
     name: '',
     description: '',
     state: false,
+    coverage: {
+        totalSources: 0,
+        informedSources: 0,
+    },
 };
 export const defaulSourcesSchema: Array<SourcesType> = [
     {
@@ -15,6 +19,10 @@ export const defaulSourcesSchema: Array<SourcesType> = [
         name: '',
         description: '',
         state: false,
+        coverage: {
+            totalSources: 0,
+            informedSources: 0,
+        },
     },
     {
         id: 1,
@@ -22,6 +30,10 @@ export const defaulSourcesSchema: Array<SourcesType> = [
         name: '',
         description: '',
         state: false,
+        coverage: {
+            totalSources: 0,
+            informedSources: 0,
+        },
     },
 ]
 
@@ -31,6 +43,10 @@ export const sourceSchema = yup.object().shape({
     name: yup.string().required('El campo "name" es requerido.'),
     description: yup.string().required('El campo "description" es requerido.'),
     state: yup.boolean().required('El campo "state" es requerido.').default(false),
+    coverage: yup.object().shape({
+        totalSources: yup.number().required('El campo "totalSources" es requerido.').default(0),
+        informedSources: yup.number().required('El campo "informedSources" es requerido.').default(0),
+    }).required(),
 });
 
 export const sourcesSchema = yup.array().of(

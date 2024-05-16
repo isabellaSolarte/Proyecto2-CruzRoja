@@ -1,4 +1,3 @@
-import SourcesCategory from "../types/SourcesCategory";
 import SourcesType from "../types/SourcesType";
 const sourcesDictionaryPrueba2:SourcesType[]=[
     {
@@ -7,6 +6,10 @@ const sourcesDictionaryPrueba2:SourcesType[]=[
         name: "Calderas",
         description: "Descripción de las calderas",
         state: false,
+        coverage: {
+            totalSources: 0,
+            informedSources: 0,
+        }
     },
     {
         id: 2,
@@ -14,6 +17,10 @@ const sourcesDictionaryPrueba2:SourcesType[]=[
         name: "Hornos",
         description: "Descripción de los hornos",
         state: false,
+        coverage: {
+            totalSources: 0,
+            informedSources: 0,
+        }
     },
     {
         id: 3,
@@ -21,6 +28,10 @@ const sourcesDictionaryPrueba2:SourcesType[]=[
         name: "Turbinas",
         description: "Descripción de las turbinas",
         state: false,
+        coverage: {
+            totalSources: 0,
+            informedSources: 0,
+        }
     },
     {
         id: 4,
@@ -28,6 +39,10 @@ const sourcesDictionaryPrueba2:SourcesType[]=[
         name: "Vehículos Terrestres",
         description: "Motos, automóviles, camionetas, montacargas, buses, furgones etc.",
         state: false,
+        coverage: {
+            totalSources: 0,
+            informedSources: 0,
+        }
     },
     {
         id: 5,
@@ -35,6 +50,10 @@ const sourcesDictionaryPrueba2:SourcesType[]=[
         name: "Vehículos Aéreos",
         description: "Helicópteros, aviones",
         state: false,
+        coverage: {
+            totalSources: 0,
+            informedSources: 0,
+        }
     },
     {
         id: 6,
@@ -42,6 +61,10 @@ const sourcesDictionaryPrueba2:SourcesType[]=[
         name: "Vehículos Marinos",
         description: "Lanchas, barcos",
         state: false,
+        coverage: {
+            totalSources: 0,
+            informedSources: 0,
+        }
     },
     {
         id: 7,
@@ -49,6 +72,10 @@ const sourcesDictionaryPrueba2:SourcesType[]=[
         name: "Procesamiento de Materiales y Químicos",
         description: "Descripción del procesamiento de materiales y químicos",
         state: false,
+        coverage: {
+            totalSources: 0,
+            informedSources: 0,
+        }
     },
     {
         id: 8,
@@ -56,6 +83,10 @@ const sourcesDictionaryPrueba2:SourcesType[]=[
         name: "Cabezas de Ganado Vacuno",
         description: "Descripción de las cabezas de ganado vacuno",
         state: false,
+        coverage: {
+            totalSources: 0,
+            informedSources: 0,
+        }
     },
     {
         id: 9,
@@ -63,6 +94,10 @@ const sourcesDictionaryPrueba2:SourcesType[]=[
         name: "Cabezas de Ganado Porcino",
         description: "Descripción de las cabezas de ganado porcino",
         state: false,
+        coverage: {
+            totalSources: 0,
+            informedSources: 0,
+        }
     },
     {
         id: 10,
@@ -70,6 +105,10 @@ const sourcesDictionaryPrueba2:SourcesType[]=[
         name: "Agroquímicos",
         description: "Descripción de los agroquímicos",
         state: false,
+        coverage: {
+            totalSources: 0,
+            informedSources: 0,
+        }
     },
     {
         id: 11,
@@ -77,6 +116,10 @@ const sourcesDictionaryPrueba2:SourcesType[]=[
         name: "Equipos Asociados Cuartos Fríos",
         description: "Descripción de los equipos asociados a cuartos fríos",
         state: false,
+        coverage: {
+            totalSources: 0,
+            informedSources: 0,
+        }
     },
     {
         id: 12,
@@ -84,6 +127,10 @@ const sourcesDictionaryPrueba2:SourcesType[]=[
         name: "Equipos Asociados Neveras",
         description: "Descripción de los equipos asociados a neveras",
         state: false,
+        coverage: {
+            totalSources: 0,
+            informedSources: 0,
+        }
     },
     {
         id: 13,
@@ -91,6 +138,10 @@ const sourcesDictionaryPrueba2:SourcesType[]=[
         name: "Equipos Asociados Aires Acondicionados",
         description: "Descripción de los equipos asociados a aires acondicionados",
         state: false,
+        coverage: {
+            totalSources: 0,
+            informedSources: 0,
+        }
     },
     {
         id: 14,
@@ -98,6 +149,10 @@ const sourcesDictionaryPrueba2:SourcesType[]=[
         name: "Plantas de Tratamiento",
         description: "Descripción de las plantas de tratamiento",
         state: false,
+        coverage: {
+            totalSources: 0,
+            informedSources: 0,
+        }
     },
 ]
 const sourcesDictionaryPrueba = [
@@ -108,7 +163,11 @@ const sourcesDictionaryPrueba = [
             { id: 1, name: "Calderas", description: "Descripción de las calderas", state: false },
             { id: 2, name: "Hornos", description: "Descripción de los hornos", state: false },
             { id: 3, name: "Turbinas", description: "Descripción de las turbinas", state: false }
-        ]
+        ],
+        coverage: {
+            totalSources: 0,
+            informedSources: 0,
+        }
     },
     {
         id: 2,
@@ -117,14 +176,22 @@ const sourcesDictionaryPrueba = [
             { id: 4, name: "Vehículos Terrestres", description: "Motos, automóviles, camionetas, montacargas, buses, furgones etc.", state: false },
             { id: 5, name: "Vehículos Aéreos", description: "Helicópteros, aviones", state: false },
             { id: 6, name: "Vehículos Marinos", description: "Lanchas, barcos", state: false }
-        ]
+        ],
+        coverage: {
+            totalSources: 0,
+            informedSources: 0,
+        }
     },
     {
         id: 3,
         name: "Procesos Físicos o Químicos",
         sources: [
             { id: 7, name: "Procesamiento de Materiales y Químicos", description: "Descripción del procesamiento de materiales y químicos", state: false }
-        ]
+        ],
+        coverage: {
+            totalSources: 0,
+            informedSources: 0,
+        }
     },
     {
         id: 4,
@@ -133,7 +200,11 @@ const sourcesDictionaryPrueba = [
             { id: 8, name: "Cabezas de Ganado Vacuno", description: "Descripción de las cabezas de ganado vacuno", state: false },
             { id: 9, name: "Cabezas de Ganado Porcino", description: "Descripción de las cabezas de ganado porcino", state: false },
             { id: 10, name: "Agroquímicos", description: "Descripción de los agroquímicos", state: false }
-        ]
+        ],
+        coverage: {
+            totalSources: 0,
+            informedSources: 0,
+        }
     },
     {
         id: 5,
@@ -142,14 +213,22 @@ const sourcesDictionaryPrueba = [
             { id: 11, name: "Equipos Asociados Cuartos Fríos", description: "Descripción de los equipos asociados a cuartos fríos", state: false },
             { id: 12, name: "Equipos Asociados Neveras", description: "Descripción de los equipos asociados a neveras", state: false },
             { id: 13, name: "Equipos Asociados Aires Acondicionados", description: "Descripción de los equipos asociados a aires acondicionados", state: false }
-        ]
+        ],
+        coverage: {
+            totalSources: 0,
+            informedSources: 0,
+        }
     },
     {
         id: 6,
         name: "Tratamiento de Residuos",
         sources: [
             { id: 14, name: "Plantas de Tratamiento", description: "Descripción de las plantas de tratamiento", state: false }
-        ]
+        ],
+        coverage: {
+            totalSources: 0,
+            informedSources: 0,
+        }
     }
 ];
 

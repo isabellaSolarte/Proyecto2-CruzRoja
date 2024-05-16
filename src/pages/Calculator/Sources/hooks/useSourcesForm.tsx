@@ -2,11 +2,8 @@ import { useState } from 'react';
 import { useFieldArray, useForm, con } from 'react-hook-form';
 import { defaulSourcesSchema,defaulSourceSchema, sourcesSchema,sourceSchema, initialSchema, initialSchemaValidation } from '../Schemas/SourcesSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { SourcesType } from '../types/SourcesType';
+import SourcesType  from '../types/SourcesType';
 
-interface SourcesFormState {
-    // TODO: Definir el tipo de las propiedades del formulario
-}
 
 const useSourcesForm = () => {
     
@@ -14,6 +11,7 @@ const useSourcesForm = () => {
         handleSubmit,
         register,
         control,
+        getValues,
         formState: { errors },
       } = useForm({
         resolver: yupResolver(initialSchemaValidation),
@@ -25,6 +23,7 @@ const useSourcesForm = () => {
       });
       const addSource = (source: SourcesType) => {
         sourcesArray.append(source);
+        
       };
 
       const removeSource = (name: string) => {
@@ -37,11 +36,12 @@ const useSourcesForm = () => {
 
       const [isLoading, setIsLoading] = useState(false);
       const [error, setError] = useState<string | null>(null);
-      const onSubmit = async (data: any) => {
+      const onSubmit = () => {
         setIsLoading(true);
         setError(null);
+        console.log('submint useSourcesForm');
         
-        console.log('useFuentesForm data:', data);
+        console.log('useFuentesForm data:', getValues());
 
         
     
