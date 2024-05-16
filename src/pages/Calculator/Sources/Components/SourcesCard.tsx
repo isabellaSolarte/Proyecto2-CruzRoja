@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { CustomCard, CustomIconDetails } from '../../../components';
+import { CustomCard, CustomIconDetails } from '../../../../components';
 import SourcesType from '../types/SourcesType';
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip';
 

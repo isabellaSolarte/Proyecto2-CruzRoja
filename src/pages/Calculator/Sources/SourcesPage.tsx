@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { CustomText, ManagmentLayout } from "../../components";
+import { CustomText, ManagmentLayout } from "../../../components";
 import { SourcesDataForm } from "./Form";
 
 const SourcesPage = () => {

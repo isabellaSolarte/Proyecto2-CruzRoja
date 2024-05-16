@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { CustomAccordion, CustomButton, ErrorText } from '../../../components';
+import { CustomAccordion, CustomButton, ErrorText } from '../../../../components';
 import { useSourcesForm } from '../hooks';
 import { sourcesDictionaryPrueba2 } from './sourcesDictionary';
 import { SourcesCard } from '../Components';
