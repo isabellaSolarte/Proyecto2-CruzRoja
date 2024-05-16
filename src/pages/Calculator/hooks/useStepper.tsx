@@ -7,7 +7,7 @@ interface StepProps {
   id: number;
 }
 
-const useCalculator = () => {
+const useStepper = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [stepList, setStepList] = useState<StepProps[]>([
     {
@@ -80,4 +80,4 @@ const useCalculator = () => {
   };
 };
 
-export default useCalculator;
+export default useStepper;
