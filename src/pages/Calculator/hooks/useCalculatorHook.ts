@@ -37,6 +37,7 @@ const useCalculatorHook = () => {
         name: 'Category 1',
         descripction: 'Description of Category 1',
         scope: 'Scope of Category 1',
+        state: true,
         pollutans: [
           {
             id: 1,
@@ -47,32 +48,41 @@ const useCalculatorHook = () => {
             sources: [
               {
                 id: 1,
-                name: 'Source 1',
-                description: 'Description of Source 1',
-                state: true,
+                name: 'Source 1 - Pollutant 1',
+                description: 'Description of Source 1 - Pollutant 1',
                 coverage: {
                   totalSources: 10,
                   informedSources: 5,
                 },
+                facturation: {
+                  cost: 100,
+                  month: 1,
+                },
               },
               {
                 id: 2,
-                name: 'Source 2',
-                description: 'Description of Source 2',
-                state: true,
+                name: 'Source 2 - Pollutant 1',
+                description: 'Description of Source 2 - Pollutant 1',
                 coverage: {
                   totalSources: 8,
-                  informedSources: 4,
+                  informedSources: 3,
+                },
+                facturation: {
+                  cost: 120,
+                  month: 1,
                 },
               },
               {
                 id: 3,
-                name: 'Source 3',
-                description: 'Description of Source 3',
-                state: true,
+                name: 'Source 3 - Pollutant 1',
+                description: 'Description of Source 3 - Pollutant 1',
                 coverage: {
                   totalSources: 12,
-                  informedSources: 6,
+                  informedSources: 7,
+                },
+                facturation: {
+                  cost: 150,
+                  month: 1,
                 },
               },
             ],
@@ -82,44 +92,51 @@ const useCalculatorHook = () => {
             name: 'Pollutant 2',
             description: 'Description of Pollutant 2',
             unity: PollutionUnity.GR,
-            emissionFactor: 1.2,
+            emissionFactor: 0.8,
             sources: [
               {
                 id: 4,
-                name: 'Source 4',
-                description: 'Description of Source 4',
-                state: true,
+                name: 'Source 1 - Pollutant 2',
+                description: 'Description of Source 1 - Pollutant 2',
                 coverage: {
                   totalSources: 15,
-                  informedSources: 7,
+                  informedSources: 8,
+                },
+                facturation: {
+                  cost: 90,
+                  month: 1,
                 },
               },
               {
                 id: 5,
-                name: 'Source 5',
-                description: 'Description of Source 5',
-                state: true,
+                name: 'Source 2 - Pollutant 2',
+                description: 'Description of Source 2 - Pollutant 2',
                 coverage: {
                   totalSources: 20,
-                  informedSources: 10,
+                  informedSources: 12,
+                },
+                facturation: {
+                  cost: 110,
+                  month: 1,
                 },
               },
               {
                 id: 6,
-                name: 'Source 6',
-                description: 'Description of Source 6',
-                state: true,
+                name: 'Source 3 - Pollutant 2',
+                description: 'Description of Source 3 - Pollutant 2',
                 coverage: {
                   totalSources: 18,
                   informedSources: 9,
                 },
+                facturation: {
+                  cost: 130,
+                  month: 1,
+                },
               },
             ],
           },
-          // Agregar más objetos PollutionTypeModel aquí si es necesario
         ],
       },
-      // Agregar más objetos CategoryModel aquí si es necesario
     ];
 
     console.log(JSON.stringify(categories));
