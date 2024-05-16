@@ -1,10 +1,10 @@
 import { Box, Typography } from '@mui/material';
 import { CustomButton, CustomStepper } from '../../components';
-import useCalculatorSteps from './hooks/useCalculator';
 import { CoverageForm } from './CoverageForm';
+import useCalculator from './hooks/useCalculator';
 
 const CalculatorPage = () => {
-  const { currentStep, stepList, handleNextStep, handleStepBack } = useCalculatorSteps();
+  const { currentStep, stepList, handleNextStep, handleStepBack } = useCalculator();
 
   return (
     <CustomStepper stepsData={stepList} activeStep={currentStep}>
