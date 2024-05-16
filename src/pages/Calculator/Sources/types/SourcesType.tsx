@@ -1,10 +1,5 @@
+import { SourceModel } from "../../../../models";
 
-type SourcesType = {
-    id: number;
-    categoryName: string;
-    name: string;
-    description: string;
-    state: boolean;
-}
+type SourcesType = SourceModel;
 
 export default SourcesType;
