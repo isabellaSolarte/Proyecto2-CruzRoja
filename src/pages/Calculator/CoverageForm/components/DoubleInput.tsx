@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/prop-types */
 import { Box, Grid } from '@mui/material';
-import { CustomText, LabeledInput } from '../../../components';
+import { CustomText, LabeledInput } from '../../../../components';
+import EnergySavingsLeafIcon from '@mui/icons-material/EnergySavingsLeaf';
 
 interface DoubleInputProps {
   mainLabel: string;
@@ -46,7 +47,12 @@ const DoubleInput = ({
       }}
     >
       <Grid item xs={12} md={6}>
-        <CustomText texto={mainLabel} variante={'pequeño'} textAlign="center" />
+        <CustomText
+          texto={mainLabel}
+          variante={'pequeño'}
+          textAlign="center"
+          icon={<EnergySavingsLeafIcon color="success" />}
+        />
         <Box
           sx={{
             display: 'flex',
@@ -61,7 +67,7 @@ const DoubleInput = ({
         </Box>
       </Grid>
 
-      <Grid item xs={12} md={3}>
+      <Grid item xs={6} md={3}>
         <LabeledInput
           label={labelInput1}
           placeholder={''}
@@ -73,7 +79,7 @@ const DoubleInput = ({
         />
       </Grid>
 
-      <Grid item xs={12} md={3}>
+      <Grid item xs={6} md={3}>
         <LabeledInput
           label={labelInput2}
           placeholder={''}
