@@ -3,6 +3,7 @@ import { CustomButton, CustomStepper, CustomText } from '../../components';
 import { CoverageForm } from './CoverageForm';
 import { useCalculatorHook, useStepper } from './hooks';
 import { useEffect } from 'react';
+import CostsAndUsageForm from './CostsAndUsageForm/CostsAndUsageForm';
 
 const CalculatorPage = () => {
   const { currentStep, stepList, handleNextStep, handleStepBack } = useStepper();
@@ -45,7 +46,7 @@ const CalculatorPage = () => {
               {currentStep === 2 && <div> </div>}
               {currentStep === 3 && <div> </div>}
               {currentStep === 4 && <CoverageForm sources={[]} />}
-              {currentStep === 5 && <div> </div>}
+              {currentStep === 5 && <CostsAndUsageForm/>}
               {currentStep === 6 && <div> </div>}
               {currentStep === 7 && <div> </div>}
             </div>
