@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { CustomAccordion, CustomButton, ErrorText } from '../../../../components';
+import { CustomAccordion, CustomButton, CustomText, ErrorText } from '../../../../components';
 import { useSourcesForm } from '../hooks';
 import { sourcesDictionaryPrueba2 } from './sourcesDictionary';
 import { SourcesCard } from '../Components';
@@ -12,13 +12,13 @@ interface SourcesDataFormProps {
 }
 
 const SourcesDataForm = (
-  { sources }: SourcesDataFormProps,
+  { sources = [] }: SourcesDataFormProps,
 ) => {
   const { handleSubmit, onSubmit, register, errors, addSource, removeSource } = useSourcesForm();
   const [sourcesDictionary, setSourcesDictionary] = useState([defaulSourceSchema]);
   useEffect(() => {
-    setSourcesDictionary(sources || sourcesDictionaryPrueba2);
-  }, []);
+    setSourcesDictionary(sources);
+  }, [sources]);
 
   const handleSwitchState = (sourceId: number) => {
     const updatedSourcesDictionary = [...sourcesDictionary];
@@ -48,6 +48,7 @@ const SourcesDataForm = (
 
   return (
     <Box>
+      <CustomText texto="Seleccione sus fuentes de emision." variante="texto"/>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mt={4}>
           {
@@ -75,9 +76,8 @@ const SourcesDataForm = (
           }
           {errors.sources && <ErrorText  error={errors.sources.message} formErrorKey="userFormErrorsSources"/>}
         </Box>
-        <Box mt={4} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-          <CustomButton content="Atras" onClick={() => {}} />
-          <CustomButton content="Siguiente" type="submit" variant="contained" color="success" />
+        <Box mt={4} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly' }}>
+          <CustomButton content="Guardar" type="submit" variant="contained" color="success" />
         </Box>
       </form>
     </Box>
