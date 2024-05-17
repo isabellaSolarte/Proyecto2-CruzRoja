@@ -64,6 +64,5 @@ export const getAllowedUserRoutes = (currentUser: UserModel): RouterModel[] => {
 
   const allowedRoutes: RouterModel[] = allRoutes.filter(route => userRoutes.includes(route.path));
 
-  console.log(allowedRoutes);
   return allowedRoutes;
 };

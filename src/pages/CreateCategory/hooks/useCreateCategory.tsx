@@ -4,7 +4,10 @@ import Swal from 'sweetalert2';
 import { PathNames } from '../../../core';
 import { getCategoryById } from './../../../services/AxiosRequests/Categories/categoriesRequest';
 import { CategoryModel } from '../../../models';
-import { postCategory, putCategory } from './../../../services/AxiosRequests/Categories/categoriesRequest';
+import {
+  postCategory,
+  putCategory,
+} from './../../../services/AxiosRequests/Categories/categoriesRequest';
 import { CategoryType } from '../types/CategoryTypes';
 
 export const useCreateCategory = () => {
@@ -30,7 +33,6 @@ export const useCreateCategory = () => {
     try {
       let response;
       if (PathNames.CREATE_CATEGORY === location.pathname) {
-        console.log("Intentando crear")
         response = await postCategory(data);
         Swal.fire({
           title: '¡Éxito!',
@@ -40,8 +42,7 @@ export const useCreateCategory = () => {
         });
       } else {
         const CategoryId = location.pathname.split('/').pop();
-        console.log("Intentando actualizar")
-        response = await putCategory(data,Number(CategoryId));
+        response = await putCategory(data, Number(CategoryId));
         Swal.fire({
           title: '¡Éxito!',
           text: 'Categoría actualizada correctamente',

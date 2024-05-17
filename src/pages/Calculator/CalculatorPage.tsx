@@ -45,8 +45,8 @@ const CalculatorPage = () => {
             <div>
               {currentStep === 2 && <div> </div>}
               {currentStep === 3 && <div> </div>}
-              {currentStep === 4 && <CoverageForm sources={[]} />}
-              {currentStep === 5 && <CostsAndUsageForm/>}
+              {currentStep === 4 && <CoverageForm />}
+              {currentStep === 5 && <CostsAndUsageForm />}
               {currentStep === 6 && <div> </div>}
               {currentStep === 7 && <div> </div>}
             </div>

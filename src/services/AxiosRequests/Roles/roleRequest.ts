@@ -56,7 +56,6 @@ export const postRol = async (data: RoleFormType) => {
 
 export const putRol = async (data: RoleFormType, id: number) => {
   try {
-    console.log('ROL DATA', data);
     const permisos = data.permissions.map(permiso => ({
       idPermission: permiso.id,
       name: permiso.name,

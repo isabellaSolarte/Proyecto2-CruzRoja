@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useTranslation } from 'react-i18next';
-import { SourceModel } from '../../../../models';
-import { useState } from 'react';
+import { CategoryModel } from '../../../../models';
+import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import CoverageResolver from '../schemas/CoverageSchema';
+import { CalculatorContext } from '../../../../contexts';
 
-type ErrorPollutanCoverage = {
+type PollutanCoverage = {
   id: number;
   name: string;
   totalSources: number;
@@ -14,10 +15,11 @@ type ErrorPollutanCoverage = {
   //errors: string[];
 };
 
-const useCoverageForm = (sourcesCoverage: SourceModel[]) => {
+const useCoverageForm = () => {
   const { t } = useTranslation('commons');
-  const [adaptedSources, setAdaptedSources] = useState<ErrorPollutanCoverage[]>(
-    adaptToErrorSchema(),
+  const calculator = useContext(CalculatorContext);
+  const [adaptedSources, setAdaptedSources] = useState<PollutanCoverage[]>(
+    extractSourcesFromCategories(calculator.getCalculatorState()),
   );
 
   const {
@@ -31,15 +33,18 @@ const useCoverageForm = (sourcesCoverage: SourceModel[]) => {
     resolver: yupResolver(CoverageResolver),
   });
 
-  function adaptToErrorSchema() {
-    return sourcesCoverage.map(source => {
-      const pollutanCoverage: ErrorPollutanCoverage = {
+  function extractSourcesFromCategories(
+    categories: CategoryModel[],
+  ): PollutanCoverage[] {
+    const pollutans = categories.flatMap(category => category.pollutans);
+    const sources = pollutans.flatMap(pollutant => pollutant.sources);
+    return sources.map(source => {
+      return {
         totalSources: source.coverage.totalSources,
         informedSources: source.coverage.informedSources,
         id: source.id,
         name: source.name,
       };
-      return pollutanCoverage;
     });
   }
 
@@ -63,7 +68,6 @@ const useCoverageForm = (sourcesCoverage: SourceModel[]) => {
   };
 
   return {
-    adaptToErrorSchema,
     updateCoverageTotalSource,
     updateCoverageInformedSource,
     handleSubmit,
