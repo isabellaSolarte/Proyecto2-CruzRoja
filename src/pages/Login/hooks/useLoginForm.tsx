@@ -8,7 +8,6 @@ import { Credentials } from '../../../models';
 const useLoginForm = () => {
   const userActions = useUserActions();
   const [rememberMe, setRememberMe] = useState(false); // Estado del checkbox
-  
 
   const {
     handleSubmit,
@@ -22,14 +21,11 @@ const useLoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-
   const onSubmit = async (data: Credentials) => {
     setIsLoading(true);
     setError(null);
     // username: 'ADMIN', password: 'AdminHuellaCarbonoJDCE1002'
-    console.log('useLogin data:', data);
-    console.log('useLogin rememberMe:', rememberMe);
-    
+
     await userActions.login(data, rememberMe);
     //await handleLogin();
     // Aquí puedes realizar la lógica de inicio de sesión, como enviar una solicitud al servidor.
@@ -37,7 +33,7 @@ const useLoginForm = () => {
     setIsLoading(false);
   };
 
-  return { handleSubmit, register, errors, isLoading, error, onSubmit, rememberMe, setRememberMe};
+  return { handleSubmit, register, errors, isLoading, error, onSubmit, rememberMe, setRememberMe };
 };
 
 export default useLoginForm;

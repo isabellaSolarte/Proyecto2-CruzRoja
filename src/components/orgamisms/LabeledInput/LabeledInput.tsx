@@ -10,6 +10,8 @@ interface LabeledInputProps {
   type: 'text' | 'password' | 'email' | 'number' | 'submit';
   updateText?: (text: string) => void;
   props?: object;
+  labelAlign?: 'center' | 'justify' | 'left' | 'right' | 'start';
+  variante?: 'titulo' | 'texto' | 'subtitulo' | 'pequeño';
 }
 
 const LabeledInput = ({
@@ -19,14 +21,12 @@ const LabeledInput = ({
   type,
   updateText,
   props,
+  labelAlign,
+  variante = 'texto',
 }: LabeledInputProps) => {
   return (
     <div>
-      <div
-        style={{ display: 'flex', justifyContent: 'start', alignItems: 'start', marginBottom: 2 }}
-      >
-        <CustomText texto={label} variante={'texto'} mandatory={mandatory} />
-      </div>
+      <CustomText texto={label} variante={variante} mandatory={mandatory} textAlign={labelAlign} />
       <CustomInput
         placeholder={placeholder}
         size={'large'}
