@@ -18,13 +18,15 @@ const CoverageResolver = yup
               .transform((value, originalValue) => {
                 return originalValue === '' ? null : value;
               })
-              .required('coverageForm.totalSource'),
+              .nonNullable('coverageForm.totalSource'),
+            //.required('coverageForm.totalSource'),
             informedSources: yup
               .number()
               .transform((value, originalValue) => {
                 return originalValue === '' ? null : value;
               })
-              .required('coverageForm.informedSource'),
+              .nonNullable('coverageForm.informedSource'),
+            //.required('coverageForm.informedSource'),
           })
           .required(),
       )

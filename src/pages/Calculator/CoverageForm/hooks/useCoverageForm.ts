@@ -12,8 +12,8 @@ type PollutanSourceCoverage = {
   categoryId: number;
   id: number;
   name: string;
-  totalSources: number;
-  informedSources: number;
+  totalSources: number | undefined;
+  informedSources: number | undefined;
 };
 
 const useCoverageForm = () => {
@@ -21,7 +21,7 @@ const useCoverageForm = () => {
   const calculator = useContext(CalculatorContext);
   const [adaptedSources, setAdaptedSources] = useState<
     PollutanSourceCoverage[]
-  >(extractSourcesFromCategories(calculator.getCalculatorState()));
+  >(extractSourcesFromCategories(calculator.categories));
 
   const {
     control,
@@ -57,36 +57,32 @@ const useCoverageForm = () => {
     return sources;
   }
 
-  function updateCoverageTotalSource(
-    pollutantId: number,
-    sourceIndex: number,
-    totalSources: any,
-  ) {
-    // const allSources = adaptedSources;
-    // allSources[pollutantId].sources[sourceIndex].totalSources =
-    //   parseInt(totalSources);
-    // setAdaptedSources(allSources);
-  }
+  const updateCoveragesCalculatorState = (data: PollutanSourceCoverage[]) => {
+    const currentState = calculator.categories;
+    data.forEach(formData => {
+      const category = currentState.find(d => d.id === formData.categoryId);
+      const pollutant = category?.pollutans.find(
+        p => p.id === formData.pollutantId,
+      );
+      const source = pollutant?.sources.find(s => s.id === formData.id);
+      if (!source) return;
 
-  function updateCoverageInformedSource(
-    pollutantId: number,
-    sourceIndex: number,
-    informedSources: any,
-  ) {
-    // const allSources = adaptedSources;
-    // allSources[pollutantId].sources[sourceIndex].informedSources =
-    //   parseInt(informedSources);
-    // setAdaptedSources(allSources);
-  }
+      source['coverage'] = {
+        totalSources: formData.totalSources,
+        informedSources: formData.informedSources,
+      };
+    });
+
+    return currentState;
+  };
 
   const onSubmit = (data: any) => {
-    console.log(data);
-    console.log('adaptedSources', adaptedSources);
+    setAdaptedSources(data.coverage);
+    const updateCoverage = updateCoveragesCalculatorState(data.coverage);
+    calculator.setCalculatorState(updateCoverage);
   };
 
   return {
-    updateCoverageTotalSource,
-    updateCoverageInformedSource,
     handleSubmit,
     onSubmit,
     register,

@@ -9,6 +9,7 @@ const CalculatorFormProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const [categories, setCategories] = useState<CategoryModel[]>([]);
 
   const setCalculatorState = (newState: CategoryModel[]) => {
+    console.log('newState', newState);
     setCategories(newState);
   };
 
@@ -36,6 +37,7 @@ const CalculatorFormProvider: React.FC<{ children: React.ReactNode }> = ({ child
   return (
     <CalculatorContext.Provider
       value={{
+        categories,
         updateCalculatorState,
         getCalculatorState,
         updateAllCalculatorState,

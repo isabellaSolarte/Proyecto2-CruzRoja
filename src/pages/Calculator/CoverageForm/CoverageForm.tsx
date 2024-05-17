@@ -5,16 +5,7 @@ import { DoubleInput } from './components';
 import { Fragment } from 'react/jsx-runtime';
 
 const CoverageForm = () => {
-  const {
-    t,
-    adaptedSources,
-    updateCoverageTotalSource,
-    updateCoverageInformedSource,
-    handleSubmit,
-    register,
-    onSubmit,
-    errors,
-  } = useCoverageForm();
+  const { t, adaptedSources, handleSubmit, register, onSubmit, errors } = useCoverageForm();
 
   return (
     <ManagmentLayout
@@ -26,7 +17,7 @@ const CoverageForm = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container>
             {adaptedSources.map((pollutants, index) => (
-              <Fragment key={pollutants.pollutantId}>
+              <Fragment key={index}>
                 <Grid
                   item
                   xs={12}
@@ -39,16 +30,12 @@ const CoverageForm = () => {
                     mainLabel={t('calculator.coverageForm.source')}
                     labelInput1={t('calculator.coverageForm.totalSources')}
                     labelInput2={t('calculator.coverageForm.informedSources')}
-                    title={'source.name'}
+                    title={pollutants.name}
                     propsInput1={{
                       registerInput1: register(`coverage.${index}.totalSources`),
-                      updateInput1: updateCoverageTotalSource,
-                      references: [index, index],
                     }}
                     propsInput2={{
                       registerInput2: register(`coverage.${index}.informedSources`),
-                      updateInput2: updateCoverageInformedSource,
-                      references: [index, index],
                     }}
                   />
 
