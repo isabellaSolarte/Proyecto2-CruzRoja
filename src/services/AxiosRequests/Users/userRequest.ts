@@ -34,13 +34,9 @@ export const getVolunteers = async (): Promise<VolunterUserModel[]> => {
 
 export const putVolunteer = async (data: VolunterUserModel) => {
   try {
-    console.log('data', data);
-    
     const updatedVolunteerData = adaptFrontVolunterUserModelToDTO(data);
     updatedVolunteerData.password = 'otracontraseña';
-    console.log('updatedVolunteerData', updatedVolunteerData);
 
-    
     const response = await api.put<AxiosResponse>(
       UsersEndpoints.putVolunteer,
       updatedVolunteerData,
@@ -56,7 +52,6 @@ export const putVolunteer = async (data: VolunterUserModel) => {
 export const postVolunteer = async (data: VolunterUserModel) => {
   try {
     const newUserData = adaptFrontVolunterUserModelToDTO(data);
-    
 
     const response = await api.post<AxiosResponse>(
       UsersEndpoints.postVolunteer,
@@ -82,7 +77,10 @@ export const getCompanies = async (): Promise<CompanyUserModel[]> => {
     return adaptedCompanies;
   } catch (error) {
     if (error.response.status === 406) {
-      console.error('No hay representantes de empresas: ',error.response.status);
+      console.error(
+        'No hay representantes de empresas: ',
+        error.response.status,
+      );
       return [];
     } else {
       throw error; // Lanzar el error para manejarlo en el componente

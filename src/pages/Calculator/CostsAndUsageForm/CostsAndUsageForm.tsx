@@ -18,16 +18,23 @@ const options: OptionSelector[] = [
   { value: 9, label: 'Septiembre' },
   { value: 10, label: 'Octubre' },
   { value: 11, label: 'Noviembre' },
-  { value: 12, label: 'Diciembre' }
+  { value: 12, label: 'Diciembre' },
 ];
 
 const CostsAndUsageForm = () => {
-  const { register, handleSubmit, control, formState: { errors } } = useForm<PollutantCostModel>({ 
-    resolver: yupResolver(costsAndUsageSchema), 
+  //const { t } = useCoverageForm();
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+    setValue,
+  } = useForm<PollutantCostModel>({
+    resolver: yupResolver(costsAndUsageSchema),
   });
 
-  const onSubmit = (data: PollutantCostModel) => {
-    console.log('Datos a enviar', data); 
+  const onSubmit = (data: any) => {
+    console.log('Datos a enviar', data);
   };
 
   return (
@@ -42,16 +49,16 @@ const CostsAndUsageForm = () => {
                 <CustomInput placeholder={'Ingrese costo'} size="medium" props={register('cost')} />
                 {errors.cost && <span>{errors.cost.message}</span>}
               </Grid>
-              <Grid item xs={12} md={6} sx={{ marginBottom: 2 }}> 
-                <CustomText texto={'Mes de evaluación'} variante="subtitulo" mandatory />             
+              <Grid item xs={12} md={6} sx={{ marginBottom: 2 }}>
+                <CustomText texto={'Mes de evaluación'} variante="subtitulo" mandatory />
                 <CustomSelect
                   options={options}
-                  label={'Mes'} 
-                  labelId="month" 
-                  control={control} 
-                  sx={{ backgroundColor: '#FCFCFC'}}
+                  label={'Mes'}
+                  labelId="month"
+                  control={control}
+                  sx={{ backgroundColor: '#FCFCFC' }}
                   disabled={false}
-                  error={!!errors.month} 
+                  error={!!errors.month}
                   readOnly={false}
                   required={true}
                 />
