@@ -7,20 +7,23 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import CoverageResolver from '../schemas/CoverageSchema';
 import { CalculatorContext } from '../../../../contexts';
 
-type PollutanCoverage = {
-  id: number;
-  name: string;
-  totalSources: number;
-  informedSources: number;
-  //errors: string[];
+type PollutanSourceCoverage = {
+  pollutantId: number;
+  categoryId: number;
+  sources: {
+    id: number;
+    name: string;
+    totalSources: number;
+    informedSources: number;
+  }[];
 };
 
 const useCoverageForm = () => {
   const { t } = useTranslation('commons');
   const calculator = useContext(CalculatorContext);
-  const [adaptedSources, setAdaptedSources] = useState<PollutanCoverage[]>(
-    extractSourcesFromCategories(calculator.getCalculatorState()),
-  );
+  const [adaptedSources, setAdaptedSources] = useState<
+    PollutanSourceCoverage[]
+  >(extractSourcesFromCategories(calculator.getCalculatorState()));
 
   const {
     control,
@@ -35,36 +38,64 @@ const useCoverageForm = () => {
 
   function extractSourcesFromCategories(
     categories: CategoryModel[],
-  ): PollutanCoverage[] {
-    const pollutans = categories.flatMap(category => category.pollutans);
-    const sources = pollutans.flatMap(pollutant => pollutant.sources);
-    return sources.map(source => {
+  ): PollutanSourceCoverage[] {
+    const t1 = categories.flatMap(category => {
       return {
-        totalSources: source.coverage.totalSources,
-        informedSources: source.coverage.informedSources,
-        id: source.id,
-        name: source.name,
+        categoryId: category.id,
+        sources: category.pollutans.flatMap(pollutant => {
+          return {
+            pollutantId: pollutant.id,
+            sources: pollutant.sources,
+          };
+        }),
       };
     });
+
+    const t2: PollutanSourceCoverage[] = t1.flatMap(pollutant => {
+      return pollutant.sources.flatMap(source => {
+        return {
+          pollutantId: source.pollutantId,
+          categoryId: pollutant.categoryId,
+          sources: source.sources.flatMap(source => {
+            return {
+              totalSources: source.coverage.totalSources,
+              informedSources: source.coverage.informedSources,
+              id: source.id,
+              name: source.name,
+            };
+          }),
+        };
+      });
+    });
+
+    return t2;
   }
 
-  function updateCoverageTotalSource(sourceIndex: number, totalSources: any) {
-    const allSources = adaptedSources;
-    allSources[sourceIndex].totalSources = parseInt(totalSources);
-    setAdaptedSources(allSources);
+  function updateCoverageTotalSource(
+    pollutantId: number,
+    sourceIndex: number,
+    totalSources: any,
+  ) {
+    // const allSources = adaptedSources;
+    // allSources[pollutantId].sources[sourceIndex].totalSources =
+    //   parseInt(totalSources);
+    // setAdaptedSources(allSources);
   }
 
   function updateCoverageInformedSource(
+    pollutantId: number,
     sourceIndex: number,
     informedSources: any,
   ) {
-    const allSources = adaptedSources;
-    allSources[sourceIndex].informedSources = parseInt(informedSources);
-    setAdaptedSources(allSources);
+    // const allSources = adaptedSources;
+    // allSources[pollutantId].sources[sourceIndex].informedSources =
+    //   parseInt(informedSources);
+    // setAdaptedSources(allSources);
   }
 
   const onSubmit = (data: any) => {
     console.log(data);
+    console.log('adaptedSources', adaptedSources);
   };
 
   return {
