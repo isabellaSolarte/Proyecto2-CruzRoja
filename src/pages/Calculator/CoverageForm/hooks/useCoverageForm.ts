@@ -10,12 +10,10 @@ import { CalculatorContext } from '../../../../contexts';
 type PollutanSourceCoverage = {
   pollutantId: number;
   categoryId: number;
-  sources: {
-    id: number;
-    name: string;
-    totalSources: number;
-    informedSources: number;
-  }[];
+  id: number;
+  name: string;
+  totalSources: number;
+  informedSources: number;
 };
 
 const useCoverageForm = () => {
@@ -39,36 +37,24 @@ const useCoverageForm = () => {
   function extractSourcesFromCategories(
     categories: CategoryModel[],
   ): PollutanSourceCoverage[] {
-    const t1 = categories.flatMap(category => {
-      return {
-        categoryId: category.id,
-        sources: category.pollutans.flatMap(pollutant => {
-          return {
-            pollutantId: pollutant.id,
-            sources: pollutant.sources,
-          };
-        }),
-      };
-    });
+    const sources: PollutanSourceCoverage[] = [];
 
-    const t2: PollutanSourceCoverage[] = t1.flatMap(pollutant => {
-      return pollutant.sources.flatMap(source => {
-        return {
-          pollutantId: source.pollutantId,
-          categoryId: pollutant.categoryId,
-          sources: source.sources.flatMap(source => {
-            return {
-              totalSources: source.coverage.totalSources,
-              informedSources: source.coverage.informedSources,
-              id: source.id,
-              name: source.name,
-            };
-          }),
-        };
+    categories.forEach(category => {
+      category.pollutans.forEach(pollutant => {
+        pollutant.sources.forEach(source => {
+          sources.push({
+            pollutantId: pollutant.id,
+            categoryId: category.id,
+            totalSources: source.coverage.totalSources,
+            informedSources: source.coverage.informedSources,
+            id: source.id,
+            name: source.name,
+          });
+        });
       });
     });
 
-    return t2;
+    return sources;
   }
 
   function updateCoverageTotalSource(

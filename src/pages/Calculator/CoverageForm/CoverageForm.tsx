@@ -25,60 +25,50 @@ const CoverageForm = () => {
       generalContents={
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container>
-            {adaptedSources.map((pollutants, pIndex) => (
+            {adaptedSources.map((pollutants, index) => (
               <Fragment key={pollutants.pollutantId}>
-                {pollutants.sources.map((source, index) => (
-                  <Grid
-                    item
-                    xs={12}
-                    md={6}
-                    paddingInlineEnd={10}
-                    paddingBlockEnd={5}
-                    key={source.id}
-                  >
-                    <DoubleInput
-                      mainLabel={t('calculator.coverageForm.source')}
-                      labelInput1={t('calculator.coverageForm.totalSources')}
-                      labelInput2={t('calculator.coverageForm.informedSources')}
-                      title={'source.name'}
-                      propsInput1={{
-                        registerInput1: register(
-                          `coverage.${pIndex}.sources.${index}.totalSources`,
-                        ),
-                        updateInput1: updateCoverageTotalSource,
-                        references: [pIndex, index],
-                      }}
-                      propsInput2={{
-                        registerInput2: register(
-                          `coverage.${pIndex}.sources.${index}.informedSources`,
-                        ),
-                        updateInput2: updateCoverageInformedSource,
-                        references: [pIndex, index],
-                      }}
-                    />
+                <Grid
+                  item
+                  xs={12}
+                  md={6}
+                  paddingInlineEnd={10}
+                  paddingBlockEnd={5}
+                  key={pollutants.id}
+                >
+                  <DoubleInput
+                    mainLabel={t('calculator.coverageForm.source')}
+                    labelInput1={t('calculator.coverageForm.totalSources')}
+                    labelInput2={t('calculator.coverageForm.informedSources')}
+                    title={'source.name'}
+                    propsInput1={{
+                      registerInput1: register(`coverage.${index}.totalSources`),
+                      updateInput1: updateCoverageTotalSource,
+                      references: [index, index],
+                    }}
+                    propsInput2={{
+                      registerInput2: register(`coverage.${index}.informedSources`),
+                      updateInput2: updateCoverageInformedSource,
+                      references: [index, index],
+                    }}
+                  />
 
-                    {!!errors.coverage &&
-                      !!errors.coverage[pIndex]?.sources &&
-                      errors.coverage[pIndex]?.sources[index]?.totalSources && (
-                        <Grid item xs={12}>
-                          <ErrorText
-                            error={errors.coverage[pIndex]?.sources[index]?.totalSources.message}
-                            formErrorKey={'calculator'}
-                          />
-                        </Grid>
-                      )}
-                    {!!errors.coverage &&
-                      !!errors.coverage[pIndex]?.sources &&
-                      errors.coverage[pIndex]?.sources[index]?.informedSources && (
-                        <Grid item xs={12}>
-                          <ErrorText
-                            error={errors.coverage[pIndex]?.sources[index]?.informedSources.message}
-                            formErrorKey={'calculator'}
-                          />
-                        </Grid>
-                      )}
-                  </Grid>
-                ))}
+                  {!!errors.coverage && !!errors.coverage[index]?.totalSources && (
+                    <Grid item xs={12}>
+                      <ErrorText
+                        error={errors.coverage[index]?.totalSources.message}
+                        formErrorKey={'calculator'}
+                      />
+                    </Grid>
+                  )}
+                  {!!errors.coverage && !!errors.coverage[index]?.informedSources && (
+                    <Grid item xs={12}>
+                      <ErrorText
+                        error={errors.coverage[index]?.informedSources.message}
+                        formErrorKey={'calculator'}
+                      />
+                    </Grid>
+                  )}
+                </Grid>
               </Fragment>
             ))}
           </Grid>
