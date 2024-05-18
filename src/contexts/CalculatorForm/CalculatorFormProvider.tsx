@@ -3,10 +3,13 @@ import { CategoryModel } from '../../models';
 import CalculatorContext from './CalculatorContext';
 
 const CalculatorFormProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  /**
+   * Esta estructura se puede separar en estados para cada formulario, pero por simplicidad y tiempo se mantiene en un solo estado.
+   */
   const [categories, setCategories] = useState<CategoryModel[]>([]);
 
   const setCalculatorState = (newState: CategoryModel[]) => {
-    console.log('Setting new state', newState);
+    console.log('newState', newState);
     setCategories(newState);
   };
 
@@ -34,6 +37,7 @@ const CalculatorFormProvider: React.FC<{ children: React.ReactNode }> = ({ child
   return (
     <CalculatorContext.Provider
       value={{
+        categories,
         updateCalculatorState,
         getCalculatorState,
         updateAllCalculatorState,

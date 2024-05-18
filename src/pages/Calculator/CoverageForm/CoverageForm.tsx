@@ -5,22 +5,7 @@ import { DoubleInput } from './components';
 import { Fragment } from 'react/jsx-runtime';
 
 const CoverageForm = () => {
-  const {
-    t,
-    adaptedSources,
-    updateCoverageTotalSource,
-    updateCoverageInformedSource,
-    handleSubmit,
-    register,
-    getValues,
-    onSubmit,
-    errors,
-  } = useCoverageForm();
-
-  const handleClick = () => {
-    console.log(getValues());
-    console.log(errors.coverage);
-  };
+  const { t, adaptedSources, handleSubmit, register, onSubmit, errors } = useCoverageForm();
 
   return (
     <ManagmentLayout
@@ -31,37 +16,41 @@ const CoverageForm = () => {
       generalContents={
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container>
-            {adaptedSources.map((source, index) => (
-              <Fragment key={source.id}>
-                <Grid item xs={12} md={6} paddingInlineEnd={10} paddingBlockEnd={5}>
+            {adaptedSources.map((pollutants, index) => (
+              <Fragment key={index}>
+                <Grid
+                  item
+                  xs={12}
+                  md={6}
+                  paddingInlineEnd={10}
+                  paddingBlockEnd={5}
+                  key={pollutants.id}
+                >
                   <DoubleInput
                     mainLabel={t('calculator.coverageForm.source')}
                     labelInput1={t('calculator.coverageForm.totalSources')}
                     labelInput2={t('calculator.coverageForm.informedSources')}
-                    title={source.name}
+                    title={pollutants.name}
                     propsInput1={{
                       registerInput1: register(`coverage.${index}.totalSources`),
-                      updateInput1: updateCoverageTotalSource,
-                      index: index,
                     }}
                     propsInput2={{
                       registerInput2: register(`coverage.${index}.informedSources`),
-                      updateInput2: updateCoverageInformedSource,
-                      index: index,
                     }}
                   />
-                  {errors.coverage && errors.coverage[index]?.totalSources && (
+
+                  {!!errors.coverage && !!errors.coverage[index]?.totalSources && (
                     <Grid item xs={12}>
                       <ErrorText
-                        error={errors.coverage[index]?.totalSources?.message}
+                        error={errors.coverage[index]?.totalSources.message}
                         formErrorKey={'calculator'}
                       />
                     </Grid>
                   )}
-                  {errors.coverage && errors.coverage[index]?.informedSources && (
+                  {!!errors.coverage && !!errors.coverage[index]?.informedSources && (
                     <Grid item xs={12}>
                       <ErrorText
-                        error={errors.coverage[index]?.informedSources?.message}
+                        error={errors.coverage[index]?.informedSources.message}
                         formErrorKey={'calculator'}
                       />
                     </Grid>
@@ -70,7 +59,7 @@ const CoverageForm = () => {
               </Fragment>
             ))}
           </Grid>
-          <CustomButton content="Guardar" color={'info'} type={'submit'} onClick={handleClick} />
+          <CustomButton content="Guardar" color={'info'} type={'submit'} />
         </form>
       }
     />

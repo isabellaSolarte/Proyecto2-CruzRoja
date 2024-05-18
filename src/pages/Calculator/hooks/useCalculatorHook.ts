@@ -28,8 +28,8 @@ const useCalculatorHook = () => {
                 name: 'Source 1 - Pollutant 1',
                 description: 'Description of Source 1 - Pollutant 1',
                 coverage: {
-                  totalSources: 10,
-                  informedSources: 5,
+                  totalSources: undefined,
+                  informedSources: undefined,
                 },
                 facturation: {
                   cost: 100,
@@ -41,8 +41,8 @@ const useCalculatorHook = () => {
                 name: 'Source 2 - Pollutant 1',
                 description: 'Description of Source 2 - Pollutant 1',
                 coverage: {
-                  totalSources: 8,
-                  informedSources: 3,
+                  totalSources: undefined,
+                  informedSources: undefined,
                 },
                 facturation: {
                   cost: 120,
@@ -54,8 +54,8 @@ const useCalculatorHook = () => {
                 name: 'Source 3 - Pollutant 1',
                 description: 'Description of Source 3 - Pollutant 1',
                 coverage: {
-                  totalSources: 12,
-                  informedSources: 7,
+                  totalSources: undefined,
+                  informedSources: undefined,
                 },
                 facturation: {
                   cost: 150,
@@ -76,8 +76,8 @@ const useCalculatorHook = () => {
                 name: 'Source 1 - Pollutant 2',
                 description: 'Description of Source 1 - Pollutant 2',
                 coverage: {
-                  totalSources: 15,
-                  informedSources: 8,
+                  totalSources: undefined,
+                  informedSources: undefined,
                 },
                 facturation: {
                   cost: 90,
@@ -89,8 +89,8 @@ const useCalculatorHook = () => {
                 name: 'Source 2 - Pollutant 2',
                 description: 'Description of Source 2 - Pollutant 2',
                 coverage: {
-                  totalSources: 20,
-                  informedSources: 12,
+                  totalSources: undefined,
+                  informedSources: undefined,
                 },
                 facturation: {
                   cost: 110,
@@ -102,8 +102,8 @@ const useCalculatorHook = () => {
                 name: 'Source 3 - Pollutant 2',
                 description: 'Description of Source 3 - Pollutant 2',
                 coverage: {
-                  totalSources: 18,
-                  informedSources: 9,
+                  totalSources: undefined,
+                  informedSources: undefined,
                 },
                 facturation: {
                   cost: 130,
@@ -133,8 +133,8 @@ const useCalculatorHook = () => {
                 name: 'Source 1 - Pollutant 3',
                 description: 'Description of Source 1 - Pollutant 3',
                 coverage: {
-                  totalSources: 5,
-                  informedSources: 4,
+                  totalSources: undefined,
+                  informedSources: undefined,
                 },
                 facturation: {
                   cost: 200,
@@ -146,8 +146,8 @@ const useCalculatorHook = () => {
                 name: 'Source 2 - Pollutant 3',
                 description: 'Description of Source 2 - Pollutant 3',
                 coverage: {
-                  totalSources: 6,
-                  informedSources: 5,
+                  totalSources: undefined,
+                  informedSources: undefined,
                 },
                 facturation: {
                   cost: 220,
@@ -159,8 +159,8 @@ const useCalculatorHook = () => {
                 name: 'Source 3 - Pollutant 3',
                 description: 'Description of Source 3 - Pollutant 3',
                 coverage: {
-                  totalSources: 7,
-                  informedSources: 6,
+                  totalSources: undefined,
+                  informedSources: undefined,
                 },
                 facturation: {
                   cost: 250,
@@ -181,8 +181,8 @@ const useCalculatorHook = () => {
                 name: 'Source 1 - Pollutant 4',
                 description: 'Description of Source 1 - Pollutant 4',
                 coverage: {
-                  totalSources: 10,
-                  informedSources: 7,
+                  totalSources: undefined,
+                  informedSources: undefined,
                 },
                 facturation: {
                   cost: 300,
@@ -194,8 +194,8 @@ const useCalculatorHook = () => {
                 name: 'Source 2 - Pollutant 4',
                 description: 'Description of Source 2 - Pollutant 4',
                 coverage: {
-                  totalSources: 9,
-                  informedSources: 6,
+                  totalSources: undefined,
+                  informedSources: undefined,
                 },
                 facturation: {
                   cost: 320,
@@ -207,8 +207,8 @@ const useCalculatorHook = () => {
                 name: 'Source 3 - Pollutant 4',
                 description: 'Description of Source 3 - Pollutant 4',
                 coverage: {
-                  totalSources: 8,
-                  informedSources: 5,
+                  totalSources: undefined,
+                  informedSources: undefined,
                 },
                 facturation: {
                   cost: 350,
@@ -238,8 +238,8 @@ const useCalculatorHook = () => {
                 name: 'Source 1 - Pollutant 5',
                 description: 'Description of Source 1 - Pollutant 5',
                 coverage: {
-                  totalSources: 3,
-                  informedSources: 2,
+                  totalSources: undefined,
+                  informedSources: undefined,
                 },
                 facturation: {
                   cost: 400,
@@ -251,8 +251,8 @@ const useCalculatorHook = () => {
                 name: 'Source 2 - Pollutant 5',
                 description: 'Description of Source 2 - Pollutant 5',
                 coverage: {
-                  totalSources: 4,
-                  informedSources: 3,
+                  totalSources: undefined,
+                  informedSources: undefined,
                 },
                 facturation: {
                   cost: 420,
@@ -264,8 +264,8 @@ const useCalculatorHook = () => {
                 name: 'Source 3 - Pollutant 5',
                 description: 'Description of Source 3 - Pollutant 5',
                 coverage: {
-                  totalSources: 5,
-                  informedSources: 4,
+                  totalSources: undefined,
+                  informedSources: undefined,
                 },
                 facturation: {
                   cost: 450,
@@ -286,8 +286,8 @@ const useCalculatorHook = () => {
                 name: 'Source 1 - Pollutant 6',
                 description: 'Description of Source 1 - Pollutant 6',
                 coverage: {
-                  totalSources: 6,
-                  informedSources: 5,
+                  totalSources: undefined,
+                  informedSources: undefined,
                 },
                 facturation: {
                   cost: 500,
@@ -299,8 +299,8 @@ const useCalculatorHook = () => {
                 name: 'Source 2 - Pollutant 6',
                 description: 'Description of Source 2 - Pollutant 6',
                 coverage: {
-                  totalSources: 7,
-                  informedSources: 6,
+                  totalSources: undefined,
+                  informedSources: undefined,
                 },
                 facturation: {
                   cost: 520,
@@ -312,8 +312,8 @@ const useCalculatorHook = () => {
                 name: 'Source 3 - Pollutant 6',
                 description: 'Description of Source 3 - Pollutant 6',
                 coverage: {
-                  totalSources: 8,
-                  informedSources: 7,
+                  totalSources: undefined,
+                  informedSources: undefined,
                 },
                 facturation: {
                   cost: 550,

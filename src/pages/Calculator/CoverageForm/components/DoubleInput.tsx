@@ -12,12 +12,12 @@ interface DoubleInputProps {
   propsInput1?: {
     registerInput1?: any;
     updateInput1?: any;
-    index?: number;
+    references?: number[];
   };
   propsInput2?: {
     registerInput2?: any;
     updateInput2?: any;
-    index?: number;
+    references?: number[];
   };
 }
 
@@ -30,11 +30,15 @@ const DoubleInput = ({
   propsInput2,
 }: DoubleInputProps) => {
   const updateInputData1 = (data: string) => {
-    propsInput1?.updateInput1(propsInput1.index, data);
+    if (propsInput1?.references && propsInput1.references.length === 2) {
+      propsInput1.updateInput1(propsInput1.references[0], propsInput1.references[1], data);
+    }
   };
 
   const updateInputData2 = (data: string) => {
-    propsInput2?.updateInput2(propsInput2.index, data);
+    if (propsInput2?.references && propsInput2.references.length === 2) {
+      propsInput2.updateInput2(propsInput2.references[0], propsInput2.references[1], data);
+    }
   };
 
   return (

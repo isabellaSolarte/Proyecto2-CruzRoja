@@ -7,20 +7,21 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import CoverageResolver from '../schemas/CoverageSchema';
 import { CalculatorContext } from '../../../../contexts';
 
-type PollutanCoverage = {
+type PollutanSourceCoverage = {
+  pollutantId: number;
+  categoryId: number;
   id: number;
   name: string;
-  totalSources: number;
-  informedSources: number;
-  //errors: string[];
+  totalSources: number | undefined;
+  informedSources: number | undefined;
 };
 
 const useCoverageForm = () => {
   const { t } = useTranslation('commons');
   const calculator = useContext(CalculatorContext);
-  const [adaptedSources, setAdaptedSources] = useState<PollutanCoverage[]>(
-    extractSourcesFromCategories(calculator.getCalculatorState()),
-  );
+  const [adaptedSources, setAdaptedSources] = useState<
+    PollutanSourceCoverage[]
+  >(extractSourcesFromCategories(calculator.categories));
 
   const {
     control,
@@ -35,41 +36,53 @@ const useCoverageForm = () => {
 
   function extractSourcesFromCategories(
     categories: CategoryModel[],
-  ): PollutanCoverage[] {
-    const pollutans = categories.flatMap(category => category.pollutans);
-    const sources = pollutans.flatMap(pollutant => pollutant.sources);
-    return sources.map(source => {
-      return {
-        totalSources: source.coverage.totalSources,
-        informedSources: source.coverage.informedSources,
-        id: source.id,
-        name: source.name,
+  ): PollutanSourceCoverage[] {
+    const sources: PollutanSourceCoverage[] = [];
+
+    categories.forEach(category => {
+      category.pollutans.forEach(pollutant => {
+        pollutant.sources.forEach(source => {
+          sources.push({
+            pollutantId: pollutant.id,
+            categoryId: category.id,
+            totalSources: source.coverage.totalSources,
+            informedSources: source.coverage.informedSources,
+            id: source.id,
+            name: source.name,
+          });
+        });
+      });
+    });
+
+    return sources;
+  }
+
+  const updateCoveragesCalculatorState = (data: PollutanSourceCoverage[]) => {
+    const currentState = calculator.categories;
+    data.forEach(formData => {
+      const category = currentState.find(d => d.id === formData.categoryId);
+      const pollutant = category?.pollutans.find(
+        p => p.id === formData.pollutantId,
+      );
+      const source = pollutant?.sources.find(s => s.id === formData.id);
+      if (!source) return;
+
+      source['coverage'] = {
+        totalSources: formData.totalSources,
+        informedSources: formData.informedSources,
       };
     });
-  }
 
-  function updateCoverageTotalSource(sourceIndex: number, totalSources: any) {
-    const allSources = adaptedSources;
-    allSources[sourceIndex].totalSources = parseInt(totalSources);
-    setAdaptedSources(allSources);
-  }
-
-  function updateCoverageInformedSource(
-    sourceIndex: number,
-    informedSources: any,
-  ) {
-    const allSources = adaptedSources;
-    allSources[sourceIndex].informedSources = parseInt(informedSources);
-    setAdaptedSources(allSources);
-  }
+    return currentState;
+  };
 
   const onSubmit = (data: any) => {
-    console.log(data);
+    setAdaptedSources(data.coverage);
+    const updateCoverage = updateCoveragesCalculatorState(data.coverage);
+    calculator.setCalculatorState(updateCoverage);
   };
 
   return {
-    updateCoverageTotalSource,
-    updateCoverageInformedSource,
     handleSubmit,
     onSubmit,
     register,
