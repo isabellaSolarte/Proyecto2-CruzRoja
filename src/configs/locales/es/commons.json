@@ -12,7 +12,8 @@
         "state": "Estado",
         "search": "Buscar",
         "registerCategory": "Registar categoría",
-        "previousPage": "Ir a página anterior"
+        "previousPage": "Ir a página anterior",
+        "start": "Iniciar"
     },
     "menuOptions": {
         "users": "Usuarios",
@@ -39,7 +40,7 @@
         "editCategory": "Editar categoria",
         "viewCategory": "Visualizar categoria",
         "createCategory": "Crear categoria",
-        "calculator": "Calculadora",
+        "calculator": "Calculadora huella de carbono",
         "editUser": "Editar usuario"
     },
     "rolesPages": {
@@ -194,6 +195,16 @@
             "totalSources": "totales",
             "informedSources": "informadas",
             "source": "Fuente"
+        },
+        "stepper": {
+            "welcome": "Bienvenido",
+            "categories": "Categorías",
+            "pollutants": "Contaminantes",
+            "fountains": "Fuentes",
+            "coverage": "Coberturas",
+            "consumptionCosts": "Consumos y Costos",
+            "validation": "Validación"
         }
+        
     }
 }
