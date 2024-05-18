@@ -1,5 +1,4 @@
 export interface PollutantCoverageModel {
-  totalSources: number;
-  informedSources: number;
-  //cost: PollutantCostModel;
+  totalSources: number | undefined;
+  informedSources: number | undefined;
 }
