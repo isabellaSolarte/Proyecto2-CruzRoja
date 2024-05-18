@@ -4,8 +4,8 @@ import { CoverageForm } from './CoverageForm';
 import { useCalculatorHook, useStepper } from './hooks';
 import { useEffect } from 'react';
 import CostsAndUsageForm from './CostsAndUsageForm/CostsAndUsageForm';
-import { SourcesDataForm } from './Sources/Form';
-import { sourcesDictionaryPrueba2 } from './Sources/Form/sourcesDictionary';
+import { SourcesDataForm } from './SourcesForm/Form';
+import { sourcesDictionaryPrueba2 } from './SourcesForm/Form/sourcesDictionary';
 
 const CalculatorPage = () => {
   const { currentStep, stepList, handleNextStep, handleStepBack } = useStepper();
