@@ -23,7 +23,7 @@ const CostsForm = () => {
                     labelInput2={'Mes'}
                     title={pollutants.name}
                     propsInput1={{ registerInput1: register(`costs.${index}.cost`) }}
-                    propsInput2={{ registerInput2: register(`costs.${index}.month`) }}
+                    propsInput2={{ registerInput2: register(`costs.${index}.month`),defaultValue: pollutants.month }}
                   />
                   {!!errors.costs && !!errors.costs[index]?.cost && (
                     <Grid item xs={12}>

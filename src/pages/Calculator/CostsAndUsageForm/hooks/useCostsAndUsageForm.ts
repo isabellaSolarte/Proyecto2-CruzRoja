@@ -11,8 +11,8 @@ export type PollutantSourceCost = {
   categoryId: number;
   id: number;
   name: string;
-  cost: number;
-  month: number;
+  cost: number | undefined;
+  month: number | undefined;
 };
 
 const useCostsForm = () => {

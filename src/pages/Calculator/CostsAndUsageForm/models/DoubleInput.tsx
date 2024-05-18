@@ -1,4 +1,4 @@
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, MenuItem, Select } from '@mui/material';
 import { CustomText, LabeledInput } from '../../../../components';
 import EnergySavingsLeafIcon from '@mui/icons-material/EnergySavingsLeaf';
 
@@ -8,8 +8,28 @@ interface DoubleInputProps {
     labelInput2: string;
     title: string;
     propsInput1?: { registerInput1?: any; updateInput1?: any; references?: number[]; };
-    propsInput2?: { registerInput2?: any; updateInput2?: any; references?: number[]; };
+    propsInput2?: {
+        registerInput2?: any;
+        updateInput2?: any;
+        references?: number[];
+        defaultValue?: number; // Agregar la propiedad defaultValue
+    };
 }
+
+const months = [
+    { value: 1, label: 'Enero' },
+    { value: 2, label: 'Febrero' },
+    { value: 3, label: 'Marzo' },
+    { value: 4, label: 'Abril' },
+    { value: 5, label: 'Mayo' },
+    { value: 6, label: 'Junio' },
+    { value: 7, label: 'Julio' },
+    { value: 8, label: 'Agosto' },
+    { value: 9, label: 'Septiembre' },
+    { value: 10, label: 'Octubre' },
+    { value: 11, label: 'Noviembre' },
+    { value: 12, label: 'Diciembre' },
+];
 
 const DoubleInput = ({
     mainLabel,
@@ -71,17 +91,59 @@ const DoubleInput = ({
                 />
             </Grid>
             <Grid item xs={6} md={3}>
-                <LabeledInput
+                <LabeledSelect
                     label={labelInput2}
-                    placeholder={''}
-                    type={'number'}
+                    options={months}
                     labelAlign="center"
                     variante="pequeño"
                     updateText={updateInputData2}
                     props={propsInput2?.registerInput2 && { ...propsInput2.registerInput2 }}
+                    required // Hacer que el Select sea obligatorio
+                    defaultValue={propsInput2?.defaultValue} // Establecer la opción predeterminada como enero
                 />
             </Grid>
         </Grid>
+    );
+};
+
+interface LabeledSelectProps {
+    label: string;
+    options: { value: number | string; label: string }[]; // El valor puede ser un número o una cadena
+    labelAlign?: 'left' | 'center' | 'right';
+    variante?: 'pequeño' | 'medio' | 'grande';
+    updateText: (data: string) => void;
+    props?: any;
+    required?: boolean; // Propiedad para indicar si el campo es obligatorio
+    defaultValue?: number; // Propiedad para el valor predeterminado
+}
+
+const LabeledSelect = ({
+    label,
+    options,
+    labelAlign = 'left',
+    variante = 'medio',
+    updateText,
+    props,
+    required = false,
+    defaultValue // Agregar defaultValue como argumento
+}: LabeledSelectProps) => {
+    return (
+        <Box sx={{ textAlign: labelAlign }}>
+            <CustomText texto={label} variante='pequeño' />
+            <Select
+                onChange={(event) => updateText(event.target.value as string)}
+                fullWidth
+                required={required} // Hacer que el Select sea obligatorio
+                defaultValue={defaultValue} // Pasar el valor predeterminado
+                {...props}
+            >
+                {options.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                    </MenuItem>
+                ))}
+            </Select>
+        </Box>
     );
 };
 
