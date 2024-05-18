@@ -40,13 +40,13 @@ const CalculatorPage = () => {
         <div
           style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}
         >
-          <Box sx={{ width: '50%', textAlign: 'center' }}>
+          {/* <Box sx={{ width: '50%', textAlign: 'center' }}>
             <CustomText texto={stepList[currentStep].label} variante={'titulo'} />
-          </Box>
+          </Box> */}
           <Box sx={{ width: '100%', textAlign: 'center' }}>
             <div>
               {currentStep === 2 && <div> </div>}
-              {currentStep === 3 && <SourcesDataForm sources={sourcesDictionaryPrueba2}/>}
+              {currentStep === 3 && <SourcesDataForm sources={sourcesDictionaryPrueba2} />}
               {currentStep === 4 && <CoverageForm />}
               {currentStep === 5 && <CostsAndUsageForm />}
               {currentStep === 6 && <div> </div>}
