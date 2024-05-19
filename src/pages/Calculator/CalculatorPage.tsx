@@ -88,10 +88,10 @@ const CalculatorPage = () => {
           <Box sx={{ width: '100%', textAlign: 'center' }}>
             <div>
               {currentStep === 1 && <CategoriesForm />}
-              {currentStep === 3 && <div> </div>}
-              {currentStep === 4 && <CoverageForm />}
-              {currentStep === 5 && <CostsAndUsageForm />}
-              {currentStep === 6 && <div> </div>}
+              {currentStep === 2 && <div> </div>}
+              {currentStep === 3 && <CoverageForm />}
+              {currentStep === 4 && <CostsAndUsageForm />}
+              {currentStep === 5 && <div> </div>}
             </div>
           </Box>
           <Box
