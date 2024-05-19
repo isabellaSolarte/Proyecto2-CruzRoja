@@ -9,7 +9,7 @@ const CoverageForm = () => {
 
   return (
     <ManagmentLayout
-      title={<CustomText texto={t('calculator.coverageForm.title')} variante={'subtitulo'} />}
+      title={<CustomText texto={t('calculator.coverageForm.title')} variante={'titulo'} />}
       description={
         <CustomText texto={t('calculator.coverageForm.description')} variante={'texto'} />
       }

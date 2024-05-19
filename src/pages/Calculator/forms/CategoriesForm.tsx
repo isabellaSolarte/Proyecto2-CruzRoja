@@ -1,17 +1,23 @@
 import { Box } from "@mui/material";
-import { CustomText, ManagmentLayout } from "../../../components";
+import { CustomButton, CustomText, ManagmentLayout } from "../../../components";
 import { useTranslation }  from 'react-i18next';
 import { useCategoriesCalculatorForm } from "../hooks/userCategoriesCalculatorForm";
-import CustomCardCategory from "../../../components/orgamisms/CustomCardCategory/CustomCardCategory";
 import CustomCardCalculatorCategory from "../../../components/orgamisms/CustomCardCalculatorCategory/CustomCardCalculatorCategory";
 
 const CategoriesForm = () => {
     const {t} = useTranslation('commons');
-    const{
-        categoryList
-    }= useCategoriesCalculatorForm()
+    const{categoryList,handleCategorySelect,selectedCategories,saveSelectedCategories}= useCategoriesCalculatorForm();
+    
     return (
         <ManagmentLayout 
+            actionsContent = {
+                <Box>
+                   <CustomButton
+                        content={t('generalButtonText.saveCategoriesSelected')} 
+                        onClick={saveSelectedCategories}
+                    />
+                </Box>
+                }
             title={
                     <Box>
                         <CustomText 
@@ -31,7 +37,8 @@ const CategoriesForm = () => {
                             categoryName={category.name}
                             categoryScope={category.scope}
                             categoryDescription={category.descripction}
-                            
+                            isSelected={selectedCategories.includes(category.id)}
+                            onSelect={handleCategorySelect}
                         />
                     ))}     
                 </Box>
