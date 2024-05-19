@@ -30,6 +30,7 @@ const useSourcesForm = () => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(initialSchemaValidation),
+    defaultValues: { sources: adaptedSources },
   });
 
   const sourcesArray = useFieldArray({
@@ -38,7 +39,8 @@ const useSourcesForm = () => {
   });
 
   const addSource = (source: SourcesType) => {
-    sourcesArray.append(source);
+    const indexToUpdate = sourcesArray.fields.findIndex(field => field.name === source.name);
+    sourcesArray.update(indexToUpdate, source);
   };
 
   const removeSource = (name: string) => {
