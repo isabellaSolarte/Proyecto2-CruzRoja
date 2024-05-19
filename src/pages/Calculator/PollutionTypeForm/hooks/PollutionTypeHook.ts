@@ -1,14 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useTranslation } from 'react-i18next';
 import { CategoryModel, SourceModel } from '../../../../models';
 import { useContext, useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import CoverageResolver from '../schemas/CoverageSchema';
 import { CalculatorContext } from '../../../../contexts';
 import PollutionTypeResolver from '../schemas/PollutionTypeSchema';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { PollutionTypeModel } from '../../../../models';
-
 
 type PollutanType = {
   pollutionTypeId: number;
@@ -20,17 +16,14 @@ type PollutanType = {
   pollutionTypeState: boolean;
 };
 
-
-
 const usePollutionTypeForm = () => {
   const { t } = useTranslation('commons');
 
-  const [pollutionTypeList, setPollutionTypeList] = useState<PollutionTypeModel[]>([]);
-
   const calculator = useContext(CalculatorContext);
   const [adaptedPollutionTypes, setAdaptedPollutionTypes] = useState<
-  PollutanType[]
+  CategoryModel[]
   >(extractPollutiontypesFromCategories(calculator.categories));
+  
 
   const {
     control,
@@ -44,52 +37,60 @@ const usePollutionTypeForm = () => {
     resolver: yupResolver(PollutionTypeResolver),
   });
 
-  const { fields, append, update, remove } = useFieldArray({
+  const { update } = useFieldArray({
     control,
     name: 'pollutionType',
   });
 
-
-  const addPollutionType = (newPollutionType: PollutionTypeModel) => {
-    append(newPollutionType);
-    register(`pollutionType.${fields.length}.id`);
-    console.log('getValues add: ', getValues());
-  };
-
-  const removePollutionType = (pollutionTypeName: string) => {
-    const indexToRemove = fields.findIndex(field => field.name === pollutionTypeName);
-    
-    if (indexToRemove !== -1) {
-      remove(indexToRemove);
-      console.log('getValues remove: ', getValues());
-    }
-  };
+  const updatePollutionType = (polllutionTypeName: string, pollutionTypeState: boolean)=>{
+    let indexToUpdate = 0;
+    const updatedCategories = getValues().pollutionType.map((category, index) => { 
+      const updatedPollutants = category?.pollutans.map(pollutant => {
+        if(pollutant.name === polllutionTypeName){
+          indexToUpdate = index
+        }
+        if(polllutionTypeName === pollutant.name){
+          return {...pollutant, state: pollutionTypeState}
+        }else{
+          return {...pollutant}
+        }
+      });
+      // Retornamos la categoría actualizada con los pollutants modificados
+      return {
+        ...category,
+        pollutans: updatedPollutants
+      };
+    });
+      update(indexToUpdate, updatedCategories[indexToUpdate]);
+  }
 
   function extractPollutiontypesFromCategories(
     categories: CategoryModel[],
-  ): PollutanType[] {
-    const pollutionTypes: PollutanType[] = [];
-    console.log(categories);
-
-    categories?.forEach(category => {
-      category.pollutans.forEach(pollutant => {
-        pollutionTypes.push({
-          pollutionTypeId: pollutant.id,
-          pollutionTypeName: pollutant.name,
-          pollutionTypeDescription: pollutant.description,
-          pollutionTypeUnits: pollutant.unity,
-          pollutionTypeEmissionFactor: pollutant.emissionFactor,
-          pollutionTypeSources: pollutant.sources,
-          pollutionTypeState: pollutant.state,
-        });
+  ): CategoryModel[] {
+  
+    const updatedCategories = categories.map(category => {
+  
+      // Actualizamos los pollutants en la categoría
+      const updatedPollutants = category.pollutans.map(pollutant => {
+        return {
+          ...pollutant,
+          state: false
+        };
       });
+      // Retornamos la categoría actualizada con los pollutants modificados
+      return {
+        ...category,
+        pollutans: updatedPollutants
+      };
     });
-
-    return pollutionTypes;
+  
+    return updatedCategories;
   }
+  
 
   const updatePollutionTypesCalculatorState = (data: PollutanType[]) => {
     const currentState = calculator.categories;
+
     data.forEach(formData => {
       const category = currentState.find(d => d.id === formData.pollutionTypeId);
 
@@ -126,7 +127,7 @@ const usePollutionTypeForm = () => {
       });
     //calculator.updateFormHasErrors(Object.keys(errors).length > 0);
   };
-  
+
   const handlePollutionTypeFormData = () => {
     if (calculator.formReference.current) {
       calculator.formReference.current.dispatchEvent(
@@ -140,8 +141,7 @@ const usePollutionTypeForm = () => {
     onSubmit,
     register,
     getValues,
-    addPollutionType,
-    removePollutionType,
+    updatePollutionType,
     handleFormSubmit,
     handlePollutionTypeFormData,
     calculator,

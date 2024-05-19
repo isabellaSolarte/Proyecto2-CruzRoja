@@ -28,12 +28,12 @@ const useCalculatorHook = () => {
                 name: 'Source 1 - Pollutant 1',
                 description: 'Description of Source 1 - Pollutant 1',
                 coverage: {
-                  totalSources: 10,
-                  informedSources: 5,
+                  totalSources: undefined,
+                  informedSources: undefined,
                 },
                 facturation: {
-                  cost: 100,
-                  month: 1,
+                  cost: undefined,
+                  month: undefined,
                 },
               },
               {
@@ -41,12 +41,12 @@ const useCalculatorHook = () => {
                 name: 'Source 2 - Pollutant 1',
                 description: 'Description of Source 2 - Pollutant 1',
                 coverage: {
-                  totalSources: 8,
-                  informedSources: 3,
+                  totalSources: undefined,
+                  informedSources: undefined,
                 },
                 facturation: {
-                  cost: 120,
-                  month: 1,
+                  cost: undefined,
+                  month: undefined,
                 },
               },
               {
@@ -54,12 +54,12 @@ const useCalculatorHook = () => {
                 name: 'Source 3 - Pollutant 1',
                 description: 'Description of Source 3 - Pollutant 1',
                 coverage: {
-                  totalSources: 12,
-                  informedSources: 7,
+                  totalSources: undefined,
+                  informedSources: undefined,
                 },
                 facturation: {
-                  cost: 150,
-                  month: 1,
+                  cost: undefined,
+                  month: undefined,
                 },
               },
             ],
@@ -76,12 +76,12 @@ const useCalculatorHook = () => {
                 name: 'Source 1 - Pollutant 2',
                 description: 'Description of Source 1 - Pollutant 2',
                 coverage: {
-                  totalSources: 15,
-                  informedSources: 8,
+                  totalSources: undefined,
+                  informedSources: undefined,
                 },
                 facturation: {
-                  cost: 90,
-                  month: 1,
+                  cost: undefined,
+                  month: undefined,
                 },
               },
               {
@@ -89,12 +89,12 @@ const useCalculatorHook = () => {
                 name: 'Source 2 - Pollutant 2',
                 description: 'Description of Source 2 - Pollutant 2',
                 coverage: {
-                  totalSources: 20,
-                  informedSources: 12,
+                  totalSources: undefined,
+                  informedSources: undefined,
                 },
                 facturation: {
-                  cost: 110,
-                  month: 1,
+                  cost: undefined,
+                  month: undefined,
                 },
               },
               {
@@ -102,12 +102,12 @@ const useCalculatorHook = () => {
                 name: 'Source 3 - Pollutant 2',
                 description: 'Description of Source 3 - Pollutant 2',
                 coverage: {
-                  totalSources: 18,
-                  informedSources: 9,
+                  totalSources: undefined,
+                  informedSources: undefined,
                 },
                 facturation: {
-                  cost: 130,
-                  month: 1,
+                  cost: undefined,
+                  month: undefined,
                 },
               },
             ],
@@ -219,117 +219,14 @@ const useCalculatorHook = () => {
           },
         ],
       },
-      {
-        id: 3,
-        name: 'Category 3',
-        descripction: 'Description of Category 3',
-        scope: 'Scope of Category 3',
-        state: true,
-        pollutans: [
-          {
-            id: 5,
-            name: 'Pollutant 5',
-            description: 'Description of Pollutant 5',
-            unity: PollutionUnity.UG,
-            emissionFactor: 1.5,
-            sources: [
-              {
-                id: 13,
-                name: 'Source 1 - Pollutant 5',
-                description: 'Description of Source 1 - Pollutant 5',
-                coverage: {
-                  totalSources: 3,
-                  informedSources: 2,
-                },
-                facturation: {
-                  cost: 400,
-                  month: 3,
-                },
-              },
-              {
-                id: 14,
-                name: 'Source 2 - Pollutant 5',
-                description: 'Description of Source 2 - Pollutant 5',
-                coverage: {
-                  totalSources: 4,
-                  informedSources: 3,
-                },
-                facturation: {
-                  cost: 420,
-                  month: 3,
-                },
-              },
-              {
-                id: 15,
-                name: 'Source 3 - Pollutant 5',
-                description: 'Description of Source 3 - Pollutant 5',
-                coverage: {
-                  totalSources: 5,
-                  informedSources: 4,
-                },
-                facturation: {
-                  cost: 450,
-                  month: 3,
-                },
-              },
-            ],
-          },
-          {
-            id: 6,
-            name: 'Pollutant 6',
-            description: 'Description of Pollutant 6',
-            unity: PollutionUnity.PPB,
-            emissionFactor: 2.0,
-            sources: [
-              {
-                id: 16,
-                name: 'Source 1 - Pollutant 6',
-                description: 'Description of Source 1 - Pollutant 6',
-                coverage: {
-                  totalSources: 6,
-                  informedSources: 5,
-                },
-                facturation: {
-                  cost: 500,
-                  month: 3,
-                },
-              },
-              {
-                id: 17,
-                name: 'Source 2 - Pollutant 6',
-                description: 'Description of Source 2 - Pollutant 6',
-                coverage: {
-                  totalSources: 7,
-                  informedSources: 6,
-                },
-                facturation: {
-                  cost: 520,
-                  month: 3,
-                },
-              },
-              {
-                id: 18,
-                name: 'Source 3 - Pollutant 6',
-                description: 'Description of Source 3 - Pollutant 6',
-                coverage: {
-                  totalSources: 8,
-                  informedSources: 7,
-                },
-                facturation: {
-                  cost: 550,
-                  month: 3,
-                },
-              },
-            ],
-          },
-        ],
-      },
+      
     ];
 
     calculator.setCalculatorState(fakeData);
   };
 
   return {
+    calculator,
     fetchCategories,
     t,
   };

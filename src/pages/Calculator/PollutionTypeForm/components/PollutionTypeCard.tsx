@@ -13,24 +13,22 @@ interface PollutionTypeCardProps {
 
 
 const PollutionTypeCard = ({
-    pollutionType,
-  addedPollutionType,
+  pollutionType,
   positiveAction,
   negativeAction,
 }: PollutionTypeCardProps) => {
   const [switchState, setSwitchState] = useState(false);
 
   const isPollutionTypeAdded = () => {
-    addedPollutionType?.map(tipoContaminante => {
-      if (tipoContaminante.id === pollutionType.id) {
-        setSwitchState(true);
-      }
-    });
+    console.log('PullutionType: ', pollutionType);
+    if(pollutionType.state)
+      setSwitchState(true);
+    
   };
 
   useEffect(() => {
     isPollutionTypeAdded();
-  }, [addedPollutionType, pollutionType]);
+  }, [pollutionType]);
 
   const handleSwitch = () => {
     setSwitchState(!switchState);

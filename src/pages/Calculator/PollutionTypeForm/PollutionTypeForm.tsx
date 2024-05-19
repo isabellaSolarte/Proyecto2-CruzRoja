@@ -1,22 +1,17 @@
-import { useEffect, useContext, useState  } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
 import {CustomText, ErrorText, ManagmentLayout, CustomAccordion} from '../../../components';
 import { Box } from '@mui/material';
-import { CategoryModel, PollutionTypeModel } from '../../../models';
 import PollutionTypeCard from './components/PollutionTypeCard'; 
 import usePollutionTypeForm from './hooks/PollutionTypeHook';
 
 
 const PollutionTypeForm = () => {
-
-    const [pollutionTypeList, setPollutionTypeList] = useState<CategoryModel[]>([]);
     
     const { 
       t,
       adaptedPollutionTypes,
       register,
-      addPollutionType,
-      removePollutionType,
+      updatePollutionType,
       errors,
       calculator,
       handleFormSubmit,
@@ -32,9 +27,6 @@ const PollutionTypeForm = () => {
     }, []);
 
 
-  console.log('adaptedPollutionTypes: ', adaptedPollutionTypes);
-  
-  
   const PollutionTypeData = []
   return (
     <ManagmentLayout 
@@ -46,7 +38,7 @@ const PollutionTypeForm = () => {
     generalContents={
       <form ref={calculator.formReference}>
         <Box mt={5} sx={{ borderTop: '1px solid #C8C8C8'}}>
-        {pollutionTypeList.map(categoria =>
+        {adaptedPollutionTypes.map(categoria =>
           <CustomAccordion
           key={categoria.id}
           accordionSummary={categoria.name}
@@ -57,9 +49,8 @@ const PollutionTypeForm = () => {
                   <PollutionTypeCard
                     key={pollutionType.id}
                     pollutionType={pollutionType}
-                    addedpollutionType={PollutionTypeData?.pollutionTypes}
-                    positiveAction={addPollutionType}
-                    negativeAction={()=>{removePollutionType(pollutionType.name)}}
+                    positiveAction={()=>{updatePollutionType(pollutionType.name, true)}}
+                    negativeAction={()=>{updatePollutionType(pollutionType.name, false)}}
                     props={register('pollutionType')}
                   />
                 ))

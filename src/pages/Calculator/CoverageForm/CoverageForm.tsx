@@ -1,26 +1,20 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Grid } from '@mui/material';
-import { CustomButton, CustomText, ErrorText, ManagmentLayout } from '../../../components';
+import { CustomText, ErrorText, ManagmentLayout } from '../../../components';
 import { useCoverageForm } from './hooks';
 import { DoubleInput } from './components';
 import { Fragment } from 'react/jsx-runtime';
+import { useEffect } from 'react';
 
 const CoverageForm = () => {
-  const {
-    t,
-    adaptedSources,
-    updateCoverageTotalSource,
-    updateCoverageInformedSource,
-    handleSubmit,
-    register,
-    getValues,
-    onSubmit,
-    errors,
-  } = useCoverageForm();
+  const { t, adaptedSources, errors, register, calculator, handleFormSubmit } = useCoverageForm();
 
-  const handleClick = () => {
-    console.log(getValues());
-    console.log(errors.coverage);
-  };
+  useEffect(() => {
+    if (calculator.formReference.current) {
+      calculator.formReference.current.addEventListener('submit', handleFormSubmit);
+    }
+    calculator.updateFormHasErrors(false);
+  }, []);
 
   return (
     <ManagmentLayout
@@ -29,39 +23,43 @@ const CoverageForm = () => {
         <CustomText texto={t('calculator.coverageForm.description')} variante={'texto'} />
       }
       generalContents={
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form ref={calculator.formReference}>
           <Grid container>
-            {adaptedSources.map((source, index) => (
-              <Fragment key={source.id}>
-                <Grid item xs={12} md={6} paddingInlineEnd={10} paddingBlockEnd={5}>
+            {adaptedSources.map((pollutants, index) => (
+              <Fragment key={index}>
+                <Grid
+                  item
+                  xs={12}
+                  md={6}
+                  paddingInlineEnd={10}
+                  paddingBlockEnd={5}
+                  key={pollutants.id}
+                >
                   <DoubleInput
                     mainLabel={t('calculator.coverageForm.source')}
                     labelInput1={t('calculator.coverageForm.totalSources')}
                     labelInput2={t('calculator.coverageForm.informedSources')}
-                    title={source.name}
+                    title={pollutants.name}
                     propsInput1={{
                       registerInput1: register(`coverage.${index}.totalSources`),
-                      updateInput1: updateCoverageTotalSource,
-                      index: index,
                     }}
                     propsInput2={{
                       registerInput2: register(`coverage.${index}.informedSources`),
-                      updateInput2: updateCoverageInformedSource,
-                      index: index,
                     }}
                   />
-                  {errors.coverage && errors.coverage[index]?.totalSources && (
+
+                  {!!errors.coverage && !!errors.coverage[index]?.totalSources && (
                     <Grid item xs={12}>
                       <ErrorText
-                        error={errors.coverage[index]?.totalSources?.message}
+                        error={errors.coverage[index]?.totalSources.message}
                         formErrorKey={'calculator'}
                       />
                     </Grid>
                   )}
-                  {errors.coverage && errors.coverage[index]?.informedSources && (
+                  {!!errors.coverage && !!errors.coverage[index]?.informedSources && (
                     <Grid item xs={12}>
                       <ErrorText
-                        error={errors.coverage[index]?.informedSources?.message}
+                        error={errors.coverage[index]?.informedSources.message}
                         formErrorKey={'calculator'}
                       />
                     </Grid>
@@ -70,7 +68,6 @@ const CoverageForm = () => {
               </Fragment>
             ))}
           </Grid>
-          <CustomButton content="Guardar" color={'info'} type={'submit'} onClick={handleClick} />
         </form>
       }
     />
