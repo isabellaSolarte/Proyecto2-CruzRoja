@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import { CustomButton, CustomStepper, CustomText } from '../../components';
-import { CoverageForm } from './CoverageForm';
+import { CoverageForm, useCoverageForm } from './CoverageForm';
 import { useCalculatorHook, useStepper } from './hooks';
 import { useEffect } from 'react';
 import CostsAndUsageForm from './CostsAndUsageForm/CostsAndUsageForm';
@@ -9,11 +9,25 @@ import { sourcesDictionaryPrueba2 } from './Sources/Form/sourcesDictionary';
 
 const CalculatorPage = () => {
   const { currentStep, stepList, handleNextStep, handleStepBack } = useStepper();
-  const { fetchCategories, t } = useCalculatorHook();
+  const { fetchCategories, calculator, t } = useCalculatorHook();
+  const { handleCoverageFormData } = useCoverageForm();
+
+  const handleClick = () => {
+    if (currentStep === 4) {
+      handleCoverageFormData();
+    }
+    if (currentStep < 4) {
+      handleNextStep();
+    }
+  };
 
   useEffect(() => {
     fetchCategories();
   }, []);
+
+  useEffect(() => {
+    console.log('calculator.formHasErrors', calculator.formHasErrors);
+  }, [calculator.formHasErrors]);
 
   return (
     <CustomStepper stepsData={stepList} activeStep={currentStep}>
@@ -40,9 +54,6 @@ const CalculatorPage = () => {
         <div
           style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}
         >
-          {/* <Box sx={{ width: '50%', textAlign: 'center' }}>
-            <CustomText texto={stepList[currentStep].label} variante={'titulo'} />
-          </Box> */}
           <Box sx={{ width: '100%', textAlign: 'center' }}>
             <div>
               {currentStep === 2 && <div> </div>}
@@ -72,7 +83,7 @@ const CalculatorPage = () => {
                 variant="contained"
                 color="info"
                 content={'Siguiente'}
-                onClick={handleNextStep}
+                onClick={handleClick}
               />
             )}
           </Box>

@@ -58,8 +58,8 @@ const useCalculatorHook = () => {
                   informedSources: undefined,
                 },
                 facturation: {
-                  cost:undefined,
-                  month:undefined,
+                  cost: undefined,
+                  month: undefined,
                 },
               },
             ],
@@ -114,13 +114,13 @@ const useCalculatorHook = () => {
           },
         ],
       },
-
     ];
 
     calculator.setCalculatorState(fakeData);
   };
 
   return {
+    calculator,
     fetchCategories,
     t,
   };

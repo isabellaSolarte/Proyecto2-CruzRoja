@@ -82,11 +82,36 @@ const useCoverageForm = () => {
     calculator.setCalculatorState(updateCoverage);
   };
 
+  const handleFormSubmit = (event: any) => {
+    event.preventDefault(); // Evita la recarga de la página
+    void handleSubmit(onSubmit)(event);
+
+    CoverageResolver.validate(getValues(), { abortEarly: false })
+      .then(() => {
+        calculator.updateFormHasErrors(false);
+      })
+      .catch(() => {
+        calculator.updateFormHasErrors(true);
+      });
+    //calculator.updateFormHasErrors(Object.keys(errors).length > 0);
+  };
+
+  const handleCoverageFormData = () => {
+    if (calculator.formReference.current) {
+      calculator.formReference.current.dispatchEvent(
+        new Event('submit', { cancelable: true, bubbles: true }),
+      );
+    }
+  };
+
   return {
     handleSubmit,
     onSubmit,
     register,
     getValues,
+    handleFormSubmit,
+    handleCoverageFormData,
+    calculator,
     errors,
     control,
     t,
