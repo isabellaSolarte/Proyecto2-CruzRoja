@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { CustomCard, CustomIconDetails } from '../../../components';
-import { PollutionTypeModel } from '../../../models';
+
+import { CustomCard, CustomIconDetails } from '../../../../components';
+import { PollutionTypeModel } from '../../../../models';
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip';
 
 interface PollutionTypeCardProps {
@@ -10,16 +11,6 @@ interface PollutionTypeCardProps {
   negativeAction: () => void;
 }
 
-interface PollutionTypeMessageMap {
-  [key: number]: string;
-}
-
-const pollutionTypeMessages: PollutionTypeMessageMap = {
-  100: 'Consumo de carbono',
-  101: 'Bagazo',
-  102: 'Carbon Mineral',
-  103: 'Madera',
-};
 
 const PollutionTypeCard = ({
     pollutionType,
@@ -53,9 +44,9 @@ const PollutionTypeCard = ({
   return (
     <CustomCard
       key={pollutionType.id}
-      texto1={pollutionTypeMessages[pollutionType.id]}
-      texto2={''}
-      sx={{ marginBottom: '1rem', backgroundColor: '#D9D9D9' }}
+      texto1={pollutionType.name}
+      texto2={pollutionType.unity}
+      sx={{ marginBottom: '1rem', backgroundColor: '#D9D9D9'}}
       switchState={switchState}
       handleSwitchState={handleSwitch}
       icon={

@@ -4,6 +4,7 @@ import { CoverageForm } from './CoverageForm';
 import { useCalculatorHook, useStepper } from './hooks';
 import { useEffect } from 'react';
 import CostsAndUsageForm from './CostsAndUsageForm/CostsAndUsageForm';
+import PollutionTypeForm from './PollutionTypeForm/PollutionTypeForm';
 
 const CalculatorPage = () => {
   const { currentStep, stepList, handleNextStep, handleStepBack } = useStepper();
@@ -43,7 +44,7 @@ const CalculatorPage = () => {
           </Box>
           <Box sx={{ width: '100%', textAlign: 'center' }}>
             <div>
-              {currentStep === 2 && <div> </div>}
+              {currentStep === 2 && <PollutionTypeForm />}
               {currentStep === 3 && <div> </div>}
               {currentStep === 4 && <CoverageForm />}
               {currentStep === 5 && <CostsAndUsageForm />}

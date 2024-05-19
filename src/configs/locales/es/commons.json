@@ -61,6 +61,7 @@
         }
         
     },
+    
 
     "usersPages": {
         "tabs": {
@@ -194,6 +195,10 @@
             "totalSources": "totales",
             "informedSources": "informadas",
             "source": "Fuente"
+        },
+        "pollutionTypeForm": {
+            "title": "Tipo de Contaminante",
+            "description": "A continuacion seleccione las cargas ambientales para cada categoria seleccionada que apliquen."
         }
     }
 }
