@@ -15,6 +15,7 @@ const CalculatorPage = () => {
   const handleClick = () => {
     if (currentStep === 4) {
       handleCoverageFormData();
+      handleNextStep();
     }
     if (currentStep < 4) {
       handleNextStep();
