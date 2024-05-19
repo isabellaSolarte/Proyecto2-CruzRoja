@@ -4,8 +4,7 @@ import { CoverageForm } from './CoverageForm';
 import { useCalculatorHook, useStepper } from './hooks';
 import { useEffect } from 'react';
 import CostsAndUsageForm from './CostsAndUsageForm/CostsAndUsageForm';
-import { SourcesDataForm } from './SourcesForm/Form';
-import { sourcesDictionaryPrueba2 } from './SourcesForm/Form/sourcesDictionary';
+import { SourcesPage } from './SourcesForm';
 
 const CalculatorPage = () => {
   const { currentStep, stepList, handleNextStep, handleStepBack } = useStepper();
@@ -46,7 +45,7 @@ const CalculatorPage = () => {
           <Box sx={{ width: '100%', textAlign: 'center' }}>
             <div>
               {currentStep === 2 && <div> </div>}
-              {currentStep === 3 && <SourcesDataForm sources={sourcesDictionaryPrueba2}/>}
+              {currentStep === 3 && <SourcesPage />}
               {currentStep === 4 && <CoverageForm />}
               {currentStep === 5 && <CostsAndUsageForm />}
               {currentStep === 6 && <div> </div>}

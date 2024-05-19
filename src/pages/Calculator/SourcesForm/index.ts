@@ -1,1 +1,1 @@
-export {default as SourcesPage} from './SourcesPage';
+export {default as SourcesPage} from './SourcesForm';

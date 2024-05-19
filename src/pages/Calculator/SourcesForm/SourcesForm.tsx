@@ -11,7 +11,7 @@ const SourcesPage = () => {
         title={<CustomText texto={t('pageTitles.sources')} variante="titulo" />}
         generalContents={
             <div>
-                <SourcesDataForm sources={sourcesDictionaryPrueba2}/>
+                <SourcesDataForm/>
             </div>
         }
         />

@@ -7,13 +7,9 @@ import { useEffect, useState } from 'react';
 import { defaulSourceSchema } from '../Schemas';
 import SourcesType from '../types/SourcesType';
 
-interface SourcesDataFormProps {
-  sources: SourcesType[];
-}
 
-const SourcesDataForm = (
-  { sources = [] }: SourcesDataFormProps,
-) => {
+
+const SourcesDataForm = () => {
   const { adaptedSources, handleSubmit, onSubmit, register, errors, addSource, removeSource } = useSourcesForm();
   const [sourcesDictionary, setSourcesDictionary] = useState(adaptedSources);
 
