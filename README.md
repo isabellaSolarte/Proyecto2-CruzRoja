@@ -1,5 +1,7 @@
+<a name="readme-top"></a>
+
 <div align="center">
-  <a href="https://github.com/jdacamacho/carbon_foot_print_backend">
+  <a href="https://github.com/isabellaSolarte/Proyecto2-CruzRoja.git">
     <img src="public/icono-calculadora.png" alt="Logo" width="100" height="100">
   </a>
 
@@ -7,7 +9,6 @@
 
   <p align="center">
     Cruz Roja Carbon FootPrint es una plataforma web desarrollada con React y TypeScript que tiene como objetivo ayudar a las empresas a calcular y reducir su huella de carbono. La plataforma está diseñada utilizando la metodología Atomic Design, lo que garantiza una arquitectura modular, escalable y fácil de mantener.
-    
   </p>
 </div>
 
