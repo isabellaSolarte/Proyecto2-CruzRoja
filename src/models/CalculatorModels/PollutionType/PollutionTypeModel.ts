@@ -8,4 +8,5 @@ export interface PollutionTypeModel {
   unity: PollutionUnity | string;
   emissionFactor: number;
   sources: SourceModel[];
+  state: boolean;
 }

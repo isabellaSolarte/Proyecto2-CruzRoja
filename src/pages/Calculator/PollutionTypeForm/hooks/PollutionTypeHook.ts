@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useTranslation } from 'react-i18next';
-import { CategoryModel } from '../../../../models';
+import { CategoryModel, SourceModel } from '../../../../models';
 import { useContext, useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import CoverageResolver from '../schemas/CoverageSchema';
@@ -10,12 +10,14 @@ import { useFieldArray, useForm } from 'react-hook-form';
 import { PollutionTypeModel } from '../../../../models';
 
 
-type PollutanCoverage = {
-  id: number;
-  name: string;
-  totalSources: number;
-  informedSources: number;
-  //errors: string[];
+type PollutanType = {
+  pollutionTypeId: number;
+  pollutionTypeName : string;
+  pollutionTypeDescription: string;
+  pollutionTypeUnits: string;
+  pollutionTypeEmissionFactor	: number;
+  pollutionTypeSources: SourceModel[];
+  pollutionTypeState: boolean;
 };
 
 
@@ -25,6 +27,11 @@ const usePollutionTypeForm = () => {
 
   const [pollutionTypeList, setPollutionTypeList] = useState<PollutionTypeModel[]>([]);
 
+  const calculator = useContext(CalculatorContext);
+  const [adaptedPollutionTypes, setAdaptedPollutionTypes] = useState<
+  PollutanType[]
+  >(extractPollutiontypesFromCategories(calculator.categories));
+
   const {
     control,
     handleSubmit,
@@ -33,7 +40,7 @@ const usePollutionTypeForm = () => {
     formState: { errors },
     reset,
   } = useForm({
-    defaultValues: { pollutionType: pollutionTypeList },
+    defaultValues: { pollutionType: adaptedPollutionTypes },
     resolver: yupResolver(PollutionTypeResolver),
   });
 
@@ -58,11 +65,74 @@ const usePollutionTypeForm = () => {
     }
   };
 
+  function extractPollutiontypesFromCategories(
+    categories: CategoryModel[],
+  ): PollutanType[] {
+    const pollutionTypes: PollutanType[] = [];
+    console.log(categories);
+
+    categories?.forEach(category => {
+      category.pollutans.forEach(pollutant => {
+        pollutionTypes.push({
+          pollutionTypeId: pollutant.id,
+          pollutionTypeName: pollutant.name,
+          pollutionTypeDescription: pollutant.description,
+          pollutionTypeUnits: pollutant.unity,
+          pollutionTypeEmissionFactor: pollutant.emissionFactor,
+          pollutionTypeSources: pollutant.sources,
+          pollutionTypeState: pollutant.state,
+        });
+      });
+    });
+
+    return pollutionTypes;
+  }
+
+  const updatePollutionTypesCalculatorState = (data: PollutanType[]) => {
+    const currentState = calculator.categories;
+    data.forEach(formData => {
+      const category = currentState.find(d => d.id === formData.pollutionTypeId);
+
+      let pollutant = category?.pollutans.find(
+        p => p.id === formData.pollutionTypeId,
+      );
+      if (!pollutant) return;
+      pollutant = {
+        ...pollutant,
+        state: true
+      }
+    });
+
+    return currentState;
+  };
+
 
   const onSubmit = (data: any) => {
-    console.log(data);
-    console.log('getValues: ', getValues());
-    
+    setAdaptedPollutionTypes(data);
+    const updatePollutionType = updatePollutionTypesCalculatorState(data);
+    calculator.setCalculatorState(updatePollutionType);
+  };
+
+  const handleFormSubmit = (event: any) => {
+    event.preventDefault(); // Evita la recarga de la página
+    void handleSubmit(onSubmit)(event);
+
+    PollutionTypeResolver.validate(getValues(), { abortEarly: false })
+      .then(() => {
+        calculator.updateFormHasErrors(false);
+      })
+      .catch(() => {
+        calculator.updateFormHasErrors(true);
+      });
+    //calculator.updateFormHasErrors(Object.keys(errors).length > 0);
+  };
+  
+  const handlePollutionTypeFormData = () => {
+    if (calculator.formReference.current) {
+      calculator.formReference.current.dispatchEvent(
+        new Event('submit', { cancelable: true, bubbles: true }),
+      );
+    }
   };
 
   return {
@@ -72,10 +142,14 @@ const usePollutionTypeForm = () => {
     getValues,
     addPollutionType,
     removePollutionType,
+    handleFormSubmit,
+    handlePollutionTypeFormData,
+    calculator,
     errors,
     control,
     t,
-    reset
+    reset,
+    adaptedPollutionTypes,
   };
 };
 

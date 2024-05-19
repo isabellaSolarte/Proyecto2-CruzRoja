@@ -3,39 +3,39 @@ import { useTranslation } from 'react-i18next';
 import {CustomText, ErrorText, ManagmentLayout, CustomAccordion} from '../../../components';
 import { Box } from '@mui/material';
 import { CategoryModel, PollutionTypeModel } from '../../../models';
-import { CalculatorContext } from '../../../contexts/CalculatorForm';
 import PollutionTypeCard from './components/PollutionTypeCard'; 
 import usePollutionTypeForm from './hooks/PollutionTypeHook';
 
 
 const PollutionTypeForm = () => {
 
-    const { t } = useTranslation('commons');
-    const calculator = useContext(CalculatorContext);
-
-    console.log(calculator.getCalculatorState());
     const [pollutionTypeList, setPollutionTypeList] = useState<CategoryModel[]>([]);
-
+    
     const { 
-      handleSubmit,
-      onSubmit,
+      t,
+      adaptedPollutionTypes,
       register,
-      getValues,
       addPollutionType,
       removePollutionType,
       errors,
-      control,
-      //t,
+      calculator,
+      handleFormSubmit,
       reset,
     } = usePollutionTypeForm()
     
-      // Use useEffect to set the pollutionTypeList once the component mounts
-  useEffect(() => {
-    const calculatorState = calculator.getCalculatorState();
-    setPollutionTypeList(calculatorState);
-  }, [calculator]); // Add calculator as a dependency
-  const PollutionTypeData = []
+    
+    useEffect(() => {
+      if (calculator.formReference.current) {
+        calculator.formReference.current.addEventListener('submit', handleFormSubmit);
+      }
+      calculator.updateFormHasErrors(false);
+    }, []);
 
+
+  console.log('adaptedPollutionTypes: ', adaptedPollutionTypes);
+  
+  
+  const PollutionTypeData = []
   return (
     <ManagmentLayout 
     title={<CustomText texto={t('calculator.pollutionTypeForm.title')} variante={'titulo'} />}
@@ -44,7 +44,7 @@ const PollutionTypeForm = () => {
     }
     
     generalContents={
-      <form>
+      <form ref={calculator.formReference}>
         <Box mt={5} sx={{ borderTop: '1px solid #C8C8C8'}}>
         {pollutionTypeList.map(categoria =>
           <CustomAccordion
@@ -70,24 +70,10 @@ const PollutionTypeForm = () => {
             
           
         )}
-
-          
-{/*         {fetchCategories.map((pollutionType, index) => (
-            <PollutionTypeCard
-              key={pollutionType.id}
-              pollutionType={pollutionType}
-              addedpollutionType={PollutionTypeData?.pollutionTypes}
-              positiveAction={addPollutionType}
-              negativeAction={()=>{removePollutionType(pollutionType.name)}}
-              props={register('pollutionTypes')}
-            />
-          ))} 
-          {errors.permissions && <ErrorText  error={errors.permissions.message} formErrorKey="userFormErrorsRole"/>} */}
         </Box>
       </form>
     }
     >
-
     </ManagmentLayout>
       
   );
