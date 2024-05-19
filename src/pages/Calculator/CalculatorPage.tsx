@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { CustomButton, CustomStepper, CustomText } from '../../components';
 import { CoverageForm, useCoverageForm } from './CoverageForm';
 import { useCalculatorHook, useStepper } from './hooks';
@@ -12,16 +12,6 @@ const CalculatorPage = () => {
   const { fetchCategories, calculator, t } = useCalculatorHook();
   const { handleCoverageFormData } = useCoverageForm();
 
-  const handleClick = () => {
-    if (currentStep === 4) {
-      handleCoverageFormData();
-      handleNextStep();
-    }
-    if (currentStep < 4) {
-      handleNextStep();
-    }
-  };
-
   useEffect(() => {
     fetchCategories();
   }, []);
@@ -29,6 +19,45 @@ const CalculatorPage = () => {
   useEffect(() => {
     console.log('calculator.formHasErrors', calculator.formHasErrors);
   }, [calculator.formHasErrors]);
+
+  const handleClick = () => {
+    const stepsFunctions: { [key: number]: () => void } = {
+      1: () => {
+        // funciónParaPaso1();
+        handleNextStep();
+      },
+      2: () => {
+        // funciónParaPaso2();
+        handleNextStep();
+      },
+      3: () => {
+        // funciónParaPaso3();
+        handleNextStep();
+      },
+      4: () => {
+        handleCoverageFormData();
+        handleNextStep();
+      },
+      5: () => {
+        // funciónParaPaso5();
+        handleNextStep();
+      },
+      6: () => {
+        // funciónParaPaso6();
+        handleNextStep();
+      },
+      7: () => {
+        // funciónParaPaso7();
+        handleNextStep();
+      },
+    };
+
+    if (stepsFunctions[currentStep]) {
+      stepsFunctions[currentStep]();
+    } else {
+      handleNextStep();
+    }
+  };
 
   return (
     <CustomStepper stepsData={stepList} activeStep={currentStep}>
@@ -41,12 +70,12 @@ const CalculatorPage = () => {
               style={{ maxWidth: '100%', height: 'auto' }}
             />
           </Box>
-          <CustomText texto={t('commons.Calculadora de huella de carbono')} variante={'titulo'} />
+          <CustomText texto={t('pageTitles.calculator')} variante={'titulo'} />
           <CustomButton
             variant="contained"
             color="success"
             sx={{ mt: 3, mb: 2 }}
-            content={'Iniciar'}
+            content={t('generalButtonText.start')}
             onClick={handleNextStep}
           />
         </div>
@@ -55,16 +84,17 @@ const CalculatorPage = () => {
         <div
           style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}
         >
-          <Box sx={{ width: '100%', textAlign: 'center' }}>
+          <Grid sx={{ width: '100%', textAlign: 'center' }}>
             <div>
+              {currentStep === 1 && <div> </div>}
               {currentStep === 2 && <div> </div>}
               {currentStep === 3 && <SourcesDataForm sources={sourcesDictionaryPrueba2} />}
               {currentStep === 4 && <CoverageForm />}
               {currentStep === 5 && <CostsAndUsageForm />}
               {currentStep === 6 && <div> </div>}
-              {currentStep === 7 && <div> </div>}
+            
             </div>
-          </Box>
+          </Grid>
           <Box
             sx={{
               width: '100%',
@@ -76,14 +106,14 @@ const CalculatorPage = () => {
             <CustomButton
               variant="contained"
               color="primary"
-              content={'Atrás'}
+              content={t('generalButtonText.back')}
               onClick={handleStepBack}
             />
             {currentStep < stepList.length - 1 && (
               <CustomButton
                 variant="contained"
                 color="info"
-                content={'Siguiente'}
+                content={t('components.stepper.next')}
                 onClick={handleClick}
               />
             )}
