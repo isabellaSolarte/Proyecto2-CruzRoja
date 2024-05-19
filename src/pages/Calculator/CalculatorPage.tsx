@@ -36,7 +36,7 @@ const CalculatorPage = () => {
       },
       4: () => {
         handleCoverageFormData();
-        handleNextStep();
+        //handleNextStep();
       },
       5: () => {
         // funciónParaPaso5();
@@ -92,7 +92,6 @@ const CalculatorPage = () => {
               {currentStep === 4 && <CoverageForm />}
               {currentStep === 5 && <CostsAndUsageForm />}
               {currentStep === 6 && <div> </div>}
-            
             </div>
           </Grid>
           <Box
