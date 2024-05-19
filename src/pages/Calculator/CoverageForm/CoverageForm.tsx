@@ -1,11 +1,20 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Grid } from '@mui/material';
-import { CustomButton, CustomText, ErrorText, ManagmentLayout } from '../../../components';
+import { CustomText, ErrorText, ManagmentLayout } from '../../../components';
 import { useCoverageForm } from './hooks';
 import { DoubleInput } from './components';
 import { Fragment } from 'react/jsx-runtime';
+import { useEffect } from 'react';
 
 const CoverageForm = () => {
-  const { t, adaptedSources, handleSubmit, register, onSubmit, errors } = useCoverageForm();
+  const { t, adaptedSources, errors, register, calculator, handleFormSubmit } = useCoverageForm();
+
+  useEffect(() => {
+    if (calculator.formReference.current) {
+      calculator.formReference.current.addEventListener('submit', handleFormSubmit);
+    }
+    calculator.updateFormHasErrors(false);
+  }, []);
 
   return (
     <ManagmentLayout
@@ -14,7 +23,7 @@ const CoverageForm = () => {
         <CustomText texto={t('calculator.coverageForm.description')} variante={'texto'} />
       }
       generalContents={
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form ref={calculator.formReference}>
           <Grid container>
             {adaptedSources.map((pollutants, index) => (
               <Fragment key={index}>
@@ -59,7 +68,6 @@ const CoverageForm = () => {
               </Fragment>
             ))}
           </Grid>
-          <CustomButton content="Guardar" color={'info'} type={'submit'} />
         </form>
       }
     />
