@@ -1,21 +1,19 @@
 import { useTranslation } from "react-i18next";
 import { CustomText, ManagmentLayout } from "../../../components";
 import { SourcesDataForm } from "./Form";
-import {sourcesDictionaryPrueba2} from "./Form/sourcesDictionary";
 
-const SourcesPage = () => {
+const SourcesForm = () => {
     const { t } = useTranslation('commons');
 
     return (
         <ManagmentLayout
-        title={<CustomText texto={t('pageTitles.sources')} variante="titulo" />}
+        title={<CustomText texto={t('calculator.sourcesForm.title')} variante="titulo" />}
+        description={<CustomText texto={t('calculator.sourcesForm.description')} variante="texto" />}
         generalContents={
-            <div>
-                <SourcesDataForm/>
-            </div>
+            <SourcesDataForm/>
         }
         />
     );
 };
 
-export default SourcesPage;
+export default SourcesForm;

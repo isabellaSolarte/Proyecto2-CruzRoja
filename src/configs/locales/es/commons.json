@@ -196,6 +196,11 @@
             "totalSources": "totales",
             "informedSources": "informadas",
             "source": "Fuente"
+        },
+        "sourcesForm": {
+            "title": "Fuentes",
+            "description": "Seleccione sus fuentes de emision."
         }
+
     }
 }

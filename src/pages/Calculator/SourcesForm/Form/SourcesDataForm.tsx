@@ -41,7 +41,6 @@ const SourcesDataForm = () => {
 
   return (
     <Box>
-      <CustomText texto="Seleccione sus fuentes de emision." variante="texto"/>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mt={4}>
           {
