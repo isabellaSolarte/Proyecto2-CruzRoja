@@ -13,7 +13,8 @@
         "state": "Estado",
         "search": "Buscar",
         "registerCategory": "Registar categoría",
-        "previousPage": "Ir a página anterior"
+        "previousPage": "Ir a página anterior",
+        "start": "Iniciar"
     },
     "menuOptions": {
         "users": "Usuarios",
@@ -22,6 +23,7 @@
         "logout": "Cerrar sesión",
         "settings": "Configuración",
         "statistics": "Estadísticas",
+        "assessment": "Evaluación",
         "activities": "Actividades",
         "plans": "Planes de compensación",
         "permissions": "Permisos",
@@ -36,14 +38,14 @@
         "userView": "Visualizar usuario",
         "registerCategory": "Registro de categoria",
         "listCategories": "Categorías",
+        "sources": "Fuentes",
         "createRoles": "Crear rol",
         "editRoles": "Editar rol",
         "editCategory": "Editar categoria",
         "viewCategory": "Visualizar categoria",
         "createCategory": "Crear categoria",
-        "calculator": "Calculadora",
-        "editUser": "Editar usuario",
-        "caculatorCatogories": "Categorías de calculadora"
+        "calculator": "Calculadora huella de carbono",
+        "editUser": "Editar usuario"
     },
     "rolesPages": {
         "tabs": {
@@ -202,6 +204,16 @@
             "totalSources": "totales",
             "informedSources": "informadas",
             "source": "Fuente"
+        },
+        "stepper": {
+            "welcome": "Bienvenido",
+            "categories": "Categorías",
+            "pollutants": "Contaminantes",
+            "fountains": "Fuentes",
+            "coverage": "Coberturas",
+            "consumptionCosts": "Consumos y Costos",
+            "validation": "Validación"
         }
+        
     }
 }
