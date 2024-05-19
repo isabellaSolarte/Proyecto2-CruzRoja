@@ -5,7 +5,7 @@ import { CategoryModel } from '../../../models';
 import { adaptCategoryModelToDTO } from '../../Adapters_DTO/CategoryDTOAdapter';
 import { AxiosResponse } from 'axios';
 import { CategoryType } from '../../../pages/CreateCategory/types/CategoryTypes';
-import { CategoryWithRelation } from '../../../models/CalculatorModels/Category';
+import { CategoryByIds, CategoryWithRelation } from '../../../models/CalculatorModels/Category';
 
 export const getCategories = async (): Promise<CategoryModel[]> => {
   try {
@@ -29,12 +29,10 @@ export const getCategoriesEnable = async (): Promise<CategoryModel[]> => {
     throw new Error(JSON.stringify(error));
   }
 };
-export const postSelectedCategories = async (data: number[]): Promise<CategoryWithRelation[]> => {
+export const postSelectedCategories = async (data: CategoryByIds): Promise<CategoryWithRelation[]> => {
+  console.log(JSON.stringify(data));
   try {
-    const response = await api.post<CategoryWithRelation[]>(
-      CategoriesEndpoints.postSelectedCategories,
-      data,
-    );
+    const response = await api.post<CategoryWithRelation[]>(CategoriesEndpoints.postSelectedCategories,data);
     return response.data;
   } catch (error) {
     throw error;

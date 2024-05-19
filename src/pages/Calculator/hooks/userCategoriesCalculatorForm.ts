@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { CategoryModel } from '../../../models';
 import { getCategoriesEnable, postSelectedCategories } from '../../../services/AxiosRequests/Categories';
-import { CategoryWithRelation } from '../../../models/CalculatorModels/Category';
+import { CategoryByIds, CategoryWithRelation } from '../../../models/CalculatorModels/Category';
 import { CalculatorContext } from '../../../contexts';
 
 export const useCategoriesCalculatorForm = ()=>{
@@ -10,6 +10,7 @@ export const useCategoriesCalculatorForm = ()=>{
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<Error | null>(null);
     const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
+    const [categoryByIds, setCategoryByIds] = useState<CategoryByIds>({ ids: [] });
     const [selectedCategoriesComplete, setSelectedCategoriesComplete] = useState<CategoryWithRelation[]>([]);
     //exporto la funcion de calculator provider
     const { updateAllCalculatorState } = useContext(CalculatorContext);
@@ -28,17 +29,22 @@ export const useCategoriesCalculatorForm = ()=>{
         }
 
     }
-    const handleCategorySelect = (idCategory: number) => {
-        setSelectedCategories((prevSelected: number[]) => 
-            prevSelected.includes(idCategory) 
-            ? prevSelected.filter((id: number) => id !== idCategory): [...prevSelected, idCategory]
-        );
+   const handleCategorySelect = (idCategory: number) => {
+    setSelectedCategories((prevSelected: number[]) => {
+        const newSelected = prevSelected.includes(idCategory) 
+            ? prevSelected.filter((id: number) => id !== idCategory)
+            : [...prevSelected, idCategory];
         
-    };
+        // Actualizar categoryByIds con los IDs seleccionados
+        setCategoryByIds({ ids: newSelected });
+
+        return newSelected;
+    });
+};
     const saveSelectedCategories = async () => {
-        console.log(selectedCategories);
+        console.log(categoryByIds);
         try {
-            const response = await postSelectedCategories(selectedCategories); 
+            const response = await postSelectedCategories(categoryByIds); 
             console.log(response);
             setSelectedCategoriesComplete(response);
             updateAllCalculatorState(selectedCategoriesComplete);

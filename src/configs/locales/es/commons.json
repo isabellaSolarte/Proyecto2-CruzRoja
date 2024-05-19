@@ -45,7 +45,8 @@
         "viewCategory": "Visualizar categoria",
         "createCategory": "Crear categoria",
         "calculator": "Calculadora huella de carbono",
-        "editUser": "Editar usuario"
+        "editUser": "Editar usuario",
+        "caculatorCatogories": "Categorías de la calculadora"
     },
     "rolesPages": {
         "tabs": {

@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import CostsAndUsageForm from './CostsAndUsageForm/CostsAndUsageForm';
 import { SourcesDataForm } from './Sources/Form';
 import { sourcesDictionaryPrueba2 } from './Sources/Form/sourcesDictionary';
+import { CategoriesForm } from './forms';
 
 const CalculatorPage = () => {
   const { currentStep, stepList, handleNextStep, handleStepBack } = useStepper();
@@ -84,18 +85,15 @@ const CalculatorPage = () => {
         <div
           style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}
         >
-          <Box sx={{ width: '50%', textAlign: 'center' }}>
-            <CustomText texto={stepList[currentStep].label} variante={'titulo'} />
-          </Box>
           <Box sx={{ width: '100%', textAlign: 'center' }}>
             <div>
-              {currentStep === 2 && <div> </div>}
+              {currentStep === 1 && <CategoriesForm />}
               {currentStep === 3 && <div> </div>}
               {currentStep === 4 && <CoverageForm />}
               {currentStep === 5 && <CostsAndUsageForm />}
               {currentStep === 6 && <div> </div>}
             </div>
-          </Grid>
+          </Box>
           <Box
             sx={{
               width: '100%',
