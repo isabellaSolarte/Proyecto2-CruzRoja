@@ -27,6 +27,7 @@ const useCalculatorHook = () => {
                 id: 1,
                 name: 'Source 1 - Pollutant 1',
                 description: 'Description of Source 1 - Pollutant 1',
+                state: false,
                 coverage: {
                   totalSources: undefined,
                   informedSources: undefined,
@@ -40,6 +41,7 @@ const useCalculatorHook = () => {
                 id: 2,
                 name: 'Source 2 - Pollutant 1',
                 description: 'Description of Source 2 - Pollutant 1',
+                state: false,
                 coverage: {
                   totalSources: undefined,
                   informedSources: undefined,
@@ -53,6 +55,7 @@ const useCalculatorHook = () => {
                 id: 3,
                 name: 'Source 3 - Pollutant 1',
                 description: 'Description of Source 3 - Pollutant 1',
+                state: false,
                 coverage: {
                   totalSources: undefined,
                   informedSources: undefined,
@@ -75,6 +78,7 @@ const useCalculatorHook = () => {
                 id: 4,
                 name: 'Source 1 - Pollutant 2',
                 description: 'Description of Source 1 - Pollutant 2',
+                state: false,
                 coverage: {
                   totalSources: undefined,
                   informedSources: undefined,
@@ -88,6 +92,7 @@ const useCalculatorHook = () => {
                 id: 5,
                 name: 'Source 2 - Pollutant 2',
                 description: 'Description of Source 2 - Pollutant 2',
+                state: false,
                 coverage: {
                   totalSources: undefined,
                   informedSources: undefined,
@@ -101,6 +106,7 @@ const useCalculatorHook = () => {
                 id: 6,
                 name: 'Source 3 - Pollutant 2',
                 description: 'Description of Source 3 - Pollutant 2',
+                state: false,
                 coverage: {
                   totalSources: undefined,
                   informedSources: undefined,
@@ -132,6 +138,7 @@ const useCalculatorHook = () => {
                 id: 7,
                 name: 'Source 1 - Pollutant 3',
                 description: 'Description of Source 1 - Pollutant 3',
+                state: false,
                 coverage: {
                   totalSources: undefined,
                   informedSources: undefined,
@@ -145,6 +152,7 @@ const useCalculatorHook = () => {
                 id: 8,
                 name: 'Source 2 - Pollutant 3',
                 description: 'Description of Source 2 - Pollutant 3',
+                state: false,
                 coverage: {
                   totalSources: undefined,
                   informedSources: undefined,
@@ -158,6 +166,7 @@ const useCalculatorHook = () => {
                 id: 9,
                 name: 'Source 3 - Pollutant 3',
                 description: 'Description of Source 3 - Pollutant 3',
+                state: false,
                 coverage: {
                   totalSources: undefined,
                   informedSources: undefined,
@@ -180,6 +189,7 @@ const useCalculatorHook = () => {
                 id: 10,
                 name: 'Source 1 - Pollutant 4',
                 description: 'Description of Source 1 - Pollutant 4',
+                state: false,
                 coverage: {
                   totalSources: undefined,
                   informedSources: undefined,
@@ -193,6 +203,7 @@ const useCalculatorHook = () => {
                 id: 11,
                 name: 'Source 2 - Pollutant 4',
                 description: 'Description of Source 2 - Pollutant 4',
+                state: false,
                 coverage: {
                   totalSources: undefined,
                   informedSources: undefined,
@@ -206,6 +217,7 @@ const useCalculatorHook = () => {
                 id: 12,
                 name: 'Source 3 - Pollutant 4',
                 description: 'Description of Source 3 - Pollutant 4',
+                state: false,
                 coverage: {
                   totalSources: undefined,
                   informedSources: undefined,
@@ -237,6 +249,7 @@ const useCalculatorHook = () => {
                 id: 13,
                 name: 'Source 1 - Pollutant 5',
                 description: 'Description of Source 1 - Pollutant 5',
+                state: false,
                 coverage: {
                   totalSources: undefined,
                   informedSources: undefined,
@@ -250,6 +263,7 @@ const useCalculatorHook = () => {
                 id: 14,
                 name: 'Source 2 - Pollutant 5',
                 description: 'Description of Source 2 - Pollutant 5',
+                state: false,
                 coverage: {
                   totalSources: undefined,
                   informedSources: undefined,
@@ -263,6 +277,7 @@ const useCalculatorHook = () => {
                 id: 15,
                 name: 'Source 3 - Pollutant 5',
                 description: 'Description of Source 3 - Pollutant 5',
+                state: false,
                 coverage: {
                   totalSources: undefined,
                   informedSources: undefined,
@@ -285,6 +300,7 @@ const useCalculatorHook = () => {
                 id: 16,
                 name: 'Source 1 - Pollutant 6',
                 description: 'Description of Source 1 - Pollutant 6',
+                state: false,
                 coverage: {
                   totalSources: undefined,
                   informedSources: undefined,
@@ -298,6 +314,7 @@ const useCalculatorHook = () => {
                 id: 17,
                 name: 'Source 2 - Pollutant 6',
                 description: 'Description of Source 2 - Pollutant 6',
+                state: false,
                 coverage: {
                   totalSources: undefined,
                   informedSources: undefined,
@@ -311,6 +328,7 @@ const useCalculatorHook = () => {
                 id: 18,
                 name: 'Source 3 - Pollutant 6',
                 description: 'Description of Source 3 - Pollutant 6',
+                state: false,
                 coverage: {
                   totalSources: undefined,
                   informedSources: undefined,

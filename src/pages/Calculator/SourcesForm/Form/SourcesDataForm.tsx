@@ -14,11 +14,8 @@ interface SourcesDataFormProps {
 const SourcesDataForm = (
   { sources = [] }: SourcesDataFormProps,
 ) => {
-  const { handleSubmit, onSubmit, register, errors, addSource, removeSource } = useSourcesForm();
-  const [sourcesDictionary, setSourcesDictionary] = useState([defaulSourceSchema]);
-  useEffect(() => {
-    setSourcesDictionary(sources);
-  }, [sources]);
+  const { adaptedSources, handleSubmit, onSubmit, register, errors, addSource, removeSource } = useSourcesForm();
+  const [sourcesDictionary, setSourcesDictionary] = useState(adaptedSources);
 
   const handleSwitchState = (sourceId: number) => {
     const updatedSourcesDictionary = [...sourcesDictionary];
