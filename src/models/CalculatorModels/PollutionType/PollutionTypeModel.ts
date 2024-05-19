@@ -5,7 +5,7 @@ export interface PollutionTypeModel {
   id: number;
   name: string;
   description: string;
-  unity: PollutionUnity;
-  categoryId: number;
+  unity: PollutionUnity | string;
+  emissionFactor: number;
   sources: SourceModel[];
 }

@@ -19,6 +19,8 @@ import ClassIcon from '@mui/icons-material/Class';
 import CategoriesList from '../../pages/Categories/ListCategoriesPage';
 import { CreateCategoryPage } from '../../pages/CreateCategory';
 import CalculateIcon from '@mui/icons-material/Calculate';
+import CalculatorPage from '../../pages/Calculator/CalculatorPage';
+import { CalculatorFormProvider } from '../../contexts/CalculatorForm';
 
 export const NavigationRoutes = () => {
   const { t } = useTranslation('commons');
@@ -125,7 +127,11 @@ export const NavigationRoutes = () => {
     },
     {
       path: PathNames.CALCULATOR,
-      component: <h1>CALCULADORA</h1>,
+      component: (
+        <CalculatorFormProvider>
+          <CalculatorPage />
+        </CalculatorFormProvider>
+      ),
       title: t('menuOptions.calculator'),
       icon: <CalculateIcon />,
     },
