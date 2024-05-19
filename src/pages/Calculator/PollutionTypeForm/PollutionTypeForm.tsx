@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import {CustomText, ErrorText, ManagmentLayout, CustomAccordion} from '../../../components';
-import { Box } from '@mui/material';
+import { Grid,Box } from '@mui/material';
 import PollutionTypeCard from './components/PollutionTypeCard'; 
 import usePollutionTypeForm from './hooks/PollutionTypeHook';
 
@@ -26,8 +26,8 @@ const PollutionTypeForm = () => {
       calculator.updateFormHasErrors(false);
     }, []);
 
-
-  const PollutionTypeData = []
+    console.log('adaptedPollutionTypesadaptedPollutionTypes:', adaptedPollutionTypes);
+    
   return (
     <ManagmentLayout 
     title={<CustomText texto={t('calculator.pollutionTypeForm.title')} variante={'titulo'} />}
@@ -61,6 +61,15 @@ const PollutionTypeForm = () => {
             
           
         )}
+        {errors.pollutionType && <ErrorText  error={errors.pollutionType.message} formErrorKey="userFormErrorsPollutionType"/>}
+          {!!errors.pollutionType && (
+            <Grid item xs={12}>
+              <ErrorText
+                error={errors.pollutionType.message}
+                formErrorKey={'calculator'}
+              />
+            </Grid>
+          )}
         </Box>
       </form>
     }

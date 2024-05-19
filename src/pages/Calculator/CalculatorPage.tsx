@@ -7,11 +7,13 @@ import CostsAndUsageForm from './CostsAndUsageForm/CostsAndUsageForm';
 import { SourcesDataForm } from './Sources/Form';
 import { sourcesDictionaryPrueba2 } from './Sources/Form/sourcesDictionary';
 import PollutionTypeForm from './PollutionTypeForm/PollutionTypeForm';
+import usePollutionTypeForm from './PollutionTypeForm/hooks/PollutionTypeHook';
 
 const CalculatorPage = () => {
   const { currentStep, stepList, handleNextStep, handleStepBack } = useStepper();
   const { fetchCategories, calculator, t } = useCalculatorHook();
   const { handleCoverageFormData } = useCoverageForm();
+  const { handlePollutionTypeFormData } = usePollutionTypeForm();
 
   useEffect(() => {
     fetchCategories();
@@ -28,8 +30,8 @@ const CalculatorPage = () => {
         handleNextStep();
       },
       2: () => {
-        // funciónParaPaso2();
-        handleNextStep();
+        handlePollutionTypeFormData()
+        //handleNextStep();
       },
       3: () => {
         // funciónParaPaso3();

@@ -44,6 +44,7 @@ const usePollutionTypeForm = () => {
 
   const updatePollutionType = (polllutionTypeName: string, pollutionTypeState: boolean)=>{
     let indexToUpdate = 0;
+
     const updatedCategories = getValues().pollutionType.map((category, index) => { 
       const updatedPollutants = category?.pollutans.map(pollutant => {
         if(pollutant.name === polllutionTypeName){
@@ -62,6 +63,7 @@ const usePollutionTypeForm = () => {
       };
     });
       update(indexToUpdate, updatedCategories[indexToUpdate]);
+      console.log('updatedCategories', updatedCategories);
   }
 
   function extractPollutiontypesFromCategories(
@@ -74,7 +76,7 @@ const usePollutionTypeForm = () => {
       const updatedPollutants = category.pollutans.map(pollutant => {
         return {
           ...pollutant,
-          state: false
+            state: pollutant.state === undefined ? false : pollutant.state
         };
       });
       // Retornamos la categoría actualizada con los pollutants modificados
@@ -83,34 +85,14 @@ const usePollutionTypeForm = () => {
         pollutans: updatedPollutants
       };
     });
-  
     return updatedCategories;
   }
   
-
-  const updatePollutionTypesCalculatorState = (data: PollutanType[]) => {
-    const currentState = calculator.categories;
-
-    data.forEach(formData => {
-      const category = currentState.find(d => d.id === formData.pollutionTypeId);
-
-      let pollutant = category?.pollutans.find(
-        p => p.id === formData.pollutionTypeId,
-      );
-      if (!pollutant) return;
-      pollutant = {
-        ...pollutant,
-        state: true
-      }
-    });
-
-    return currentState;
-  };
-
-
   const onSubmit = (data: any) => {
-    setAdaptedPollutionTypes(data);
-    const updatePollutionType = updatePollutionTypesCalculatorState(data);
+
+    setAdaptedPollutionTypes(data.pollutionType);
+    const updatePollutionType = getValues().pollutionType;
+
     calculator.setCalculatorState(updatePollutionType);
   };
 
@@ -125,7 +107,6 @@ const usePollutionTypeForm = () => {
       .catch(() => {
         calculator.updateFormHasErrors(true);
       });
-    //calculator.updateFormHasErrors(Object.keys(errors).length > 0);
   };
 
   const handlePollutionTypeFormData = () => {
