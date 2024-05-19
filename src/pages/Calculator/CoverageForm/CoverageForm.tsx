@@ -13,6 +13,7 @@ const CoverageForm = () => {
     if (calculator.formReference.current) {
       calculator.formReference.current.addEventListener('submit', handleFormSubmit);
     }
+    calculator.updateFormHasErrors(false);
   }, []);
 
   return (
