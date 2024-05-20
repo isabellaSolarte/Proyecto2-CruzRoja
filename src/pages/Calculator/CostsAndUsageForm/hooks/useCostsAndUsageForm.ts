@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { CategoryModel } from '../../../../models';
 import { useContext, useState } from 'react';
-import { useForm, Resolver } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import CostsResolver from '../Schemas/CostsAndUsageSchema';
 import { CalculatorContext } from '../../../../contexts';
@@ -17,7 +17,7 @@ export type PollutantSourceCost = {
   usage: number | undefined;
 };
 
-const useCostsForm = () => {
+const useCostsForm = (nextStep: () => void) => {
   const { t } = useTranslation('commons');
   const calculator = useContext(CalculatorContext);
   const [adaptedSources, setAdaptedSources] = useState<PollutantSourceCost[]>(
@@ -26,7 +26,7 @@ const useCostsForm = () => {
 
   const { control, handleSubmit, register, getValues, formState: { errors } } = useForm<{ costs: PollutantSourceCost[] }>({
     defaultValues: { costs: adaptedSources },
-    resolver: yupResolver(CostsResolver) as Resolver<{ costs: PollutantSourceCost[] }>,
+    resolver: yupResolver(CostsResolver),
   });
 
   function extractSourcesFromCategories(categories: CategoryModel[]): PollutantSourceCost[] {
@@ -66,19 +66,7 @@ const useCostsForm = () => {
     setAdaptedSources(data.costs);
     const updateCosts = updateCostsCalculatorState(data.costs);
     calculator.setCalculatorState(updateCosts);
-  };
-
-  const handleFormSubmit = (event: Event) => {
-    event.preventDefault(); // Evita la recarga de la página
-    handleSubmit(onSubmit)();
-  };
-
-  const handleCostData = () => {
-    if (calculator.formReference.current) {
-      calculator.formReference.current.dispatchEvent(
-        new Event('submit', { cancelable: true, bubbles: true }),
-      );
-    }
+    nextStep();
   };
 
   return { 
@@ -86,8 +74,6 @@ const useCostsForm = () => {
     onSubmit, 
     register, 
     getValues, 
-    handleFormSubmit, 
-    handleCostData, 
     calculator, 
     errors, 
     control, 

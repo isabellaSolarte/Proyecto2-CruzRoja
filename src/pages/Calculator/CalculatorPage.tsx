@@ -6,6 +6,9 @@ import { useEffect } from 'react';
 import CostsAndUsageForm from './CostsAndUsageForm/CostsAndUsageForm';
 import { CategoriesForm } from './forms';
 import useCostsForm from './CostsAndUsageForm/hooks/useCostsAndUsageForm';
+import { sourcesDictionaryPrueba2 } from './Sources/Form/sourcesDictionary';
+import { SourcesDataForm } from './Sources/Form';
+import CostsForm from './CostsAndUsageForm/CostsAndUsageForm';
 
 const CalculatorPage = () => {
   const { currentStep, stepList, handleNextStep, handleStepBack } = useStepper();
@@ -13,7 +16,7 @@ const CalculatorPage = () => {
 
   useEffect(() => {
     fetchCategories();
-    console.log('CategoryData:', calculator.categories);
+
   }, []);
 
   return (
@@ -64,7 +67,7 @@ const CalculatorPage = () => {
                 {currentStep === 4 && (
                   <CoverageForm nextStep={handleNextStep} stepBack={handleStepBack} />
                 )}
-                {currentStep === 5 && <CostsAndUsageForm />}
+                {currentStep === 5 && <CostsForm nextStep={handleNextStep} stepBack={handleStepBack} />}
                 {currentStep === 6 && <div> </div>}
               </Grid>
             </Grid>
