@@ -34,7 +34,7 @@ const CategoriesList = () => {
                 <Box >
                     <CustomText texto={t('pageTitles.listCategories')} variante="titulo" />
                     <Box mt = {2}>
-                        <CustomText texto={t('categoryPages.desciption.generalDescription')} variante="texto" />
+                        <CustomText texto={t('categoryPages.description.generalDescription')} variante="texto" />
                     </Box>
                 </Box>
                 

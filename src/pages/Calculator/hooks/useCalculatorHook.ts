@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { CategoryModel, PollutionUnity } from '../../../models';
 import { useTranslation } from 'react-i18next';
-import { CalculatorContext } from '../../../contexts/CalculatorForm';
+import { CalculatorContext } from '../../../contexts';
 
 const useCalculatorHook = () => {
   const { t } = useTranslation('commons');
