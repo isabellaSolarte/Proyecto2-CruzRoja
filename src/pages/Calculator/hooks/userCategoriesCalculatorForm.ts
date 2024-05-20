@@ -11,9 +11,9 @@ export const useCategoriesCalculatorForm = ()=>{
     const [error, setError] = useState<Error | null>(null);
     const [selectedCategory, setSelectedCategories] = useState<number[]>([]);
     const [categoryByIds, setCategoryByIds] = useState<CategoryByIds>({ ids: [] });
-    const [selectedCategoriesComplete, setSelectedCategoriesComplete] = useState<CategoryWithRelation[]>([]);
+    const [selectedCategoriesComplete, setSelectedCategoriesComplete] = useState<CategoryModel[]>([]);
     //exporto la funcion de calculator provider
-    const { updateAllCalculatorState,setCategoriesState,selectedCategories,setCalculatorState} = useContext(CalculatorContext);
+    const { setCalculatorState} = useContext(CalculatorContext);
 
     const loadCategories = async()=>{
         setIsLoading(true);
@@ -35,9 +35,9 @@ export const useCategoriesCalculatorForm = ()=>{
             ? prevSelected.filter((id: number) => id !== idCategory)
             : [...prevSelected, idCategory];
         
-        setCategoriesState(newSelected);
+        setSelectedCategories(newSelected);
         // Actualizar categoryByIds con los IDs seleccionados
-        setCategoryByIds({ ids: selectedCategories });
+        setCategoryByIds({ ids: selectedCategory });
         
         return newSelected;
     });
@@ -45,7 +45,7 @@ export const useCategoriesCalculatorForm = ()=>{
     const saveSelectedCategories = async () => {
         console.log(categoryByIds);
         try {
-            const response = await postSelectedCategories({ ids: selectedCategories }); 
+            const response = await postSelectedCategories({ ids: selectedCategory }); 
             console.log(response);
             setSelectedCategoriesComplete(response);
             console.log(selectedCategoriesComplete);
@@ -67,7 +67,6 @@ export const useCategoriesCalculatorForm = ()=>{
         categoryList,
         selectedCategory,
         handleCategorySelect,
-        selectedCategories,
         saveSelectedCategories
     }
 }

@@ -18,7 +18,9 @@ const CalculatorPage = () => {
   }, []);
 
   return (
+    
     <SimpleManagmentLayout>
+      <CategoriesForm />
       <CustomStepper stepsData={stepList} activeStep={currentStep}>
         {currentStep === 0 && (
           <Box
@@ -59,7 +61,7 @@ const CalculatorPage = () => {
           >
             <Grid container spacing={2} sx={{ width: '100%', textAlign: 'center' }}>
               <Grid item xs={12}>
-                {currentStep === 1 && <div> </div>}
+                {currentStep === 1 && <CategoriesForm />}
                 {currentStep === 2 && <div> </div>}
                 {currentStep === 3 && <SourcesDataForm sources={sourcesDictionaryPrueba2} />}
                 {currentStep === 4 && (

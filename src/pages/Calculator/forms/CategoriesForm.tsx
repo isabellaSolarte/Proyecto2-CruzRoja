@@ -6,7 +6,7 @@ import CustomCardCalculatorCategory from "../../../components/orgamisms/CustomCa
 
 const CategoriesForm = () => {
     const {t} = useTranslation('commons');
-    const{categoryList,handleCategorySelect,selectedCategories,saveSelectedCategories}= useCategoriesCalculatorForm();
+    const{categoryList,handleCategorySelect,selectedCategory,saveSelectedCategories}= useCategoriesCalculatorForm();
     
     return (
         <ManagmentLayout 
@@ -37,7 +37,7 @@ const CategoriesForm = () => {
                             categoryName={category.name}
                             categoryScope={category.scope}
                             categoryDescription={category.descripction}
-                            isSelected={selectedCategories.includes(category.id)}
+                            isSelected={selectedCategory.includes(category.id)}
                             onSelect={handleCategorySelect}
                         />
                     ))}     

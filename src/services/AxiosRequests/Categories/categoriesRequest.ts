@@ -29,10 +29,10 @@ export const getCategoriesEnable = async (): Promise<CategoryModel[]> => {
     throw new Error(JSON.stringify(error));
   }
 };
-export const postSelectedCategories = async (data: CategoryByIds): Promise<CategoryWithRelation[]> => {
+export const postSelectedCategories = async (data: CategoryByIds): Promise<CategoryModel[]> => {
   console.log(JSON.stringify(data));
   try {
-    const response = await api.post<CategoryWithRelation[]>(CategoriesEndpoints.postSelectedCategories,data);
+    const response = await api.post<CategoryModel[]>(CategoriesEndpoints.postSelectedCategories,data);
     return response.data;
   } catch (error) {
     throw error;
