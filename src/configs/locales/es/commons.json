@@ -5,6 +5,7 @@
         "cancel": "Cancelar",
         "back": "Atrás",
         "save": "Guardar",
+        "saveCategoriesSelected": "Guardar categorías",
         "create": "Crear",
         "edit": "Editar",
         "view": "Observar",
@@ -12,7 +13,8 @@
         "state": "Estado",
         "search": "Buscar",
         "registerCategory": "Registar categoría",
-        "previousPage": "Ir a página anterior"
+        "previousPage": "Ir a página anterior",
+        "start": "Iniciar"
     },
     "menuOptions": {
         "users": "Usuarios",
@@ -25,7 +27,8 @@
         "activities": "Actividades",
         "plans": "Planes de compensación",
         "permissions": "Permisos",
-        "categories": "Categorías"
+        "categories": "Categorías",
+        "calculator": "Calculadora"
     },
     "pageTitles": {
         "users": "Gestión de usuarios",
@@ -41,8 +44,9 @@
         "editCategory": "Editar categoria",
         "viewCategory": "Visualizar categoria",
         "createCategory": "Crear categoria",
-        "calculator": "Calculadora",
-        "editUser": "Editar usuario"
+        "calculator": "Calculadora huella de carbono",
+        "editUser": "Editar usuario",
+        "caculatorCatogories": "Categorías de la calculadora"
     },
     "rolesPages": {
         "tabs": {
@@ -57,11 +61,16 @@
         }
     },
     "categoryPages": {
-        "desciption": {
+        "description": {
             "generalDescription": "Las categorías en el contexto del cálculo de la huella de carbono son un conjunto de actividades, que ayudan a identificar y clasificar las diferentes fuentes de emisiones de carbono en función de su naturaleza. "
-        
         }
         
+    },
+    "calculatorPage":{
+        "descriptions":{
+            "descriptionCategories": "Seleccione las categorías a las que le realizará el cálculo de emisión"
+        }
+       
     },
 
     "usersPages": {
@@ -200,7 +209,17 @@
         "sourcesForm": {
             "title": "Fuentes",
             "description": "Seleccione sus fuentes de emision."
+        },
+        "stepper": {
+            "welcome": "Bienvenido",
+            "categories": "Categorías",
+            "pollutants": "Contaminantes",
+            "fountains": "Fuentes",
+            "coverage": "Coberturas",
+            "consumptionCosts": "Consumos y Costos",
+            "validation": "Validación"
         }
+        
 
     }
 }

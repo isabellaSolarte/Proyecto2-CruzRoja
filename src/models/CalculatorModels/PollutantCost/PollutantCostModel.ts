@@ -1,4 +1,4 @@
 export interface PollutantCostModel {
-  cost: number; // costo
-  month: number; // fecha
+  cost: number | undefined; // costo
+  month: number | undefined; // fecha
 }

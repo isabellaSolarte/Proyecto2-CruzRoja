@@ -19,14 +19,12 @@ const CoverageResolver = yup
                 return originalValue === '' ? null : value;
               })
               .nonNullable('coverageForm.totalSource'),
-            //.required('coverageForm.totalSource'),
             informedSources: yup
               .number()
               .transform((value, originalValue) => {
                 return originalValue === '' ? null : value;
               })
               .nonNullable('coverageForm.informedSource'),
-            //.required('coverageForm.informedSource'),
           })
           .required(),
       )

@@ -5,6 +5,7 @@ import { CategoryModel } from '../../../models';
 import { adaptCategoryModelToDTO } from '../../Adapters_DTO/CategoryDTOAdapter';
 import { AxiosResponse } from 'axios';
 import { CategoryType } from '../../../pages/CreateCategory/types/CategoryTypes';
+import { CategoryByIds, CategoryWithRelation } from '../../../models/CalculatorModels/Category';
 
 export const getCategories = async (): Promise<CategoryModel[]> => {
   try {
@@ -15,6 +16,26 @@ export const getCategories = async (): Promise<CategoryModel[]> => {
     return adaptedCategories;
   } catch (error) {
     throw new Error(JSON.stringify(error));
+  }
+};
+export const getCategoriesEnable = async (): Promise<CategoryModel[]> => {
+  try {
+    const response = await api.get<any[]>(CategoriesEndpoints.getCategoriesEnabled);
+    const adaptedCategories: CategoryModel[] = response.data.map(
+      (category: any) => CategoryAdapter(category),
+    );
+    return adaptedCategories;
+  } catch (error) {
+    throw new Error(JSON.stringify(error));
+  }
+};
+export const postSelectedCategories = async (data: CategoryByIds): Promise<CategoryWithRelation[]> => {
+  console.log(JSON.stringify(data));
+  try {
+    const response = await api.post<CategoryWithRelation[]>(CategoriesEndpoints.postSelectedCategories,data);
+    return response.data;
+  } catch (error) {
+    throw error;
   }
 };
 
