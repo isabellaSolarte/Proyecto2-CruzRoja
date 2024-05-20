@@ -5,19 +5,23 @@ import { CategoryWithRelation } from '../../models/CalculatorModels/Category';
 
 type CalculatorContextType = {
   categories: CategoryModel[];
+  selectedCategories: number[];
   formReference: MutableRefObject<HTMLFormElement | null>;
   formHasErrors: boolean;
+  setCategoriesState: (newSelectedCategories: number[]) => void;
   updateFormHasErrors: (hasErrors: boolean) => void;
   updateCalculatorState: (newCategories: CategoryModel) => void;
-  updateAllCalculatorState: (newCategories: CategoryWithRelation[]) => void;
+  updateAllCalculatorState: (newCategories: CategoryModel[]) => void;
   getCalculatorState: () => CategoryModel[];
   setCalculatorState: (newState: CategoryModel[]) => void;
 };
 
 const CalculatorContext = createContext<CalculatorContextType>({
   categories: [],
+  selectedCategories: [],
   formReference: { current: null },
   formHasErrors: false,
+  setCategoriesState: () => {},
   updateFormHasErrors: () => {},
   updateCalculatorState: () => {},
   getCalculatorState: () => [],

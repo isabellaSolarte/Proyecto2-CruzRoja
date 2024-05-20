@@ -7,11 +7,13 @@ import CostsAndUsageForm from './CostsAndUsageForm/CostsAndUsageForm';
 import { SourcesDataForm } from './Sources/Form';
 import { sourcesDictionaryPrueba2 } from './Sources/Form/sourcesDictionary';
 import { CategoriesForm } from './forms';
+import { useCategoriesCalculatorForm } from './hooks/userCategoriesCalculatorForm';
 
 const CalculatorPage = () => {
   const { currentStep, stepList, handleNextStep, handleStepBack } = useStepper();
   const { fetchCategories, calculator, t } = useCalculatorHook();
   const { handleCoverageFormData } = useCoverageForm();
+  const{saveSelectedCategories}=useCategoriesCalculatorForm();
 
   useEffect(() => {
     fetchCategories();
@@ -24,7 +26,7 @@ const CalculatorPage = () => {
   const handleClick = () => {
     const stepsFunctions: { [key: number]: () => void } = {
       1: () => {
-        // funciónParaPaso1();
+        saveSelectedCategories();
         handleNextStep();
       },
       2: () => {
@@ -37,7 +39,7 @@ const CalculatorPage = () => {
       },
       4: () => {
         handleCoverageFormData();
-        //handleNextStep();
+        handleNextStep();
       },
       5: () => {
         // funciónParaPaso5();
@@ -71,7 +73,7 @@ const CalculatorPage = () => {
               style={{ maxWidth: '100%', height: 'auto' }}
             />
           </Box>
-          <CustomText texto={t('commons.Calculadora de huella de carbono')} variante={'titulo'} />
+          <CustomText texto={t('pageTitles.calculator')} variante={'titulo'} />
           <CustomButton
             variant="contained"
             color="success"
@@ -82,9 +84,7 @@ const CalculatorPage = () => {
         </div>
       )}
       {currentStep > 0 && (
-        <div
-          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}
-        >
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }} >
           <Box sx={{ width: '100%', textAlign: 'center' }}>
             <div>
               {currentStep === 1 && <CategoriesForm />}

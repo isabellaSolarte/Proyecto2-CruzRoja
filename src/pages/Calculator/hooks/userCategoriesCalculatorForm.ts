@@ -2,18 +2,18 @@ import { useState, useEffect, useContext } from 'react';
 import { CategoryModel } from '../../../models';
 import { getCategoriesEnable, postSelectedCategories } from '../../../services/AxiosRequests/Categories';
 import { CategoryByIds, CategoryWithRelation } from '../../../models/CalculatorModels/Category';
-import { CalculatorContext } from '../../../contexts';
+import { CalculatorContext, CalculatorFormProvider } from '../../../contexts';
 
 export const useCategoriesCalculatorForm = ()=>{
 
     const[categoryList,setCategoryList] = useState<CategoryModel[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<Error | null>(null);
-    const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
+    const [selectedCategory, setSelectedCategories] = useState<number[]>([]);
     const [categoryByIds, setCategoryByIds] = useState<CategoryByIds>({ ids: [] });
     const [selectedCategoriesComplete, setSelectedCategoriesComplete] = useState<CategoryWithRelation[]>([]);
     //exporto la funcion de calculator provider
-    const { updateAllCalculatorState } = useContext(CalculatorContext);
+    const { updateAllCalculatorState,setCategoriesState,selectedCategories,setCalculatorState} = useContext(CalculatorContext);
 
     const loadCategories = async()=>{
         setIsLoading(true);
@@ -35,19 +35,21 @@ export const useCategoriesCalculatorForm = ()=>{
             ? prevSelected.filter((id: number) => id !== idCategory)
             : [...prevSelected, idCategory];
         
+        setCategoriesState(newSelected);
         // Actualizar categoryByIds con los IDs seleccionados
-        setCategoryByIds({ ids: newSelected });
-
+        setCategoryByIds({ ids: selectedCategories });
+        
         return newSelected;
     });
 };
     const saveSelectedCategories = async () => {
         console.log(categoryByIds);
         try {
-            const response = await postSelectedCategories(categoryByIds); 
+            const response = await postSelectedCategories({ ids: selectedCategories }); 
             console.log(response);
             setSelectedCategoriesComplete(response);
-            updateAllCalculatorState(selectedCategoriesComplete);
+            console.log(selectedCategoriesComplete);
+            setCalculatorState(selectedCategoriesComplete);
         } catch (error) {
             setError(error as Error);
         } finally {
@@ -63,8 +65,9 @@ export const useCategoriesCalculatorForm = ()=>{
         isLoading,
         error,
         categoryList,
-        selectedCategories,
+        selectedCategory,
         handleCategorySelect,
+        selectedCategories,
         saveSelectedCategories
     }
 }
