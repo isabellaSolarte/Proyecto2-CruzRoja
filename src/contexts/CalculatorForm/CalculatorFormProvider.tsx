@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { CategoryModel } from '../../models';
 import CalculatorContext from './CalculatorContext';
 import { CategoryByIds, CategoryWithRelation } from '../../models/CalculatorModels/Category';
@@ -9,10 +9,6 @@ const CalculatorFormProvider: React.FC<{ children: React.ReactNode }> = ({ child
    * Esta estructura se puede separar en estados para cada formulario, pero por simplicidad y tiempo se mantiene en un solo estado.
    */
   const [categories, setCategories] = useState<CategoryModel[]>([]);
-  const formReference = useRef<HTMLFormElement | null>(null);
-  const [formHasErrors, setFormHasErrors] = useState<boolean>(false);
-  const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
-
 
   const setCalculatorState = (newState: CategoryModel[]) => {
     setCategories(newState);
@@ -44,19 +40,10 @@ const CalculatorFormProvider: React.FC<{ children: React.ReactNode }> = ({ child
     return categories;
   };
 
-  const updateFormHasErrors = (hasErrors: boolean) => {
-    console.log('hasErrors', hasErrors);
-    setFormHasErrors(hasErrors);
-  };
-
   return (
     <CalculatorContext.Provider
       value={{
         categories,
-        formReference,
-        formHasErrors,
-        selectedCategories,
-        updateFormHasErrors,
         updateCalculatorState,
         getCalculatorState,
         updateAllCalculatorState,
