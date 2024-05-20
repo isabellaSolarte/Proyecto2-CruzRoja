@@ -42,6 +42,7 @@ const useCalculatorResults = () => {
     total: fakeCalculatorResult.total,
     totalBySources: fakeCalculatorResult.totalBySources,
     totalByMonth: fakeCalculatorResult.totalByMonth,
+    percentage: fakeCalculatorResult.percentage,
     pageComponentRef,
     handlePrint,
   };

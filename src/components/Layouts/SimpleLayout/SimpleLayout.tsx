@@ -1,11 +1,11 @@
 import { Box } from '@mui/material';
 import { EmptyBox } from '../../Atoms';
 
-type SimpleManagmentLayoutProps = {
+type SimpleLayoutProps = {
   children: JSX.Element;
 };
 
-const SimpleManagmentLayout = ({ children }: SimpleManagmentLayoutProps) => {
+const SimpleLayout = ({ children }: SimpleLayoutProps) => {
   return (
     <Box
       sx={{
@@ -19,4 +19,4 @@ const SimpleManagmentLayout = ({ children }: SimpleManagmentLayoutProps) => {
   );
 };
 
-export default SimpleManagmentLayout;
+export default SimpleLayout;

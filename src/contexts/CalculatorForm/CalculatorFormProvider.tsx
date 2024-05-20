@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { CategoryModel } from '../../models';
 import CalculatorContext from './CalculatorContext';
-import { CategoryByIds, CategoryWithRelation } from '../../models/CalculatorModels/Category';
-import { postSelectedCategories } from '../../services/AxiosRequests/Categories';
 
 const CalculatorFormProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   /**
@@ -30,7 +28,7 @@ const CalculatorFormProvider: React.FC<{ children: React.ReactNode }> = ({ child
       return category;
     });
     setCategories(updateState);
-  };
+  };
 
   const getCalculatorState = (): CategoryModel[] => {
     return categories;
