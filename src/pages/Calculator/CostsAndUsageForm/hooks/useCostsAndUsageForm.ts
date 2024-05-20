@@ -13,6 +13,8 @@ export type PollutantSourceCost = {
   name: string;
   cost: number | undefined;
   month: number | undefined;
+  year: number | undefined;
+  usage: number | undefined;
 };
 
 const useCostsForm = () => {
@@ -37,6 +39,8 @@ const useCostsForm = () => {
             categoryId: category.id,
             cost: source.facturation.cost,
             month: source.facturation.month,
+            year: source.facturation.year,
+            usage: source.facturation.usage,
             id: source.id,
             name: source.name,
           });
@@ -53,7 +57,7 @@ const useCostsForm = () => {
       const pollutant = category?.pollutans.find(p => p.id === formData.pollutantId);
       const source = pollutant?.sources.find(s => s.id === formData.id);
       if (!source) return;
-      source.facturation = { cost: formData.cost, month: formData.month };
+      source.facturation = { cost: formData.cost, month: formData.month, year: formData.year, usage: formData.usage };
     });
     return currentState;
   };
@@ -64,7 +68,32 @@ const useCostsForm = () => {
     calculator.setCalculatorState(updateCosts);
   };
 
-  return { handleSubmit, onSubmit, register, getValues, errors, control, t, adaptedSources };
+  const handleFormSubmit = (event: Event) => {
+    event.preventDefault(); // Evita la recarga de la página
+    handleSubmit(onSubmit)();
+  };
+
+  const handleCostData = () => {
+    if (calculator.formReference.current) {
+      calculator.formReference.current.dispatchEvent(
+        new Event('submit', { cancelable: true, bubbles: true }),
+      );
+    }
+  };
+
+  return { 
+    handleSubmit, 
+    onSubmit, 
+    register, 
+    getValues, 
+    handleFormSubmit, 
+    handleCostData, 
+    calculator, 
+    errors, 
+    control, 
+    t, 
+    adaptedSources 
+  };
 };
 
 export default useCostsForm;

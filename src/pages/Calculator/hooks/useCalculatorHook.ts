@@ -34,6 +34,8 @@ const useCalculatorHook = () => {
                 facturation: {
                   cost: undefined,
                   month: undefined,
+                  year: undefined,   // Añadido el campo year
+                  usage: undefined,  // Añadido el campo usage
                 },
               },
               {
@@ -47,6 +49,8 @@ const useCalculatorHook = () => {
                 facturation: {
                   cost: undefined,
                   month: undefined,
+                  year: undefined,   // Añadido el campo year
+                  usage: undefined,  // Añadido el campo usage
                 },
               },
               {
@@ -60,6 +64,8 @@ const useCalculatorHook = () => {
                 facturation: {
                   cost: undefined,
                   month: undefined,
+                  year: undefined,   // Añadido el campo year
+                  usage: undefined,  // Añadido el campo usage
                 },
               },
             ],
@@ -82,6 +88,8 @@ const useCalculatorHook = () => {
                 facturation: {
                   cost: undefined,
                   month: undefined,
+                  year: undefined,   // Añadido el campo year
+                  usage: undefined,  // Añadido el campo usage
                 },
               },
               {
@@ -95,6 +103,8 @@ const useCalculatorHook = () => {
                 facturation: {
                   cost: undefined,
                   month: undefined,
+                  year: undefined,   // Añadido el campo year
+                  usage: undefined,  // Añadido el campo usage
                 },
               },
               {
@@ -108,6 +118,8 @@ const useCalculatorHook = () => {
                 facturation: {
                   cost: undefined,
                   month: undefined,
+                  year: undefined,   // Añadido el campo year
+                  usage: undefined,  // Añadido el campo usage
                 },
               },
             ],

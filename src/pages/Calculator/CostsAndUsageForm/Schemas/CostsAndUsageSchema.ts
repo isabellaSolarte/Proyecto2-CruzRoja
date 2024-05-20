@@ -9,6 +9,8 @@ const CostsResolver = yup.object().shape({
       name: yup.string().required(),
       cost: yup.number().required('El costo es obligatorio'),
       month: yup.number().required('El mes es obligatorio'),
+      year: yup.number().required('El año es obligatorio'),
+      usage: yup.number().required('El uso es obligatorio'),
     }).required()
   ).required(),
 }).required();

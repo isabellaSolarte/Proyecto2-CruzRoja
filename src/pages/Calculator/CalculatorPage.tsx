@@ -1,20 +1,21 @@
-import { Box, Grid } from '@mui/material';
+import { Box } from '@mui/material';
 import { CustomButton, CustomStepper, CustomText } from '../../components';
 import { CoverageForm, useCoverageForm } from './CoverageForm';
 import { useCalculatorHook, useStepper } from './hooks';
 import { useEffect } from 'react';
 import CostsAndUsageForm from './CostsAndUsageForm/CostsAndUsageForm';
-import { SourcesDataForm } from './Sources/Form';
-import { sourcesDictionaryPrueba2 } from './Sources/Form/sourcesDictionary';
 import { CategoriesForm } from './forms';
+import useCostsForm from './CostsAndUsageForm/hooks/useCostsAndUsageForm';
 
 const CalculatorPage = () => {
   const { currentStep, stepList, handleNextStep, handleStepBack } = useStepper();
   const { fetchCategories, calculator, t } = useCalculatorHook();
-  const { handleCoverageFormData } = useCoverageForm();
+  const { handleCostData } = useCostsForm();
+ 
 
   useEffect(() => {
     fetchCategories();
+    console.log('CategoryData:', calculator.categories);
   }, []);
 
   useEffect(() => {
@@ -24,35 +25,30 @@ const CalculatorPage = () => {
   const handleClick = () => {
     const stepsFunctions: { [key: number]: () => void } = {
       1: () => {
-        // funciónParaPaso1();
         handleNextStep();
       },
       2: () => {
-        // funciónParaPaso2();
         handleNextStep();
       },
       3: () => {
-        // funciónParaPaso3();
         handleNextStep();
       },
       4: () => {
-        handleCoverageFormData();
-        //handleNextStep();
-      },
-      5: () => {
-        // funciónParaPaso5();
+        
         handleNextStep();
       },
+      5: () => {
+        handleCostData(); 
+        //handleNextStep();
+      },
       6: () => {
-        // funciónParaPaso6();
         handleNextStep();
       },
       7: () => {
-        // funciónParaPaso7();
         handleNextStep();
       },
     };
-
+  
     if (stepsFunctions[currentStep]) {
       stepsFunctions[currentStep]();
     } else {
@@ -82,9 +78,7 @@ const CalculatorPage = () => {
         </div>
       )}
       {currentStep > 0 && (
-        <div
-          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}
-        >
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
           <Box sx={{ width: '100%', textAlign: 'center' }}>
             <div>
               {currentStep === 1 && <CategoriesForm />}
