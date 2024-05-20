@@ -17,7 +17,7 @@ const CostsForm = () => {
 
   return (
     <ManagmentLayout
-      title={<CustomText texto={''} variante={'subtitulo'} />}
+      title={<CustomText texto={'Consumos y costos'} variante={'subtitulo'} />}
       description={<CustomText texto={'A continuación ingrese el costo, mes, uso y año de evaluación para cada fuente:'} variante={'texto'} />}
       generalContents={
         <form ref={calculator.formReference} onSubmit={handleSubmit(onSubmit)}>
@@ -29,7 +29,7 @@ const CostsForm = () => {
                     mainLabel={'Fuente:'}
                     labelInput1={'Costo'}
                     labelInput2={'Mes'}
-                    labelInput3={'Uso'}
+                    labelInput3={'Consumo'}
                     labelInput4={'Año'}
                     title={pollutants.name}
                     propsInput1={{ registerInput1: register(`costs.${index}.cost`) }}
@@ -61,7 +61,6 @@ const CostsForm = () => {
               </Fragment>
             ))}
           </Grid>
-          <CustomButton content="Guardar" color={'info'} type={'submit'} />
         </form>
       }
     />
