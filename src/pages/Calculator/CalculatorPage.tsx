@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import CostsAndUsageForm from './CostsAndUsageForm/CostsAndUsageForm';
 import { SourcesDataForm } from './Sources/Form';
 import { sourcesDictionaryPrueba2 } from './Sources/Form/sourcesDictionary';
+import { ValidateForm } from './ValidateDataForm';
 
 const CalculatorPage = () => {
   const { currentStep, stepList, handleNextStep, handleStepBack } = useStepper();
@@ -36,7 +37,7 @@ const CalculatorPage = () => {
       },
       4: () => {
         handleCoverageFormData();
-        //handleNextStep();
+        handleNextStep();
       },
       5: () => {
         // funciónParaPaso5();
@@ -91,7 +92,7 @@ const CalculatorPage = () => {
               {currentStep === 3 && <SourcesDataForm sources={sourcesDictionaryPrueba2} />}
               {currentStep === 4 && <CoverageForm />}
               {currentStep === 5 && <CostsAndUsageForm />}
-              {currentStep === 6 && <div> </div>}
+              {currentStep === 6 && <ValidateForm />}
             </div>
           </Grid>
           <Box
