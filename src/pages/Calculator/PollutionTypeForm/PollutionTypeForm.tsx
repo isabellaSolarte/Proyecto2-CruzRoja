@@ -24,9 +24,11 @@ const PollutionTypeForm = () => {
         calculator.formReference.current.addEventListener('submit', handleFormSubmit);
       }
       calculator.updateFormHasErrors(false);
+      
     }, []);
 
-    console.log('adaptedPollutionTypesadaptedPollutionTypes:', adaptedPollutionTypes);
+    useEffect(() => {
+    }, [errors]);
     
   return (
     <ManagmentLayout 
@@ -61,7 +63,7 @@ const PollutionTypeForm = () => {
             
           
         )}
-        {errors.pollutionType && <ErrorText  error={errors.pollutionType.message} formErrorKey="userFormErrorsPollutionType"/>}
+
           {!!errors.pollutionType && (
             <Grid item xs={12}>
               <ErrorText

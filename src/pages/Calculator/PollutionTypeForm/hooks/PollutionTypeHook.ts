@@ -36,7 +36,7 @@ const usePollutionTypeForm = () => {
     defaultValues: { pollutionType: adaptedPollutionTypes },
     resolver: yupResolver(PollutionTypeResolver),
   });
-
+  
   const { update } = useFieldArray({
     control,
     name: 'pollutionType',
@@ -63,7 +63,6 @@ const usePollutionTypeForm = () => {
       };
     });
       update(indexToUpdate, updatedCategories[indexToUpdate]);
-      console.log('updatedCategories', updatedCategories);
   }
 
   function extractPollutiontypesFromCategories(
@@ -99,8 +98,16 @@ const usePollutionTypeForm = () => {
   const handleFormSubmit = (event: any) => {
     event.preventDefault(); // Evita la recarga de la página
     void handleSubmit(onSubmit)(event);
+    const pollutionTypes: PollutanType[] = [];
 
-    PollutionTypeResolver.validate(getValues(), { abortEarly: false })
+    getValues().pollutionType.forEach(category => {
+      category.pollutans.forEach(pollutant => {
+        if(pollutant.state)
+          pollutionTypes.push(pollutant);
+      });
+    });
+
+    PollutionTypeResolver.validate(pollutionTypes, { abortEarly: false })
       .then(() => {
         calculator.updateFormHasErrors(false);
       })

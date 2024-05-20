@@ -20,7 +20,6 @@ const PollutionTypeCard = ({
   const [switchState, setSwitchState] = useState(false);
 
   const isPollutionTypeAdded = () => {
-    console.log('PullutionType: ', pollutionType);
     if(pollutionType.state)
       setSwitchState(true);
     
