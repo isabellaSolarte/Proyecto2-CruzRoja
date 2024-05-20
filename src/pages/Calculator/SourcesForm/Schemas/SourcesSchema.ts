@@ -78,7 +78,12 @@ export const initialSchemaValidation = yup.object().shape({
     sources: yup
         .array()
         .of(sourceSchema)
-        .default(defaulSourcesSchema) // Use the default value from defaulSourcesSchema
         .min(1, 'Debe tener al menos una fuente.')
-        .required(),
+        .required()
+        .test('at-least-one-state-true', 'Al menos un source debe tener state true.', (value) => {
+            if (Array.isArray(value)) {
+                return value.some((source) => source.state === true);
+            }
+            return false;
+        }),
 });
