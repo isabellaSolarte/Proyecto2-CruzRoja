@@ -109,6 +109,27 @@ const useSourcesForm = () => {
     setIsLoading(false);
   };
 
+  const handleFormSubmit = (event: any) => {
+    event.preventDefault(); // Evita la recarga de la página
+    void handleSubmit(onSubmit)(event);
+
+    initialSchemaValidation.validate(getValues(), { abortEarly: false })
+      .then(() => {
+        calculator.updateFormHasErrors(false);
+      })
+      .catch(() => {
+        calculator.updateFormHasErrors(true);
+      });
+  };
+
+  const handleSourcesFormData = () => {
+    if (calculator.formReference.current) {
+      calculator.formReference.current.dispatchEvent(
+        new Event('submit', { cancelable: true, bubbles: true }),
+      );
+    }
+  };
+
   return {
     adaptedSources,
     handleSubmit,
@@ -119,6 +140,9 @@ const useSourcesForm = () => {
     onSubmit,
     addSource,
     removeSource,
+    handleFormSubmit,
+    handleSourcesFormData,
+    calculator,
   };
 };
 

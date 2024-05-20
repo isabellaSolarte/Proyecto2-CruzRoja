@@ -93,7 +93,6 @@ const useCoverageForm = () => {
       .catch(() => {
         calculator.updateFormHasErrors(true);
       });
-    //calculator.updateFormHasErrors(Object.keys(errors).length > 0);
   };
 
   const handleCoverageFormData = () => {

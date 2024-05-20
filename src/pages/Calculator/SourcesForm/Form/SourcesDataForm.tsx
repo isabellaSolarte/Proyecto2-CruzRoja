@@ -10,8 +10,15 @@ import SourcesType from '../types/SourcesType';
 
 
 const SourcesDataForm = () => {
-  const { adaptedSources, handleSubmit, onSubmit, register, errors, addSource, removeSource } = useSourcesForm();
+  const { adaptedSources, register, errors, addSource, removeSource, calculator, handleFormSubmit } = useSourcesForm();
   const [sourcesDictionary, setSourcesDictionary] = useState(adaptedSources);
+
+  useEffect(() => {
+    if (calculator.formReference.current) {
+      calculator.formReference.current.addEventListener('submit', handleFormSubmit);
+    }
+    calculator.updateFormHasErrors(false);
+  }, []);
 
   const handleSwitchState = (sourceId: number) => {
     const updatedSourcesDictionary = [...sourcesDictionary];
@@ -41,7 +48,7 @@ const SourcesDataForm = () => {
 
   return (
     <Box>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form ref={calculator.formReference}>
         <Box mt={4}>
           {
             Object.entries(groupedBycategoryName).map(([categoryName, source]) => (
@@ -66,7 +73,7 @@ const SourcesDataForm = () => {
               )
             )
           }
-          {errors.sources && <ErrorText  error={errors.sources.message} formErrorKey="userFormErrorsSources"/>}
+          {errors.sources && <ErrorText  error={errors.sources.message} formErrorKey="calculator"/>}
         </Box>
         <Box mt={4} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly' }}>
           <CustomButton content="Guardar" type="submit" variant="contained" color="success" />

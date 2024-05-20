@@ -4,13 +4,14 @@ import { CoverageForm, useCoverageForm } from './CoverageForm';
 import { useCalculatorHook, useStepper } from './hooks';
 import { useEffect } from 'react';
 import CostsAndUsageForm from './CostsAndUsageForm/CostsAndUsageForm';
-import { SourcesForm } from './SourcesForm';
+import { SourcesForm, useSourcesForm } from './SourcesForm';
 import { CategoriesForm } from './forms';
 
 const CalculatorPage = () => {
   const { currentStep, stepList, handleNextStep, handleStepBack } = useStepper();
   const { fetchCategories, calculator, t } = useCalculatorHook();
   const { handleCoverageFormData } = useCoverageForm();
+  const { handleSourcesFormData} = useSourcesForm();
 
   useEffect(() => {
     fetchCategories();
@@ -31,12 +32,12 @@ const CalculatorPage = () => {
         handleNextStep();
       },
       3: () => {
-        // funciónParaPaso3();
+        handleSourcesFormData();
         handleNextStep();
       },
       4: () => {
         handleCoverageFormData();
-        //handleNextStep();
+        handleNextStep();
       },
       5: () => {
         // funciónParaPaso5();
