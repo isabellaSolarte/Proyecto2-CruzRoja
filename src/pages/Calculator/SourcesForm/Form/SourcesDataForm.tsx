@@ -75,9 +75,6 @@ const SourcesDataForm = () => {
           }
           {errors.sources && <ErrorText  error={errors.sources.message} formErrorKey="calculator"/>}
         </Box>
-        <Box mt={4} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly' }}>
-          <CustomButton content="Guardar" type="submit" variant="contained" color="success" />
-        </Box>
       </form>
     </Box>
   );
