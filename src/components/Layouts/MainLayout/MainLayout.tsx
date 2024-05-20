@@ -32,6 +32,7 @@ const MainLayout = ({ appBar, navigationMenu, content }: MainLayoutProps) => {
         style={{
           backgroundColor: theme.backgroundContentColors?.contentBox,
           position: 'relative',
+          width: '100%',
         }}
       >
         <div

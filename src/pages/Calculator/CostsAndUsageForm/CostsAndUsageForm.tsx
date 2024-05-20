@@ -10,7 +10,7 @@ const CostsForm = () => {
   return (
     <ManagmentLayout
       title={<CustomText texto={''} variante={'subtitulo'} />}
-      description={<CustomText texto={'A conitnuación ingrese el costo y mes de evaluacion para cada fuente:'} variante={'texto'} />}
+      description={<CustomText texto={'A continuación ingrese el costo y mes de evaluacion para cada fuente:'} variante={'texto'} />}
       generalContents={
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container>

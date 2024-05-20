@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/prop-types */
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { CustomText, LabeledInput } from '../../../../components';
 import EnergySavingsLeafIcon from '@mui/icons-material/EnergySavingsLeaf';
 
@@ -50,28 +50,11 @@ const DoubleInput = ({
         alignItems: 'flex-end',
       }}
     >
-      <Grid item xs={12} md={6}>
-        <CustomText
-          texto={mainLabel}
-          variante={'pequeño'}
-          textAlign="center"
-          icon={<EnergySavingsLeafIcon color="success" />}
-        />
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            boxShadow: '0px 1px 5px 0px rgba(0,0,0,0.5)',
-            borderRadius: '5px',
-            padding: '0.8rem',
-          }}
-        >
-          <CustomText texto={title} variante={'texto'} textAlign="center" />
-        </Box>
+      <Grid item xs={12}>
+        <Typography sx={{ textAlign: 'center' }}>{title}</Typography>
       </Grid>
 
-      <Grid item xs={6} md={3}>
+      <Grid item xs={12} md={12} lg={6}>
         <LabeledInput
           label={labelInput1}
           placeholder={''}
@@ -83,7 +66,7 @@ const DoubleInput = ({
         />
       </Grid>
 
-      <Grid item xs={6} md={3}>
+      <Grid item xs={12} md={12} lg={6}>
         <LabeledInput
           label={labelInput2}
           placeholder={''}
