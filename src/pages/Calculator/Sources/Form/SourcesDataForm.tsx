@@ -11,11 +11,10 @@ interface SourcesDataFormProps {
   sources: SourcesType[];
 }
 
-const SourcesDataForm = (
-  { sources = [] }: SourcesDataFormProps,
-) => {
+const SourcesDataForm = ({ sources = [] }: SourcesDataFormProps) => {
   const { handleSubmit, onSubmit, register, errors, addSource, removeSource } = useSourcesForm();
   const [sourcesDictionary, setSourcesDictionary] = useState([defaulSourceSchema]);
+
   useEffect(() => {
     setSourcesDictionary(sources);
   }, [sources]);
@@ -37,44 +36,44 @@ const SourcesDataForm = (
       setSourcesDictionary(updatedSourcesDictionary);
     }
   };
-  const groupedBycategoryName: { [categoryName: string]: SourcesType[] } = sourcesDictionary.reduce((acc, curr) => {
-    if (acc[curr.categoryName]) {
+  const groupedBycategoryName: { [categoryName: string]: SourcesType[] } = sourcesDictionary.reduce(
+    (acc, curr) => {
+      if (acc[curr.categoryName]) {
         acc[curr.categoryName].push(curr);
-    } else {
+      } else {
         acc[curr.categoryName] = [curr];
-    }
-    return acc;
-}, {});
+      }
+      return acc;
+    },
+    {},
+  );
 
   return (
     <Box>
-      <CustomText texto="Seleccione sus fuentes de emision." variante="texto"/>
+      <CustomText texto="Seleccione sus fuentes de emision." variante="texto" />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mt={4}>
-          {
-            Object.entries(groupedBycategoryName).map(([categoryName, source]) => (
-              <CustomAccordion 
-                key={categoryName}
-                accordionSummary={categoryName} 
-                contentAccordion={
-                  <Box>
-                    {
-                      source.map((source) => (
-                        <SourcesCard
-                          key={source.id}
-                          source={source}
-                          handleSwitchState={() => handleSwitchState(source.id)}
-                          props={register('sources')}
-                        />
-                      ))
-                    }
-                  </Box>
-                }
-              />
-              )
-            )
-          }
-          {errors.sources && <ErrorText  error={errors.sources.message} formErrorKey="userFormErrorsSources"/>}
+          {Object.entries(groupedBycategoryName).map(([categoryName, source]) => (
+            <CustomAccordion
+              key={categoryName}
+              accordionSummary={categoryName}
+              contentAccordion={
+                <Box>
+                  {source.map(source => (
+                    <SourcesCard
+                      key={source.id}
+                      source={source}
+                      handleSwitchState={() => handleSwitchState(source.id)}
+                      props={register('sources')}
+                    />
+                  ))}
+                </Box>
+              }
+            />
+          ))}
+          {errors.sources && (
+            <ErrorText error={errors.sources.message} formErrorKey="userFormErrorsSources" />
+          )}
         </Box>
         <Box mt={4} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly' }}>
           <CustomButton content="Guardar" type="submit" variant="contained" color="success" />
