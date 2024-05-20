@@ -4,19 +4,22 @@ import {
   CustomButton,
   CustomText,
   EmptyBox,
-  SimpleManagmentLayout,
+  SimpleLayout,
 } from '../../components';
 import { useCalculatorResults } from './hooks';
 import PrintIcon from '@mui/icons-material/Print';
 import { RenderMonthData } from './components';
 import RenderSourcesData from './components/RenderSourceData';
+import { PieChart } from '@mui/x-charts/PieChart';
 
 const CalculatorResultsPage = () => {
-  const { total, totalByMonth, totalBySources, pageComponentRef, handlePrint } =
+  const { total, totalByMonth, totalBySources, pageComponentRef, percentage, handlePrint } =
     useCalculatorResults();
 
+  console.log(percentage);
+
   return (
-    <SimpleManagmentLayout>
+    <SimpleLayout>
       <Box ref={pageComponentRef}>
         <Box
           sx={{
@@ -81,6 +84,39 @@ const CalculatorResultsPage = () => {
         <Box
           sx={{
             display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Typography variant="h6">Mayores Fuentes de Contaminación</Typography>
+          <PieChart
+            series={[
+              {
+                data: percentage.map((data, index) => {
+                  return {
+                    id: index,
+                    label: `${data.source} (${data.total} ufp)`,
+                    value: data.total,
+                  };
+                }),
+                innerRadius: 40,
+                paddingAngle: 5,
+                cornerRadius: 5,
+                highlightScope: { faded: 'global', highlighted: 'item' },
+                faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
+              },
+            ]}
+            width={600}
+            height={200}
+          />
+        </Box>
+
+        <EmptyBox height={60} width={1} />
+
+        <Box
+          sx={{
+            display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
             gap: 2,
@@ -98,7 +134,7 @@ const CalculatorResultsPage = () => {
           <img src="/cruzRojaLogo.png" alt="" />
         </Box>
       </Box>
-    </SimpleManagmentLayout>
+    </SimpleLayout>
   );
 };
 
