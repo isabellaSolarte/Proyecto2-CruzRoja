@@ -2,7 +2,6 @@ import { Box, Grid } from '@mui/material';
 import { CustomButton, CustomStepper, CustomText, SimpleLayout } from '../../components';
 import { CoverageForm } from './CoverageForm';
 import { useCalculatorHook, useStepper } from './hooks';
-import { useEffect } from 'react';
 import CostsAndUsageForm from './CostsAndUsageForm/CostsAndUsageForm';
 import { ValidateForm } from './ValidateDataForm';
 import { CategoriesForm } from './forms';
@@ -11,11 +10,7 @@ import { SourcesDataForm } from './Sources/Form';
 
 const CalculatorPage = () => {
   const { currentStep, stepList, handleNextStep, handleStepBack } = useStepper();
-  const { fetchCategories, t } = useCalculatorHook();
-
-  useEffect(() => {
-    fetchCategories();
-  }, []);
+  const { t } = useCalculatorHook();
 
   return (
     <SimpleLayout>
