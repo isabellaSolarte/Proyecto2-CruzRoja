@@ -208,9 +208,9 @@
             "informedSources": "informadas",
             "source": "Fuente"
         },
-        "sourcesForm": {
-            "title": "Fuentes",
-            "description": "Seleccione sus fuentes de emision."
+        "pollutionTypeForm": {
+            "title": "Tipo de Contaminante",
+            "description": "A continuacion seleccione las cargas ambientales para cada categoria seleccionada que apliquen."
         },
         "stepper": {
             "welcome": "Bienvenido",
