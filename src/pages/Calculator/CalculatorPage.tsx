@@ -5,8 +5,6 @@ import { useCalculatorHook, useStepper } from './hooks';
 import { useEffect } from 'react';
 import CostsAndUsageForm from './CostsAndUsageForm/CostsAndUsageForm';
 import { ValidateForm } from './ValidateDataForm';
-import { CategoriesForm } from './forms';
-import { sourcesDictionaryPrueba2 } from './Sources/Form/sourcesDictionary';
 import { SourcesForm } from './SourcesForm';
 import { CategoriesForm } from './forms';
 
@@ -88,31 +86,7 @@ const CalculatorPage = () => {
                   </Box>
                 )}
                 {currentStep === 3 && (
-                  <>
-                    <SourcesForm />
-                    <Box
-                      sx={{
-                        width: '100%',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        mt: 3,
-                      }}
-                    >
-                      <CustomButton
-                        variant="contained"
-                        color="primary"
-                        content={t('generalButtonText.back')}
-                        onClick={handleStepBack}
-                      />
-
-                      <CustomButton
-                        variant="contained"
-                        color="info"
-                        content={t('components.stepper.next')}
-                        onClick={handleNextStep}
-                      />
-                    </Box>
-                  </>
+                  <SourcesForm nextStep={handleNextStep} stepBack={handleStepBack}/>
                 )}
 
                 {currentStep === 4 && (

@@ -1,24 +1,20 @@
 import { Box } from '@mui/material';
-import { CustomAccordion, CustomButton, CustomText, ErrorText } from '../../../../components';
+import { CustomAccordion, CustomButton, ErrorText } from '../../../../components';
 import { useSourcesForm } from '../hooks';
-import { sourcesDictionaryPrueba2 } from './sourcesDictionary';
 import { SourcesCard } from '../Components';
-import { useEffect, useState } from 'react';
-import { defaulSourceSchema } from '../Schemas';
 import SourcesType from '../types/SourcesType';
+import { useState } from 'react';
 
+interface SourcesFormProps {
+  nextStep: () => void;
+  stepBack: () => void;
+}
 
-
-const SourcesDataForm = () => {
-  const { adaptedSources, register, errors, addSource, removeSource, calculator, handleFormSubmit } = useSourcesForm();
+const SourcesDataForm = ({ nextStep, stepBack }: SourcesFormProps) => {
+  const { t, adaptedSources, register, errors, addSource, removeSource, handleSubmit, onSubmit  } = useSourcesForm(nextStep);
   const [sourcesDictionary, setSourcesDictionary] = useState(adaptedSources);
 
-  useEffect(() => {
-    if (calculator.formReference.current) {
-      calculator.formReference.current.addEventListener('submit', handleFormSubmit);
-    }
-    calculator.updateFormHasErrors(false);
-  }, []);
+ 
 
   const handleSwitchState = (sourceId: number) => {
     const updatedSourcesDictionary = [...sourcesDictionary];
@@ -51,7 +47,7 @@ const SourcesDataForm = () => {
 
   return (
     <Box>
-      <form ref={calculator.formReference}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Box mt={4}>
           {
             Object.entries(groupedBycategoryName).map(([categoryName, source]) => (
@@ -77,6 +73,28 @@ const SourcesDataForm = () => {
             )
           }
           {errors.sources && <ErrorText  error={errors.sources.message} formErrorKey="calculator"/>}
+        </Box>
+        <Box
+          sx={{
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'space-between',
+            mt: 3,
+          }}
+        >
+          <CustomButton
+            variant="contained"
+            color="primary"
+            content={t('generalButtonText.back')}
+            onClick={stepBack}
+          />
+
+          <CustomButton
+            variant="contained"
+            color="info"
+            content={t('components.stepper.next')}
+            type="submit"
+          />
         </Box>
       </form>
     </Box>

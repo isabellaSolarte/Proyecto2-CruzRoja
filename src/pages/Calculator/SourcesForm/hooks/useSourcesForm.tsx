@@ -1,22 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useContext, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
-import {
-  defaulSourcesSchema,
-  defaulSourceSchema,
-  sourcesSchema,
-  sourceSchema,
-  initialSchema,
-  initialSchemaValidation,
-} from '../Schemas/SourcesSchema';
+import { initialSchemaValidation } from '../Schemas/SourcesSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import SourcesType  from '../types/SourcesType';
 import { CalculatorContext } from '../../../../contexts';
 import { CategoryModel } from '../../../../models';
+import { useTranslation } from 'react-i18next';
 
 
 
-const useSourcesForm = () => {
+const useSourcesForm = (nextStep: () => void) => {
+  const { t } = useTranslation('commons');
   const calculator = useContext(CalculatorContext);
   const [adaptedSources, setAdaptedSources] = useState<SourcesType[]>(
     extractSourcesFromCategories(calculator.categories),
@@ -26,7 +21,6 @@ const useSourcesForm = () => {
     handleSubmit,
     register,
     control,
-    getValues,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(initialSchemaValidation),
@@ -107,30 +101,12 @@ const useSourcesForm = () => {
     calculator.setCalculatorState(updateSources)
 
     setIsLoading(false);
+    nextStep();
   };
 
-  const handleFormSubmit = (event: any) => {
-    event.preventDefault(); // Evita la recarga de la página
-    void handleSubmit(onSubmit)(event);
-
-    initialSchemaValidation.validate(getValues(), { abortEarly: false })
-      .then(() => {
-        calculator.updateFormHasErrors(false);
-      })
-      .catch(() => {
-        calculator.updateFormHasErrors(true);
-      });
-  };
-
-  const handleSourcesFormData = () => {
-    if (calculator.formReference.current) {
-      calculator.formReference.current.dispatchEvent(
-        new Event('submit', { cancelable: true, bubbles: true }),
-      );
-    }
-  };
 
   return {
+    t,
     adaptedSources,
     handleSubmit,
     register,
@@ -140,9 +116,6 @@ const useSourcesForm = () => {
     onSubmit,
     addSource,
     removeSource,
-    handleFormSubmit,
-    handleSourcesFormData,
-    calculator,
   };
 };
 
