@@ -4,6 +4,7 @@ const SourceAdapter = (externalSource: any): SourceModel => {
   return {
     id: externalSource.idSource,
     name: externalSource.sourceName,
+    state: false,
     description: externalSource.sourceDescription,
     coverage: {
       totalSources: undefined,

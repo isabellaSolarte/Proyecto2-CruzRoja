@@ -36,14 +36,18 @@ const useSourcesForm = (nextStep: () => void) => {
   
   const extractSourcesFromCategories = (categories: CategoryModel[], categoryList: CategoryModel[]): SourcesType[] => {
     const sources: SourcesType[] = [];
+    console.log('categories:', categories);
+    console.log('categoryList:', categoryList);
+    
 
     categoryList.forEach(category => {
       category.pollutans.forEach(pollutant => {
         pollutant.sources.forEach(source => {
           const matchingCategory = categories.find(c => c.id === category.id);          
           const matchingPollutant = matchingCategory?.pollutans.find(p => p.id === pollutant.id);
-          const matchingSource = matchingPollutant?.sources.find(s => s.id === source.id);
-          const state = matchingSource ? true : false;
+          const state = matchingPollutant?.sources.find(s => s.id === source.id)?.state;
+          console.log('state:', state);
+          
           sources.push({
             id: source.id,
             name: source.name,
@@ -111,8 +115,20 @@ const useSourcesForm = (nextStep: () => void) => {
     const currentState = categoryList;
     currentState.forEach(category => {
       category.pollutans.forEach(pollutant => {
-        pollutant.sources = pollutant.sources.filter(source => {
+        pollutant.sources = pollutant.sources.map(source => {
           const sourceToUpdate = data.find(
+            sourceData => sourceData.id === source.id,
+          );
+          if (sourceToUpdate) {
+            return {
+              ...source,
+              state: sourceToUpdate.state,
+            };
+          }
+          return source;
+        });
+        pollutant.sources = pollutant.sources.filter(source => {
+          const sourceToUpdate = pollutant.sources.find(
             sourceData => sourceData.id === source.id,
           );
           return sourceToUpdate ? sourceToUpdate.state : true;
