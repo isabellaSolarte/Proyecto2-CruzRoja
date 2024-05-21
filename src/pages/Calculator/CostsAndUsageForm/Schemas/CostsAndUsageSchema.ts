@@ -7,10 +7,30 @@ const CostsResolver = yup.object({
       categoryId: yup.number().required(),
       id: yup.number().required(),
       name: yup.string().required(),
-      cost: yup.number().required('El costo es obligatorio'),
-      month: yup.number().required('El mes es obligatorio'),
-      year: yup.number().required('El año es obligatorio'),
-      usage: yup.number().required('El uso es obligatorio'),
+      cost: yup
+        .number()
+        .transform((value, originalValue) => {
+          return originalValue === '' ? null : value;
+        })
+        .nonNullable('El costo es obligatorio'),
+      month: yup
+        .number()
+        .transform((value, originalValue) => {
+          return originalValue === '' ? null : value;
+        })
+        .nonNullable('El mes es obligatorio'),
+      year: yup
+        .number()
+        .transform((value, originalValue) => {
+          return originalValue === '' ? null : value;
+        })
+        .nonNullable('El año es obligatorio'),
+      usage: yup
+        .number()
+        .transform((value, originalValue) => {
+          return originalValue === '' ? null : value;
+        })
+        .nonNullable('El consumo es obligatorio'),
     }).required()
   ).required(),
 }).required();
