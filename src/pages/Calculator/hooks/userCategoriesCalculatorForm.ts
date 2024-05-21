@@ -50,7 +50,7 @@ export const useCategoriesCalculatorForm = () => {
   const saveSelectedCategories = async () => {
     try {
       setIsLoading(true);
-      const response = await postSelectedCategories({ ids: [1,2] });
+      const response = await postSelectedCategories({ ids: [1,2,3] });
       //const response = await postSelectedCategories({ ids: selectedCategory });
       setSelectedCategoriesComplete(response);
       setCalculatorState(response);

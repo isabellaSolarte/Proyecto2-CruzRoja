@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useContext, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { initialSchemaValidation } from '../Schemas/SourcesSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -7,19 +7,66 @@ import SourcesType  from '../types/SourcesType';
 import { CalculatorContext } from '../../../../contexts';
 import { CategoryModel } from '../../../../models';
 import { useTranslation } from 'react-i18next';
-import { getCategoriesEnable } from '../../../../services/AxiosRequests/Categories';
+import { postSelectedCategories } from '../../../../services/AxiosRequests/Categories';
 
 
 
 const useSourcesForm = (nextStep: () => void) => {
   const { t } = useTranslation('commons');
   const calculator = useContext(CalculatorContext);
-  const [categoryList, setCategoryList] = useState<CategoryModel[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
+  const [categoryList, setCategoryList] = useState<CategoryModel[]>([]);
+  const loadCategories = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    const ids = calculator.categories.map(category => category.id);
+
+    try {
+      const categories = await postSelectedCategories({ ids: ids });
+      setCategoryList(categories);
+    } catch (error) {
+      setError(error as Error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [calculator.categories]); // Add an empty array as the second argument to useCallback
+
+  useEffect(() => {
+    void loadCategories();
+  }, [loadCategories]);
+  
+  const extractSourcesFromCategories = (categories: CategoryModel[]): SourcesType[] => {
+    const sources: SourcesType[] = [];
+    console.log('categories:', categories);
+    console.log('categoryList:', categoryList);
+    
+    categories.forEach(category => {
+      category.pollutans.forEach(pollutant => {
+        pollutant.sources.forEach(source => {
+          const matchingCategory = categoryList.find(c => c.id === category.id);          
+          const matchingPollutant = matchingCategory?.pollutans.find(p => p.id === pollutant.id);
+          const matchingSource = matchingPollutant?.sources.find(s => s.id === source.id);
+          const state = matchingSource ? true : false;
+          sources.push({
+            id: source.id,
+            name: source.name,
+            categoryName: pollutant.name,
+            description: source.description,
+            state: state,
+            coverage: source.coverage,
+            facturation: source.facturation,
+          });
+        });
+      });
+    });
+    return sources;
+  }
+  
   const [adaptedSources, setAdaptedSources] = useState<SourcesType[]>(
     extractSourcesFromCategories(calculator.categories),
   );
+
 
   const {
     handleSubmit,
@@ -49,27 +96,6 @@ const useSourcesForm = (nextStep: () => void) => {
     }
   };
   
-  function extractSourcesFromCategories(categories: CategoryModel[]): SourcesType[] {
-    //TODO: Quizas despues deba solo retornar las sources que pertenecen a una categoria con state true
-    const sources: SourcesType[] = [];
-    categories.forEach(category => {
-      category.pollutans.forEach(pollutant => {
-        pollutant.sources.forEach(source => {
-          sources.push({
-            id: source.id,
-            name: source.name,
-            categoryName: pollutant.name,
-            description: source.description,
-            state: source.state,
-            coverage: source.coverage,
-            facturation: source.facturation,
-          });
-          
-        });
-      });
-    });
-    return sources;
-  }
   const updateSourcesCalculatorState = (data: SourcesType[]) => {
     console.log('data updateSourcesCalculatorState:', data);
     const currentState = calculator.categories;
@@ -85,19 +111,9 @@ const useSourcesForm = (nextStep: () => void) => {
     });
     return currentState;
   }
-  const loadCategories = async () => {
-    setIsLoading(true);
-    setError(null);
+  
 
-    try {
-      const categories = await getCategoriesEnable();
-      setCategoryList(categories);
-    } catch (error) {
-      setError(error as Error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+
   const onSubmit = (data: any) => {
     setIsLoading(true);
     setError(null);
