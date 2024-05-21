@@ -36,8 +36,6 @@ const useSourcesForm = (nextStep: () => void) => {
   
   const extractSourcesFromCategories = (categories: CategoryModel[], categoryList: CategoryModel[]): SourcesType[] => {
     const sources: SourcesType[] = [];
-    console.log('categories:', categories);
-    console.log('categoryList:', categoryList);
     
 
     categoryList.forEach(category => {
@@ -45,9 +43,7 @@ const useSourcesForm = (nextStep: () => void) => {
         pollutant.sources.forEach(source => {
           const matchingCategory = categories.find(c => c.id === category.id);          
           const matchingPollutant = matchingCategory?.pollutans.find(p => p.id === pollutant.id);
-          const state = matchingPollutant?.sources.find(s => s.id === source.id)?.state;
-          console.log('state:', state);
-          
+          const state = matchingPollutant?.sources.find(s => s.id === source.id)?.state;          
           sources.push({
             id: source.id,
             name: source.name,
@@ -112,30 +108,22 @@ const useSourcesForm = (nextStep: () => void) => {
   };
   
   const updateSourcesCalculatorState = (data: SourcesType[]) => {
-    const currentState = categoryList;
-    currentState.forEach(category => {
-      category.pollutans.forEach(pollutant => {
-        pollutant.sources = pollutant.sources.map(source => {
-          const sourceToUpdate = data.find(
-            sourceData => sourceData.id === source.id,
-          );
-          if (sourceToUpdate) {
-            return {
-              ...source,
-              state: sourceToUpdate.state,
-            };
-          }
-          return source;
-        });
-        pollutant.sources = pollutant.sources.filter(source => {
-          const sourceToUpdate = pollutant.sources.find(
-            sourceData => sourceData.id === source.id,
-          );
-          return sourceToUpdate ? sourceToUpdate.state : true;
-        });
-      });
+    return categoryList.map(category => {
+      return {
+        ...category,
+        pollutans: category.pollutans.map(pollutant => {
+          const updatedSources = pollutant.sources.map(source => {
+            const sourceToUpdate = data.find(sourceData => sourceData.id === source.id);
+            return sourceToUpdate ? { ...source, state: sourceToUpdate.state } : source;
+          });
+          const filteredSources = updatedSources.filter(source => {
+            const sourceToUpdate = updatedSources.find(sourceData => sourceData.id === source.id);
+            return sourceToUpdate ? sourceToUpdate.state : true;
+          });
+          return { ...pollutant, sources: filteredSources };
+        })
+      };
     });
-    return currentState;
   }
   
 

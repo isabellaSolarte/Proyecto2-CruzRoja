@@ -99,9 +99,9 @@ const SourcesDataForm = ({ nextStep, stepBack }: SourcesFormProps) => {
                             )
                           }
                           {
-                            errors.sources && errors.sources[index]?.facturation && (
+                            errors.sources && errors.sources[index]?.facturation?.cost && (
                               <ErrorText
-                                error={errors.sources[index]?.facturation.message}
+                                error={errors.sources[index]?.facturation.cost.message}
                                 formErrorKey="calculator"
                               />
                             )
