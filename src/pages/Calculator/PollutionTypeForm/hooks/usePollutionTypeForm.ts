@@ -1,22 +1,12 @@
 import { useTranslation } from 'react-i18next';
-import { CategoryModel, SourceModel } from '../../../../models';
+import { CategoryModel } from '../../../../models';
 import { useContext, useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { CalculatorContext } from '../../../../contexts';
 import PollutionTypeResolver from '../schemas/PollutionTypeSchema';
 import { useFieldArray, useForm } from 'react-hook-form';
 
-type PollutanType = {
-  pollutionTypeId: number;
-  pollutionTypeName : string;
-  pollutionTypeDescription: string;
-  pollutionTypeUnits: string;
-  pollutionTypeEmissionFactor	: number;
-  pollutionTypeSources: SourceModel[];
-  pollutionTypeState: boolean;
-};
-
-const usePollutionTypeForm = () => {
+const usePollutionTypeForm = (nextStep: () => void) => {
   const { t } = useTranslation('commons');
 
   const calculator = useContext(CalculatorContext);
@@ -45,6 +35,8 @@ const usePollutionTypeForm = () => {
   const updatePollutionType = (polllutionTypeName: string, pollutionTypeState: boolean)=>{
     let indexToUpdate = 0;
 
+    console.log('updatePollutionType: ', polllutionTypeName);
+    
     const updatedCategories = getValues().pollutionType.map((category, index) => { 
       const updatedPollutants = category?.pollutans.map(pollutant => {
         if(pollutant.name === polllutionTypeName){
@@ -68,6 +60,7 @@ const usePollutionTypeForm = () => {
   function extractPollutiontypesFromCategories(
     categories: CategoryModel[],
   ): CategoryModel[] {
+  console.log('caregories: ', categories);
   
     const updatedCategories = categories.map(category => {
   
@@ -87,41 +80,12 @@ const usePollutionTypeForm = () => {
     return updatedCategories;
   }
   
+
   const onSubmit = (data: any) => {
-
-    setAdaptedPollutionTypes(data.pollutionType);
-    const updatePollutionType = getValues().pollutionType;
-
-    calculator.setCalculatorState(updatePollutionType);
-  };
-
-  const handleFormSubmit = (event: any) => {
-    event.preventDefault(); // Evita la recarga de la página
-    void handleSubmit(onSubmit)(event);
-    const pollutionTypes: PollutanType[] = [];
-
-    getValues().pollutionType.forEach(category => {
-      category.pollutans.forEach(pollutant => {
-        if(pollutant.state)
-          pollutionTypes.push(pollutant);
-      });
-    });
-
-    PollutionTypeResolver.validate(pollutionTypes, { abortEarly: false })
-      .then(() => {
-        calculator.updateFormHasErrors(false);
-      })
-      .catch(() => {
-        calculator.updateFormHasErrors(true);
-      });
-  };
-
-  const handlePollutionTypeFormData = () => {
-    if (calculator.formReference.current) {
-      calculator.formReference.current.dispatchEvent(
-        new Event('submit', { cancelable: true, bubbles: true }),
-      );
-    }
+    setAdaptedPollutionTypes(data);
+    const updatePollutionTypes = getValues().pollutionType;
+    calculator.setCalculatorState(updatePollutionTypes);
+    nextStep();
   };
 
   return {
@@ -130,8 +94,6 @@ const usePollutionTypeForm = () => {
     register,
     getValues,
     updatePollutionType,
-    handleFormSubmit,
-    handlePollutionTypeFormData,
     calculator,
     errors,
     control,

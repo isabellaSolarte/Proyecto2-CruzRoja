@@ -2,10 +2,16 @@ import { useEffect } from 'react';
 import {CustomText, ErrorText, ManagmentLayout, CustomAccordion} from '../../../components';
 import { Grid,Box } from '@mui/material';
 import PollutionTypeCard from './components/PollutionTypeCard'; 
-import usePollutionTypeForm from './hooks/PollutionTypeHook';
+import usePollutionTypeForm from './hooks/usePollutionTypeForm';
+import CustomButton from './../../../components/Atoms/CustomButton/CustomButton';
 
 
-const PollutionTypeForm = () => {
+interface PollutionTypeFormProps {
+  nextStep: () => void;
+  stepBack: () => void;
+}
+
+const PollutionTypeForm = ({ nextStep, stepBack }: PollutionTypeFormProps) => {
     
     const { 
       t,
@@ -13,19 +19,10 @@ const PollutionTypeForm = () => {
       register,
       updatePollutionType,
       errors,
-      calculator,
-      handleFormSubmit,
+      handleSubmit, 
+      onSubmit,
       reset,
-    } = usePollutionTypeForm()
-    
-    
-    useEffect(() => {
-      if (calculator.formReference.current) {
-        calculator.formReference.current.addEventListener('submit', handleFormSubmit);
-      }
-      calculator.updateFormHasErrors(false);
-      
-    }, []);
+    } = usePollutionTypeForm(nextStep)
 
     useEffect(() => {
     }, [errors]);
@@ -38,7 +35,7 @@ const PollutionTypeForm = () => {
     }
     
     generalContents={
-      <form ref={calculator.formReference}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Box mt={5} sx={{ borderTop: '1px solid #C8C8C8'}}>
         {adaptedPollutionTypes.map(categoria =>
           <CustomAccordion
@@ -72,6 +69,28 @@ const PollutionTypeForm = () => {
               />
             </Grid>
           )}
+        </Box>
+        <Box
+          sx={{
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'space-between',
+            mt: 3,
+          }}
+        >
+          <CustomButton
+            variant="contained"
+            color="primary"
+            content={t('generalButtonText.back')}
+            onClick={stepBack}
+          />
+
+          <CustomButton
+            variant="contained"
+            color="info"
+            content={t('components.stepper.next')}
+            type="submit"
+          />
         </Box>
       </form>
     }

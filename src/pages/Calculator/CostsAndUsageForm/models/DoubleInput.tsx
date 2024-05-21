@@ -6,14 +6,13 @@ interface DoubleInputProps {
     mainLabel: string;
     labelInput1: string;
     labelInput2: string;
+    labelInput3: string; // Nuevo label para usage
+    labelInput4: string; // Nuevo label para year
     title: string;
     propsInput1?: { registerInput1?: any; updateInput1?: any; references?: number[]; };
-    propsInput2?: {
-        registerInput2?: any;
-        updateInput2?: any;
-        references?: number[];
-        defaultValue?: number; // Agregar la propiedad defaultValue
-    };
+    propsInput2?: { registerInput2?: any; updateInput2?: any; references?: number[]; defaultValue?: number; };
+    propsInput3?: { registerInput3?: any; updateInput3?: any; references?: number[]; };
+    propsInput4?: { registerInput4?: any; updateInput4?: any; references?: number[]; defaultValue?: number; };
 }
 
 const months = [
@@ -31,13 +30,28 @@ const months = [
     { value: 12, label: 'Diciembre' },
 ];
 
+const years = [
+    { value: 2023, label: '2023' },
+    { value: 2024, label: '2024' },
+    { value: 2025, label: '2025' },
+    { value: 2026, label: '2026' },
+    { value: 2027, label: '2027' },
+    { value: 2028, label: '2028' },
+    { value: 2029, label: '2029' },
+    { value: 2030, label: '2030' },
+];
+
 const DoubleInput = ({
     mainLabel,
     labelInput1,
     labelInput2,
+    labelInput3,
+    labelInput4,
     title,
     propsInput1,
     propsInput2,
+    propsInput3,
+    propsInput4,
 }: DoubleInputProps) => {
     const updateInputData1 = (data: string) => {
         if (propsInput1?.references && propsInput1.references.length === 2) {
@@ -47,6 +61,16 @@ const DoubleInput = ({
     const updateInputData2 = (data: string) => {
         if (propsInput2?.references && propsInput2.references.length === 2) {
             propsInput2.updateInput2(propsInput2.references[0], propsInput2.references[1], data);
+        }
+    };
+    const updateInputData3 = (data: string) => {
+        if (propsInput3?.references && propsInput3.references.length === 2) {
+            propsInput3.updateInput3(propsInput3.references[0], propsInput3.references[1], data);
+        }
+    };
+    const updateInputData4 = (data: string) => {
+        if (propsInput4?.references && propsInput4.references.length === 2) {
+            propsInput4.updateInput4(propsInput4.references[0], propsInput4.references[1], data);
         }
     };
 
@@ -91,15 +115,39 @@ const DoubleInput = ({
                 />
             </Grid>
             <Grid item xs={6} md={3}>
-                <LabeledSelect
+            <LabeledInput
+                    label={labelInput3}
+                    placeholder={''}
+                    type={'number'}
+                    labelAlign="center"
+                    variante="pequeño"
+                    updateText={updateInputData3}
+                    props={propsInput3?.registerInput3 && { ...propsInput3.registerInput3 }}
+                />
+                
+            </Grid>
+            <Grid item xs={6} md={3}>
+<LabeledSelect
                     label={labelInput2}
                     options={months}
                     labelAlign="center"
                     variante="pequeño"
                     updateText={updateInputData2}
                     props={propsInput2?.registerInput2 && { ...propsInput2.registerInput2 }}
-                    required // Hacer que el Select sea obligatorio
-                    defaultValue={propsInput2?.defaultValue} // Establecer la opción predeterminada como enero
+                    required
+                    defaultValue={propsInput2?.defaultValue}
+                />
+            </Grid>
+            <Grid item xs={6} md={3}>
+                <LabeledSelect
+                    label={labelInput4}
+                    options={years}
+                    labelAlign="center"
+                    variante="pequeño"
+                    updateText={updateInputData4}
+                    props={propsInput4?.registerInput4 && { ...propsInput4.registerInput4 }}
+                    required
+                    defaultValue={propsInput4?.defaultValue}
                 />
             </Grid>
         </Grid>
@@ -108,13 +156,13 @@ const DoubleInput = ({
 
 interface LabeledSelectProps {
     label: string;
-    options: { value: number | string; label: string }[]; // El valor puede ser un número o una cadena
+    options: { value: number | string; label: string }[];
     labelAlign?: 'left' | 'center' | 'right';
     variante?: 'pequeño' | 'medio' | 'grande';
     updateText: (data: string) => void;
     props?: any;
-    required?: boolean; // Propiedad para indicar si el campo es obligatorio
-    defaultValue?: number; // Propiedad para el valor predeterminado
+    required?: boolean;
+    defaultValue?: number;
 }
 
 const LabeledSelect = ({
@@ -125,7 +173,7 @@ const LabeledSelect = ({
     updateText,
     props,
     required = false,
-    defaultValue // Agregar defaultValue como argumento
+    defaultValue
 }: LabeledSelectProps) => {
     return (
         <Box sx={{ textAlign: labelAlign }}>
@@ -133,8 +181,8 @@ const LabeledSelect = ({
             <Select
                 onChange={(event) => updateText(event.target.value as string)}
                 fullWidth
-                required={required} // Hacer que el Select sea obligatorio
-                defaultValue={defaultValue} // Pasar el valor predeterminado
+                required={required}
+                defaultValue={defaultValue}
                 {...props}
             >
                 {options.map((option) => (

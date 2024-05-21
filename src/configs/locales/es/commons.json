@@ -5,6 +5,7 @@
         "cancel": "Cancelar",
         "back": "Atrás",
         "save": "Guardar",
+        "saveCategoriesSelected": "Guardar categorías",
         "create": "Crear",
         "edit": "Editar",
         "view": "Observar",
@@ -26,7 +27,8 @@
         "activities": "Actividades",
         "plans": "Planes de compensación",
         "permissions": "Permisos",
-        "categories": "Categorías"
+        "categories": "Categorías",
+        "calculator": "Calculadora"
     },
     "pageTitles": {
         "users": "Gestión de usuarios",
@@ -43,7 +45,8 @@
         "viewCategory": "Visualizar categoria",
         "createCategory": "Crear categoria",
         "calculator": "Calculadora huella de carbono",
-        "editUser": "Editar usuario"
+        "editUser": "Editar usuario",
+        "caculatorCatogories": "Categorías de la calculadora"
     },
     "rolesPages": {
         "tabs": {
@@ -58,13 +61,17 @@
         }
     },
     "categoryPages": {
-        "desciption": {
+        "description": {
             "generalDescription": "Las categorías en el contexto del cálculo de la huella de carbono son un conjunto de actividades, que ayudan a identificar y clasificar las diferentes fuentes de emisiones de carbono en función de su naturaleza. "
-        
         }
         
     },
-    
+    "calculatorPage":{
+        "descriptions":{
+            "descriptionCategories": "Seleccione las categorías a las que le realizará el cálculo de emisión"
+        }
+       
+    },
 
     "usersPages": {
         "tabs": {
@@ -194,7 +201,9 @@
     "calculator": {
         "coverageForm": {
             "title": "Coberturas",
-            "description": "Indique el número total de fuentes y el número total de fuentes informadas",
+            "description": "Por cada fuente de emisión, indique:",
+            "helpTotal": "Total: Número de elementos que generan huella de carbono.",
+            "helpInformed": "Informadas: Número de fuentes a reportar en esta evaluación.",
             "totalSources": "totales",
             "informedSources": "informadas",
             "source": "Fuente"
