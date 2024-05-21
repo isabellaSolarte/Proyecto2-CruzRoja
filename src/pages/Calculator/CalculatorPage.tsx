@@ -51,7 +51,13 @@ const CalculatorPage = () => {
               padding: { xs: '0 10%', md: '0 20%' },
             }}
           >
-            <Grid container spacing={2} sx={{ width: '100%', textAlign: 'center' }}>
+            <Grid
+              container
+              sx={{
+                width: '100%',
+                textAlign: 'center',
+              }}
+            >
               <Grid item xs={12}>
                 {currentStep === 1 && (
                   <CategoriesForm nextStep={handleNextStep} stepBack={handleStepBack} />
@@ -81,7 +87,7 @@ const CalculatorPage = () => {
                   </Box>
                 )}
                 {currentStep === 3 && (
-                  <SourcesForm nextStep={handleNextStep} stepBack={handleStepBack}/>
+                  <SourcesForm nextStep={handleNextStep} stepBack={handleStepBack} />
                 )}
 
                 {currentStep === 4 && (
