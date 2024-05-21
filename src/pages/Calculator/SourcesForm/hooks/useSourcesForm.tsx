@@ -24,7 +24,6 @@ const useSourcesForm = (nextStep: () => void) => {
     try {
       const categories = await postSelectedCategories(calculator.selectedCategories);
       setCategoryList(categories);
-      console.log('loadCategories-categories:', categories);
       setAdaptedSources(extractSourcesFromCategories(calculator.categories, categories));
     } catch (error) {
       setError(error as Error);
@@ -37,8 +36,6 @@ const useSourcesForm = (nextStep: () => void) => {
   
   const extractSourcesFromCategories = (categories: CategoryModel[], categoryList: CategoryModel[]): SourcesType[] => {
     const sources: SourcesType[] = [];
-    console.log('categories:', categories);
-    console.log('categoryList:', categoryList);
 
     categoryList.forEach(category => {
       category.pollutans.forEach(pollutant => {
@@ -65,7 +62,6 @@ const useSourcesForm = (nextStep: () => void) => {
   const [adaptedSources, setAdaptedSources] = useState<SourcesType[]>([]);
   
   
-  console.log('adaptedSources:', adaptedSources);
   
 
   const {
@@ -78,9 +74,7 @@ const useSourcesForm = (nextStep: () => void) => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(initialSchemaValidation),
-    defaultValues: useMemo(() => {
-      console.log('useMemo adaptedSources:', adaptedSources);
-      
+    defaultValues: useMemo(() => {   
       return {sources: adaptedSources};
     }, [adaptedSources, categoryList]),
     
@@ -89,11 +83,9 @@ const useSourcesForm = (nextStep: () => void) => {
   useEffect(() => {
     void loadCategories();
     reset({sources: adaptedSources})
-    console.log('getValues:', getValues());
   }, []);
   
   useEffect(() => {
-    console.log('getValues:', getValues());
     setValue('sources', adaptedSources);
   }, [adaptedSources]);
 
@@ -104,9 +96,7 @@ const useSourcesForm = (nextStep: () => void) => {
 
   const addSource = (source: SourcesType) => {
     const indexToUpdate = sourcesArray.fields.findIndex(field => field.name === source.name);
-    sourcesArray.update(indexToUpdate, source);
-    console.log('getValues:', getValues());
-    
+    sourcesArray.update(indexToUpdate, source);    
   };
 
   const removeSource = (name: string) => {
@@ -118,7 +108,6 @@ const useSourcesForm = (nextStep: () => void) => {
   };
   
   const updateSourcesCalculatorState = (data: SourcesType[]) => {
-    console.log('data updateSourcesCalculatorState:', data);
     const currentState = categoryList;
     currentState.forEach(category => {
       category.pollutans.forEach(pollutant => {
