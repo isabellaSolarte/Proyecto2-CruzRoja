@@ -37,14 +37,17 @@ const SourcesDataForm = () => {
       setSourcesDictionary(updatedSourcesDictionary);
     }
   };
-  const groupedBycategoryName: { [categoryName: string]: SourcesType[] } = sourcesDictionary.reduce((acc, curr) => {
-    if (acc[curr.categoryName]) {
+  const groupedBycategoryName: { [categoryName: string]: SourcesType[] } = sourcesDictionary.reduce(
+    (acc, curr) => {
+      if (acc[curr.categoryName]) {
         acc[curr.categoryName].push(curr);
-    } else {
+      } else {
         acc[curr.categoryName] = [curr];
-    }
-    return acc;
-}, {});
+      }
+      return acc;
+    },
+    {},
+  );
 
   return (
     <Box>

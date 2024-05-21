@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { CategoryModel, PollutionUnity } from '../../../models';
 import { useTranslation } from 'react-i18next';
-import { CalculatorContext } from '../../../contexts/CalculatorForm';
+import { CalculatorContext } from '../../../contexts';
 
 const useCalculatorHook = () => {
   const { t } = useTranslation('commons');
@@ -29,12 +29,14 @@ const useCalculatorHook = () => {
                 description: 'Description of Source 1 - Pollutant 1',
                 state: false,
                 coverage: {
-                  totalSources: undefined,
-                  informedSources: undefined,
+                  totalSources: 100,
+                  informedSources: 10,
                 },
                 facturation: {
                   cost: undefined,
                   month: undefined,
+                  year: undefined, // Añadido el campo year
+                  usage: undefined, // Añadido el campo usage
                 },
               },
               {
@@ -43,12 +45,14 @@ const useCalculatorHook = () => {
                 description: 'Description of Source 2 - Pollutant 1',
                 state: false,
                 coverage: {
-                  totalSources: undefined,
-                  informedSources: undefined,
+                  totalSources: 200,
+                  informedSources: 12,
                 },
                 facturation: {
                   cost: undefined,
                   month: undefined,
+                  year: undefined, // Añadido el campo year
+                  usage: undefined, // Añadido el campo usage
                 },
               },
               {
@@ -57,12 +61,14 @@ const useCalculatorHook = () => {
                 description: 'Description of Source 3 - Pollutant 1',
                 state: false,
                 coverage: {
-                  totalSources: undefined,
-                  informedSources: undefined,
+                  totalSources: 30,
+                  informedSources: 1,
                 },
                 facturation: {
                   cost: undefined,
                   month: undefined,
+                  year: undefined, // Añadido el campo year
+                  usage: undefined, // Añadido el campo usage
                 },
               },
             ],
@@ -80,12 +86,14 @@ const useCalculatorHook = () => {
                 description: 'Description of Source 1 - Pollutant 2',
                 state: false,
                 coverage: {
-                  totalSources: undefined,
-                  informedSources: undefined,
+                  totalSources: 150,
+                  informedSources: 12,
                 },
                 facturation: {
                   cost: undefined,
                   month: undefined,
+                  year: undefined, // Añadido el campo year
+                  usage: undefined, // Añadido el campo usage
                 },
               },
               {
@@ -94,12 +102,14 @@ const useCalculatorHook = () => {
                 description: 'Description of Source 2 - Pollutant 2',
                 state: false,
                 coverage: {
-                  totalSources: undefined,
-                  informedSources: undefined,
+                  totalSources: 234,
+                  informedSources: 12,
                 },
                 facturation: {
                   cost: undefined,
                   month: undefined,
+                  year: undefined, // Añadido el campo year
+                  usage: undefined, // Añadido el campo usage
                 },
               },
               {
@@ -108,12 +118,14 @@ const useCalculatorHook = () => {
                 description: 'Description of Source 3 - Pollutant 2',
                 state: false,
                 coverage: {
-                  totalSources: undefined,
-                  informedSources: undefined,
+                  totalSources: 280,
+                  informedSources: 12,
                 },
                 facturation: {
                   cost: undefined,
                   month: undefined,
+                  year: undefined, // Añadido el campo year
+                  usage: undefined, // Añadido el campo usage
                 },
               },
             ],

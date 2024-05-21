@@ -5,6 +5,6 @@ export interface CategoryWithRelation{
     categoryName: string;
     categoryDescription: string;
     categoryScope: string;
-    categoryStatus: boolean;
+    categoryState: boolean;
     categoryPollution: PollutionTypeModel[];
 }

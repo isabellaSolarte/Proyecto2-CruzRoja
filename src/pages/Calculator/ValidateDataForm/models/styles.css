@@ -1,0 +1,16 @@
+  
+.label {
+    background-color: #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 800px;
+
+}
+  
+.space {
+    width: 70px; 
+}

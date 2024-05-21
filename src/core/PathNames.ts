@@ -36,6 +36,7 @@ export enum PathNames {
   EDIT_CATEGORY = '/category/edit/:id',
 
   CALCULATOR = '/calculator',
+  CALCULATOR_RESULTS = '/calculator/results',
 
   STATISTICS = '/statistics',
 

@@ -16,7 +16,7 @@ type PollutanSourceCoverage = {
   informedSources: number | undefined;
 };
 
-const useCoverageForm = () => {
+const useCoverageForm = (nextStep: () => void) => {
   const { t } = useTranslation('commons');
   const calculator = useContext(CalculatorContext);
   const [adaptedSources, setAdaptedSources] = useState<
@@ -80,27 +80,7 @@ const useCoverageForm = () => {
     setAdaptedSources(data.coverage);
     const updateCoverage = updateCoveragesCalculatorState(data.coverage);
     calculator.setCalculatorState(updateCoverage);
-  };
-
-  const handleFormSubmit = (event: any) => {
-    event.preventDefault(); // Evita la recarga de la página
-    void handleSubmit(onSubmit)(event);
-
-    CoverageResolver.validate(getValues(), { abortEarly: false })
-      .then(() => {
-        calculator.updateFormHasErrors(false);
-      })
-      .catch(() => {
-        calculator.updateFormHasErrors(true);
-      });
-  };
-
-  const handleCoverageFormData = () => {
-    if (calculator.formReference.current) {
-      calculator.formReference.current.dispatchEvent(
-        new Event('submit', { cancelable: true, bubbles: true }),
-      );
-    }
+    nextStep();
   };
 
   return {
@@ -108,8 +88,6 @@ const useCoverageForm = () => {
     onSubmit,
     register,
     getValues,
-    handleFormSubmit,
-    handleCoverageFormData,
     calculator,
     errors,
     control,
