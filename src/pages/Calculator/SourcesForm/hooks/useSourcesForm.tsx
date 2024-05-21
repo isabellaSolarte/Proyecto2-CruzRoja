@@ -20,17 +20,16 @@ const useSourcesForm = (nextStep: () => void) => {
   const loadCategories = useCallback(async () => {
     setIsLoading(true);
     setError(null);
-    const ids = calculator.categories.map(category => category.id);
-
+    
     try {
-      const categories = await postSelectedCategories({ ids: ids });
+      const categories = await postSelectedCategories(calculator.selectedCategories);
       setCategoryList(categories);
     } catch (error) {
       setError(error as Error);
     } finally {
       setIsLoading(false);
     }
-  }, [calculator.categories]); // Add an empty array as the second argument to useCallback
+  }, [calculator.selectedCategories]); // Add an empty array as the second argument to useCallback
 
   useEffect(() => {
     void loadCategories();
@@ -41,10 +40,10 @@ const useSourcesForm = (nextStep: () => void) => {
     console.log('categories:', categories);
     console.log('categoryList:', categoryList);
     
-    categories.forEach(category => {
+    categoryList.forEach(category => {
       category.pollutans.forEach(pollutant => {
         pollutant.sources.forEach(source => {
-          const matchingCategory = categoryList.find(c => c.id === category.id);          
+          const matchingCategory = categories.find(c => c.id === category.id);          
           const matchingPollutant = matchingCategory?.pollutans.find(p => p.id === pollutant.id);
           const matchingSource = matchingPollutant?.sources.find(s => s.id === source.id);
           const state = matchingSource ? true : false;
