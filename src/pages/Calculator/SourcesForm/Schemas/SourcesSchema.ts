@@ -56,8 +56,18 @@ export const sourceSchema = yup.object().shape({
     description: yup.string().required('El campo "description" es requerido.'),
     state: yup.boolean().required('El campo "state" es requerido.').default(false),
     coverage: yup.object().shape({
-        totalSources: yup.number().nullable().required('El campo "totalSources" es requerido.').default(0),
-        informedSources: yup.number().nullable().required('El campo "informedSources" es requerido.').default(0),
+        totalSources: yup
+              .number()
+              .transform((value, originalValue) => {
+                return originalValue === '' ? null : value;
+              })
+              .nonNullable('coverageForm.totalSource'),
+            informedSources: yup
+              .number()
+              .transform((value, originalValue) => {
+                return originalValue === '' ? null : value;
+              })
+              .nonNullable('coverageForm.informedSource'),
     }).required(),
     facturation: yup.object().shape({
         cost: yup.number().nullable().required('El campo "cost" es requerido.').default(0),

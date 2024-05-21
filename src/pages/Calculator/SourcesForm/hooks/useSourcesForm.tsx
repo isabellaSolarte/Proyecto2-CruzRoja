@@ -119,7 +119,7 @@ const useSourcesForm = (nextStep: () => void) => {
   
   const updateSourcesCalculatorState = (data: SourcesType[]) => {
     console.log('data updateSourcesCalculatorState:', data);
-    const currentState = calculator.categories;
+    const currentState = categoryList;
     currentState.forEach(category => {
       category.pollutans.forEach(pollutant => {
         pollutant.sources = pollutant.sources.filter(source => {
