@@ -58,13 +58,66 @@ const SourcesDataForm = ({ nextStep, stepBack }: SourcesFormProps) => {
                 contentAccordion={
                   <Box>
                     {
-                      source.map((source) => (
-                        <SourcesCard
-                          key={source.id}
-                          source={source}
-                          handleSwitchState={() => handleSwitchState(source.id)}
-                          props={register('sources')}
-                        />
+                      source.map((source,index) => (
+                        <Box key={index}>
+                          <SourcesCard
+                            key={source.id}
+                            source={source}
+                            handleSwitchState={() => handleSwitchState(source.id)}
+                            props={register('sources')}
+                          />
+                          {
+                            errors.sources && errors.sources[index]?.state && (
+                              <ErrorText
+                                error={errors.sources[index]?.state.message}
+                                formErrorKey="calculator"
+                              />
+                            )
+                          }
+                          {
+                            errors.sources && errors.sources[index]?.categoryName && (
+                              <ErrorText
+                                error={errors.sources[index]?.categoryName.message}
+                                formErrorKey="calculator"
+                              />
+                            )
+                          }
+                          {
+                            errors.sources && errors.sources[index]?.name && (
+                              <ErrorText
+                                error={errors.sources[index]?.name.message}
+                                formErrorKey="calculator"
+                              />
+                            )
+                          }
+                          {
+                            errors.sources && errors.sources[index]?.description && (
+                              <ErrorText
+                                error={errors.sources[index]?.description.message}
+                                formErrorKey="calculator"
+                              />
+                            )
+                          }
+                          {
+                            errors.sources && errors.sources[index]?.facturation && (
+                              <ErrorText
+                                error={errors.sources[index]?.facturation.message}
+                                formErrorKey="calculator"
+                              />
+                            )
+                          }
+                          {
+                            errors.sources && errors.sources[index]?.coverage && (
+                              <ErrorText
+                                error={errors.sources[index]?.coverage.message}
+                                formErrorKey="calculator"
+                              />
+                            )
+                          }
+                        </Box>
+                        
+                        
+                        
                       ))
                     }
                   </Box>
