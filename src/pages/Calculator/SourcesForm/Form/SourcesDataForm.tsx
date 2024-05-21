@@ -11,17 +11,18 @@ interface SourcesFormProps {
 }
 
 const SourcesDataForm = ({ nextStep, stepBack }: SourcesFormProps) => {
-  const { t, adaptedSources, register, errors, addSource, removeSource, handleSubmit, onSubmit  } = useSourcesForm(nextStep);
-  const [sourcesDictionary, setSourcesDictionary] = useState(adaptedSources);
+  const { t, adaptedSources,setAdaptedSources, register, errors, addSource, removeSource, handleSubmit, onSubmit  } = useSourcesForm(nextStep);
 
  
 
   const handleSwitchState = (sourceId: number) => {
-    const updatedSourcesDictionary = [...sourcesDictionary];
-    const sourceIndex = updatedSourcesDictionary.findIndex(source => source.id === sourceId);
+    const updatedAdaptedSources = [...adaptedSources];
+    const sourceIndex = updatedAdaptedSources.findIndex(source => source.id === sourceId);
     if (sourceIndex !== -1) {
-      const updatedSource = { ...updatedSourcesDictionary[sourceIndex] };
+      const updatedSource = { ...updatedAdaptedSources[sourceIndex] };
       updatedSource.state = !updatedSource.state;
+      console.log('updatedSource:', updatedSource);
+      
       if (updatedSource.state) {
         console.log('addSource:', updatedSource.name);
         addSource(updatedSource);
@@ -29,11 +30,11 @@ const SourcesDataForm = ({ nextStep, stepBack }: SourcesFormProps) => {
         console.log('removeSource:', updatedSource.name);
         removeSource(updatedSource.name);
       }
-      updatedSourcesDictionary[sourceIndex] = updatedSource;
-      setSourcesDictionary(updatedSourcesDictionary);
+      updatedAdaptedSources[sourceIndex] = updatedSource;
+      setAdaptedSources(updatedAdaptedSources);
     }
   };
-  const groupedBycategoryName: { [categoryName: string]: SourcesType[] } = sourcesDictionary.reduce(
+  const groupedBycategoryName: { [categoryName: string]: SourcesType[] } = adaptedSources.reduce(
     (acc, curr) => {
       if (acc[curr.categoryName]) {
         acc[curr.categoryName].push(curr);

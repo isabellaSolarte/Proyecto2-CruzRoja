@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { initialSchemaValidation } from '../Schemas/SourcesSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -24,6 +24,8 @@ const useSourcesForm = (nextStep: () => void) => {
     try {
       const categories = await postSelectedCategories(calculator.selectedCategories);
       setCategoryList(categories);
+      console.log('loadCategories-categories:', categories);
+      setAdaptedSources(extractSourcesFromCategories(calculator.categories, categories));
     } catch (error) {
       setError(error as Error);
     } finally {
@@ -31,15 +33,13 @@ const useSourcesForm = (nextStep: () => void) => {
     }
   }, [calculator.selectedCategories]); // Add an empty array as the second argument to useCallback
 
-  useEffect(() => {
-    void loadCategories();
-  }, [loadCategories]);
   
-  const extractSourcesFromCategories = (categories: CategoryModel[]): SourcesType[] => {
+  
+  const extractSourcesFromCategories = (categories: CategoryModel[], categoryList: CategoryModel[]): SourcesType[] => {
     const sources: SourcesType[] = [];
     console.log('categories:', categories);
     console.log('categoryList:', categoryList);
-    
+
     categoryList.forEach(category => {
       category.pollutans.forEach(pollutant => {
         pollutant.sources.forEach(source => {
@@ -62,20 +62,40 @@ const useSourcesForm = (nextStep: () => void) => {
     return sources;
   }
   
-  const [adaptedSources, setAdaptedSources] = useState<SourcesType[]>(
-    extractSourcesFromCategories(calculator.categories),
-  );
-
+  const [adaptedSources, setAdaptedSources] = useState<SourcesType[]>([]);
+  
+  
+  console.log('adaptedSources:', adaptedSources);
+  
 
   const {
+    setValue,
+    reset,
     handleSubmit,
     register,
     control,
+    getValues,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(initialSchemaValidation),
-    defaultValues: { sources: adaptedSources },
+    defaultValues: useMemo(() => {
+      console.log('useMemo adaptedSources:', adaptedSources);
+      
+      return {sources: adaptedSources};
+    }, [adaptedSources, categoryList]),
+    
   });
+
+  useEffect(() => {
+    void loadCategories();
+    reset({sources: adaptedSources})
+    console.log('getValues:', getValues());
+  }, []);
+  
+  useEffect(() => {
+    console.log('getValues:', getValues());
+    setValue('sources', adaptedSources);
+  }, [adaptedSources]);
 
   const sourcesArray = useFieldArray({
     control,
@@ -85,6 +105,8 @@ const useSourcesForm = (nextStep: () => void) => {
   const addSource = (source: SourcesType) => {
     const indexToUpdate = sourcesArray.fields.findIndex(field => field.name === source.name);
     sourcesArray.update(indexToUpdate, source);
+    console.log('getValues:', getValues());
+    
   };
 
   const removeSource = (name: string) => {
@@ -131,6 +153,7 @@ const useSourcesForm = (nextStep: () => void) => {
   return {
     t,
     adaptedSources,
+    setAdaptedSources,
     handleSubmit,
     register,
     errors,
