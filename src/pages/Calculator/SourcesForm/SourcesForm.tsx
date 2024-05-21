@@ -12,8 +12,8 @@ const SourcesForm = ({ nextStep, stepBack }: SourcesFormProps) => {
 
     return (
         <ManagmentLayout
-        title={<CustomText texto={t('calculator.sourcesForm.title')} variante="titulo" />}
-        description={<CustomText texto={t('calculator.sourcesForm.description')} variante="texto" />}
+        title={<CustomText texto={t('calculator.pollutionTypeForm.title')} variante="titulo" />}
+        description={<CustomText texto={t('calculator.pollutionTypeForm.description')} variante="texto" styles={{ textAlign: 'center' }} />}
         generalContents={
             <SourcesDataForm nextStep={nextStep} stepBack={stepBack}/>
         }
