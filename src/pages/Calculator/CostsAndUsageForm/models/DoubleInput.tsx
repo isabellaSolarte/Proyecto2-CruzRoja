@@ -1,13 +1,13 @@
 import { Box, Grid, MenuItem, Select } from '@mui/material';
 import { CustomText, LabeledInput } from '../../../../components';
-import EnergySavingsLeafIcon from '@mui/icons-material/EnergySavingsLeaf';
+import EnergySavingsLeafIcon from '@mui/icons-material/WaterDrop';
 
 interface DoubleInputProps {
     mainLabel: string;
     labelInput1: string;
     labelInput2: string;
-    labelInput3: string; // Nuevo label para usage
-    labelInput4: string; // Nuevo label para year
+    labelInput3: string;
+    labelInput4: string; 
     title: string;
     propsInput1?: { registerInput1?: any; updateInput1?: any; references?: number[]; };
     propsInput2?: { registerInput2?: any; updateInput2?: any; references?: number[]; defaultValue?: number; };
@@ -75,15 +75,8 @@ const DoubleInput = ({
     };
 
     return (
-        <Grid
-            container
-            sx={{
-                display: 'flex',
-                justifyContent: 'flex-start',
-                alignItems: 'flex-end',
-            }}
-        >
-            <Grid item xs={12} md={6}>
+        <Box>
+            <Box sx={{ textAlign: 'center' }}>
                 <CustomText
                     texto={mainLabel}
                     variante={'pequeño'}
@@ -102,55 +95,65 @@ const DoubleInput = ({
                 >
                     <CustomText texto={title} variante={'texto'} textAlign="center" />
                 </Box>
+            </Box>
+            <Grid
+                container
+                spacing={2}
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginTop: '1rem',
+                }}
+            >
+                <Grid item xs={6} sm={3}>
+                    <LabeledInput
+                        label={labelInput1}
+                        placeholder={''}
+                        type={'number'}
+                        labelAlign="center"
+                        variante="pequeño"
+                        updateText={propsInput1?.updateInput1}
+                        props={propsInput1?.registerInput1 && { ...propsInput1.registerInput1 }}
+                    />
+                </Grid>
+                <Grid item xs={6} sm={3}>
+                    <LabeledInput
+                        label={labelInput3}
+                        placeholder={''}
+                        type={'number'}
+                        labelAlign="center"
+                        variante="pequeño"
+                        updateText={propsInput3?.updateInput3}
+                        props={propsInput3?.registerInput3 && { ...propsInput3.registerInput3 }}
+                    />
+                </Grid>
+                <Grid item xs={6} sm={3}>
+                    <LabeledSelect
+                        label={labelInput2}
+                        options={months}
+                        labelAlign="center"
+                        variante="pequeño"
+                        updateText={propsInput2?.updateInput2}
+                        props={propsInput2?.registerInput2 && { ...propsInput2.registerInput2 }}
+                        required
+                        defaultValue={propsInput2?.defaultValue}
+                    />
+                </Grid>
+                <Grid item xs={6} sm={3}>
+                    <LabeledSelect
+                        label={labelInput4}
+                        options={years}
+                        labelAlign="center"
+                        variante="pequeño"
+                        updateText={propsInput4?.updateInput4}
+                        props={propsInput4?.registerInput4 && { ...propsInput4.registerInput4 }}
+                        required
+                        defaultValue={propsInput4?.defaultValue}
+                    />
+                </Grid>
             </Grid>
-            <Grid item xs={6} md={3}>
-                <LabeledInput
-                    label={labelInput1}
-                    placeholder={''}
-                    type={'number'}
-                    labelAlign="center"
-                    variante="pequeño"
-                    updateText={updateInputData1}
-                    props={propsInput1?.registerInput1 && { ...propsInput1.registerInput1 }}
-                />
-            </Grid>
-            <Grid item xs={6} md={3}>
-            <LabeledInput
-                    label={labelInput3}
-                    placeholder={''}
-                    type={'number'}
-                    labelAlign="center"
-                    variante="pequeño"
-                    updateText={updateInputData3}
-                    props={propsInput3?.registerInput3 && { ...propsInput3.registerInput3 }}
-                />
-                
-            </Grid>
-            <Grid item xs={6} md={3}>
-<LabeledSelect
-                    label={labelInput2}
-                    options={months}
-                    labelAlign="center"
-                    variante="pequeño"
-                    updateText={updateInputData2}
-                    props={propsInput2?.registerInput2 && { ...propsInput2.registerInput2 }}
-                    required
-                    defaultValue={propsInput2?.defaultValue}
-                />
-            </Grid>
-            <Grid item xs={6} md={3}>
-                <LabeledSelect
-                    label={labelInput4}
-                    options={years}
-                    labelAlign="center"
-                    variante="pequeño"
-                    updateText={updateInputData4}
-                    props={propsInput4?.registerInput4 && { ...propsInput4.registerInput4 }}
-                    required
-                    defaultValue={propsInput4?.defaultValue}
-                />
-            </Grid>
-        </Grid>
+        </Box>
     );
 };
 
