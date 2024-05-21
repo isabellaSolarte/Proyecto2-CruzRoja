@@ -16,6 +16,7 @@ const useSourcesForm = (nextStep: () => void) => {
   const calculator = useContext(CalculatorContext);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
+  //TOD: posible implementacion de un custom hook para manejar el estado inicial de las categorias de manera global
   const [categoryList, setCategoryList] = useState<CategoryModel[]>([]);
   const loadCategories = useCallback(async () => {
     setIsLoading(true);
