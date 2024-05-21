@@ -4,7 +4,7 @@ import { RouteObject, RouterProvider, createBrowserRouter } from 'react-router-d
 import { NavigationRoutes, PublicProtector, RouteProtector } from '../core/navigation';
 import { RouterModel } from '../models/SideMenuModels/RouteModel';
 import Error404 from '../pages/404/ErrorPage';
-import { LandingPage, SourcesPage } from '../pages';
+import { LandingPage, SourcesForm } from '../pages';
 import { PathNames } from '../core';
 import { AppLayout } from '../components';
 
@@ -23,7 +23,7 @@ const Router = () => {
   const routerObjects: RouteObject[] = routes.map(getRouteObject);
   routerObjects.push({
     path: PathNames.ASSESSMENT,
-    element: <AppLayout content={<SourcesPage/>} />,
+    element: <AppLayout content={<SourcesForm/>} />,
   });
   routerObjects.push({
     path: PathNames.LANDIN_PAGE,

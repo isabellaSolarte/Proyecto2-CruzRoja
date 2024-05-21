@@ -19,7 +19,7 @@ import MedicalInformationOutlinedIcon from '@mui/icons-material/MedicalInformati
 import { PermissionModel } from '../../models/RoleModels/PermissionModel';
 import { RoleModel } from '../../models';
 import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
-
+import { allowedPagesBaseOnPermissions } from '../../utils/allowedPagesBaseOnPermissions';
 const ViewUserPage = () => {
   const { t } = useTranslation('commons');
   const { id } = useParams<{ id: string }>();
@@ -34,7 +34,7 @@ const ViewUserPage = () => {
   if (!loading && !userData) {
     return <NotFoundLayout title="user" />;
   }
-
+const isAllowedEdit = allowedPagesBaseOnPermissions(userData,102)
   return (
     <ManagmentLayout
       title={
@@ -66,6 +66,7 @@ const ViewUserPage = () => {
             sx={{
               height: '2rem',
             }}
+            disabled={!isAllowedEdit}
           />
         </Box>
       }

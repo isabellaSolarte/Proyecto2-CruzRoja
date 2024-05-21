@@ -1,27 +1,17 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { CategoryModel } from '../../models';
 import CalculatorContext from './CalculatorContext';
-import { CategoryByIds, CategoryWithRelation } from '../../models/CalculatorModels/Category';
-import { postSelectedCategories } from '../../services/AxiosRequests/Categories';
 
 const CalculatorFormProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   /**
    * Esta estructura se puede separar en estados para cada formulario, pero por simplicidad y tiempo se mantiene en un solo estado.
    */
   const [categories, setCategories] = useState<CategoryModel[]>([]);
-  const formReference = useRef<HTMLFormElement | null>(null);
-  const [formHasErrors, setFormHasErrors] = useState<boolean>(false);
-  const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
-
+  const [selectedCategories, setSelectedCategories] = useState<{ ids: number[] }>({ ids: [] });
 
   const setCalculatorState = (newState: CategoryModel[]) => {
     setCategories(newState);
   };
-  const setCategoriesState = (newSelectedCategories: number[]) => {
-    console.log('newSelectedCategories', newSelectedCategories);
-    setSelectedCategories(newSelectedCategories);
-  }
-
 
   const updateCalculatorState = (newState: CategoryModel) => {
     const updateState = categories.map(category => {
@@ -38,30 +28,25 @@ const CalculatorFormProvider: React.FC<{ children: React.ReactNode }> = ({ child
       return category;
     });
     setCategories(updateState);
-  };
+  };
+
+  const updateSelectedCategories = (newState: number[]) => {
+    setSelectedCategories({ ids: newState });
+  };
 
   const getCalculatorState = (): CategoryModel[] => {
     return categories;
-  };
-
-  const updateFormHasErrors = (hasErrors: boolean) => {
-    console.log('hasErrors', hasErrors);
-    setFormHasErrors(hasErrors);
   };
 
   return (
     <CalculatorContext.Provider
       value={{
         categories,
-        formReference,
-        formHasErrors,
         selectedCategories,
-        updateFormHasErrors,
+        updateSelectedCategories,
         updateCalculatorState,
         getCalculatorState,
         updateAllCalculatorState,
-        setCategoriesState,
-
         setCalculatorState,
       }}
     >
