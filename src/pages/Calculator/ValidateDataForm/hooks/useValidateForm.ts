@@ -3,6 +3,8 @@ import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { CalculatorContext } from '../../../../contexts';
 import { CategoryModel } from '../../../../models';
+import { PathNames } from '../../../../core';
+import { useNavigate } from 'react-router-dom';
 
 export type PollutantSourcValidate = {
   categoryId: number;
@@ -36,6 +38,7 @@ export interface ValidateDataModel {
 }
 const useValidateForm = () => {
   const { t } = useTranslation('commons');
+  const navigate = useNavigate();
   const calculator = useContext(CalculatorContext);
   const [adaptedSources, setAdaptedSources] = useState<
     PollutantSourcValidate[]
@@ -95,6 +98,7 @@ const useValidateForm = () => {
     try {
       const dataValidateResponse = extractValidateFromCategories(data.dataV);
       console.log(dataValidateResponse);
+      navigate(PathNames.CALCULATOR_RESULTS, { replace: true });
     } catch (error) {
       alert(`Error al cargar los datos ${JSON.stringify(error)}`);
     }
