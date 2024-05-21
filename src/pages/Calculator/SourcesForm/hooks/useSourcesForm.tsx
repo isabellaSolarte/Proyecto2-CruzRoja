@@ -59,7 +59,7 @@ const useSourcesForm = (nextStep: () => void) => {
             id: source.id,
             name: source.name,
             categoryName: pollutant.name,
-            description: pollutant.description,
+            description: source.description,
             state: source.state,
             coverage: source.coverage,
             facturation: source.facturation,
