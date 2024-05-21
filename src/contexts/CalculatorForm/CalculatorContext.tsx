@@ -4,6 +4,8 @@ import { CategoryModel } from '../../models';
 
 type CalculatorContextType = {
   categories: CategoryModel[];
+  selectedCategories: { ids: number[] };
+  updateSelectedCategories: (newState: number[]) => void;
   updateCalculatorState: (newCategories: CategoryModel) => void;
   updateAllCalculatorState: (newCategories: CategoryModel[]) => void;
   getCalculatorState: () => CategoryModel[];
@@ -12,6 +14,8 @@ type CalculatorContextType = {
 
 const CalculatorContext = createContext<CalculatorContextType>({
   categories: [],
+  selectedCategories: { ids: [] },
+  updateSelectedCategories: () => {},
   updateCalculatorState: () => {},
   getCalculatorState: () => [],
   updateAllCalculatorState: () => {},
