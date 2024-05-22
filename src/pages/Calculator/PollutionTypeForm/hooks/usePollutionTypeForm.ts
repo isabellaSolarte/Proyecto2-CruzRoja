@@ -113,7 +113,7 @@ const usePollutionTypeForm = (nextStep: () => void) => {
 
 
   function filterActivePollutants(categories: CategoryModel[]): CategoryModel[] {
-    return categories.map(category => {
+    return categories.map(category => {   
       const activePollutants = category.pollutans.filter(pollutant => pollutant.state);
       return {
         ...category,
