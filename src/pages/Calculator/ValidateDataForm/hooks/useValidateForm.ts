@@ -6,6 +6,7 @@ import { CategoryModel } from '../../../../models';
 import { PathNames } from '../../../../core';
 import { useNavigate } from 'react-router-dom';
 import { extractDataCalculatorModel } from '../../../../models';
+import { postDataCalculator } from '../../../../services/AxiosRequests/Calculator';
 export type PollutantSourcValidate = {
   categoryId: number;
   categoryName: string;
@@ -98,7 +99,11 @@ const useValidateForm = () => {
     try {
       const dataValidateResponse = extractValidateFromCategories(data.dataV);
       console.log(dataValidateResponse);
-      navigate(PathNames.CALCULATOR_RESULTS, { replace: true });
+      const calculatorResult = await postDataCalculator(dataValidateResponse);
+      navigate(PathNames.CALCULATOR_RESULTS, {
+        state: { calculatorResult },
+        replace: true,
+      });
     } catch (error) {
       alert(`Error al cargar los datos ${JSON.stringify(error)}`);
     }
