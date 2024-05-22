@@ -54,10 +54,6 @@ const usePollutionTypeForm = (nextStep: () => void) => {
 
   const updatePollutionType = (polllutionTypeName: string, pollutionTypeState: boolean)=>{
     let indexToUpdate = 0;
-    console.log('adaptedPollutionTypes', adaptedPollutionTypes);
-    console.log('getvalues', getValues());
-    
-
     const updatedCategories = adaptedPollutionTypes.map((category, index) => { 
       const updatedPollutants = category?.pollutans.map(pollutant => {
         if(pollutant.name === polllutionTypeName){
@@ -75,12 +71,9 @@ const usePollutionTypeForm = (nextStep: () => void) => {
         pollutans: updatedPollutants
       };
     });
-    console.log('updatedCategories[indexToUpdate]', updatedCategories[indexToUpdate]);
     setAdaptedPollutionTypes(updatedCategories)
     
-      update(indexToUpdate, updatedCategories[indexToUpdate]);
-    console.log('updatedCategories[indexToUpdate]', getValues());
-
+    update(indexToUpdate, updatedCategories[indexToUpdate]);
   }
 
   function extractPollutiontypesFromCategories(
@@ -120,19 +113,13 @@ const usePollutionTypeForm = (nextStep: () => void) => {
 
 
   function filterActivePollutants(categories: CategoryModel[]): CategoryModel[] {
-    console.log(categories);
-    
-
-    return categories.map(category => {
-
-      const activePollutants = category.pollutans
-        .filter(pollutant => pollutant.state)
-
+    return categories.map(category => {   
+      const activePollutants = category.pollutans.filter(pollutant => pollutant.state);
       return {
         ...category,
         pollutans: activePollutants
       };
-    });
+    }).filter(category => category.pollutans.length > 0 || !category.pollutans);
   }
 
   const onSubmit = (data: any) => {

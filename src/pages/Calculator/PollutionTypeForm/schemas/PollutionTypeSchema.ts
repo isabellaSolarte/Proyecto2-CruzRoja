@@ -7,7 +7,7 @@ const PollutionTypeResolver = yup
       .array()
       .test('pollutionType.min', 'pollutionType.min', (pollutionTypes) => {
         // Verificar que al menos un "pollutant" tenga "state" igual a true
-        return pollutionTypes?.some(type =>
+        return pollutionTypes?.every(type =>
           type.pollutans.some(pollutant => pollutant.state)
         );
       })

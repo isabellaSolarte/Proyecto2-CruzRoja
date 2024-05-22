@@ -113,7 +113,7 @@
             "informedSource": "El número de fuentes informadas es requerido"
         },
         "pollutionType": {
-            "min": "Debe seleccionar al menos un tipo de contaminante.",
+            "min": "Debe seleccionar al menos un tipo de contaminante para cada categoria.",
             "required": "Los tipos de contaminante son un campo obligatorio."
         }
     }
