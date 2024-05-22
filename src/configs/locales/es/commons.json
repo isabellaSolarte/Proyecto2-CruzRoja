@@ -210,7 +210,8 @@
         },
         "pollutionTypeForm": {
             "title": "Tipo de Contaminante",
-            "description": "A continuacion seleccione las cargas ambientales para cada categoria seleccionada que apliquen."
+            "description": "A continuacion seleccione las cargas ambientales para cada categoria seleccionada que apliquen.",
+            "example": "Ejemplo"
         },
         "stepper": {
             "welcome": "Bienvenido",

@@ -3,7 +3,6 @@ import { CustomAccordion, CustomButton, ErrorText } from '../../../../components
 import { useSourcesForm } from '../hooks';
 import { SourcesCard } from '../Components';
 import SourcesType from '../types/SourcesType';
-import { useState } from 'react';
 
 interface SourcesFormProps {
   nextStep: () => void;
