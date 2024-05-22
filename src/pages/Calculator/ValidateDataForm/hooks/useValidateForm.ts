@@ -5,7 +5,7 @@ import { CalculatorContext } from '../../../../contexts';
 import { CategoryModel } from '../../../../models';
 import { PathNames } from '../../../../core';
 import { useNavigate } from 'react-router-dom';
-
+import { extractDataCalculatorModel } from '../../../../models';
 export type PollutantSourcValidate = {
   categoryId: number;
   categoryName: string;
@@ -29,7 +29,7 @@ export type PollutantSourcValidate = {
 export interface ValidateDataModel {
   pollutionId: number;
   sourceId: number;
-  year: number;
+  year: number | undefined;
   month: number | undefined;
   consume: number;
   cost: number | undefined;
@@ -105,15 +105,15 @@ const useValidateForm = () => {
   };
   function extractValidateFromCategories(
     categories: CategoryModel[],
-  ): ValidateDataModel[] {
-    const sources: ValidateDataModel[] = [];
+  ): extractDataCalculatorModel[] {
+    const sources: extractDataCalculatorModel[] = [];
     categories.forEach(category => {
       category.pollutans.forEach(pollutant => {
         pollutant.sources.forEach(source => {
           sources.push({
             pollutionId: pollutant.id,
             sourceId: source.id,
-            year: 2000,
+            year: source.facturation.year,
             month: source.facturation.month,
             consume: 10,
             cost: source.facturation.cost,

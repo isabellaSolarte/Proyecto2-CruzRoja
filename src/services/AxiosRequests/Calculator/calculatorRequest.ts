@@ -5,7 +5,7 @@ import { CategoryModel } from '../../../models';
 import { AxiosResponse } from 'axios';
 import { CategoryType } from '../../../pages/CreateCategory/types/CategoryTypes';
 
-export const postData = async (data: CategoryType) => {
+export const postData = async () => {
     try {
       
     } catch (error) {

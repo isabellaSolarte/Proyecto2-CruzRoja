@@ -1,4 +1,4 @@
 export const CalculatorEndPoints =
 {
-    postData: '/TODO'
+    postDataCalculator: '/public/calculator'
 }
