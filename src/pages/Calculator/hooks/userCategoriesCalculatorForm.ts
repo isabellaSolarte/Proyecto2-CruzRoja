@@ -12,8 +12,7 @@ export const useCategoriesCalculatorForm = () => {
   const [error, setError] = useState<Error | null>(null);
   const [selectedCategory, setSelectedCategories] = useState<number[]>([]);
 
-  const { setCalculatorState, updateSelectedCategories } =
-    useContext(CalculatorContext);
+  const { setCalculatorState, updateSelectedCategories, setIdSelectCategories,selectedIsCategory} = useContext(CalculatorContext);
 
   const loadCategories = async () => {
     setIsLoading(true);
@@ -30,12 +29,11 @@ export const useCategoriesCalculatorForm = () => {
   };
   const handleCategorySelect = (idCategory: number) => {
     setSelectedCategories((prevSelected: number[]) => {
-      const newSelected = prevSelected.includes(idCategory)
-        ? prevSelected.filter((id: number) => id !== idCategory)
-        : [...prevSelected, idCategory];
-
-      setSelectedCategories(newSelected);
-
+      const isAlreadySelected = selectedIsCategory.includes(idCategory);
+      const newSelected = isAlreadySelected ? prevSelected.filter((id: number) => id !== idCategory)
+        : [...selectedIsCategory, idCategory];
+  
+      setIdSelectCategories(newSelected);
       return newSelected;
     });
   };
@@ -56,6 +54,7 @@ export const useCategoriesCalculatorForm = () => {
     isLoading,
     error,
     categoryList,
+    selectedIsCategory,
     selectedCategory,
     handleCategorySelect,
     saveSelectedCategories,

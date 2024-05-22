@@ -15,7 +15,7 @@ const CategoriesForm = ({ nextStep, stepBack }: CategoriesFormProps) => {
   const { t } = useTranslation('commons');
   const {
     categoryList,
-    selectedCategory,
+    selectedIsCategory,
     isLoading,
     handleCategorySelect,
     saveSelectedCategories,
@@ -29,6 +29,7 @@ const CategoriesForm = ({ nextStep, stepBack }: CategoriesFormProps) => {
       })
       .catch(console.error);
   };
+  console.log(selectedIsCategory);
 
   useEffect(() => {
     void loadCategories();
@@ -66,7 +67,7 @@ const CategoriesForm = ({ nextStep, stepBack }: CategoriesFormProps) => {
               categoryName={category.name}
               categoryScope={category.scope}
               categoryDescription={category.descripction}
-              isSelected={selectedCategory.includes(category.id)}
+              isSelected={selectedIsCategory.includes(category.id)}
               onSelect={handleCategorySelect}
             />
           ))}

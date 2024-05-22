@@ -7,12 +7,15 @@ const CalculatorFormProvider: React.FC<{ children: React.ReactNode }> = ({ child
    * Esta estructura se puede separar en estados para cada formulario, pero por simplicidad y tiempo se mantiene en un solo estado.
    */
   const [categories, setCategories] = useState<CategoryModel[]>([]);
+  const [selectedIsCategory, setIsSelectedCategories] = useState<number[]>([]); //guarda los ids de las categorias seleccionadas
   const [selectedCategories, setSelectedCategories] = useState<{ ids: number[] }>({ ids: [] });
-
   const setCalculatorState = (newState: CategoryModel[]) => {
+    console.log('newState', newState);
     setCategories(newState);
   };
-
+  const setIdSelectCategories = (newState: number[]) => {
+    setIsSelectedCategories(newState);
+  }
   const updateCalculatorState = (newState: CategoryModel) => {
     const updateState = categories.map(category => {
       if (category.id === newState.id) return { ...category, ...newState };
@@ -43,6 +46,8 @@ const CalculatorFormProvider: React.FC<{ children: React.ReactNode }> = ({ child
       value={{
         categories,
         selectedCategories,
+        selectedIsCategory,
+        setIdSelectCategories,
         updateSelectedCategories,
         updateCalculatorState,
         getCalculatorState,
