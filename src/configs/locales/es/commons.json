@@ -63,8 +63,7 @@
     "categoryPages": {
         "description": {
             "generalDescription": "Las categorías en el contexto del cálculo de la huella de carbono son un conjunto de actividades, que ayudan a identificar y clasificar las diferentes fuentes de emisiones de carbono en función de su naturaleza. "
-        }
-        
+        }        
     },
     "calculatorPage":{
         "descriptions":{
@@ -206,7 +205,8 @@
             "helpInformed": "Informadas: Número de fuentes a reportar en esta evaluación.",
             "totalSources": "totales",
             "informedSources": "informadas",
-            "source": "Fuente"
+            "source": "Fuente",
+            "help": "Ejemplo: una empresa u organización cuenta con un total 10 carros que generan contaminación, pero en la evaluación solo se informan 5."
         },
         "pollutionTypeForm": {
             "title": "Tipo de Contaminante",

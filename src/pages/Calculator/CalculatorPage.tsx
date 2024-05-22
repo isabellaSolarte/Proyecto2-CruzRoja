@@ -1,4 +1,4 @@
-import { Box, Grid } from '@mui/material';
+import { Box } from '@mui/material';
 import { CustomButton, CustomStepper, CustomText, SimpleLayout } from '../../components';
 import { CoverageForm } from './CoverageForm';
 import { useCalculatorHook, useStepper } from './hooks';
@@ -41,68 +41,39 @@ const CalculatorPage = () => {
             />
           </Box>
         )}
-        {currentStep > 0 && (
+        {currentStep === 1 && (
+          <CategoriesForm nextStep={handleNextStep} stepBack={handleStepBack} />
+        )}
+        {currentStep === 2 && (
           <Box
             sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
               width: '100%',
-              padding: { xs: '0 10%', md: '0 20%' },
+              display: 'flex',
+              justifyContent: 'space-between',
+              mt: 3,
             }}
           >
-            <Grid
-              container
-              sx={{
-                width: '100%',
-                textAlign: 'center',
-              }}
-            >
-              <Grid item xs={12}>
-                {currentStep === 1 && (
-                  <CategoriesForm nextStep={handleNextStep} stepBack={handleStepBack} />
-                )}
-                {currentStep === 2 && (
-                  <Box
-                    sx={{
-                      width: '100%',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      mt: 3,
-                    }}
-                  >
-                    <CustomButton
-                      variant="contained"
-                      color="primary"
-                      content={t('generalButtonText.back')}
-                      onClick={handleStepBack}
-                    />
+            <CustomButton
+              variant="contained"
+              color="primary"
+              content={t('generalButtonText.back')}
+              onClick={handleStepBack}
+            />
 
-                    <CustomButton
-                      variant="contained"
-                      color="info"
-                      content={t('components.stepper.next')}
-                      onClick={handleNextStep}
-                    />
-                  </Box>
-                )}
-                {currentStep === 3 && (
-                  <SourcesForm nextStep={handleNextStep} stepBack={handleStepBack} />
-                )}
-
-                {currentStep === 4 && (
-                  <CoverageForm nextStep={handleNextStep} stepBack={handleStepBack} />
-                )}
-                {currentStep === 5 && (
-                  <CostsAndUsageForm nextStep={handleNextStep} stepBack={handleStepBack} />
-                )}
-                {currentStep === 6 && (
-                  <ValidateForm nextStep={handleNextStep} stepBack={handleStepBack} />
-                )}
-              </Grid>
-            </Grid>
+            <CustomButton
+              variant="contained"
+              color="info"
+              content={t('components.stepper.next')}
+              onClick={handleNextStep}
+            />
           </Box>
         )}
+        {currentStep === 3 && <SourcesForm nextStep={handleNextStep} stepBack={handleStepBack} />}
+        {currentStep === 4 && <CoverageForm nextStep={handleNextStep} stepBack={handleStepBack} />}
+        {currentStep === 5 && (
+          <CostsAndUsageForm nextStep={handleNextStep} stepBack={handleStepBack} />
+        )}
+        {currentStep === 6 && <ValidateForm nextStep={handleNextStep} stepBack={handleStepBack} />}
       </CustomStepper>
     </SimpleLayout>
   );

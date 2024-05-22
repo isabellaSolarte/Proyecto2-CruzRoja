@@ -10,9 +10,17 @@ interface SourcesFormProps {
 }
 
 const SourcesDataForm = ({ nextStep, stepBack }: SourcesFormProps) => {
-  const { t, adaptedSources,setAdaptedSources, register, errors, addSource, removeSource, handleSubmit, onSubmit  } = useSourcesForm(nextStep);
-
- 
+  const {
+    t,
+    adaptedSources,
+    setAdaptedSources,
+    register,
+    errors,
+    addSource,
+    removeSource,
+    handleSubmit,
+    onSubmit,
+  } = useSourcesForm(nextStep);
 
   const handleSwitchState = (sourceId: number) => {
     const updatedAdaptedSources = [...adaptedSources];
@@ -21,7 +29,7 @@ const SourcesDataForm = ({ nextStep, stepBack }: SourcesFormProps) => {
       const updatedSource = { ...updatedAdaptedSources[sourceIndex] };
       updatedSource.state = !updatedSource.state;
       console.log('updatedSource:', updatedSource);
-      
+
       if (updatedSource.state) {
         console.log('addSource:', updatedSource.name);
         addSource(updatedSource);
