@@ -1,8 +1,10 @@
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Tooltip } from '@mui/material';
 import { CustomButton, CustomText, ErrorText } from '../../../components';
 import useCostsForm from './hooks/useCostsAndUsageForm';
 import DoubleInput from './models/DoubleInput';
 import { Fragment } from 'react/jsx-runtime';
+import HelpIcon from '@mui/icons-material/Help';
+import { useTranslation } from 'react-i18next';
 
 interface CostsFormProps {
   nextStep: () => void;
@@ -11,11 +13,24 @@ interface CostsFormProps {
 
 const CostsForm = ({ nextStep, stepBack }: CostsFormProps) => {
   const { adaptedSources, handleSubmit, register, onSubmit, errors } = useCostsForm(nextStep);
-
+  const { t } = useTranslation('commons');
   return (
     <Box>
-      <CustomText texto={'Consumos y costos'} variante={'titulo'} />
-      <CustomText texto={'A continuación ingrese el  consumo, costo y fecha de evaluación para cada fuente:'} variante={'texto'} />
+      <CustomText texto={t('pageTitles.calculatorCostsUsages')} variante={'titulo'} />
+      <div>
+      <Tooltip title={t('calculator.costAndUsage.help')} placement="right">
+          <HelpIcon color="disabled" />
+        </Tooltip>
+      <CustomText texto={t('calculator.costAndUsage.description')} variante={'texto'} />
+          <ul>
+            <li>
+            <CustomText texto={t('calculator.costAndUsage.helpCost')} variante={'texto'} />
+            </li>
+            <li>
+            <CustomText texto={t('calculator.costAndUsage.helpUsage')} variante={'texto'} />
+            </li>
+          </ul>
+        </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container spacing={2}>
           {adaptedSources.map((pollutants, index) => (
