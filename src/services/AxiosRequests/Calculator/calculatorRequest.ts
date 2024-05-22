@@ -1,10 +1,11 @@
-import { CategoryAdapter } from '../../../adapters';
 import { api } from '../api';
 import { CalculatorEndPoints } from './Endpoints';
 import { AxiosResponse } from 'axios';
 import { adaptFrontCalculatorModelToDTO } from '../../Adapters_DTO/CalculatorDTOAdapter';
 import { CalculatorResult, extractDataCalculatorModel } from '../../../models';
-export const postDataCalculator = async ( data : extractDataCalculatorModel[] ) : Promise<CalculatorResult> => {
+
+export const postDataCalculator = async ( data : extractDataCalculatorModel[] ) : Promise<CalculatorResult> => 
+{
     try {
        const dataAdapterCalculator = adaptFrontCalculatorModelToDTO(data);
        
@@ -14,7 +15,8 @@ export const postDataCalculator = async ( data : extractDataCalculatorModel[] ) 
       );
   
       return response.data;
+      
     } catch (error) {
       throw error;
     }
-  };
+};

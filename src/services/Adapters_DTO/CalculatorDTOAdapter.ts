@@ -11,11 +11,13 @@ interface dataValidateCalculatorDTO
     informedSource : number | undefined;
     totalSource : number | undefined;
 }
+
 export const adaptFrontCalculatorModelToDTO = (
     dataValidate : extractDataCalculatorModel[]
 ): dataValidateCalculatorDTO[] =>
 {
   const filteredData = dataValidate.filter(data => data !== undefined);
+  
   return filteredData.map(data => ({
     pollutionId: data.pollutionId,
     sourceId: data.sourceId,

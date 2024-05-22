@@ -4,7 +4,7 @@ export interface sourceResult {
 }
 
 export interface monthResult {
-  year: string;
+  year: number;
   month: number[];
   total: number;
 }

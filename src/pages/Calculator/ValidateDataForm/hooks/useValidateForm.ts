@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { CalculatorContext } from '../../../../contexts';
-import { CategoryModel } from '../../../../models';
+import { CalculatorResult, CategoryModel, monthResult, sourceResult } from '../../../../models';
 import { PathNames } from '../../../../core';
 import { useNavigate } from 'react-router-dom';
 import { extractDataCalculatorModel } from '../../../../models';
@@ -95,13 +95,38 @@ const useValidateForm = () => {
     });
     return sources;
   }
+  const mapCalculatorResult = (data: any): CalculatorResult => {
+    const { total, totalBySources, totalByMonth, percentage } = data;
+  
+    const mappedTotalBySources: sourceResult[] = totalBySources.map(
+      (sourceData: { source: any; total: any; }) => ({ source: sourceData.source, total: sourceData.total })
+    );
+  
+    const mappedTotalByMonth: monthResult[] = totalByMonth.map(
+      (monthData: { year: any; month: any; total: any; }) => ({
+        year: monthData.year, 
+        month: monthData.month,
+        total: monthData.total,
+      })
+    );
+    
+    return {
+      total,
+      totalBySources: mappedTotalBySources,
+      totalByMonth: mappedTotalByMonth,
+      percentage,
+    };
+  };
+  
   const onSubmit = async (data: { dataV: CategoryModel[] }) => {
+    
     try {
       const dataValidateResponse = extractValidateFromCategories(data.dataV);
       console.log(dataValidateResponse);
       const calculatorResult = await postDataCalculator(dataValidateResponse);
+      const processedResult = mapCalculatorResult(calculatorResult);
       navigate(PathNames.CALCULATOR_RESULTS, {
-        state: { calculatorResult },
+        state: { processedResult },
         replace: true,
       });
     } catch (error) {
