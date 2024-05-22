@@ -4,7 +4,8 @@ const SourceAdapter = (externalSource: any): SourceModel => {
   return {
     id: externalSource.idSource,
     name: externalSource.sourceName,
-    description: 'agregar descripción del backend',
+    state: false,
+    description: externalSource.sourceDescription,
     coverage: {
       totalSources: undefined,
       informedSources: undefined,

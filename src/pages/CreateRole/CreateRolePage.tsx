@@ -1,38 +1,25 @@
 import { useTranslation } from 'react-i18next';
-import {
-  ManagmentLayout,
-  TabsAtomComponent,
-  CustomButton,
-  CustomText,
-  CustomInput,
-} from '../../components';
-import CustomTextArea from '../../components/Atoms/CustomTextArea/CustomTextArea';
-import { Box } from '@mui/material';
+import { ManagmentLayout, CustomText } from '../../components';
 import { useCreateRolForm } from './hooks/useCreateRolForm';
 import { RoleModel } from '../../models';
 import { FormRoleData } from './Form';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 
-
-interface CreateRolFormProps{
-  updateRolData : (newUserData: RoleModel) => void;
-  initialId?: string
+interface CreateRolFormProps {
+  updateRolData: (newUserData: RoleModel) => void;
+  initialId?: string;
 }
 //TODO preguntar sobre si se necesita una interfaz cuando manda el id del rol a editar
-const CreateRolePage = ({ updateRolData, initialId}: CreateRolFormProps) => {
+const CreateRolePage = ({ updateRolData, initialId }: CreateRolFormProps) => {
   const { t } = useTranslation('commons');
   const { id } = useParams();
-  initialId = id
-  const {
-    rolData,
-    loadRolData,
-    onSubmit,
-  } = useCreateRolForm(updateRolData,initialId);
+  initialId = id;
+  const { rolData, loadRolData, onSubmit } = useCreateRolForm(updateRolData, initialId);
 
-  useEffect(() =>{
+  useEffect(() => {
     loadRolData();
-  },[initialId] );
+  }, [initialId]);
 
   return (
     <ManagmentLayout

@@ -4,9 +4,8 @@ import { CoverageForm } from './CoverageForm';
 import { useCalculatorHook, useStepper } from './hooks';
 import CostsAndUsageForm from './CostsAndUsageForm/CostsAndUsageForm';
 import { ValidateForm } from './ValidateDataForm';
+import { SourcesForm } from './SourcesForm';
 import { CategoriesForm } from './forms';
-import { sourcesDictionaryPrueba2 } from './Sources/Form/sourcesDictionary';
-import { SourcesDataForm } from './Sources/Form';
 import PollutionTypeForm from './PollutionTypeForm/PollutionTypeForm';
 
 const CalculatorPage = () => {
@@ -53,7 +52,13 @@ const CalculatorPage = () => {
               padding: { xs: '0 10%', md: '0 20%' },
             }}
           >
-            <Grid container spacing={2} sx={{ width: '100%', textAlign: 'center' }}>
+            <Grid
+              container
+              sx={{
+                width: '100%',
+                textAlign: 'center',
+              }}
+            >
               <Grid item xs={12}>
                 {currentStep === 1 && (
                   <CategoriesForm nextStep={handleNextStep} stepBack={handleStepBack} />
@@ -62,31 +67,7 @@ const CalculatorPage = () => {
                   <PollutionTypeForm nextStep={handleNextStep} stepBack={handleStepBack} />
                 )}
                 {currentStep === 3 && (
-                  <>
-                    <SourcesDataForm sources={sourcesDictionaryPrueba2} />
-                    <Box
-                      sx={{
-                        width: '100%',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        mt: 3,
-                      }}
-                    >
-                      <CustomButton
-                        variant="contained"
-                        color="primary"
-                        content={t('generalButtonText.back')}
-                        onClick={handleStepBack}
-                      />
-
-                      <CustomButton
-                        variant="contained"
-                        color="info"
-                        content={t('components.stepper.next')}
-                        onClick={handleNextStep}
-                      />
-                    </Box>
-                  </>
+                  <SourcesForm nextStep={handleNextStep} stepBack={handleStepBack} />
                 )}
 
                 {currentStep === 4 && (

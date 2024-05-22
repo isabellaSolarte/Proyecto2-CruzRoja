@@ -56,7 +56,7 @@ src\
  │   ├─hooks\
  │   ├─models\
  │   └─syledComponents\
- ├─recoil
+ ├─recoil\
  │ ├─states\
  │ └─store\
  ├─router\

@@ -58,7 +58,7 @@ const CustomStepper = ({ stepsData, activeStep, children }: CustomStepperProps) 
           })}
         </Stepper>
       </Box>
-      <Box sx={{ width: '100%' }}>{children}</Box>
+      <Box sx={{ width: '100%', paddingBlock: 5 }}>{children}</Box>
     </Box>
   );
 };

@@ -26,7 +26,7 @@ const PollutionTypeForm = ({ nextStep, stepBack }: PollutionTypeFormProps) => {
 
     useEffect(() => {
     }, [errors]);
-    
+
   return (
     <ManagmentLayout 
     title={<CustomText texto={t('calculator.pollutionTypeForm.title')} variante={'titulo'} />}

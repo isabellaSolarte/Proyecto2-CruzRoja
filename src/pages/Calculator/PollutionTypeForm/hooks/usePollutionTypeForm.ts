@@ -1,22 +1,41 @@
 import { useTranslation } from 'react-i18next';
 import { CategoryModel } from '../../../../models';
-import { useContext, useState } from 'react';
+import { useContext, useState, useCallback, useEffect } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { CalculatorContext } from '../../../../contexts';
 import PollutionTypeResolver from '../schemas/PollutionTypeSchema';
 import { useFieldArray, useForm } from 'react-hook-form';
+import { postSelectedCategories } from '../../../../services/AxiosRequests/Categories';
+
 
 const usePollutionTypeForm = (nextStep: () => void) => {
   const { t } = useTranslation('commons');
 
   const calculator = useContext(CalculatorContext);
-  const [adaptedPollutionTypes, setAdaptedPollutionTypes] = useState<
-  CategoryModel[]
-  >(extractPollutiontypesFromCategories(calculator.categories));
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+  const [categoryList, setCategoryList] = useState<CategoryModel[]>([]);
+  const loadCategories = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    
+    try {
+      const categories = await postSelectedCategories(calculator.selectedCategories);
+      setCategoryList(categories);
+      setAdaptedPollutionTypes(extractPollutiontypesFromCategories(calculator.categories, categories));
+    } catch (error) {
+      setError(error as Error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [calculator.selectedCategories]); // Add an empty array as the second argument to useCallback
   
+  
+  const [adaptedPollutionTypes, setAdaptedPollutionTypes] = useState<CategoryModel[]>([]);
 
   const {
     control,
+    setValue,
     handleSubmit,
     register,
     getValues,
@@ -25,6 +44,7 @@ const usePollutionTypeForm = (nextStep: () => void) => {
   } = useForm({
     defaultValues: { pollutionType: adaptedPollutionTypes },
     resolver: yupResolver(PollutionTypeResolver),
+
   });
   
   const { update } = useFieldArray({
@@ -35,9 +55,7 @@ const usePollutionTypeForm = (nextStep: () => void) => {
   const updatePollutionType = (polllutionTypeName: string, pollutionTypeState: boolean)=>{
     let indexToUpdate = 0;
 
-    console.log('updatePollutionType: ', polllutionTypeName);
-    
-    const updatedCategories = getValues().pollutionType.map((category, index) => { 
+    const updatedCategories = adaptedPollutionTypes.map((category, index) => { 
       const updatedPollutants = category?.pollutans.map(pollutant => {
         if(pollutant.name === polllutionTypeName){
           indexToUpdate = index
@@ -54,36 +72,63 @@ const usePollutionTypeForm = (nextStep: () => void) => {
         pollutans: updatedPollutants
       };
     });
+    
       update(indexToUpdate, updatedCategories[indexToUpdate]);
   }
 
   function extractPollutiontypesFromCategories(
-    categories: CategoryModel[],
+    categories: CategoryModel[], categoryList: CategoryModel[]
   ): CategoryModel[] {
-  console.log('caregories: ', categories);
-  
-    const updatedCategories = categories.map(category => {
+
+    const updatedCategories = categoryList.map(category => {
   
       // Actualizamos los pollutants en la categoría
       const updatedPollutants = category.pollutans.map(pollutant => {
+        const matchingCategory = categories.find(c => c.id === category.id);
+        const statePollutant = matchingCategory?.pollutans.find(p => p.id === pollutant.id)?.state;   
         return {
           ...pollutant,
-            state: pollutant.state === undefined ? false : pollutant.state
+          state: statePollutant,
+
         };
       });
-      // Retornamos la categoría actualizada con los pollutants modificados
+
       return {
         ...category,
         pollutans: updatedPollutants
       };
     });
+    
     return updatedCategories;
   }
   
+  useEffect(() => {
+    void loadCategories();
+    reset({'pollutionType': adaptedPollutionTypes});
+  }, []);
+
+  useEffect(() => {
+    setValue('pollutionType', adaptedPollutionTypes);
+  }, [adaptedPollutionTypes]);
+
+
+  function filterActivePollutants(categories: CategoryModel[]): CategoryModel[] {
+
+    return categories.map(category => {
+
+      const activePollutants = category.pollutans
+        .filter(pollutant => pollutant.state)
+
+      return {
+        ...category,
+        pollutans: activePollutants
+      };
+    });
+  }
 
   const onSubmit = (data: any) => {
     setAdaptedPollutionTypes(data);
-    const updatePollutionTypes = getValues().pollutionType;
+    const updatePollutionTypes = filterActivePollutants(getValues().pollutionType);
     calculator.setCalculatorState(updatePollutionTypes);
     nextStep();
   };
