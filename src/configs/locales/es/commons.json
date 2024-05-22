@@ -46,7 +46,8 @@
         "createCategory": "Crear categoria",
         "calculator": "Calculadora huella de carbono",
         "editUser": "Editar usuario",
-        "caculatorCatogories": "Categorías de la calculadora"
+        "caculatorCatogories": "Categorías de la calculadora",
+        "calculatorCostsUsages": "Consumos y costos"
     },
     "rolesPages": {
         "tabs": {
@@ -220,6 +221,14 @@
             "coverage": "Coberturas",
             "consumptionCosts": "Consumos y Costos",
             "validation": "Validación"
+        },
+        "costAndUsage":{
+            "description":"Para cada fuente de emisión indique: ",
+            "helpCost": "Costo: Costo del insumo" ,
+            "helpUsage": "Consumo: Cuanto de ese insumo se está usando",
+            "help":"Ejemplo: Se adquieren 10 litros del insumo gasolina, el COSTO de esos los litros son $50.000, de los cuales se están CONSUMIENDO 5 litros."
+            
+
         }
         
 

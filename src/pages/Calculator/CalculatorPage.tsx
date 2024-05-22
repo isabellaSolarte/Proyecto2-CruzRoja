@@ -70,9 +70,7 @@ const CalculatorPage = () => {
         )}
         {currentStep === 3 && <SourcesForm nextStep={handleNextStep} stepBack={handleStepBack} />}
         {currentStep === 4 && <CoverageForm nextStep={handleNextStep} stepBack={handleStepBack} />}
-        {currentStep === 5 && (
-          <CostsAndUsageForm nextStep={handleNextStep} stepBack={handleStepBack} />
-        )}
+        {currentStep === 5 && (<CostsAndUsageForm nextStep={handleNextStep} stepBack={handleStepBack} />)}
         {currentStep === 6 && <ValidateForm nextStep={handleNextStep} stepBack={handleStepBack} />}
       </CustomStepper>
     </SimpleLayout>
