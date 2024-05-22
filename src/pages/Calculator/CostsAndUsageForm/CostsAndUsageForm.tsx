@@ -32,6 +32,9 @@ const CostsForm = ({ nextStep, stepBack }: CostsFormProps) => {
             <li>
             <CustomText texto={t('calculator.costAndUsage.helpUsage')} variante={'texto'} />
             </li>
+            <li>
+            <CustomText texto={t('calculator.costAndUsage.helpDate')} variante={'texto'} />
+            </li>
           </ul>
         </div>
       <form onSubmit={handleSubmit(onSubmit)}>
