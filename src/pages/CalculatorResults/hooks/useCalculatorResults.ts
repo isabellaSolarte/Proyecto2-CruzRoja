@@ -1,49 +1,44 @@
-import { ReactInstance, useRef, useState } from 'react';
-import { CalculatorResult } from '../../../models';
+import { ReactInstance, useRef } from 'react';
+import { CalculatorResult, sourceResult } from '../../../models';
 import { useReactToPrint } from 'react-to-print';
+import { useLocation } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { userAtom } from '../../../recoil';
 
 const useCalculatorResults = () => {
+  const { state } = useLocation();
   const pageComponentRef = useRef<ReactInstance | null>(null);
-  const [fakeCalculatorResult, setFakeCalculatorResult] =
-    useState<CalculatorResult>({
-      total: 1000,
-      totalBySources: [
-        { source: 'Electricity', total: 300 },
-        { source: 'Gas', total: 200 },
-        { source: 'Water', total: 100 },
-        { source: 'Transportation', total: 400 },
-      ],
-      totalByMonth: [
-        {
-          year: '2024',
-          month: [100, 90, 80, 70, 60, 50, 40, 30, 20, 10, 0, 0],
-          total: 550,
-        },
-        {
-          year: '2023',
-          month: [90, 80, 70, 60, 50, 40, 30, 20, 10, 0, 0, 0],
-          total: 450,
-        },
-      ],
-      percentage: [
-        { source: 'Electricity', total: 30 },
-        { source: 'Gas', total: 20 },
-        { source: 'Water', total: 10 },
-        { source: 'Transportation', total: 40 },
-      ],
-    });
+  const result: CalculatorResult = state.processedResult;
+  const user = useRecoilState(userAtom);
+
+  console.log(user[0]);
 
   const handlePrint = useReactToPrint({
     content: () => pageComponentRef.current,
   });
 
+  const getPercentageOnBase100 = (): sourceResult[] => {
+    return result.percentage
+      .map(data => {
+        return {
+          source: data.source,
+          total: Number(
+            ((Math.round(data.total * 100) / 100) * 100).toFixed(0),
+          ),
+        };
+      })
+      .sort((a, b) => b.total - a.total);
+  };
+
   return {
-    fakeCalculatorResult,
-    total: fakeCalculatorResult.total,
-    totalBySources: fakeCalculatorResult.totalBySources,
-    totalByMonth: fakeCalculatorResult.totalByMonth,
-    percentage: fakeCalculatorResult.percentage,
+    fakeCalculatorResult: result,
+    total: result.total,
+    totalBySources: result.totalBySources,
+    totalByMonth: result.totalByMonth,
+    percentage: getPercentageOnBase100(),
     pageComponentRef,
+    state,
+    user: user[0],
     handlePrint,
   };
 };

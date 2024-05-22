@@ -1,9 +1,10 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import {
   CustomAccordion,
   CustomButton,
   CustomText,
   EmptyBox,
+  LabeledInput,
   SimpleLayout,
 } from '../../components';
 import { useCalculatorResults } from './hooks';
@@ -13,10 +14,8 @@ import RenderSourcesData from './components/RenderSourceData';
 import { PieChart } from '@mui/x-charts/PieChart';
 
 const CalculatorResultsPage = () => {
-  const { total, totalByMonth, totalBySources, pageComponentRef, percentage, handlePrint } =
+  const { total, totalByMonth, totalBySources, pageComponentRef, percentage, user, handlePrint } =
     useCalculatorResults();
-
-  console.log(percentage);
 
   return (
     <SimpleLayout>
@@ -36,20 +35,48 @@ const CalculatorResultsPage = () => {
                 width: '7rem',
               }}
             />
-            <CustomText texto={'Resultados Evaluación FootPrint'} variante={'subtitulo'} />
+            <CustomText texto={'Resultados Evaluación FootPrint'} variante={'titulo'} />
           </div>
-          <div style={{ display: 'flex', gap: 8 }}>
-            <CustomText texto={new Date().toLocaleDateString()} variante={'texto'} />
-            <CustomButton
-              content={'Imprimir'}
-              icon={<PrintIcon />}
-              color="info"
-              onClick={handlePrint}
-            />
-          </div>
+          <CustomButton
+            content={'Imprimir'}
+            icon={<PrintIcon />}
+            color="info"
+            onClick={handlePrint}
+          />
         </Box>
 
         <EmptyBox height={40} width={1} />
+
+        <Grid container>
+          <Grid item xs={12} md={6}>
+            <CustomText texto={'Datos del Evaluador'} variante={'subtitulo'} />
+            <LabeledInput
+              label={'Nombre'}
+              placeholder={`${user?.names} ${user?.lastNames}`}
+              type={'text'}
+            />
+            <LabeledInput label={'Correo'} placeholder={`${user?.personalEmail}`} type={'text'} />
+            <LabeledInput
+              label={'Fecha'}
+              placeholder={new Date().toLocaleDateString()}
+              type={'text'}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <CustomText texto={'Datos de la Empresa'} variante={'subtitulo'} />
+            <LabeledInput label={'Nombre'} placeholder={'Nombre de la empresa'} type={'text'} />
+            <LabeledInput label={'Correo'} placeholder={'Correo de la empresa'} type={'text'} />
+            <LabeledInput
+              label={'Representante'}
+              placeholder={'Nombre del representante'}
+              type={'text'}
+            />
+          </Grid>
+        </Grid>
+
+        <EmptyBox height={80} width={1} />
+
+        <CustomText texto={'Resultados'} variante={'subtitulo'} />
 
         <CustomAccordion
           accordionSummary={'Datos Evaluados por Mes'}
@@ -96,7 +123,7 @@ const CalculatorResultsPage = () => {
                 data: percentage.map((data, index) => {
                   return {
                     id: index,
-                    label: `${data.source} (${data.total} ufp)`,
+                    label: `${data.source} (${data.total}%)`,
                     value: data.total,
                   };
                 }),
