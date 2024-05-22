@@ -1,4 +1,4 @@
-import { Box, Grid } from '@mui/material';
+import { Box } from '@mui/material';
 import { CustomButton, CustomStepper, CustomText, SimpleLayout } from '../../components';
 import { CoverageForm } from './CoverageForm';
 import { useCalculatorHook, useStepper } from './hooks';
@@ -42,47 +42,16 @@ const CalculatorPage = () => {
             />
           </Box>
         )}
-        {currentStep > 0 && (
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              width: '100%',
-              padding: { xs: '0 10%', md: '0 20%' },
-            }}
-          >
-            <Grid
-              container
-              sx={{
-                width: '100%',
-                textAlign: 'center',
-              }}
-            >
-              <Grid item xs={12}>
-                {currentStep === 1 && (
-                  <CategoriesForm nextStep={handleNextStep} stepBack={handleStepBack} />
-                )}
-                {currentStep === 2 && (
-                  <PollutionTypeForm nextStep={handleNextStep} stepBack={handleStepBack} />
-                )}
-                {currentStep === 3 && (
-                  <SourcesForm nextStep={handleNextStep} stepBack={handleStepBack} />
-                )}
-
-                {currentStep === 4 && (
-                  <CoverageForm nextStep={handleNextStep} stepBack={handleStepBack} />
-                )}
-                {currentStep === 5 && (
-                  <CostsAndUsageForm nextStep={handleNextStep} stepBack={handleStepBack} />
-                )}
-                {currentStep === 6 && (
-                  <ValidateForm nextStep={handleNextStep} stepBack={handleStepBack} />
-                )}
-              </Grid>
-            </Grid>
-          </Box>
+        {currentStep === 1 && (
+          <CategoriesForm nextStep={handleNextStep} stepBack={handleStepBack} />
         )}
+        {currentStep === 2 && <PollutionTypeForm nextStep={handleNextStep} stepBack={handleStepBack} />}
+        {currentStep === 3 && <SourcesForm nextStep={handleNextStep} stepBack={handleStepBack} />}
+        {currentStep === 4 && <CoverageForm nextStep={handleNextStep} stepBack={handleStepBack} />}
+        {currentStep === 5 && (
+          <CostsAndUsageForm nextStep={handleNextStep} stepBack={handleStepBack} />
+        )}
+        {currentStep === 6 && <ValidateForm nextStep={handleNextStep} stepBack={handleStepBack} />}
       </CustomStepper>
     </SimpleLayout>
   );
