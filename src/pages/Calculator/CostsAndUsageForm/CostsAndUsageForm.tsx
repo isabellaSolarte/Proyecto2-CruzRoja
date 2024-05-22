@@ -1,5 +1,5 @@
 import { Box, Grid, Tooltip } from '@mui/material';
-import { CustomButton, CustomText, ErrorText } from '../../../components';
+import { CustomButton, CustomIconDetails, CustomText, ErrorText } from '../../../components';
 import useCostsForm from './hooks/useCostsAndUsageForm';
 import DoubleInput from './models/DoubleInput';
 import { Fragment } from 'react/jsx-runtime';
@@ -16,11 +16,14 @@ const CostsForm = ({ nextStep, stepBack }: CostsFormProps) => {
   const { t } = useTranslation('commons');
   return (
     <Box>
-      <CustomText texto={t('pageTitles.calculatorCostsUsages')} variante={'titulo'} />
+        <div style={{ display: 'flex', alignItems: 'center'}}>
+        <CustomText texto={t('pageTitles.calculatorCostsUsages')} variante={'titulo'} />
+        <CustomIconDetails
+          description={t('calculator.costAndUsage.help')}
+          icon={<HelpIcon color={'disabled'} />}
+        />
+      </div>
       <div>
-      <Tooltip title={t('calculator.costAndUsage.help')} placement="right">
-          <HelpIcon color="disabled" />
-        </Tooltip>
       <CustomText texto={t('calculator.costAndUsage.description')} variante={'texto'} />
           <ul>
             <li>
