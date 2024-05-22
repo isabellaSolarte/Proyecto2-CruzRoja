@@ -210,7 +210,8 @@
         },
         "pollutionTypeForm": {
             "title": "Tipo de Contaminante",
-            "description": "A continuacion seleccione las cargas ambientales para cada categoria seleccionada que apliquen."
+            "description": "A continuacion seleccione las cargas ambientales para cada categoria seleccionada que apliquen.",
+            "example": "Por ejemplo, si has seleccionado la categoría 'Industria Química', las cargas ambientales podrían incluir emisiones de gases de efecto invernadero, vertidos de productos químicos y consumo de recursos hídricos."
         },
         "stepper": {
             "welcome": "Bienvenido",

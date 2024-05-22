@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
-import {CustomText, ErrorText, ManagmentLayout, CustomAccordion} from '../../../components';
+import {CustomText, ErrorText, ManagmentLayout, CustomAccordion, CustomIconDetails, CustomButton} from '../../../components';
 import { Grid,Box } from '@mui/material';
 import PollutionTypeCard from './components/PollutionTypeCard'; 
 import usePollutionTypeForm from './hooks/usePollutionTypeForm';
-import CustomButton from './../../../components/Atoms/CustomButton/CustomButton';
+import HelpIcon from '@mui/icons-material/Help';
 
 
 interface PollutionTypeFormProps {
@@ -29,7 +29,15 @@ const PollutionTypeForm = ({ nextStep, stepBack }: PollutionTypeFormProps) => {
 
   return (
     <ManagmentLayout 
-    title={<CustomText texto={t('calculator.pollutionTypeForm.title')} variante={'titulo'} />}
+    title={
+      <div style={{ display: 'flex'}}>
+        <CustomIconDetails
+          description={t('calculator.pollutionTypeForm.example')}
+          icon={<HelpIcon color={'disabled'} />}
+        />
+        <CustomText texto={t('calculator.pollutionTypeForm.title')} variante={'titulo'} />
+      </div>
+      }
     description={
       <CustomText texto={t('calculator.pollutionTypeForm.description')} variante={'texto'} />
     }

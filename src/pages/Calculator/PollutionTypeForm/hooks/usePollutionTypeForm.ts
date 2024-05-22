@@ -122,17 +122,13 @@ const usePollutionTypeForm = (nextStep: () => void) => {
   function filterActivePollutants(categories: CategoryModel[]): CategoryModel[] {
     console.log(categories);
     
-
     return categories.map(category => {
-
-      const activePollutants = category.pollutans
-        .filter(pollutant => pollutant.state)
-
+      const activePollutants = category.pollutans.filter(pollutant => pollutant.state);
       return {
         ...category,
         pollutans: activePollutants
       };
-    });
+    }).filter(category => category.pollutans.length > 0 || !category.pollutans);
   }
 
   const onSubmit = (data: any) => {
