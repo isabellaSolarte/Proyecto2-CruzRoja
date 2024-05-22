@@ -2,10 +2,11 @@ import { useTranslation } from 'react-i18next';
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { CalculatorContext } from '../../../../contexts';
-import { CategoryModel } from '../../../../models';
+import { CalculatorResult, CategoryModel, monthResult, sourceResult } from '../../../../models';
 import { PathNames } from '../../../../core';
 import { useNavigate } from 'react-router-dom';
-
+import { extractDataCalculatorModel } from '../../../../models';
+import { postDataCalculator } from '../../../../services/AxiosRequests/Calculator';
 export type PollutantSourcValidate = {
   categoryId: number;
   categoryName: string;
@@ -29,7 +30,7 @@ export type PollutantSourcValidate = {
 export interface ValidateDataModel {
   pollutionId: number;
   sourceId: number;
-  year: number;
+  year: number | undefined;
   month: number | undefined;
   consume: number;
   cost: number | undefined;
@@ -94,26 +95,55 @@ const useValidateForm = () => {
     });
     return sources;
   }
+  const mapCalculatorResult = (data: any): CalculatorResult => {
+    const { total, totalBySources, totalByMonth, percentage } = data;
+  
+    const mappedTotalBySources: sourceResult[] = totalBySources.map(
+      (sourceData: { source: any; total: any; }) => ({ source: sourceData.source, total: sourceData.total })
+    );
+  
+    const mappedTotalByMonth: monthResult[] = totalByMonth.map(
+      (monthData: { year: any; month: any; total: any; }) => ({
+        year: monthData.year, 
+        month: monthData.month,
+        total: monthData.total,
+      })
+    );
+    
+    return {
+      total,
+      totalBySources: mappedTotalBySources,
+      totalByMonth: mappedTotalByMonth,
+      percentage,
+    };
+  };
+  
   const onSubmit = async (data: { dataV: CategoryModel[] }) => {
+    
     try {
       const dataValidateResponse = extractValidateFromCategories(data.dataV);
       console.log(dataValidateResponse);
-      navigate(PathNames.CALCULATOR_RESULTS, { replace: true });
+      const calculatorResult = await postDataCalculator(dataValidateResponse);
+      const processedResult = mapCalculatorResult(calculatorResult);
+      navigate(PathNames.CALCULATOR_RESULTS, {
+        state: { processedResult },
+        replace: true,
+      });
     } catch (error) {
       alert(`Error al cargar los datos ${JSON.stringify(error)}`);
     }
   };
   function extractValidateFromCategories(
     categories: CategoryModel[],
-  ): ValidateDataModel[] {
-    const sources: ValidateDataModel[] = [];
+  ): extractDataCalculatorModel[] {
+    const sources: extractDataCalculatorModel[] = [];
     categories.forEach(category => {
       category.pollutans.forEach(pollutant => {
         pollutant.sources.forEach(source => {
           sources.push({
             pollutionId: pollutant.id,
             sourceId: source.id,
-            year: 2000,
+            year: source.facturation.year,
             month: source.facturation.month,
             consume: 10,
             cost: source.facturation.cost,
