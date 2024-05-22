@@ -30,12 +30,12 @@ const PollutionTypeForm = ({ nextStep, stepBack }: PollutionTypeFormProps) => {
   return (
     <ManagmentLayout 
     title={
-      <div style={{ display: 'flex'}}>
+      <div style={{ display: 'flex', alignItems: 'center'}}>
+        <CustomText texto={t('calculator.pollutionTypeForm.title')} variante={'titulo'} />
         <CustomIconDetails
           description={t('calculator.pollutionTypeForm.example')}
           icon={<HelpIcon color={'disabled'} />}
         />
-        <CustomText texto={t('calculator.pollutionTypeForm.title')} variante={'titulo'} />
       </div>
       }
     description={
