@@ -1,10 +1,13 @@
-import { useState, useContext } from 'react';
-import { CategoryModel } from '../../../models';
+import { useState, useContext, useEffect } from 'react';
+import { CategoryModel } from '../../../../models';
 import {
   getCategoriesEnable,
   postSelectedCategories,
-} from '../../../services/AxiosRequests/Categories';
-import { CalculatorContext } from '../../../contexts';
+} from '../../../../services/AxiosRequests/Categories';
+import { CalculatorContext } from '../../../../contexts';
+import CategoriesSchema from '../schemas/categoriesSchema';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
 
 export const useCategoriesCalculatorForm = () => {
   const [categoryList, setCategoryList] = useState<CategoryModel[]>([]);
@@ -13,7 +16,24 @@ export const useCategoriesCalculatorForm = () => {
   const [selectedCategory, setSelectedCategories] = useState<number[]>([]);
 
   const { setCalculatorState, updateSelectedCategories, setIdSelectCategories,selectedIsCategory} = useContext(CalculatorContext);
+  const { control, handleSubmit, setValue, formState: { errors } } = useForm({
+    resolver: yupResolver(CategoriesSchema),
+    defaultValues: {
+      selectedCategories: selectedIsCategory,
+    },
+  });
 
+  useEffect(() => {
+    loadCategories();
+  }, []);
+
+  useEffect(() => {
+    setValue('selectedCategories', selectedIsCategory);
+  }, [selectedIsCategory, setValue]);
+
+  const onSubmit = () => {
+    saveSelectedCategories();
+  };
   const loadCategories = async () => {
     setIsLoading(true);
     setError(null);
@@ -53,6 +73,10 @@ export const useCategoriesCalculatorForm = () => {
   return {
     isLoading,
     error,
+    control,
+    handleSubmit,
+    errors,
+    onSubmit,
     categoryList,
     selectedIsCategory,
     selectedCategory,

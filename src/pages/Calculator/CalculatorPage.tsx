@@ -5,7 +5,7 @@ import { useCalculatorHook, useStepper } from './hooks';
 import CostsAndUsageForm from './CostsAndUsageForm/CostsAndUsageForm';
 import { ValidateForm } from './ValidateDataForm';
 import { SourcesForm } from './SourcesForm';
-import { CategoriesForm } from './forms';
+import { CategoriesForm } from './CategoriesForm/forms';
 
 const CalculatorPage = () => {
   const { currentStep, stepList, handleNextStep, handleStepBack } = useStepper();

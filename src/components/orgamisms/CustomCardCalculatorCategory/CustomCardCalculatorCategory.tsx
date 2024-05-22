@@ -32,6 +32,7 @@ const CustomCardCalculatorCategory = ({
         transition: 'border-color 0.3s ease-in-out',
         '&:hover': {
           borderColor: isSelected ? '#65B741' : '#A9A9A9',
+          cursor: 'pointer',
         },
       }}
       onClick={() => onSelect(idCategory)}
