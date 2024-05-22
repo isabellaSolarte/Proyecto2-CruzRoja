@@ -225,9 +225,10 @@
         },
         "costAndUsage":{
             "description":"Para cada fuente de emisión indique: ",
-            "helpCost": "Costo: Costo del insumo" ,
-            "helpUsage": "Consumo: Cuanto de ese insumo se está usando",
-            "help":"Ejemplo: Se adquieren 10 litros del insumo gasolina, el COSTO de esos los litros son $50.000, de los cuales se están CONSUMIENDO 5 litros."
+            "helpCost": "Costo: Costo del insumo." ,
+            "helpUsage": "Consumo: Cuanto de ese insumo se está usando.",
+            "helpDate": "Mes y año: Fecha de evaluación.",
+            "help":"Ejemplo: Se adquieren 10 litros del insumo gasolina, el COSTO de esos 10 litros son $50.000, de los cuales se están CONSUMIENDO 5 litros."
             
 
         }
