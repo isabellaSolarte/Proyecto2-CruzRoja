@@ -6,6 +6,7 @@ import CostsAndUsageForm from './CostsAndUsageForm/CostsAndUsageForm';
 import { ValidateForm } from './ValidateDataForm';
 import { SourcesForm } from './SourcesForm';
 import { CategoriesForm } from './forms';
+import PollutionTypeForm from './PollutionTypeForm/PollutionTypeForm';
 
 const CalculatorPage = () => {
   const { currentStep, stepList, handleNextStep, handleStepBack } = useStepper();
@@ -44,30 +45,7 @@ const CalculatorPage = () => {
         {currentStep === 1 && (
           <CategoriesForm nextStep={handleNextStep} stepBack={handleStepBack} />
         )}
-        {currentStep === 2 && (
-          <Box
-            sx={{
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'space-between',
-              mt: 3,
-            }}
-          >
-            <CustomButton
-              variant="contained"
-              color="primary"
-              content={t('generalButtonText.back')}
-              onClick={handleStepBack}
-            />
-
-            <CustomButton
-              variant="contained"
-              color="info"
-              content={t('components.stepper.next')}
-              onClick={handleNextStep}
-            />
-          </Box>
-        )}
+        {currentStep === 2 && <PollutionTypeForm nextStep={handleNextStep} stepBack={handleStepBack} />}
         {currentStep === 3 && <SourcesForm nextStep={handleNextStep} stepBack={handleStepBack} />}
         {currentStep === 4 && <CoverageForm nextStep={handleNextStep} stepBack={handleStepBack} />}
         {currentStep === 5 && (
