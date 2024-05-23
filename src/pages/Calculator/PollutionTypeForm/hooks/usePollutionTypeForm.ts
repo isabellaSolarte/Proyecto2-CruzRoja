@@ -86,9 +86,11 @@ const usePollutionTypeForm = (nextStep: () => void) => {
       const updatedPollutants = category.pollutans.map(pollutant => {
         const matchingCategory = categories.find(c => c.id === category.id);
         const statePollutant = matchingCategory?.pollutans.find(p => p.id === pollutant.id)?.state;   
+        const sourcePollutant = matchingCategory?.pollutans.find(p => p.id === pollutant.id);   
         return {
           ...pollutant,
           state: statePollutant? statePollutant: false,
+          sources: sourcePollutant? sourcePollutant.sources : pollutant.sources
 
         };
       });

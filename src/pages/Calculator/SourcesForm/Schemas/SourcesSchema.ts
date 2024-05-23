@@ -8,15 +8,13 @@ export const defaulSourceSchema: SourcesType = {
     description: '',
     state: false,
     coverage: {
-        totalSources: undefined,
-        informedSources: undefined,
+        totalSources: 0,
+        informedSources: 0,
     },
     facturation: {
-        cost: undefined,
-        month: undefined,
-        year: undefined,
-        usage: undefined
-    },
+        cost: 0,
+        month: 1,
+      },
 };
 export const defaulSourcesSchema: Array<SourcesType> = [
     {
@@ -26,15 +24,13 @@ export const defaulSourcesSchema: Array<SourcesType> = [
         description: '',
         state: false,
         coverage: {
-            totalSources: undefined,
-            informedSources: undefined,
+            totalSources: 0,
+            informedSources: 0,
         },
         facturation: {
-            cost: undefined,
-            month: undefined,
-            year: undefined,
-            usage: undefined
-        },
+            cost: 0,
+            month: 1,
+          },
     },
     {
         id: 1,
@@ -43,15 +39,13 @@ export const defaulSourcesSchema: Array<SourcesType> = [
         description: '',
         state: false,
         coverage: {
-            totalSources: undefined,
-            informedSources: undefined,
+            totalSources: 0,
+            informedSources: 0,
         },
         facturation: {
-            cost: undefined,
-            month: undefined,
-            year: undefined,
-            usage: undefined
-        },
+            cost: 0,
+            month: 1,
+          },
     },
 ]
 
@@ -62,14 +56,22 @@ export const sourceSchema = yup.object().shape({
     description: yup.string().required('El campo "description" es requerido.'),
     state: yup.boolean().required('El campo "state" es requerido.').default(false),
     coverage: yup.object().shape({
-        totalSources: yup.number().nullable().default(undefined),
-        informedSources: yup.number().nullable().default(undefined),
+        totalSources: yup
+              .number()
+              .transform((value, originalValue) => {
+                return originalValue === '' ? null : value;
+              })
+              .nonNullable('coverageForm.totalSource'),
+            informedSources: yup
+              .number()
+              .transform((value, originalValue) => {
+                return originalValue === '' ? null : value;
+              })
+              .nonNullable('coverageForm.informedSource'),
     }).required(),
     facturation: yup.object().shape({
-        cost: yup.number().nullable().default(undefined),
-        month: yup.number().nullable().default(undefined),
-        year: yup.number().nullable().default(undefined),
-        usage: yup.number().nullable().default(undefined),
+        cost: yup.number().nullable().required('El campo "cost" es requerido.').default(0),
+        month: yup.number().nullable().required('El campo "month" es requerido.').default(1),
     }).required(),
 });
 
