@@ -5,8 +5,8 @@ import { useCalculatorHook, useStepper } from './hooks';
 import CostsAndUsageForm from './CostsAndUsageForm/CostsAndUsageForm';
 import { ValidateForm } from './ValidateDataForm';
 import { SourcesForm } from './SourcesForm';
-import { CategoriesForm } from './forms';
 import PollutionTypeForm from './PollutionTypeForm/PollutionTypeForm';
+import { CategoriesForm } from './CategoriesForm/forms';
 
 const CalculatorPage = () => {
   const { currentStep, stepList, handleNextStep, handleStepBack } = useStepper();
@@ -45,10 +45,14 @@ const CalculatorPage = () => {
         {currentStep === 1 && (
           <CategoriesForm nextStep={handleNextStep} stepBack={handleStepBack} />
         )}
-        {currentStep === 2 && <PollutionTypeForm nextStep={handleNextStep} stepBack={handleStepBack} />}
+        {currentStep === 2 && (
+          <PollutionTypeForm nextStep={handleNextStep} stepBack={handleStepBack} />
+        )}
         {currentStep === 3 && <SourcesForm nextStep={handleNextStep} stepBack={handleStepBack} />}
         {currentStep === 4 && <CoverageForm nextStep={handleNextStep} stepBack={handleStepBack} />}
-        {currentStep === 5 && (<CostsAndUsageForm nextStep={handleNextStep} stepBack={handleStepBack} />)}
+        {currentStep === 5 && (
+          <CostsAndUsageForm nextStep={handleNextStep} stepBack={handleStepBack} />
+        )}
         {currentStep === 6 && <ValidateForm nextStep={handleNextStep} stepBack={handleStepBack} />}
       </CustomStepper>
     </SimpleLayout>
