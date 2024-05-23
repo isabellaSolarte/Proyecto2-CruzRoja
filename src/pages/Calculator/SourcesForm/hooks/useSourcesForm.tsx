@@ -25,17 +25,18 @@ const useSourcesForm = (nextStep: () => void) => {
     try {
       const categories = await postSelectedCategories(calculator.selectedCategories);
       setCategoryList(categories);
-      console.log('categories:', categories);
-      console.log('categoryList:', categoryList);
       
       
       setAdaptedSources(extractSourcesFromCategories(calculator.categories, categories));
+
+      
+      
     } catch (error) {
       setError(error as Error);
     } finally {
       setIsLoading(false);
     }
-  }, [calculator.selectedCategories]); // Add an empty array as the second argument to useCallback
+  }, [calculator.selectedCategories,calculator.categories]); // Add an empty array as the second argument to useCallback
 
   const filterActivePollutants = (prmCategories: CategoryModel[], prmCategoryList: CategoryModel[]): CategoryModel[] => { 
     
@@ -61,25 +62,40 @@ const useSourcesForm = (nextStep: () => void) => {
   
   
   const extractSourcesFromCategories = (categories: CategoryModel[], categoryList: CategoryModel[]): SourcesType[] => {
+    console.log("extractSourcesFromCategories",extractSourcesFromCategories);
+    
+    console.log('categoryList:', categories);
+    console.log("calculator.categories",calculator.categories);
+
     const sources: SourcesType[] = [];
     filterActivePollutants(categories, categoryList).forEach(category => {
+      console.log("category",category);
+      
       category.pollutans.forEach(pollutant => {
+        console.log("pollutant",pollutant);
+        
         pollutant.sources.forEach(source => {
+          console.log("source",source);
+          
           const matchingCategory = categories.find(c => c.id === category.id);          
           const matchingPollutant = matchingCategory?.pollutans.find(p => p.id === pollutant.id);
           const matchingSource = matchingPollutant?.sources.find(s => s.id === source.id);
-          sources.push({
+          console.log("matchingSource",matchingSource);
+          
+            sources.push({
             id: source.id,
             name: source.name,
             categoryName: pollutant.name,
             description: source.description,
-            state: matchingSource.state,
-            coverage: matchingSource.coverage,
-            facturation: matchingSource.facturation,
-          });
+            state: matchingSource?.state || source.state,
+            coverage: matchingSource?.coverage || source.coverage,
+            facturation: matchingSource?.facturation || source.facturation,
+            });
         });
       });
     });
+    console.log("sources",sources);
+    
     return sources;
   }
   
@@ -110,8 +126,9 @@ const useSourcesForm = (nextStep: () => void) => {
   }, []);
   
   useEffect(() => {
+    console.log("adaptedSources",adaptedSources);
     setValue('sources', adaptedSources);
-  }, [adaptedSources]);
+  }, [adaptedSources,categoryList,calculator]);
 
   const sourcesArray = useFieldArray({
     control,
