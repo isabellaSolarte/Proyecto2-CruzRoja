@@ -62,25 +62,15 @@ const useSourcesForm = (nextStep: () => void) => {
   
   
   const extractSourcesFromCategories = (categories: CategoryModel[], categoryList: CategoryModel[]): SourcesType[] => {
-    console.log("extractSourcesFromCategories",extractSourcesFromCategories);
     
-    console.log('categoryList:', categories);
-    console.log("calculator.categories",calculator.categories);
-
     const sources: SourcesType[] = [];
     filterActivePollutants(categories, categoryList).forEach(category => {
-      console.log("category",category);
-      
-      category.pollutans.forEach(pollutant => {
-        console.log("pollutant",pollutant);
-        
+      category.pollutans.forEach(pollutant => {        
         pollutant.sources.forEach(source => {
-          console.log("source",source);
           
           const matchingCategory = categories.find(c => c.id === category.id);          
           const matchingPollutant = matchingCategory?.pollutans.find(p => p.id === pollutant.id);
           const matchingSource = matchingPollutant?.sources.find(s => s.id === source.id);
-          console.log("matchingSource",matchingSource);
           
             sources.push({
             id: source.id,
@@ -94,7 +84,6 @@ const useSourcesForm = (nextStep: () => void) => {
         });
       });
     });
-    console.log("sources",sources);
     
     return sources;
   }
@@ -126,7 +115,6 @@ const useSourcesForm = (nextStep: () => void) => {
   }, []);
   
   useEffect(() => {
-    console.log("adaptedSources",adaptedSources);
     setValue('sources', adaptedSources);
   }, [adaptedSources,categoryList,calculator]);
 
@@ -176,10 +164,8 @@ const useSourcesForm = (nextStep: () => void) => {
     setIsLoading(true);
     setError(null);
 
-    console.log('submint useSourcesForm data:', data);
 
     const updateSources = updateSourcesCalculatorState(data.sources as SourcesType[]); 
-    console.log('updateSources:', updateSources);
     
     calculator.setCalculatorState(updateSources)
 
