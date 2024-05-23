@@ -212,7 +212,8 @@
         "pollutionTypeForm": {
             "title": "Tipo de Contaminante ",
             "description": "A continuacion seleccione las cargas ambientales para cada categoria seleccionada que apliquen.",
-            "help": "Ejemplo: CO2, SO2, NOx, PM10.\n\nTipos de contaminante:\n- Gases de efecto invernadero: CO2, CH4\n- Contaminantes del aire: SO2, NOx, PM\n- Contaminantes del agua: DBO, metales pesados\n- Contaminantes del suelo: Residuos peligrosos\n\nFuentes:\n- Fijas: Calderas, hornos, turbinas\n- Móviles: Vehículos terrestres, aéreos, marítimos\n- Procesos: Materiales, químicos\n- Agrícolas: Ganado, agroquímicos\n- Refrigerantes: Cuartos fríos, aires acondicionados\n- Residuos: Plantas de tratamiento"
+            "help": "Ejemplo: CO2, SO2, NOx, PM10.\n\nTipos de contaminante:\n- Gases de efecto invernadero: CO2, CH4\n- Contaminantes del aire: SO2, NOx, PM\n- Contaminantes del agua: DBO, metales pesados\n- Contaminantes del suelo: Residuos peligrosos\n\nFuentes:\n- Fijas: Calderas, hornos, turbinas\n- Móviles: Vehículos terrestres, aéreos, marítimos\n- Procesos: Materiales, químicos\n- Agrícolas: Ganado, agroquímicos\n- Refrigerantes: Cuartos fríos, aires acondicionados\n- Residuos: Plantas de tratamiento",
+            "helpTypes": "Por ejemplo, si has seleccionado la categoría 'Industria Química', las cargas ambientales podrían incluir emisiones de gases de efecto invernadero, vertidos de productos químicos y consumo de recursos hídricos."
         },
         "stepper": {
             "welcome": "Bienvenido",
