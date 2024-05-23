@@ -25,6 +25,10 @@ const useSourcesForm = (nextStep: () => void) => {
     try {
       const categories = await postSelectedCategories(calculator.selectedCategories);
       setCategoryList(categories);
+      console.log('categories:', categories);
+      console.log('categoryList:', categoryList);
+      
+      
       setAdaptedSources(extractSourcesFromCategories(calculator.categories, categories));
     } catch (error) {
       setError(error as Error);
@@ -33,13 +37,34 @@ const useSourcesForm = (nextStep: () => void) => {
     }
   }, [calculator.selectedCategories]); // Add an empty array as the second argument to useCallback
 
+  const filterActivePollutants = (prmCategories: CategoryModel[], prmCategoryList: CategoryModel[]): CategoryModel[] => { 
+    
+    const filteredprmCategories = prmCategoryList.map(category => {   
+      let activePollutants = category.pollutans.filter(pollutant => {
+        const matchingCategory = prmCategories.find(c => c.id === category.id);
+        const matchingPollutant = matchingCategory?.pollutans.find(p => p.id === pollutant.id);
+        return matchingPollutant?.state? true : false;
+      });
+      activePollutants = activePollutants.map(pollutant => {
+        return {
+          ...pollutant,
+          state: true,
+        }});
+      console.log('activePollutants:', activePollutants);
+      
+      return {
+        ...category,
+        pollutans: activePollutants
+      };
+    });
+
+    return filteredprmCategories;
+  }
   
   
   const extractSourcesFromCategories = (categories: CategoryModel[], categoryList: CategoryModel[]): SourcesType[] => {
     const sources: SourcesType[] = [];
-    
-
-    categoryList.forEach(category => {
+    filterActivePollutants(categories, categoryList).forEach(category => {
       category.pollutans.forEach(pollutant => {
         pollutant.sources.forEach(source => {
           const matchingCategory = categories.find(c => c.id === category.id);          
@@ -109,7 +134,8 @@ const useSourcesForm = (nextStep: () => void) => {
   };
   
   const updateSourcesCalculatorState = (data: SourcesType[]) => {
-    return categoryList.map(category => {
+    
+    return calculator.categories.map(category => {
       return {
         ...category,
         pollutans: category.pollutans.map(pollutant => {
@@ -126,6 +152,7 @@ const useSourcesForm = (nextStep: () => void) => {
       };
     });
   }
+
   
 
 
@@ -136,7 +163,8 @@ const useSourcesForm = (nextStep: () => void) => {
     console.log('submint useSourcesForm data:', data);
 
     const updateSources = updateSourcesCalculatorState(data.sources as SourcesType[]); 
-
+    console.log('updateSources:', updateSources);
+    
     calculator.setCalculatorState(updateSources)
 
     setIsLoading(false);
