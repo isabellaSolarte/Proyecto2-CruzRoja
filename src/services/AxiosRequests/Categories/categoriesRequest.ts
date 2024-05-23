@@ -1,3 +1,5 @@
+/* eslint-disable no-useless-catch */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CategoryAdapter } from '../../../adapters';
 import { api } from '../api';
 import { CategoriesEndpoints } from './Endpoints';
@@ -71,7 +73,7 @@ export const postCategory = async (data: CategoryType) => {
       categoryState: true,
       pollutions: [],
     };
-    console.log("PostData:",updatedCategoryData)
+    console.log('PostData:', updatedCategoryData);
     const response = await api.post<AxiosResponse>(
       CategoriesEndpoints.postCategory,
       updatedCategoryData,
@@ -92,7 +94,7 @@ export const putCategory = async (data: CategoryType, id: number) => {
       categoryState: true,
       pollutions: [],
     };
-    console.log("PostData:",updatedCategoryData);
+    console.log('PostData:', updatedCategoryData);
     const response = await api.put<AxiosResponse>(
       CategoriesEndpoints.putCategory,
       updatedCategoryData,
