@@ -67,15 +67,15 @@ const useSourcesForm = (nextStep: () => void) => {
         pollutant.sources.forEach(source => {
           const matchingCategory = categories.find(c => c.id === category.id);          
           const matchingPollutant = matchingCategory?.pollutans.find(p => p.id === pollutant.id);
-          const state = matchingPollutant?.sources.find(s => s.id === source.id)?.state;          
+          const matchingSource = matchingPollutant?.sources.find(s => s.id === source.id);
           sources.push({
             id: source.id,
             name: source.name,
             categoryName: pollutant.name,
             description: source.description,
-            state: state,
-            coverage: source.coverage,
-            facturation: source.facturation,
+            state: matchingSource.state,
+            coverage: matchingSource.coverage,
+            facturation: matchingSource.facturation,
           });
         });
       });
@@ -139,7 +139,8 @@ const useSourcesForm = (nextStep: () => void) => {
         pollutans: category.pollutans.map(pollutant => {
           const updatedSources = pollutant.sources.map(source => {
             const sourceToUpdate = data.find(sourceData => sourceData.id === source.id);
-            return sourceToUpdate ? { ...source, state: sourceToUpdate.state } : source;
+            return sourceToUpdate ? { ...source, state: sourceToUpdate.state, coverage: sourceToUpdate.coverage,
+              facturation: sourceToUpdate.facturation,  } : source;
           });
           const filteredSources = updatedSources.filter(source => {
             const sourceToUpdate = updatedSources.find(sourceData => sourceData.id === source.id);
