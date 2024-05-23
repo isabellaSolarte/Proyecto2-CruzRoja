@@ -5,7 +5,7 @@ import { Box, Grid } from '@mui/material';
 import EnergySavingsLeafIcon from '@mui/icons-material/EnergySavingsLeaf';
 import { useCreateCategory } from './hooks/useCreateCategory';
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react'; 
+import { useEffect } from 'react'; 
 import { CategoryType } from './types/CategoryTypes';
 import { OptionSelector } from '../../models';
 import { yupResolver } from '@hookform/resolvers/yup'; 
@@ -36,11 +36,11 @@ const CreateCategoryPage = () => {
 
   useEffect(() => {
     if (category) {
-      setValue('name', category.name); // Actualiza el valor por defecto del nombre
-      setValue('descripction', category.descripction); // Actualiza el valor por defecto de la descripción
-      setValue('scope', category.scope); // Actualiza el valor por defecto del alcance
+      setValue('name', category.name); 
+      setValue('descripction', category.descripction); 
+      setValue('scope', category.scope); 
     }
-  }, [category, setValue]); // Ejecuta el efecto cuando category o setValue cambien
+  }, [category, setValue]); 
 
   const onSubmit = handleSubmit((data) => {
     createOrUpdateCategory(data);
@@ -49,7 +49,7 @@ const CreateCategoryPage = () => {
   return (
     <ManagmentLayout
       title={<CustomText texto={t('pageTitles.registerCategory')} variante="titulo" />}
-      generalContents={ // Renderiza el formulario independientemente de la carga de la categoría
+      generalContents={
         <Box>
           <form onSubmit={onSubmit}>
             <Grid container spacing={2}>
@@ -62,7 +62,7 @@ const CreateCategoryPage = () => {
                 />
                 <CustomInput
                   placeholder={t('Nombre')}
-                  size="medium"
+                  size="large"
                   props={register('name')}
                 />
                 {errors.name && <span>{errors.name.message}</span>} 
@@ -95,7 +95,7 @@ const CreateCategoryPage = () => {
                 />
                 <CustomInput
                   placeholder={t('Descripción')}
-                  size="medium"
+                  size="large"
                   props={register('descripction')}
                 />
                 {errors.descripction && <span>{errors.descripction.message}</span>} 

@@ -16,7 +16,6 @@ export const useRolePage = () => {
           state: role.state,
           typeRole: role.typeRole,
           permissions: role.permissions,
-          switchState: role.state,
         }));
         setRoles(adaptedRoles);
         setError(null);
