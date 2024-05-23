@@ -90,7 +90,8 @@ const usePollutionTypeForm = (nextStep: () => void) => {
         return {
           ...pollutant,
           state: statePollutant? statePollutant: false,
-          sources: sourcePollutant?.sources
+          sources: sourcePollutant? sourcePollutant.sources : pollutant.sources
+
         };
       });
 
