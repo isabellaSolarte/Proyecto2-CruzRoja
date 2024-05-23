@@ -50,8 +50,6 @@ const useSourcesForm = (nextStep: () => void) => {
           ...pollutant,
           state: true,
         }});
-      console.log('activePollutants:', activePollutants);
-      
       return {
         ...category,
         pollutans: activePollutants
@@ -135,7 +133,7 @@ const useSourcesForm = (nextStep: () => void) => {
   
   const updateSourcesCalculatorState = (data: SourcesType[]) => {
     
-    return calculator.categories.map(category => {
+    return filterActivePollutants(calculator.categories,categoryList).map(category => {
       return {
         ...category,
         pollutans: category.pollutans.map(pollutant => {
