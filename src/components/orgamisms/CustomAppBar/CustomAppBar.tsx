@@ -2,9 +2,10 @@ import { AppBar, Box, Container, Toolbar, styled, useTheme } from '@mui/material
 import { CustomButton, CustomText } from '../../Atoms';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { useUserActions } from '../../../recoil';
+import { useUserActions, userAtom } from '../../../recoil';
 import { useNavigate } from 'react-router-dom';
 import { PathNames } from '../../../core';
+import { useRecoilState } from 'recoil';
 
 const ProfileBox = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
@@ -16,6 +17,7 @@ const CustomAppBar = () => {
   const logout = useUserActions().logout;
   const navigate = useNavigate();
   const theme = useTheme();
+  const user = useRecoilState(userAtom);
 
   return (
     <Box
@@ -46,9 +48,9 @@ const CustomAppBar = () => {
           <Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
             <AccountCircleIcon sx={{ fontSize: '2.5rem' }} />
             <ProfileBox sx={{ display: 'flex', flexDirection: 'column' }}>
-              <CustomText variante="texto" texto="Vadlmir smirnof" />
-              <CustomText variante="pequeño" texto="vadimir@unicauca.edu.co" />
-              <CustomText variante="pequeño" texto="voluntario" />
+              <CustomText variante="texto" texto={`${user[0]?.names} ${user[0]?.lastNames}`} />
+              <CustomText variante="pequeño" texto={`${user[0]?.personalEmail}`} />
+              {/* <CustomText variante="pequeño" texto="voluntario" /> */}
             </ProfileBox>
             <CustomButton
               content="Cerrar sesión"

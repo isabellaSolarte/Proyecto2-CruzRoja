@@ -28,6 +28,7 @@ export * from './Molecules/SearchBar';
 export * from './Molecules';
 export * from './orgamisms/CustomAppBar';
 export * from './orgamisms/CustomCard';
+export * from './orgamisms/CustomDatePicker';
 export * from './orgamisms/CustomDialog';
 export * from './orgamisms/CustomStepper';
 export * from './orgamisms/DataTable';

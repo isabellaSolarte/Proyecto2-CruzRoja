@@ -1,29 +1,49 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Grid } from '@mui/material';
-import { CustomText, ErrorText, ManagmentLayout } from '../../../components';
+import { Box, Grid, Tooltip } from '@mui/material';
+import {
+  CustomButton,
+  CustomText,
+  EmptyBox,
+  ErrorText,
+  ManagmentLayout,
+} from '../../../components';
 import { useCoverageForm } from './hooks';
 import { DoubleInput } from './components';
 import { Fragment } from 'react/jsx-runtime';
-import { useEffect } from 'react';
+import HelpIcon from '@mui/icons-material/Help';
 
-const CoverageForm = () => {
-  const { t, adaptedSources, errors, register, calculator, handleFormSubmit } = useCoverageForm();
+interface CoverageFormProps {
+  nextStep: () => void;
+  stepBack: () => void;
+}
 
-  useEffect(() => {
-    if (calculator.formReference.current) {
-      calculator.formReference.current.addEventListener('submit', handleFormSubmit);
-    }
-    calculator.updateFormHasErrors(false);
-  }, []);
+const CoverageForm = ({ nextStep, stepBack }: CoverageFormProps) => {
+  const { t, adaptedSources, errors, register, handleSubmit, onSubmit } = useCoverageForm(nextStep);
 
   return (
     <ManagmentLayout
-      title={<CustomText texto={t('calculator.coverageForm.title')} variante={'subtitulo'} />}
+      title={<CustomText texto={t('calculator.coverageForm.title')} variante={'titulo'} />}
+      actionsContent={
+        <Tooltip title={t('calculator.coverageForm.help')} placement="right">
+          <HelpIcon color="disabled" />
+        </Tooltip>
+      }
       description={
-        <CustomText texto={t('calculator.coverageForm.description')} variante={'texto'} />
+        <div>
+          <CustomText texto={t('calculator.coverageForm.description')} variante={'texto'} />
+          <ul>
+            <li>
+              <CustomText texto={t('calculator.coverageForm.helpTotal')} variante={'texto'} />
+            </li>
+            <li>
+              <CustomText texto={t('calculator.coverageForm.helpInformed')} variante={'texto'} />
+            </li>
+          </ul>
+        </div>
       }
       generalContents={
-        <form ref={calculator.formReference}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container>
             {adaptedSources.map((pollutants, index) => (
               <Fragment key={index}>
@@ -68,9 +88,42 @@ const CoverageForm = () => {
               </Fragment>
             ))}
           </Grid>
+
+          <Box
+            sx={{
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'space-between',
+              mt: 3,
+            }}
+          >
+            <CustomButton
+              variant="contained"
+              color="primary"
+              content={t('generalButtonText.back')}
+              onClick={stepBack}
+            />
+
+            <CustomButton
+              variant="contained"
+              color="info"
+              content={t('components.stepper.next')}
+              type="submit"
+            />
+          </Box>
         </form>
       }
     />
+  );
+
+  return (
+    <Box>
+      <EmptyBox height={50} width={0} />
+
+      <EmptyBox height={50} width={0} />
+      <CustomText texto={'Fuentes de Emisión'} variante={'subtitulo'} />
+      <EmptyBox height={40} width={0} />
+    </Box>
   );
 };
 

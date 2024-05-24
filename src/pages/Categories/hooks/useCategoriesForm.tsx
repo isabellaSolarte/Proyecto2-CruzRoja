@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { CategoryModel } from '../../../models';
 import { getCategories } from '../../../services/AxiosRequests/Categories';
 
@@ -27,6 +27,8 @@ export const useCategoriesForm = ()=>{
     }, []);
 
     return{
+        isLoading,
+        error,
         categoryList
     }
 }

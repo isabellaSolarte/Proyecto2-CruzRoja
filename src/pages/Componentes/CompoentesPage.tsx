@@ -151,7 +151,7 @@ const CompoentesPage = () => {
 
       <CustomText texto="Atomo TabsAtomComponent" variante="subtitulo" />
       <Container>
-        <TabsAtomComponent tabContentItem={['tab 1', 'tab 2', 'tab 3']} />
+        <TabsAtomComponent tabContentItem={['abc', 'abc', 'tab 3']} />
       </Container>
 
       <CustomText texto="Atomo CustomLabelGroup" variante="subtitulo" />

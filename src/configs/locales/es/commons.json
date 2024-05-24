@@ -5,6 +5,7 @@
         "cancel": "Cancelar",
         "back": "Atrás",
         "save": "Guardar",
+        "saveCategoriesSelected": "Guardar categorías",
         "create": "Crear",
         "edit": "Editar",
         "view": "Observar",
@@ -26,7 +27,8 @@
         "activities": "Actividades",
         "plans": "Planes de compensación",
         "permissions": "Permisos",
-        "categories": "Categorías"
+        "categories": "Categorías",
+        "calculator": "Calculadora"
     },
     "pageTitles": {
         "users": "Gestión de usuarios",
@@ -43,7 +45,9 @@
         "viewCategory": "Visualizar categoria",
         "createCategory": "Crear categoria",
         "calculator": "Calculadora huella de carbono",
-        "editUser": "Editar usuario"
+        "editUser": "Editar usuario",
+        "caculatorCatogories": "Categorías de la calculadora",
+        "calculatorCostsUsages": "Consumos y costos"
     },
     "rolesPages": {
         "tabs": {
@@ -58,11 +62,15 @@
         }
     },
     "categoryPages": {
-        "desciption": {
+        "description": {
             "generalDescription": "Las categorías en el contexto del cálculo de la huella de carbono son un conjunto de actividades, que ayudan a identificar y clasificar las diferentes fuentes de emisiones de carbono en función de su naturaleza. "
-        
+        }        
+    },
+    "calculatorPage":{
+        "descriptions":{
+            "descriptionCategories": "Seleccione las categorías a las que le realizará el cálculo de emisión"
         }
-        
+       
     },
 
     "usersPages": {
@@ -193,10 +201,19 @@
     "calculator": {
         "coverageForm": {
             "title": "Coberturas",
-            "description": "Indique el número total de fuentes y el número total de fuentes informadas",
+            "description": "Por cada fuente de emisión, indique:",
+            "helpTotal": "Total: Número de elementos que generan huella de carbono.",
+            "helpInformed": "Informadas: Número de fuentes a reportar en esta evaluación.",
             "totalSources": "totales",
             "informedSources": "informadas",
-            "source": "Fuente"
+            "source": "Fuente",
+            "help": "Ejemplo: una empresa u organización cuenta con un total 10 carros que generan contaminación, pero en la evaluación solo se informan 5."
+        },
+        "pollutionTypeForm": {
+            "title": "Tipo de Contaminante ",
+            "description": "A continuacion seleccione las cargas ambientales para cada categoria seleccionada que apliquen.",
+            "help": "Ejemplo: CO2, SO2, NOx, PM10.\n\nTipos de contaminante:\n- Gases de efecto invernadero: CO2, CH4\n- Contaminantes del aire: SO2, NOx, PM\n- Contaminantes del agua: DBO, metales pesados\n- Contaminantes del suelo: Residuos peligrosos\n\nFuentes:\n- Fijas: Calderas, hornos, turbinas\n- Móviles: Vehículos terrestres, aéreos, marítimos\n- Procesos: Materiales, químicos\n- Agrícolas: Ganado, agroquímicos\n- Refrigerantes: Cuartos fríos, aires acondicionados\n- Residuos: Plantas de tratamiento",
+            "helpTypes": "Por ejemplo, si has seleccionado la categoría 'Industria Química', las cargas ambientales podrían incluir emisiones de gases de efecto invernadero, vertidos de productos químicos y consumo de recursos hídricos."
         },
         "stepper": {
             "welcome": "Bienvenido",
@@ -206,7 +223,17 @@
             "coverage": "Coberturas",
             "consumptionCosts": "Consumos y Costos",
             "validation": "Validación"
+        },
+        "costAndUsage":{
+            "description":"Para cada fuente de emisión indique: ",
+            "helpCost": "Costo: Costo del insumo." ,
+            "helpUsage": "Consumo: Cuanto de ese insumo se está usando.",
+            "helpDate": "Mes y año: Fecha de evaluación.",
+            "help":"Ejemplo: Se adquieren 10 litros del insumo gasolina, el COSTO de esos 10 litros son $50.000, de los cuales se están CONSUMIENDO 5 litros."
+            
+
         }
         
+
     }
 }

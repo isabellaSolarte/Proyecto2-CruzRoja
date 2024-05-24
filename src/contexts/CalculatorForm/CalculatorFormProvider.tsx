@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { CategoryModel } from '../../models';
 import CalculatorContext from './CalculatorContext';
 
@@ -7,13 +7,15 @@ const CalculatorFormProvider: React.FC<{ children: React.ReactNode }> = ({ child
    * Esta estructura se puede separar en estados para cada formulario, pero por simplicidad y tiempo se mantiene en un solo estado.
    */
   const [categories, setCategories] = useState<CategoryModel[]>([]);
-  const formReference = useRef<HTMLFormElement | null>(null);
-  const [formHasErrors, setFormHasErrors] = useState<boolean>(false);
-
+  const [selectedIsCategory, setIsSelectedCategories] = useState<number[]>([]); //guarda los ids de las categorias seleccionadas
+  const [selectedCategories, setSelectedCategories] = useState<{ ids: number[] }>({ ids: [] });
   const setCalculatorState = (newState: CategoryModel[]) => {
+    console.log('newState', newState);
     setCategories(newState);
   };
-
+  const setIdSelectCategories = (newState: number[]) => {
+    setIsSelectedCategories(newState);
+  }
   const updateCalculatorState = (newState: CategoryModel) => {
     const updateState = categories.map(category => {
       if (category.id === newState.id) return { ...category, ...newState };
@@ -31,22 +33,22 @@ const CalculatorFormProvider: React.FC<{ children: React.ReactNode }> = ({ child
     setCategories(updateState);
   };
 
-  const getCalculatorState = (): CategoryModel[] => {
-    return categories;
+  const updateSelectedCategories = (newState: number[]) => {
+    setSelectedCategories({ ids: newState });
   };
 
-  const updateFormHasErrors = (hasErrors: boolean) => {
-    console.log('hasErrors', hasErrors);
-    setFormHasErrors(hasErrors);
+  const getCalculatorState = (): CategoryModel[] => {
+    return categories;
   };
 
   return (
     <CalculatorContext.Provider
       value={{
         categories,
-        formReference,
-        formHasErrors,
-        updateFormHasErrors,
+        selectedCategories,
+        selectedIsCategory,
+        setIdSelectCategories,
+        updateSelectedCategories,
         updateCalculatorState,
         getCalculatorState,
         updateAllCalculatorState,

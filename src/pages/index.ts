@@ -17,7 +17,7 @@ export * from './EditUser/hooks';
 export * from './EditUser';
 export * from './EditUser/types';
 export * from './LandingPage';
-export * from './Calculator/Sources';
+export * from './Calculator/SourcesForm';
 export * from './Login/hooks';
 export * from './Login';
 export * from './Login/schemas';

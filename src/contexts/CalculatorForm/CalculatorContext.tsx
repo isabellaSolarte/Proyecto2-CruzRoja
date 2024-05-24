@@ -1,12 +1,13 @@
 /* eslint-disable no-unused-vars */
-import { MutableRefObject, createContext } from 'react';
+import { createContext } from 'react';
 import { CategoryModel } from '../../models';
 
 type CalculatorContextType = {
   categories: CategoryModel[];
-  formReference: MutableRefObject<HTMLFormElement | null>;
-  formHasErrors: boolean;
-  updateFormHasErrors: (hasErrors: boolean) => void;
+  selectedCategories: { ids: number[] };
+  selectedIsCategory: number[];
+  setIdSelectCategories: (newState: number[]) => void;
+  updateSelectedCategories: (newState: number[]) => void;
   updateCalculatorState: (newCategories: CategoryModel) => void;
   updateAllCalculatorState: (newCategories: CategoryModel[]) => void;
   getCalculatorState: () => CategoryModel[];
@@ -15,9 +16,10 @@ type CalculatorContextType = {
 
 const CalculatorContext = createContext<CalculatorContextType>({
   categories: [],
-  formReference: { current: null },
-  formHasErrors: false,
-  updateFormHasErrors: () => {},
+  selectedCategories: { ids: [] },
+  selectedIsCategory: [],
+  setIdSelectCategories: () => {},
+  updateSelectedCategories: () => {},
   updateCalculatorState: () => {},
   getCalculatorState: () => [],
   updateAllCalculatorState: () => {},

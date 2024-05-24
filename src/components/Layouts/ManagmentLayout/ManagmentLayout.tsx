@@ -28,7 +28,11 @@ const ManagmentLayout = ({
   inputBar,
 }: ManagmentLayoutProps) => {
   return (
-    <Container sx={{ padding: Mesuares.CONTENT_BOX_PADDING }}>
+    <Container
+      sx={{
+        padding: Mesuares.CONTENT_BOX_PADDING,
+      }}
+    >
       <Grid container>
         <Grid item md={8} xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
           {title}

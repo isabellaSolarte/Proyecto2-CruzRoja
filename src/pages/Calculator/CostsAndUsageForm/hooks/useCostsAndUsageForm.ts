@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { CategoryModel } from '../../../../models';
 import { useContext, useState } from 'react';
-import { useForm, Resolver } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import CostsResolver from '../Schemas/CostsAndUsageSchema';
 import { CalculatorContext } from '../../../../contexts';
@@ -13,9 +13,11 @@ export type PollutantSourceCost = {
   name: string;
   cost: number | undefined;
   month: number | undefined;
+  year: number | undefined;
+  usage: number | undefined;
 };
 
-const useCostsForm = () => {
+const useCostsForm = (nextStep: () => void) => {
   const { t } = useTranslation('commons');
   const calculator = useContext(CalculatorContext);
   const [adaptedSources, setAdaptedSources] = useState<PollutantSourceCost[]>(
@@ -24,7 +26,7 @@ const useCostsForm = () => {
 
   const { control, handleSubmit, register, getValues, formState: { errors } } = useForm<{ costs: PollutantSourceCost[] }>({
     defaultValues: { costs: adaptedSources },
-    resolver: yupResolver(CostsResolver) as Resolver<{ costs: PollutantSourceCost[] }>,
+    resolver: yupResolver(CostsResolver),
   });
 
   function extractSourcesFromCategories(categories: CategoryModel[]): PollutantSourceCost[] {
@@ -37,6 +39,8 @@ const useCostsForm = () => {
             categoryId: category.id,
             cost: source.facturation.cost,
             month: source.facturation.month,
+            year: source.facturation.year,
+            usage: source.facturation.usage,
             id: source.id,
             name: source.name,
           });
@@ -53,7 +57,7 @@ const useCostsForm = () => {
       const pollutant = category?.pollutans.find(p => p.id === formData.pollutantId);
       const source = pollutant?.sources.find(s => s.id === formData.id);
       if (!source) return;
-      source.facturation = { cost: formData.cost, month: formData.month };
+      source.facturation = { cost: formData.cost, month: formData.month, year: formData.year, usage: formData.usage };
     });
     return currentState;
   };
@@ -62,9 +66,20 @@ const useCostsForm = () => {
     setAdaptedSources(data.costs);
     const updateCosts = updateCostsCalculatorState(data.costs);
     calculator.setCalculatorState(updateCosts);
+    nextStep();
   };
 
-  return { handleSubmit, onSubmit, register, getValues, errors, control, t, adaptedSources };
+  return { 
+    handleSubmit, 
+    onSubmit, 
+    register, 
+    getValues, 
+    calculator, 
+    errors, 
+    control, 
+    t, 
+    adaptedSources 
+  };
 };
 
 export default useCostsForm;

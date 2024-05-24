@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import { Box, Grid } from '@mui/material';
 import { CustomText, LabeledInput } from '../../../../components';
-import EnergySavingsLeafIcon from '@mui/icons-material/EnergySavingsLeaf';
+import EnergySavingsLeafIcon from '@mui/icons-material/WaterDrop';
 
 interface DoubleInputProps {
   mainLabel: string;
@@ -50,28 +50,30 @@ const DoubleInput = ({
         alignItems: 'flex-end',
       }}
     >
-      <Grid item xs={12} md={6}>
-        <CustomText
-          texto={mainLabel}
-          variante={'pequeño'}
-          textAlign="center"
-          icon={<EnergySavingsLeafIcon color="success" />}
-        />
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            boxShadow: '0px 1px 5px 0px rgba(0,0,0,0.5)',
-            borderRadius: '5px',
-            padding: '0.8rem',
-          }}
-        >
-          <CustomText texto={title} variante={'texto'} textAlign="center" />
+      <Grid item xs={12}>
+        <Box sx={{ textAlign: 'center' }}>
+          <CustomText
+            texto={mainLabel}
+            variante={'pequeño'}
+            textAlign="center"
+            icon={<EnergySavingsLeafIcon color="success" />}
+          />
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              boxShadow: '0px 1px 5px 0px rgba(0,0,0,0.5)',
+              borderRadius: '5px',
+              padding: '0.8rem',
+            }}
+          >
+            <CustomText texto={title} variante={'texto'} textAlign="center" />
+          </Box>
         </Box>
       </Grid>
 
-      <Grid item xs={6} md={3}>
+      <Grid item xs={12} md={12} lg={6}>
         <LabeledInput
           label={labelInput1}
           placeholder={''}
@@ -83,7 +85,7 @@ const DoubleInput = ({
         />
       </Grid>
 
-      <Grid item xs={6} md={3}>
+      <Grid item xs={12} md={12} lg={6}>
         <LabeledInput
           label={labelInput2}
           placeholder={''}
