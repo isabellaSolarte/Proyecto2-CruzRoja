@@ -1,11 +1,10 @@
-export interface extractDataCalculatorModel
-{
-    pollutionId: number;
-    sourceId: number;
-    year: number | undefined;
-    month: number | undefined;
-    consume: number;
-    cost: number | undefined;
-    informedSource: number | undefined;
-    totalSource: number | undefined;
+export interface extractDataCalculatorModel {
+  pollutionId: number;
+  sourceId: number;
+  year: number | undefined;
+  month: number | undefined;
+  consume: number;
+  cost: number | undefined;
+  informedSources: number | undefined;
+  sources: number | undefined;
 }
