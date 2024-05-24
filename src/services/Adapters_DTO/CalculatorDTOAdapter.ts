@@ -3,12 +3,12 @@ import { extractDataCalculatorModel } from '../../models';
 interface dataValidateCalculatorDTO {
   pollutionId: number;
   sourceId: number;
-  year: number | undefined;
-  month: number | undefined;
+  year: number;
+  month: number;
   consume: number;
-  cost: number | undefined;
-  informedSource: number | undefined;
-  totalSource: number | undefined;
+  cost: number;
+  informedSources: number;
+  sources: number;
 }
 
 export const adaptFrontCalculatorModelToDTO = (
@@ -19,11 +19,11 @@ export const adaptFrontCalculatorModelToDTO = (
   return filteredData.map(data => ({
     pollutionId: data.pollutionId,
     sourceId: data.sourceId,
-    year: data.year,
     month: data.month,
+    year: data.year,
     consume: data.consume,
     cost: data.cost,
     informedSources: data.informedSources,
-    sources: data.sourceId,
+    sources: data.sources,
   }));
 };

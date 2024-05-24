@@ -22,6 +22,8 @@ import CalculateIcon from '@mui/icons-material/Calculate';
 import { CalculatorPage } from '../../pages/Calculator';
 import { CalculatorFormProvider } from '../../contexts/CalculatorForm';
 import { CalculatorResultsPage } from '../../pages/CalculatorResults';
+import HomaPage from '../../pages/Home/HomaPage';
+import CottageIcon from '@mui/icons-material/Cottage';
 
 export const NavigationRoutes = () => {
   const { t } = useTranslation('commons');
@@ -31,6 +33,12 @@ export const NavigationRoutes = () => {
       path: '/*',
       component: <Navigate to={PathNames.NOT_FOUND} />,
       title: t('menuOptions.home'),
+    },
+    {
+      path: PathNames.HOME,
+      component: <HomaPage />,
+      title: t('menuOptions.home'),
+      icon: <CottageIcon />,
     },
     {
       path: PathNames.BUSINESS,

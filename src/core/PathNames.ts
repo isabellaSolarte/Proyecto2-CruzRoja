@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
 export enum PathNames {
+  HOME = '/home',
+
   USERS = '/users',
   VIEW_USER = '/users/view/:type/:id',
   REGISTER_USER = '/users/register/',
@@ -31,9 +33,9 @@ export enum PathNames {
   EDIT_ACTIVITY = '/activity/edit/:id',
 
   CATEGORIES = '/categories',
-  CREATE_CATEGORY = '/category/create',
-  VIEW_CATEGORY = '/category/view/:id',
-  EDIT_CATEGORY = '/category/edit/:id',
+  CREATE_CATEGORY = '/categories/create',
+  VIEW_CATEGORY = '/categories/view/:id',
+  EDIT_CATEGORY = '/categories/edit/:id',
 
   CALCULATOR = '/calculator',
   CALCULATOR_RESULTS = '/calculator/results',
