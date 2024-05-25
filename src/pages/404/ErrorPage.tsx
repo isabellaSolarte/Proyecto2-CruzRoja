@@ -1,11 +1,12 @@
 import { Typography, Button, Box, Grid, Paper } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { PathNames } from '../../core';
 
 const Error404 = () => {
   const navigate = useNavigate();
 
   const handleGoHome = () => {
-    navigate(-1); // Vuelve a la página de inicio
+    navigate(PathNames.CALCULATOR, { replace: true }); // Vuelve a la página de inicio
   };
 
   return (

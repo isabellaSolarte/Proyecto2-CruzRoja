@@ -1,13 +1,9 @@
-import { PathNames } from "../core";
+import { PathNames } from '../core';
 
-export const allowedRoutesBaseOnPermissions = (): <PathNames>[] => {
-    const allowedRoutes: PathNames[] = [];
+export const allowedRoutesBaseOnPermissions = (): PathNames[] => {
+  const allowedRoutes: PathNames[] = [];
 
-    
-    allowedRoutes.push(PathNames.USERS);
+  allowedRoutes.push(PathNames.USERS);
 
-    
-
-
-    return allowedRoutes;
-}
+  return allowedRoutes;
+};

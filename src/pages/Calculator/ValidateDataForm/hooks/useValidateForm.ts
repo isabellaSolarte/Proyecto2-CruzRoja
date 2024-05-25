@@ -2,7 +2,12 @@ import { useTranslation } from 'react-i18next';
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { CalculatorContext } from '../../../../contexts';
-import { CalculatorResult, CategoryModel, monthResult, sourceResult } from '../../../../models';
+import {
+  CalculatorResult,
+  CategoryModel,
+  monthResult,
+  sourceResult,
+} from '../../../../models';
 import { PathNames } from '../../../../core';
 import { useNavigate } from 'react-router-dom';
 import { extractDataCalculatorModel } from '../../../../models';
@@ -97,19 +102,22 @@ const useValidateForm = () => {
   }
   const mapCalculatorResult = (data: any): CalculatorResult => {
     const { total, totalBySources, totalByMonth, percentage } = data;
-  
+
     const mappedTotalBySources: sourceResult[] = totalBySources.map(
-      (sourceData: { source: any; total: any; }) => ({ source: sourceData.source, total: sourceData.total })
+      (sourceData: { source: any; total: any }) => ({
+        source: sourceData.source,
+        total: sourceData.total,
+      }),
     );
-  
+
     const mappedTotalByMonth: monthResult[] = totalByMonth.map(
-      (monthData: { year: any; month: any; total: any; }) => ({
-        year: monthData.year, 
+      (monthData: { year: any; month: any; total: any }) => ({
+        year: monthData.year,
         month: monthData.month,
         total: monthData.total,
-      })
+      }),
     );
-    
+
     return {
       total,
       totalBySources: mappedTotalBySources,
@@ -117,12 +125,10 @@ const useValidateForm = () => {
       percentage,
     };
   };
-  
+
   const onSubmit = async (data: { dataV: CategoryModel[] }) => {
-    
     try {
       const dataValidateResponse = extractValidateFromCategories(data.dataV);
-      console.log(dataValidateResponse);
       const calculatorResult = await postDataCalculator(dataValidateResponse);
       const processedResult = mapCalculatorResult(calculatorResult);
       navigate(PathNames.CALCULATOR_RESULTS, {
@@ -145,10 +151,10 @@ const useValidateForm = () => {
             sourceId: source.id,
             year: source.facturation.year,
             month: source.facturation.month,
-            consume: 10,
+            consume: source.facturation.usage,
             cost: source.facturation.cost,
-            informedSource: source.coverage.informedSources,
-            totalSource: source.coverage.totalSources,
+            informedSources: source.coverage.informedSources,
+            sources: source.coverage.totalSources,
           });
         });
       });
