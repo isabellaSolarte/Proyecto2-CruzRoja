@@ -58,7 +58,8 @@ export const getAllowedUserRoutePaths = (currentUser: UserModel): string[] => {
  * @param currentUser
  * @returns allowedRoutes RouterModel list for the current logged user
  */
-export const getAllowedUserRoutes = (currentUser: UserModel): RouterModel[] => {
+export const getAllowedUserRoutes = (currentUser: UserModel | undefined): RouterModel[] => {
+  if (!currentUser) return [];
   const allRoutes: RouterModel[] = getAllRoutes();
   const userRoutes: string[] = currentUser.allowedRoutes;
 

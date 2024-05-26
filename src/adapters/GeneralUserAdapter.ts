@@ -6,6 +6,7 @@ import { PathNames } from '../core';
 
 export const GeneralUserAdapter = (externalUser: any): UserModel => {
   const allowedRoutes: any[] = [
+    PathNames.HOME,
     PathNames.CALCULATOR,
     PathNames.CALCULATOR_RESULTS,
   ];

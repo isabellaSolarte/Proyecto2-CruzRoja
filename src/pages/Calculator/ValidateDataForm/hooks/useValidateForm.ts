@@ -129,7 +129,6 @@ const useValidateForm = () => {
   const onSubmit = async (data: { dataV: CategoryModel[] }) => {
     try {
       const dataValidateResponse = extractValidateFromCategories(data.dataV);
-      console.log(dataValidateResponse);
       const calculatorResult = await postDataCalculator(dataValidateResponse);
       const processedResult = mapCalculatorResult(calculatorResult);
       navigate(PathNames.CALCULATOR_RESULTS, {
@@ -152,7 +151,7 @@ const useValidateForm = () => {
             sourceId: source.id,
             year: source.facturation.year,
             month: source.facturation.month,
-            consume: 10,
+            consume: source.facturation.usage,
             cost: source.facturation.cost,
             informedSources: source.coverage.informedSources,
             sources: source.coverage.totalSources,
