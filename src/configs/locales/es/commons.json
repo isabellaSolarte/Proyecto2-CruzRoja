@@ -47,7 +47,9 @@
         "calculator": "Calculadora huella de carbono",
         "editUser": "Editar usuario",
         "caculatorCatogories": "Categorías de la calculadora",
-        "calculatorCostsUsages": "Consumos y costos"
+        "calculatorCostsUsages": "Consumos y costos",
+        "createAction":"Registrar nueva acción",
+        "editAction":"Editar Acción"
     },
     "rolesPages": {
         "tabs": {
@@ -230,10 +232,12 @@
             "helpUsage": "Consumo: Cuanto de ese insumo se está usando.",
             "helpDate": "Mes y año: Fecha de evaluación.",
             "help":"Ejemplo: Se adquieren 10 litros del insumo gasolina, el COSTO de esos 10 litros son $50.000, de los cuales se están CONSUMIENDO 5 litros."
-            
-
         }
-        
 
-    }
+    },
+    "registerAction": { 
+        "nameAction":"Nombre de la acción",
+        "cost":"Costo ufp por unidad",
+        "description":"Descripción"    
+        }   
 }

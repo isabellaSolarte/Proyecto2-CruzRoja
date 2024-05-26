@@ -1,7 +1,7 @@
 import { Box, Grid, MenuItem, Select } from '@mui/material';
 import { CustomText, LabeledInput } from '../../../../components';
 import EnergySavingsLeafIcon from '@mui/icons-material/WaterDrop';
-import { calculateMonth, calculateYears } from './dateCalculator';
+import { calculateMonth, calculateYears, getAllMonths } from './dateCalculator';
 
 interface DoubleInputProps {
     mainLabel: string;
@@ -49,7 +49,7 @@ const DoubleInput = ({
         }
     };
 
-    const months = calculateMonth();
+    const months = getAllMonths();
     const years = calculateYears();
 
     return (

@@ -24,6 +24,7 @@ import { CalculatorFormProvider } from '../../contexts/CalculatorForm';
 import { CalculatorResultsPage } from '../../pages/CalculatorResults';
 import HomaPage from '../../pages/Home/HomaPage';
 import CottageIcon from '@mui/icons-material/Cottage';
+import {CreateActionPage} from '../../pages/CreateAction';
 
 export const NavigationRoutes = () => {
   const { t } = useTranslation('commons');
@@ -148,6 +149,21 @@ export const NavigationRoutes = () => {
       path: PathNames.CALCULATOR_RESULTS,
       component: <CalculatorResultsPage />,
       title: t('menuOptions.calculator'),
+    },
+    {
+      path: PathNames.CALCULATOR_RESULTS,
+      component: <CalculatorResultsPage />,
+      title: t('menuOptions.calculator'),
+    },
+    {
+      path: PathNames.CREATE_ACTIONS,
+      component: <CreateActionPage/>,
+      title: "Crear Acciones",
+    },
+    {
+      path: PathNames.EDIT_ACTIONS,
+      component: <CreateActionPage/>,
+      title: "Editar Acciones",
     },
   ];
 
