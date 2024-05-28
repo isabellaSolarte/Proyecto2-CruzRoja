@@ -5,7 +5,7 @@ import { DataTable } from '../../orgamisms';
 import { actionsValidationSchema } from './schema';
 import { CustomColumn } from '../../Molecules';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { CustomButton } from '../../Atoms';
+import { CustomButton, CustomText } from '../../Atoms';
 import { useTranslation } from 'react-i18next';
 import { useActions } from './hook';
 import { PathNames } from '../../../core';
@@ -37,21 +37,25 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
   const navigate = useNavigate(); 
   const { actions, loading, error } = useActions(); // Usa el hook personalizado
   const [selectedActions, setSelectedActions] = useState<ActionType[]>([]);
+  const [actionTemplate, setActionTemplate] = useState<ActionSummaryType>();
   const [selectedRows, setSelectedRows] = useState(actionSummary.actions);
 
   useEffect(() => {
     if (!loading && !error) {
       setSelectedActions(actions);
+      const totalCosto = selectedRows.reduce((acc, action) => acc + action.costo, 0);
+      const totalUfp = selectedRows.reduce((acc, action) => acc + action.ufp, 0);
+      setActionTemplate({ actions: selectedRows, totalUfp, totalCosto });
     }
-  }, [loading, error, actions]);
+  }, [loading, error, actions, selectedRows, onAddSelected]);
 
   const handleAddSelected = () => {
     actionsValidationSchema
-      .validate(selectedActions)
+      .validate(selectedRows)
       .then(() => {
-        const totalCosto = selectedActions.reduce((acc, action) => acc + action.costo, 0);
-        const totalUfp = selectedActions.reduce((acc, action) => acc + action.ufp, 0);
-        onAddSelected({ actions: selectedActions, totalUfp, totalCosto });
+        const totalCosto = selectedRows.reduce((acc, action) => acc + action.costo, 0);
+        const totalUfp = selectedRows.reduce((acc, action) => acc + action.ufp, 0);
+        onAddSelected({ actions: selectedRows, totalUfp, totalCosto });
       })
       .catch((error: unknown) => {
         if (error instanceof Error) {
@@ -111,6 +115,7 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
             <Alert severity="error">{error}</Alert>
           )} {/* Display error directly */}
           {!loading && !error && (
+            <>
             <DataTable
               enableCheckboxSelection={true}
               dataColumns={columns}
@@ -118,6 +123,10 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
               selectedRowsData={selectedRows}
               onSelectionChange={setSelectedRows}
             />
+            <CustomText texto={`${t('Total UFP: ')}${actionTemplate?.totalUfp}`} variante="subtitulo" />
+            <CustomText texto={`${t('Costo adicional: ')} ${actionTemplate?.totalCosto} COP`} variante="texto" />
+            
+            </>
           )}
         </DialogContent>
         <DialogActions>
