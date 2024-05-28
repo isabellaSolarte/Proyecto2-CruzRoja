@@ -13,7 +13,8 @@ const CategoriesList = () => {
     const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState('');
     const{
-        categoryList
+        categoryList,
+        handleCategorySelect
     }= useCategoriesForm()
 
     const handleSearch = (event:any) => {
@@ -74,7 +75,8 @@ const CategoriesList = () => {
                             categoryName={category.name}
                             categoryScope={category.scope}
                             categoryDescription={category.descripction}
-                            
+                            switchState={category.state}
+                            handleSwitchClick={() => handleCategorySelect(category.id, category.state)}
                         />
                     ))}     
                 </Box>
