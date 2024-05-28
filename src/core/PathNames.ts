@@ -55,4 +55,9 @@ export enum PathNames {
   NOT_FOUND = '/404',
 
   LANDIN_PAGE = '/landingpage',
+
+  ACTIONS = '/actions',
+  CREATE_ACTIONS = '/actions/create',
+  VIEW_ACTIONS = '/actions/view/:id',
+  EDIT_ACTIONS = '/actions/edit/:id',
 }
