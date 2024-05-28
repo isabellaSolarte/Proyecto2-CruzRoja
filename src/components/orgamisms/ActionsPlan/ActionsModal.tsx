@@ -8,6 +8,9 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { CustomButton } from '../../Atoms';
 import { useTranslation } from 'react-i18next';
 import { useActions } from './hook';
+import { PathNames } from '../../../core';
+import { useNavigate } from 'react-router-dom';
+
 
 type ActionType = {
   id: number;
@@ -31,6 +34,7 @@ interface ActionsModalProps {
 
 const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, onAddSelected }) => {
   const { t } = useTranslation('commons');
+  const navigate = useNavigate(); 
   const { actions, loading, error } = useActions(); // Usa el hook personalizado
   const [selectedActions, setSelectedActions] = useState<ActionType[]>([]);
   const [selectedRows, setSelectedRows] = useState(actionSummary.actions);
@@ -73,7 +77,8 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
           variant: 'contained',
           color: 'warning',
           icon: <VisibilityIcon />,
-          onClick: row => console.log('Observar', row),
+          onClick: row => { console.log('Observar', PathNames.VIEW_ACTIVITY.replace(':id', String(row.id))); },
+          //onClick: (row) => { navigate(PathNames.VIEW_ACTIVITY.replace(':id', String(row.id))); },
         },
       ],
     }),
