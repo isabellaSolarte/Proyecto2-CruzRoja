@@ -1,7 +1,7 @@
 export interface ActionsModel{
     id: number;
     name: string;
-    description: boolean;
+    description: string;
     unitaryPrice: number;
     footPrintUnity: number;
     quantity: number;
