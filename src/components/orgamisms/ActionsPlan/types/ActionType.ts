@@ -3,5 +3,6 @@ export type ActionType = {
     name: string;
     ufp: number;
     cantidad: number;
+    costo: number;
 }
   

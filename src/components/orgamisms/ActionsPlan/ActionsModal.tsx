@@ -8,13 +8,19 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { CustomButton } from '../../Atoms';
 import { useTranslation } from 'react-i18next';
 
+type ActionSummaryType = {
+    actions: ActionType[];
+    totalUfp: number;
+    totalCosto: number;
+};
+
 interface ActionsModalProps {
-  actions: ActionType[];
+  actionSummary: ActionSummaryType;
   onCancel: () => void;
   onAddSelected: (selectedActions: ActionType[]) => void;
 }
 
-const ActionsModal: React.FC<ActionsModalProps> = ({ actions, onCancel, onAddSelected }) => {
+const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, onAddSelected }) => {
   const { t } = useTranslation('commons');
   const [selectedActions, setSelectedActions] = useState<ActionType[]>([]);
 
@@ -37,6 +43,7 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actions, onCancel, onAddSel
     CustomColumn({ field: 'name', headerName: 'Acción', format: 'text' }),
     CustomColumn({ field: 'ufp', headerName: 'UFP', format: 'text' }),
     CustomColumn({ field: 'cantidad', headerName: 'Cantidad', format: 'text' }),
+    CustomColumn({ field: 'costo', headerName: 'Costo (COP)', format: 'text' }),
     // en la opciones estara obcervar
     CustomColumn({
         field: 'options',
@@ -71,7 +78,7 @@ return (
                 <DataTable
                     enableCheckboxSelection={true}
                     dataColumns={columns}
-                    dataRows={actions}
+                    dataRows={actionSummary.actions}
                 />
             </DialogContent>
             <DialogActions>
