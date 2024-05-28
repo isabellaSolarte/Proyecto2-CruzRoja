@@ -1,13 +1,15 @@
 import { useTranslation } from 'react-i18next';
 import {CustomButton,CustomText,CustomInput, ErrorText} from '../../../components';
 import { useNavigate } from "react-router-dom";
-import { Box } from '@mui/material';
+import { Box, TextField } from '@mui/material';
 import { RoleModel } from '../../../models';
 import { PermissionModel } from '../../../models';
 import { useCreateRolForm } from '../hooks/useCreateRolForm';
 import { PermissionCard } from '../Components';
 import { PathNames } from '../../../core';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import SearchIcon from '@mui/icons-material/Search';
+import { permissionMessages } from '../Components/PermissionsMessages';
 
 
 
@@ -18,6 +20,7 @@ interface FormRoleDataProps{
 
 const FormRoleData = ({updateRolData, rolData }: FormRoleDataProps) => {
     const navigate = useNavigate();
+    const [searchTerm, setSearchTerm] = useState('');
     const { t } = useTranslation('commons');
     const handleCreateButtonClick = () => {
       navigate(PathNames.ROLES);
@@ -44,6 +47,13 @@ const FormRoleData = ({updateRolData, rolData }: FormRoleDataProps) => {
       }
       reset(rolData)
     }, [rolData]);
+    const handleSearch = (event:any) => {
+      setSearchTerm(event.target.value);
+    };
+    const filteredPermissons = permissionList.filter(permission =>
+      permissionMessages[permission.id].toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     
   return (
     <Box>
@@ -61,7 +71,22 @@ const FormRoleData = ({updateRolData, rolData }: FormRoleDataProps) => {
               variante="subtitulo"
               mandatory
             />
-            {permissionList.map((permission, index) => (
+            <TextField
+                        fullWidth
+                        placeholder={t('registerCategory.placeholderSearch')}
+                        value={searchTerm}
+                        onChange={handleSearch}
+                        variant="outlined"
+                        InputProps={{
+                            endAdornment: <SearchIcon />
+                        }}
+                        style={{
+                            borderRadius: 5,
+                            margin: '10px ',
+                            border: '1px solid #ccc', 
+                        }}
+                    />
+            {filteredPermissons.map((permission, index) => (
               <PermissionCard
                 key={permission.id}
                 permission={permission}
