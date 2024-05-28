@@ -158,12 +158,13 @@ export const NavigationRoutes = () => {
     {
       path: PathNames.ACTIONS,
       component: <h1>ACTIONS</h1>,
-      title: "Crear Acciones",
+      title: "Acciones",
+      icon: <QueryStatsIcon />,
     },
     {
       path: PathNames.CREATE_ACTIONS,
       component: <CreateActionPage/>,
-      title: "Crear Acciones",
+      title: "Registrar Acciones",
     },
     {
       path: PathNames.EDIT_ACTIONS,

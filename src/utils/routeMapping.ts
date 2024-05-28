@@ -25,6 +25,11 @@ mapRoutes.set(401, PathNames.CREATE_CATEGORY);
 mapRoutes.set(402, PathNames.EDIT_CATEGORY);
 mapRoutes.set(403, PathNames.VIEW_CATEGORY);
 
+mapRoutes.set(500, PathNames.ACTIONS);
+mapRoutes.set(501, PathNames.CREATE_ACTIONS);
+mapRoutes.set(502, PathNames.EDIT_ACTIONS);
+mapRoutes.set(503, PathNames.VIEW_ACTIONS);
+
 export default mapRoutes;
 
 /*   allowedRoutes: [
