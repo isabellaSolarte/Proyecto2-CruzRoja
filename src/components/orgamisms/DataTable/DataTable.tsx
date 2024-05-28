@@ -44,6 +44,9 @@ const DataTable = ({ enableCheckboxSelection, dataColumns, dataRows }:DataTableP
               borderBottom: '1px solid #000',
               color:'black'
             },
+            '& .MuiCheckbox-colorPrimary.Mui-checked': {
+              color: '#65B741', // Cambia el color del checkbox seleccionado
+            },
           }}
           //pageSizeOptions={[5, 10]}
           checkboxSelection = {enableCheckboxSelection}
