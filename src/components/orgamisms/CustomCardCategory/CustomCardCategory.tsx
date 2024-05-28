@@ -11,7 +11,7 @@ import {
   IconButton,
   Box,
 } from '@mui/material';
-import { CustomButton } from '../../Atoms';
+import { CustomButton, CustomSwitch } from '../../Atoms';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { PathNames } from '../../../core';
@@ -22,12 +22,16 @@ interface CustomCardCategoryProps {
   categoryName: string;
   categoryScope: string;
   categoryDescription: string;
+  switchState: boolean;
+  handleSwitchClick?: () => void;
 }
 const CustomCardCategory = ({
   idCategory,
   categoryName,
   categoryScope,
   categoryDescription,
+  switchState,
+  handleSwitchClick,
 }: CustomCardCategoryProps) => {
   const { t } = useTranslation('commons');
   const navigate = useNavigate();
@@ -78,6 +82,7 @@ const CustomCardCategory = ({
             onClick={handleEditButtonClick}
             content={t('generalButtonText.edit')}
           />
+          {/* <CustomSwitch switchState={switchState} onClick={handleSwitchClick} /> */}
           <IconButton aria-expanded={expanded} aria-label="show more" onClick={handleExpandClick}>
             {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </IconButton>

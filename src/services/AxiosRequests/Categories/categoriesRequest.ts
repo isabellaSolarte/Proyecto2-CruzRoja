@@ -8,6 +8,7 @@ import { adaptCategoryModelToDTO } from '../../Adapters_DTO/CategoryDTOAdapter';
 import { AxiosResponse } from 'axios';
 import { CategoryType } from '../../../pages/CreateCategory/types/CategoryTypes';
 import { CategoryByIds } from '../../../models/CalculatorModels/Category';
+import { adaptCategoryModelToDTOStatus } from '../../Adapters_DTO/CategoryDTOAdapterState';
 
 export const getCategories = async (): Promise<CategoryModel[]> => {
   try {
@@ -88,6 +89,7 @@ export const postCategory = async (data: CategoryType) => {
 export const putCategory = async (data: CategoryType, id: number) => {
   try {
     const AdaptedCategory = adaptCategoryModelToDTO(data);
+    console.log('AdaptedCategory:', AdaptedCategory);
     const updatedCategoryData = {
       ...AdaptedCategory,
       categoryId: id,
@@ -99,6 +101,28 @@ export const putCategory = async (data: CategoryType, id: number) => {
       CategoriesEndpoints.putCategory,
       updatedCategoryData,
     );
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateStatetoCategory = async (data: CategoryModel, id: number) => {
+
+  try {
+    const AdaptedCategory = adaptCategoryModelToDTOStatus(data);
+    console.log('AdaptedCategory:', data);
+    const updatedCategoryData = {
+      ...AdaptedCategory,
+      categoryId: id,
+      pollutions: [],
+    };
+    console.log('PostData:', updatedCategoryData);
+    const response = await api.put<AxiosResponse>(
+      CategoriesEndpoints.putCategory,
+      updatedCategoryData,
+    );
+    console.log('Response:', response);
     return response;
   } catch (error) {
     throw error;
