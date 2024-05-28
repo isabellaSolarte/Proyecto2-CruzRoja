@@ -156,6 +156,11 @@ export const NavigationRoutes = () => {
       title: t('menuOptions.calculator'),
     },
     {
+      path: PathNames.ACTIONS,
+      component: <h1>ACTIONS</h1>,
+      title: "Crear Acciones",
+    },
+    {
       path: PathNames.CREATE_ACTIONS,
       component: <CreateActionPage/>,
       title: "Crear Acciones",
