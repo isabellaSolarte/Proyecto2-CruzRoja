@@ -14,12 +14,14 @@ export const defaulActionsSchema: Array<ActionType> = [
         name: 'Accion 1',
         ufp: 1,
         cantidad: 1,
+        costo: 20
     },
     {
         id: 1,
         name: 'Accion 2',
         ufp: 1,
         cantidad: 1,
+        costo: 10
     },
 ];
 
