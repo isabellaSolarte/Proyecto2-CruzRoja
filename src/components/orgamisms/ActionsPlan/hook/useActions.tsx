@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios'; // Asegúrate de tener axios instalado: npm install axios
 import { ActionType } from '../types/ActionType';
+import { getAllActions } from '../../../../services/AxiosRequests/Actions';
+
 
 const useActions = () => {
     const [actions, setActions] = useState<ActionType[]>([]);
@@ -11,7 +13,8 @@ const useActions = () => {
         const fetchActions = async () => {
             try {
                 setLoading(true);
-                //const response = await axios.get(); // TOD: Cambia esto por el endpoint correcto
+                const response2 = await getAllActions() // TOD: Cambia esto por el endpoint correcto
+                console.log(response2)
                 const response = {
                     data: [
                         { id: 1, name: 'Plantar Árboles', ufp: 100, cantidad: 5, costo: 1000 },
