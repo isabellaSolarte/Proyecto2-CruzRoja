@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import {DataTable} from '../../orgamisms';
 import { actionsValidationSchema } from './schema';
@@ -33,9 +33,14 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
     { id: 2, name: 'Reciclaje', ufp: 50, cantidad: 10, costo: 500},
     // otras acciones
   ]);
+  const [selectedRows, setSelectedRows] = useState([ { id: 1, name: 'Plantar Árboles', ufp: 100, cantidad: 5, costo: 1000}]);
   const isSelected = (action: ActionType) => {
     return selectedActions.some(selectedAction => selectedAction.id === action.id);
   };
+  useEffect(() => {
+    console.log(selectedRows);
+
+  }, [selectedRows]);
 
   const handleAddSelected = () => {
       //calcular el costo total
@@ -98,6 +103,8 @@ return (
                     enableCheckboxSelection={true}
                     dataColumns={columns}
                     dataRows={selectedActions}
+                    selectedRowsData={selectedRows}
+                    onSelectionChange={setSelectedRows}
                 />
             </DialogContent>
             <DialogActions>

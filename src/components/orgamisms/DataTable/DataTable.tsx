@@ -1,16 +1,29 @@
 import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 import './DataTableStyle.css';
 import { esES } from '@mui/x-data-grid/locales';
+import { useEffect, useState } from 'react';
 
 interface DataTableProps {
   enableCheckboxSelection: boolean;
   dataColumns: GridColDef[]; 
   dataRows: GridColDef[]; 
-  onSelectionChange?: (selectedRows: GridColDef[]) => void;
+  selectedRowsData?: any[];
+  onSelectionChange?: (selectedRows: any[]) => void; 
 }
 
-const DataTable = ({ enableCheckboxSelection, dataColumns, dataRows, onSelectionChange }:DataTableProps) => {
-  //const [selectedRowData, setSelectedRowData] = useState([]);
+const DataTable = ({ enableCheckboxSelection, dataColumns, dataRows, selectedRowsData, onSelectionChange  }:DataTableProps) => {
+  const [selectedRows, setSelectedRows] = useState<number[]>([]);
+/*   useEffect(()=> {
+    if (selectedRowsData && selectedRowsData.length > 0) {
+      const selectedRowIds = selectedRowsData.map(row => row.id);
+      setSelectedRows(selectedRowIds);
+    }
+    
+  }) */
+  useEffect(() => {
+    const selectedRowIds = selectedRowsData?.map(row => row.id);
+    setSelectedRows(selectedRowIds);
+  }, [selectedRowsData]);
 
   return (
     <div style={{ height: 450, width: '100%' }}>
@@ -58,9 +71,12 @@ const DataTable = ({ enableCheckboxSelection, dataColumns, dataRows, onSelection
             const selectedRowData = dataRows.filter((row) =>
               selectedIDs.has(row.id)
             );
+            console.log(selectedRowData);
             onSelectionChange(selectedRowData)
-            //console.log(selectedRowData);
           }}
+          //onSelectionModel={selectedRows}
+          rowSelectionModel={selectedRows}
+
           disableRowSelectionOnClick
         />
     </div>
