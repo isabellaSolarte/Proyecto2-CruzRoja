@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { Box, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import {DataTable} from '../../orgamisms';
-import { ActionType } from './types/ActionType';
 import { actionsValidationSchema } from './schema';
 import { CustomColumn } from '../../Molecules';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { CustomButton } from '../../Atoms';
 import { useTranslation } from 'react-i18next';
-
+type ActionType = {
+    id: number;
+    name: string;
+    ufp: number;
+    cantidad: number;
+    costo: number;
+}
 type ActionSummaryType = {
     actions: ActionType[];
     totalUfp: number;
@@ -17,17 +22,30 @@ type ActionSummaryType = {
 interface ActionsModalProps {
   actionSummary: ActionSummaryType;
   onCancel: () => void;
-  onAddSelected: (selectedActions: ActionType[]) => void;
+  onAddSelected: (selectedActions: ActionSummaryType) => void;
 }
 
 const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, onAddSelected }) => {
   const { t } = useTranslation('commons');
-  const [selectedActions, setSelectedActions] = useState<ActionType[]>([]);
+  //TODO: quitar los valores quemados y traerlos del backend
+  const [selectedActions, setSelectedActions] = useState<ActionType[]>([
+    { id: 1, name: 'Plantar Árboles', ufp: 100, cantidad: 5, costo: 1000},
+    { id: 2, name: 'Reciclaje', ufp: 50, cantidad: 10, costo: 500},
+    // otras acciones
+  ]);
+  const isSelected = (action: ActionType) => {
+    return selectedActions.some(selectedAction => selectedAction.id === action.id);
+  };
 
   const handleAddSelected = () => {
+      //calcular el costo total
+      const totalCosto = selectedActions.reduce((acc, action) => acc + action.costo, 0);
+      //calcular el total de UFP
+      const totalUfp = selectedActions.reduce((acc, action) => acc + action.ufp, 0);
+      onAddSelected({ actions: selectedActions, totalUfp, totalCosto });
     actionsValidationSchema.validate(selectedActions)
       .then(() => {
-        onAddSelected(selectedActions);
+        //TODO: aun no voy a validar para agregar las acciones seleccionadas
       })
       .catch((error: unknown) => {
         if (error instanceof Error) {
@@ -75,10 +93,11 @@ return (
         }>            
         <DialogTitle>{t('Selecciona acciones para agregar')} </DialogTitle>
             <DialogContent>
+                {/* TODO: Controlar que la seleccion se recuerde */}
                 <DataTable
                     enableCheckboxSelection={true}
                     dataColumns={columns}
-                    dataRows={actionSummary.actions}
+                    dataRows={selectedActions}
                 />
             </DialogContent>
             <DialogActions>

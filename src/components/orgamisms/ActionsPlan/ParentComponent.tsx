@@ -17,11 +17,7 @@ const ParentComponent = () => {
   const { t } = useTranslation('commons');
   const [showModal, setShowModal] = useState(false);
   const [actionSummary, setActionSummary] = useState<ActionSummaryType>({
-    actions: [
-      { id: 1, name: 'Plantar Árboles', ufp: 100, cantidad: 5, costo: 1000},
-      { id: 2, name: 'Reciclaje', ufp: 50, cantidad: 10, costo: 500},
-      // otras acciones
-    ],
+    actions: [],
     totalUfp: 0,
     totalCosto: 0,
   });
