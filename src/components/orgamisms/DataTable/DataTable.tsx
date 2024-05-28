@@ -1,13 +1,16 @@
 import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 import './DataTableStyle.css';
 import { esES } from '@mui/x-data-grid/locales';
+
 interface DataTableProps {
   enableCheckboxSelection: boolean;
   dataColumns: GridColDef[]; 
   dataRows: GridColDef[]; 
+  onSelectionChange?: (selectedRows: GridColDef[]) => void;
 }
 
-const DataTable = ({ enableCheckboxSelection, dataColumns, dataRows }:DataTableProps) => {
+const DataTable = ({ enableCheckboxSelection, dataColumns, dataRows, onSelectionChange }:DataTableProps) => {
+  //const [selectedRowData, setSelectedRowData] = useState([]);
 
   return (
     <div style={{ height: 450, width: '100%' }}>
@@ -50,6 +53,14 @@ const DataTable = ({ enableCheckboxSelection, dataColumns, dataRows }:DataTableP
           }}
           //pageSizeOptions={[5, 10]}
           checkboxSelection = {enableCheckboxSelection}
+          onRowSelectionModelChange={(ids) => {
+            const selectedIDs = new Set(ids);
+            const selectedRowData = dataRows.filter((row) =>
+              selectedIDs.has(row.id)
+            );
+            onSelectionChange(selectedRowData)
+            //console.log(selectedRowData);
+          }}
           disableRowSelectionOnClick
         />
     </div>
