@@ -47,7 +47,7 @@ export const putAction = async (data: ActionsModel, id: number) => {
     };
 
     const response = await api.put<AxiosResponse>(
-      actionsEndPoints.putActions,
+      actionsEndPoints.putAction,
       updatedActionData,
     );
     return response;

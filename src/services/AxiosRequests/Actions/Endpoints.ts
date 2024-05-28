@@ -1,6 +1,6 @@
 export const actionsEndPoints = {
     getAllActions: '/actions',
     postAction: '/actions',
-    putActions: '/actions',
+    putAction: '/actions',
     getActionbyId:'/actions/id/{idAction}'
   };
