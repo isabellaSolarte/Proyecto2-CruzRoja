@@ -28,14 +28,20 @@ const CompoentesPage = () => {
     setDisableInput(!disableInput);
   };
 
-  const user = useUserActions().getLoggedUser();
+  // const user = useUserActions().getLoggedUser();
   const navigate = useNavigate();
 
   //const [step, setStep] = useState(0);
 
   return (
     <Container>
-      {JSON.stringify(user)}
+
+
+
+
+
+      
+      {/* {JSON.stringify(user)} */}
       <CustomButton
         content="NAVEGAR A LOGIN"
         onClick={() => {
@@ -151,7 +157,7 @@ const CompoentesPage = () => {
 
       <CustomText texto="Atomo TabsAtomComponent" variante="subtitulo" />
       <Container>
-        <TabsAtomComponent tabContentItem={['abc', 'abc', 'tab 3']} />
+        {/* <TabsAtomComponent tabContentItem={['abc', 'abc', 'tab 3']} /> */}
       </Container>
 
       <CustomText texto="Atomo CustomLabelGroup" variante="subtitulo" />
