@@ -2,7 +2,7 @@ import { ActionsModel } from '../models/Actions';
 
 export const ActionAdapter = (externalAction: any): ActionsModel => {
   return {
-    id: externalAction.actiondId,
+    id: externalAction.actionId,
     name: externalAction.actionName,
     description: externalAction.actionDescription,
     unitaryPrice: externalAction.actionUnitaryPrice,
