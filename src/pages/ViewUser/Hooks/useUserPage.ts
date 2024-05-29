@@ -16,11 +16,13 @@ export const useUserPage = () => {
     setLoading(true);
     try {
       let response;
+      console.log('userType', userType);
       if (userType === 'volunteer') {
         response = await getVolunteerById(userId);
       } else {
         response = await getCompayUserById(userId);
       }
+      console.log('response', response);
       setUserData(response);
     } catch (error) {
       setError(error as Error);
@@ -45,6 +47,7 @@ export const useUserPage = () => {
     userData,
     loading,
     error,
+    userType,
     loadUserDataByID,
     handleEdit,
   };

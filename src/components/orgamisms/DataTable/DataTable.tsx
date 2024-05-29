@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 import './DataTableStyle.css';
 import { esES } from '@mui/x-data-grid/locales';
@@ -81,8 +82,6 @@ const DataTable = ({ enableCheckboxSelection, dataColumns, dataRows, selectedRow
         />
     </div>
   );
-}
+};
 
 export default DataTable;
-
-

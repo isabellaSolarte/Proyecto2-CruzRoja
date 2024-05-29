@@ -164,7 +164,7 @@ const UserDataForm = ({ updateUserData, handleNextStep, handleStepBack }: UserDa
           <Grid item sm={12} xs={12} padding={2}>
             <CustomText texto={'La contraseña de contener al menos'} variante={'subtitulo'} />
             <Box sx={{ marginBottom: 5 }}>
-              <CustomText texto={'8 caracteres'} variante={'texto'} />
+              <CustomText texto={'10 caracteres'} variante={'texto'} />
               <CustomText texto={'Una letra mayúscula'} variante={'texto'} />
               <CustomText texto={'Una letra minúscula'} variante={'texto'} />
               <CustomText texto={'Un número'} variante={'texto'} />

@@ -24,7 +24,9 @@ import { CalculatorFormProvider } from '../../contexts/CalculatorForm';
 import { CalculatorResultsPage } from '../../pages/CalculatorResults';
 import HomaPage from '../../pages/Home/HomaPage';
 import CottageIcon from '@mui/icons-material/Cottage';
-import {CreateActionPage} from '../../pages/CreateAction';
+import { CreateActionPage } from '../../pages/CreateAction';
+import ForestIcon from '@mui/icons-material/Forest';
+import CreateCompensationPlanPage from '../../pages/CreateCompensationPlan/CreateCompensationPlanPage';
 
 export const NavigationRoutes = () => {
   const { t } = useTranslation('commons');
@@ -86,6 +88,11 @@ export const NavigationRoutes = () => {
       component: <h1>GESTIONAR PLANES</h1>,
       title: t('menuOptions.plans'),
       icon: <ViewInArIcon />,
+    },
+    {
+      path: PathNames.CREATE_PLAN,
+      component: <CreateCompensationPlanPage />,
+      title: t('menuOptions.createPlan'),
     },
     {
       path: PathNames.ACTIVITY,
@@ -151,25 +158,20 @@ export const NavigationRoutes = () => {
       title: t('menuOptions.calculator'),
     },
     {
-      path: PathNames.CALCULATOR_RESULTS,
-      component: <CalculatorResultsPage />,
-      title: t('menuOptions.calculator'),
-    },
-    {
       path: PathNames.ACTIONS,
       component: <h1>ACTIONS</h1>,
-      title: "Acciones",
-      icon: <QueryStatsIcon />,
+      title: 'Acciones',
+      icon: <ForestIcon />,
     },
     {
       path: PathNames.CREATE_ACTIONS,
-      component: <CreateActionPage/>,
-      title: "Registrar Acciones",
+      component: <CreateActionPage />,
+      title: 'Registrar Acciones',
     },
     {
       path: PathNames.EDIT_ACTIONS,
-      component: <CreateActionPage/>,
-      title: "Editar Acciones",
+      component: <CreateActionPage />,
+      title: 'Editar Acciones',
     },
   ];
 

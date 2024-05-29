@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EditIcon from '@mui/icons-material/Edit';
 import { useTranslation } from 'react-i18next';
@@ -24,17 +25,18 @@ const ViewUserPage = () => {
   const { t } = useTranslation('commons');
   const { id } = useParams<{ id: string }>();
   const { loadUserDataByID, userData, handleEdit, loading } = useUserPage();
+
   const userPosiion =
     userData && userData.position ? userData.position : t('positions.business_representative');
 
   useEffect(() => {
-    void loadUserDataByID(Number(id));
+    loadUserDataByID(Number(id));
   }, []);
 
   if (!loading && !userData) {
     return <NotFoundLayout title="user" />;
   }
-const isAllowedEdit = allowedPagesBaseOnPermissions(userData,102)
+
   return (
     <ManagmentLayout
       title={
@@ -66,7 +68,7 @@ const isAllowedEdit = allowedPagesBaseOnPermissions(userData,102)
             sx={{
               height: '2rem',
             }}
-            disabled={!isAllowedEdit}
+            disabled={!allowedPagesBaseOnPermissions(userData, 102)}
           />
         </Box>
       }

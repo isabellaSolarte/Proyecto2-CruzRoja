@@ -12,6 +12,7 @@ export const defaulUserSchema: UserModel = {
   password: '',
   roles: [],
   state: false,
+  allowedRoutes: [],
 };
 
 export const userSchemaValidation = yup.object().shape({
@@ -43,7 +44,7 @@ export const userSchemaValidation = yup.object().shape({
   username: yup.string().required('username.required'),
   password: yup
     .string()
-    .min(8, 'password.min')
+    .min(10, 'password.min')
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/,
       'password.pattern',
@@ -80,4 +81,5 @@ export const userSchemaValidation = yup.object().shape({
     .min(1, 'roles.min')
     .required('roles.required'),
   state: yup.boolean().default(true),
+  allowedRoutes: yup.array().notRequired(),
 });
