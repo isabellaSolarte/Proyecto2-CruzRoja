@@ -8,7 +8,7 @@ export const GeneralUserAdapter = (externalUser: any): UserModel => {
   const allowedRoutes: any[] = [
     PathNames.HOME,
     PathNames.CALCULATOR,
-    PathNames.CALCULATOR_RESULTS,
+    PathNames.CALCULATOR_RESULTS
   ];
 
   externalUser.roles.forEach((rol: any) => {

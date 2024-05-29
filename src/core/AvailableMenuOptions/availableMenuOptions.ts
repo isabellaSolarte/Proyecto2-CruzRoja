@@ -14,6 +14,7 @@ const availableMenuOptions = [
   PathNames.SETTINGS,
   PathNames.CLOSE_SESSION,
   PathNames.COMPONETS,
+  PathNames.ACTIONS,
 ];
 
 export default availableMenuOptions;
