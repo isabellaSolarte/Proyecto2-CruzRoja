@@ -38,7 +38,7 @@ const MainLayout = ({ appBar, navigationMenu, content }: MainLayoutProps) => {
         <div
           style={{
             position: 'absolute',
-            top: 0,
+            top: 10,
             left: 0,
             display: 'flex',
             flexDirection: 'row',

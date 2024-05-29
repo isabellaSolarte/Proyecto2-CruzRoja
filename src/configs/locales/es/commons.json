@@ -17,6 +17,7 @@
         "start": "Iniciar"
     },
     "menuOptions": {
+        "home": "Inicio",
         "users": "Usuarios",
         "business": "Empresas",
         "roles": "Roles",
