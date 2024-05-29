@@ -36,13 +36,9 @@ const CustomColumn = ({
 }: CustomColumnProps): GridColDef => ({
   field,
   headerName,
-  flex: ['state', 'roles', 'companyName'].includes(field) ? undefined : 1,
+  flex: width ? undefined : 1,
+  width: width ? width : undefined,
   sortable,
-  width: ['state', 'roles'].includes(field)
-    ? 180
-    : ['companyName'].includes(field)
-    ? 150
-    : undefined,
 
   renderCell: (params: GridRenderCellParams) => {
     if (format === 'button') {

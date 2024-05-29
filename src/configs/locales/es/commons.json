@@ -14,7 +14,8 @@
         "search": "Buscar",
         "registerCategory": "Registar categoría",
         "previousPage": "Ir a página anterior",
-        "start": "Iniciar"
+        "start": "Iniciar",
+        "add": "Agregar"
     },
     "menuOptions": {
         "home": "Inicio",
@@ -251,6 +252,36 @@
             "description":"Descripción: Lorem ipsum", 
             "title":"A continuacion registre los datos asociados a una acción:"   
         }
-    }   
+    },
+    "compensationPlans": {
+    },
+    "generalTableHeaders":{
+        "name": "Nombre",
+        "description": "Descripción",
+        "options": "Opciones",
+        "state": "Estado",
+        "actions": "Acciones",
+        "users": "Usuarios",
+        "roles": "Roles",
+        "business": "Empresas",
+        "categories": "Categorías",
+        "quantity": "Cantidad",
+        "cost": "Costo",
+        "ufp": "UFP"
+
+    },
+    "generalFormInputLabels": {
+        "name": "Nombre",
+        "description": "Descripción",
+        "options": "Opciones",
+        "state": "Estado",
+        "actions": "Acciones",
+        "users": "Usuarios",
+        "roles": "Roles",
+        "business": "Empresas",
+        "categories": "Categorías",
+        "quantity": "Cantidad",
+        "cost": "Costo"
+    }
 }
 

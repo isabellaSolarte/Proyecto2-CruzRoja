@@ -25,10 +25,29 @@ mapRoutes.set(401, PathNames.CREATE_CATEGORY);
 mapRoutes.set(402, PathNames.EDIT_CATEGORY);
 mapRoutes.set(403, PathNames.VIEW_CATEGORY);
 
-mapRoutes.set(500, PathNames.ACTIONS);
-mapRoutes.set(501, PathNames.CREATE_ACTIONS);
-mapRoutes.set(502, PathNames.EDIT_ACTIONS);
-mapRoutes.set(503, PathNames.VIEW_ACTIONS);
+mapRoutes.set(500, PathNames.SOURCES);
+mapRoutes.set(501, PathNames.CREATE_SOURCES);
+mapRoutes.set(502, PathNames.EDIT_SOURCES);
+mapRoutes.set(503, PathNames.VIEW_SOURCES);
+mapRoutes.set(504, PathNames.VIEW_SOURCES);
+
+mapRoutes.set(600, PathNames.POLLUTANTS);
+mapRoutes.set(601, PathNames.CREATE_POLLUTANTS);
+mapRoutes.set(602, PathNames.EDIT_POLLUTANTS);
+mapRoutes.set(603, PathNames.VIEW_POLLUTANTS);
+mapRoutes.set(604, PathNames.VIEW_POLLUTANTS);
+
+mapRoutes.set(800, PathNames.ACTIONS);
+mapRoutes.set(801, PathNames.CREATE_ACTIONS);
+mapRoutes.set(802, PathNames.EDIT_ACTIONS);
+mapRoutes.set(803, PathNames.VIEW_ACTIONS);
+mapRoutes.set(804, PathNames.VIEW_ACTIONS);
+
+mapRoutes.set(900, PathNames.PLANS);
+mapRoutes.set(901, PathNames.CREATE_PLAN);
+mapRoutes.set(902, PathNames.EDIT_PLAN);
+mapRoutes.set(903, PathNames.VIEW_PLAN);
+mapRoutes.set(904, PathNames.VIEW_PLAN);
 
 export default mapRoutes;
 
