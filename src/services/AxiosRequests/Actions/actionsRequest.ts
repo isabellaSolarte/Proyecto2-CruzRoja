@@ -1,58 +1,62 @@
 import { api } from '../api';
+import { ActionsModel } from '../../../models/Actions';
+import { adaptActionsModelToDTO } from '../../Adapters_DTO/ActionDTOAdapter';
 import { AxiosResponse } from 'axios';
 import { actionsEndPoints } from './Endpoints';
-import {  ActionsModel } from '../../../models/Actions';
-import {  ActionAdapter } from '../../../adapters/ActionAdapder';
+import { ActionAdapter } from '../../../adapters/ActionAdapder';
+import { ActionType } from '../../../pages/CreateAction/Types/ActionType';
 
 export const getAllActions = async (): Promise<ActionsModel[]> => {
   try {
-    const response = await api.get(actionsEndPoints.getAllActions);
-    const adaptedActions: ActionsModel[] = response.data.map((externalAction: any) =>
-      ActionAdapter(externalAction),
+    const response = await api.get<any[]>(actionsEndPoints.getAllActions);
+    const adaptedActions: ActionsModel[] = response.data.map(
+      (action: any) => ActionAdapter(action),
     );
     return adaptedActions;
-  } catch (err) {
-    throw new Error(JSON.stringify(err));
+  } catch (error) {
+    throw new Error(JSON.stringify(error));
   }
 };
 
 export const getActionById = async (id: number): Promise<ActionsModel> => {
   try {
-    const response = await api.get(actionsEndPoints.getActionbyId.replace('{idAction}', id.toString()));
+    const response = await api.get(`/actions/id/${id}`);
     const adaptedAction: ActionsModel = ActionAdapter(response.data);
     return adaptedAction;
-  } catch (err) {
-    throw new Error(JSON.stringify(err));
-  }
-};
-
-export const postAction = async (data: ActionsModel) => {
-  try {
-    const response = await api.post<AxiosResponse>(
-      actionsEndPoints.postAction,
-      data,
-    );
-    return response;
   } catch (error) {
-    console.error(error);
     throw new Error(JSON.stringify(error));
   }
 };
 
-export const putAction = async (data: ActionsModel, id: number) => {
+export const postAction = async (data: ActionType) => {
   try {
-    const updatedActionData = {
-      ...data,
-      actionId: id, 
-    };
+    const adaptedAction = adaptActionsModelToDTO(data);
+    console.log('PostData:', adaptedAction);
+    const response = await api.post<AxiosResponse>(
+      actionsEndPoints.postAction,
+      adaptedAction,
+    );
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
 
+export const putAction = async (data: ActionType, id: number) => {
+  try {
+    const adaptedAction = adaptActionsModelToDTO(data);
+    console.log('AdaptedAction:', adaptedAction);
+    const updatedActionData = {
+      ...adaptedAction,
+      actionId: id,
+    };
+    console.log('PutData:', updatedActionData);
     const response = await api.put<AxiosResponse>(
       actionsEndPoints.putAction,
       updatedActionData,
     );
     return response;
   } catch (error) {
-    console.error(error);
-    throw new Error(JSON.stringify(error));
+    throw error;
   }
 };

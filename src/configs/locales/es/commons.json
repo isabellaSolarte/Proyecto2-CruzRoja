@@ -237,7 +237,19 @@
     },
     "registerAction": { 
         "nameAction":"Nombre de la acción",
-        "cost":"Costo ufp por unidad",
-        "description":"Descripción"    
-        }   
+        "footPrintUnity":"Costo ufp por unidad",
+        "quantity":"Cantidad",
+        "unitaryPrice":"Precio unitario",
+        "description":"Descripción",
+        "help": { 
+            "descriptionActionFormHelp":"Ejemplo: Lorem ipsum",
+            "nameAction":"Nombre de la acción: Lorem ipsum",
+            "footPrintUnity":"Costo ufp por unidad: Lorem ipsum",
+            "quantity":"Cantidad: Lorem ipsum:  Lorem ipsum",
+            "unitaryPrice":"Precio unitario:  Lorem ipsum",
+            "description":"Descripción: Lorem ipsum", 
+            "title":"A continuacion registre los datos asociados a una acción:"   
+        }
+    }   
 }
+

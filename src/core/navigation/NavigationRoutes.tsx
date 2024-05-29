@@ -25,6 +25,7 @@ import { CalculatorResultsPage } from '../../pages/CalculatorResults';
 import HomaPage from '../../pages/Home/HomaPage';
 import CottageIcon from '@mui/icons-material/Cottage';
 import {CreateActionPage} from '../../pages/CreateAction';
+import ForestIcon from '@mui/icons-material/Forest';
 
 export const NavigationRoutes = () => {
   const { t } = useTranslation('commons');
@@ -159,7 +160,7 @@ export const NavigationRoutes = () => {
       path: PathNames.ACTIONS,
       component: <h1>ACTIONS</h1>,
       title: "Acciones",
-      icon: <QueryStatsIcon />,
+      icon: <ForestIcon/>,
     },
     {
       path: PathNames.CREATE_ACTIONS,
