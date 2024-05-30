@@ -83,7 +83,8 @@
             "name": "Acciones",
             "unitaryPrice":"Ufp",
             "options": "Opciones"        
-        }
+        },
+        "description": "Las acciones son iniciativas para reducir la huella de carbono"
     },
 
     "usersPages": {

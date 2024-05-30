@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { PathNames } from '../../core';
 import { useEffect } from 'react';
 import RecyclingIcon from '@mui/icons-material/Recycling';
+import { green } from '@mui/material/colors';
 
 const ActionsPage = () => {
   const { t } = useTranslation('commons');
@@ -27,16 +28,16 @@ const ActionsPage = () => {
   };
 
   const handleCreateButtonClick = () => {
-    navigate(PathNames.VIEW_ACTIONS);
+    navigate(PathNames.CREATE_ACTIONS);
   };
 
   const columns = [
     CustomColumn({
-      field: 'typeAction',
+      field: 'name',
       headerName: t('actionsPage.actionsTable.name'),
       format: 'text',
       variante: 'texto',
-      icon: <RecyclingIcon />
+      icon: <RecyclingIcon style={{ color: green[500] }} />,
     }),
     CustomColumn({
       field: 'unitaryPrice',
@@ -82,6 +83,7 @@ const ActionsPage = () => {
       }
       generalContents={
         <Grid>
+          <CustomText texto={t('actionsPage.description')} variante="subtitulo" />
           <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={actions} />
         </Grid>
       }

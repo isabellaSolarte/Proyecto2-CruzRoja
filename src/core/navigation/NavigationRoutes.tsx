@@ -27,6 +27,7 @@ import CottageIcon from '@mui/icons-material/Cottage';
 import { CreateActionPage } from '../../pages/CreateAction';
 import ForestIcon from '@mui/icons-material/Forest';
 import CreateCompensationPlanPage from '../../pages/CreateCompensationPlan/CreateCompensationPlanPage';
+import ActionsPage from '../../pages/Actions/ActionsPage';
 
 export const NavigationRoutes = () => {
   const { t } = useTranslation('commons');
@@ -159,7 +160,7 @@ export const NavigationRoutes = () => {
     },
     {
       path: PathNames.ACTIONS,
-      component: <h1>ACTIONS</h1>,
+      component: <ActionsPage />,
       title: 'Acciones',
       icon: <ForestIcon />,
     },
