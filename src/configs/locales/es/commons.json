@@ -270,6 +270,17 @@
         "ufp": "UFP"
 
     },
+    "modalAccion": {
+        "name": "Acción",
+        "footPrintUnity": "UFP",
+        "quantity": "Cantidad",
+        "unitaryPrice": "Costo (COP)",
+        "totalCosto": "Costo adicional:",
+        "totalUfp": "UFP total:",
+        "options": "Opciones",
+        "title": "Seleccione la acción que desea agregar",
+        "description": "Descripción que indique las acciones que se pueden realizar para compensar la huella de carbono. Incluye campos como el nombre de la acción, la cantidad y el costo unitario."
+    },
     "generalFormInputLabels": {
         "name": "Nombre",
         "description": "Descripción",

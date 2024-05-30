@@ -73,18 +73,15 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
       });
   };
 
-  const handleQuantityEdit = (rowData: ActionType) => {
-    // Implement your logic to handle quantity edit here
-    console.log('Editing quantity for action:', rowData);
-  };
+  
   const columns = [
-    CustomColumn({ field: 'name', headerName: 'Acción', format: 'text', icon: <RecyclingIcon sx={{ color: 'green' }} />, }),
-    CustomColumn({ field: 'footPrintUnity', headerName: 'UFP', format: 'text' }),
-    CustomColumn({ field: 'quantity', headerName: 'Cantidad', format: 'text', onClick: handleQuantityEdit }),
-    CustomColumn({ field: 'unitaryPrice', headerName: 'Costo (COP)', format: 'text' }),
+    CustomColumn({ field: 'name', headerName: t('modalAccion.name'), format: 'text', icon: <RecyclingIcon sx={{ color: 'green' }} />, }),
+    CustomColumn({ field: 'footPrintUnity', headerName: t('modalAccion.footPrintUnity'), format: 'text' }),
+    CustomColumn({ field: 'quantity', headerName: t('modalAccion.quantity'), format: 'text', onClick: handleQuantityEdit }),
+    CustomColumn({ field: 'unitaryPrice', headerName: t('modalAccion.unitaryPrice'), format: 'text' }),
     CustomColumn({
       field: 'options',
-      headerName: 'Opciones',
+      headerName: t('modalAccion.options'),
       format: 'button',
       buttonDetails: [
         {
@@ -114,7 +111,7 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
           backdropFilter: 'blur(5px)',
         }}
       >
-        <DialogTitle>{t('Selecciona acciones para agregar')}</DialogTitle>
+        <DialogTitle>{t('modalAccion.title')}</DialogTitle>
         <DialogContent>
           {loading && (
             <Box display="flex" justifyContent="center" alignItems="center" height="fullWidth">
@@ -138,8 +135,8 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
                 selectedRowsData={selectedRows}
                 onSelectionChange={setSelectedRows}
               />
-              <CustomText texto={`${t('Total UFP: ')}${actionTemplate?.totalUfp}`} variante="subtitulo" />
-              <CustomText texto={`${t('Costo adicional: ')} ${actionTemplate?.totalCosto} COP`} variante="texto" />
+              <CustomText texto={`${t('modalAccion.totalUfp')}${actionTemplate?.totalUfp}`} variante="subtitulo" />
+              <CustomText texto={`${t('modalAccion.totalCosto')} ${actionTemplate?.totalCosto} COP`} variante="texto" />
             </>
           )}
         </DialogContent>
@@ -155,7 +152,7 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
             <CustomButton
               variant="contained"
               color="error"
-              content={t('Cancelar')}
+              content={t('generalButtonText.cancel')}
               onClick={onCancel}
               sx={{ marginRight: '10px' }}
             />
@@ -163,7 +160,7 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
               <CustomButton
                 variant="contained"
                 color="success"
-                content={t('Agregar')}
+                content={t('generalButtonText.add')}
                 onClick={handleAddSelected}
               />
             )}
