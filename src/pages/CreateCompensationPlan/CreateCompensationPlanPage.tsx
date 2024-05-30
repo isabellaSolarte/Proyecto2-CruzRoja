@@ -27,6 +27,8 @@ const CreateCompensationPlanPage = () => {
     removeAction,
     setValue,
     getValues,
+    onSubmit,
+    handleSubmit,
   } = useCreateCompensationPlan();
   const { t } = useTranslation('commons');
   const [open, setOpen] = useState(false);
@@ -63,7 +65,7 @@ const CreateCompensationPlanPage = () => {
       }
       generalContents={
         <Box>
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <CustomText
@@ -77,10 +79,6 @@ const CreateCompensationPlanPage = () => {
               </Grid>
 
               <Grid item xs={12}>
-                <EmptyBox height={30} width={1} />
-              </Grid>
-
-              <Grid item xs={12}>
                 <CustomText
                   texto={t('generalFormInputLabels.description')}
                   variante="subtitulo"
@@ -91,7 +89,6 @@ const CreateCompensationPlanPage = () => {
                   placeholder={t('generalFormInputLabels.description')}
                   size="large"
                   props={register('description')}
-                  type="number"
                 />
                 {errors.description && <span>{errors.description.message}</span>}
               </Grid>
@@ -132,8 +129,13 @@ const CreateCompensationPlanPage = () => {
               </Grid>
 
               <Grid item xs={12}>
-                <CustomText texto={t('generalFormInputLabels.discount')} variante="subtitulo" />
-                <CustomText texto={`${getValues('discount')}`} variante="subtitulo" />
+                <Box sx={{ display: 'flex' }}>
+                  <CustomText texto={'Unidades de compensación: '} variante="subtitulo" />
+                  <CustomText
+                    texto={`  ${getValues('discount') ? getValues('discount') : 0} ufp`}
+                    variante="subtitulo"
+                  />
+                </Box>
               </Grid>
             </Grid>
 

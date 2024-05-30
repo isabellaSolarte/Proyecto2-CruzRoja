@@ -4,8 +4,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { CompensationPlanSchema } from '../schemas';
 import { ActionsModel } from '../../../models/Actions';
 import { useState } from 'react';
+import { postCompensationPlan } from '../../../services/AxiosRequests/Plans/PlanRequests';
 
 const useCreateCompensationPlan = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [actionsSelected, setActionsSelected] = useState<{
     actions: ActionsModel[];
     totalUfp: number;
@@ -43,10 +45,20 @@ const useCreateCompensationPlan = () => {
     remove(index);
   };
 
+  const onSubmit = async (data: CompensationPlanModel) => {
+    setIsLoading(true);
+    console.log('data:', data);
+    const response = await postCompensationPlan({ ...data });
+    console.log('Response:', response);
+    setIsLoading(false);
+  };
+
   return {
     fields,
     errors,
     actionsSelected,
+    isLoading,
+    onSubmit,
     setActionsSelected,
     addAction,
     addAllActions,
