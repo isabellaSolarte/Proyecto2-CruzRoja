@@ -11,13 +11,13 @@ import { useActions } from './hook';
 import { PathNames } from '../../../core';
 import { useNavigate } from 'react-router-dom';
 
-
-type ActionType = {
+export type ActionType = {
   id: number;
   name: string;
-  ufp: number;
-  cantidad: number;
-  costo: number;
+  description: string;
+  unitaryPrice: number;
+  footPrintUnity: number;
+  quantity: number;
 };
 
 type ActionSummaryType = {
@@ -34,43 +34,53 @@ interface ActionsModalProps {
 
 const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, onAddSelected }) => {
   const { t } = useTranslation('commons');
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const { actions, loading, error } = useActions(); // Usa el hook personalizado
   const [selectedActions, setSelectedActions] = useState<ActionType[]>([]);
   const [actionTemplate, setActionTemplate] = useState<ActionSummaryType>();
   const [selectedRows, setSelectedRows] = useState(actionSummary.actions);
+  const [validationErrors, setValidationErrors] = useState<string[]>([]); // Estado para almacenar los errores de validación
 
   useEffect(() => {
     if (!loading && !error) {
       setSelectedActions(actions);
-      const totalCosto = selectedRows.reduce((acc, action) => acc + action.costo, 0);
-      const totalUfp = selectedRows.reduce((acc, action) => acc + action.ufp, 0);
+      const totalCosto = selectedRows.reduce((acc, action) => acc + (action.unitaryPrice * action.quantity), 0);
+      const totalUfp = selectedRows.reduce((acc, action) => acc + (action.footPrintUnity * action.quantity), 0);
       setActionTemplate({ actions: selectedRows, totalUfp, totalCosto });
     }
   }, [loading, error, actions, selectedRows, onAddSelected]);
 
   const handleAddSelected = () => {
+    console.log('Adding selected actions:', {actions: selectedRows});
+
     actionsValidationSchema
-      .validate(selectedRows)
+      .validate({actions: selectedRows})
       .then(() => {
-        const totalCosto = selectedRows.reduce((acc, action) => acc + action.costo, 0);
-        const totalUfp = selectedRows.reduce((acc, action) => acc + action.ufp, 0);
+        const totalCosto = selectedRows.reduce((acc, action) => acc + (action.unitaryPrice * action.quantity), 0);
+        const totalUfp = selectedRows.reduce((acc, action) => acc + (action.footPrintUnity * action.quantity), 0);
         onAddSelected({ actions: selectedRows, totalUfp, totalCosto });
+        setValidationErrors([]); // Limpiar los errores de validación si la validación es exitosa
       })
       .catch((error: unknown) => {
         if (error instanceof Error) {
           console.error(error.message);
+          setValidationErrors([error.message]); // Almacenar el error de validación en el estado
         } else {
           console.error('Error al validar las acciones');
+          setValidationErrors(['Error al validar las acciones']); // Almacenar el error de validación en el estado
         }
       });
   };
 
+  const handleQuantityEdit = (rowData: ActionType) => {
+    // Implement your logic to handle quantity edit here
+    console.log('Editing quantity for action:', rowData);
+  };
   const columns = [
     CustomColumn({ field: 'name', headerName: 'Acción', format: 'text' }),
-    CustomColumn({ field: 'ufp', headerName: 'UFP', format: 'text' }),
-    CustomColumn({ field: 'cantidad', headerName: 'Cantidad', format: 'text' }),
-    CustomColumn({ field: 'costo', headerName: 'Costo (COP)', format: 'text' }),
+    CustomColumn({ field: 'footPrintUnity', headerName: 'UFP', format: 'text' }),
+    CustomColumn({ field: 'quantity', headerName: 'Cantidad', format: 'text', onClick: handleQuantityEdit }),
+    CustomColumn({ field: 'unitaryPrice', headerName: 'Costo (COP)', format: 'text' }),
     CustomColumn({
       field: 'options',
       headerName: 'Opciones',
@@ -87,7 +97,6 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
       ],
     }),
   ];
-
   return (
     <Box>
       <Dialog
@@ -106,26 +115,30 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
       >
         <DialogTitle>{t('Selecciona acciones para agregar')}</DialogTitle>
         <DialogContent>
-        {loading && (
-          <Box display="flex" justifyContent="center" alignItems="center" height="fullWidth">
-              <CircularProgress color="success"/>
+          {loading && (
+            <Box display="flex" justifyContent="center" alignItems="center" height="fullWidth">
+              <CircularProgress color="success" />
             </Box>
           )}
-          {error && (
-            <Alert severity="error">{error}</Alert>
-          )} {/* Display error directly */}
+          {error && <Alert severity="error">{error}</Alert>}
+          {validationErrors.length > 0 && (
+            <Alert severity="error">
+              {validationErrors.map((errorMessage, index) => (
+                <div key={index}>{errorMessage}</div>
+              ))}
+            </Alert>
+          )}
           {!loading && !error && (
             <>
-            <DataTable
-              enableCheckboxSelection={true}
-              dataColumns={columns}
-              dataRows={selectedActions}
-              selectedRowsData={selectedRows}
-              onSelectionChange={setSelectedRows}
-            />
-            <CustomText texto={`${t('Total UFP: ')}${actionTemplate?.totalUfp}`} variante="subtitulo" />
-            <CustomText texto={`${t('Costo adicional: ')} ${actionTemplate?.totalCosto} COP`} variante="texto" />
-            
+              <DataTable
+                enableCheckboxSelection={true}
+                dataColumns={columns}
+                dataRows={selectedActions}
+                selectedRowsData={selectedRows}
+                onSelectionChange={setSelectedRows}
+              />
+              <CustomText texto={`${t('Total UFP: ')}${actionTemplate?.totalUfp}`} variante="subtitulo" />
+              <CustomText texto={`${t('Costo adicional: ')} ${actionTemplate?.totalCosto} COP`} variante="texto" />
             </>
           )}
         </DialogContent>

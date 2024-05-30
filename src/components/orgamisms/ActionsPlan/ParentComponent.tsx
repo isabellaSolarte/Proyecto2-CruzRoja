@@ -26,9 +26,10 @@ const ParentComponent = () => {
     setShowModal(false);
   };
 
-  const handleAddSelected = (selectedActions: ActionType[]) => {
+  const handleAddSelected = (selectedActions: ActionSummaryType) => {
     // Lógica para agregar las acciones seleccionadas
     console.log('Acciones seleccionadas:', selectedActions);
+    setActionSummary(selectedActions)
     // Aquí puedes realizar la lógica adicional que necesites, como actualizar el estado o enviar datos a un servidor
     setShowModal(false);
   };

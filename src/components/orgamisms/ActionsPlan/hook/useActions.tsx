@@ -13,21 +13,31 @@ const useActions = () => {
         const fetchActions = async () => {
             try {
                 setLoading(true);
-                const response2 = await getAllActions() // TOD: Cambia esto por el endpoint correcto
-                console.log(response2)
+                // const response2 = await getAllActions(); // TOD: Cambia esto por el endpoint correcto
+                // console.log(response2);
                 const response = {
                     data: [
-                        { id: 1, name: 'Plantar Árboles', ufp: 100, cantidad: 5, costo: 1000 },
-                        { id: 2, name: 'Reciclaje', ufp: 50, cantidad: 10, costo: 500 },
+                        { id: 1, name: 'Plantar Árboles', description: 'Descripción de Plantar Árboles', unitaryPrice: 10, footPrintUnity: 100, quantity: 3 },
+                        { id: 2, name: 'Reciclaje', description: 'Descripción de Reciclaje', unitaryPrice: 15, footPrintUnity: 10, quantity: 0 },
                         // otras acciones
                     ],
                 };
+
+                // const updatedActions = response.data.map((action) => ({
+                //     ...action,
+                //     //description: '',
+                //     //unitaryPrice: 0,
+                //     footPrintUnity: 100,
+                //     quantity: 0,
+                // }));
+
                 setTimeout(() => {
+                    //setActions(updatedActions);
                     setActions(response.data);
                     setLoading(false);
-                }, 3000);
+                }, 500);
             } catch (err) {
-                setError('Error fetching actions');
+                setError('Error fetching actions',err.message);
                 setLoading(false);
             }
         };

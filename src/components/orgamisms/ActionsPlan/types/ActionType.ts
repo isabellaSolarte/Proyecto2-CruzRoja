@@ -1,8 +1,11 @@
+import { ActionsModel } from "../../../../models/Actions";
+
 export type ActionType = {
     id: number;
     name: string;
-    ufp: number;
-    cantidad: number;
-    costo: number;
+    description: string;
+    unitaryPrice: number;
+    footPrintUnity: number;
+    quantity: number;
 }
   
