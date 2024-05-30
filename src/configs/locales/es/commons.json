@@ -14,10 +14,10 @@
         "search": "Buscar",
         "registerCategory": "Registar categoría",
         "previousPage": "Ir a página anterior",
-        "start": "Iniciar",
-        "createAction": "Crear Acciones"
+        "start": "Iniciar"
     },
     "menuOptions": {
+        "home": "Inicio",
         "users": "Usuarios",
         "business": "Empresas",
         "roles": "Roles",
@@ -48,8 +48,7 @@
         "calculator": "Calculadora huella de carbono",
         "editUser": "Editar usuario",
         "caculatorCatogories": "Categorías de la calculadora",
-        "calculatorCostsUsages": "Consumos y costos",
-        "actions": "Acciones"
+        "calculatorCostsUsages": "Consumos y costos"
     },
     "rolesPages": {
         "tabs": {
@@ -237,13 +236,5 @@
         }
         
 
-    },
-    "actionsPage":{
-        "actionsTable": {
-            "name": "Nombre",
-            "ufp":"Ufp",
-            "actions": "Acciones"        
-        }
     }
-
 }

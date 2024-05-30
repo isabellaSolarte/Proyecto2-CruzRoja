@@ -3,7 +3,6 @@ import CustomText from '../../../components/Atoms/CustomText/CustomText';
 import UserTypeCard from '../Components/UserTypeCard';
 import { useTranslation } from 'react-i18next';
 import { CustomButton, EmptyBox } from '../../../components';
-import { useEffect } from 'react';
 
 interface SelectUserFormProps {
   // eslint-disable-next-line no-unused-vars

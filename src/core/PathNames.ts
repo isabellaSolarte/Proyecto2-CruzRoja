@@ -55,19 +55,4 @@ export enum PathNames {
   NOT_FOUND = '/404',
 
   LANDIN_PAGE = '/landingpage',
-
-  ACTIONS = '/actions',
-  CREATE_ACTIONS = '/actions/create',
-  VIEW_ACTIONS = '/actions/view/:id',
-  EDIT_ACTIONS = '/actions/edit/:id',
-
-  SOURCES = '/sources',
-  CREATE_SOURCES = '/sources/create',
-  VIEW_SOURCES = '/sources/view/:id',
-  EDIT_SOURCES = '/sources/edit/:id',
-
-  POLLUTANTS = '/pollutants',
-  CREATE_POLLUTANTS = '/pollutants/create',
-  VIEW_POLLUTANTS = '/pollutants/view/:id',
-  EDIT_POLLUTANTS = '/pollutants/edit/:id',
 }
