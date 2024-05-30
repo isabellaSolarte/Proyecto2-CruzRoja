@@ -33,4 +33,5 @@ export * from './orgamisms/CustomDialog';
 export * from './orgamisms/CustomStepper';
 export * from './orgamisms/DataTable';
 export * from './orgamisms/LabeledInput';
+export * from './orgamisms/ActionsPlan';
 export * from './orgamisms';

@@ -5,81 +5,31 @@ import {
   CustomInput,
   CustomButton,
   DataTable,
-  CustomColumn,
+  ActionsModal,
+  EmptyBox,
 } from '../../components';
 import HelpIcon from '@mui/icons-material/Help';
 import EnergySavingsLeafIcon from '@mui/icons-material/EnergySavingsLeaf';
 import { useCreateCompensationPlan } from './hooks';
 import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
 import { useTranslation } from 'react-i18next';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import RecyclingIcon from '@mui/icons-material/Recycling';
-
-const columns = (t, observeAction, deleteAction) => {
-  return [
-    CustomColumn({
-      icon: <RecyclingIcon color="success" />,
-      width: 200,
-      field: 'name',
-      headerName: t('generalTableHeaders.actions'),
-      format: 'text',
-      variante: 'texto',
-    }),
-    CustomColumn({
-      width: 100,
-      field: 'footPrintUnity',
-      headerName: t('generalTableHeaders.ufp'),
-      format: 'text',
-      variante: 'texto',
-    }),
-    CustomColumn({
-      width: 100,
-      field: 'quantity',
-      headerName: t('generalTableHeaders.quantity'),
-      format: 'text',
-      variante: 'texto',
-    }),
-    CustomColumn({
-      width: 100,
-      field: 'unitaryPrice',
-      headerName: t('generalTableHeaders.cost'),
-      format: 'text',
-      variante: 'texto',
-    }),
-    CustomColumn({
-      width: 300,
-      field: 'options',
-      headerName: t('generalTableHeaders.options'),
-      format: 'button',
-      variante: 'texto',
-      buttonDetails: [
-        {
-          content: t('generalButtonText.view'),
-          variant: 'contained',
-          color: 'warning',
-          icon: <EditIcon />,
-          onClick: (rowData: { id: string }) => {
-            observeAction(rowData.id);
-          },
-        },
-        {
-          content: t('generalButtonText.delete'),
-          variant: 'contained',
-          color: 'error',
-          icon: <DeleteForeverIcon />,
-          onClick: (rowData: { id: string }) => {
-            deleteAction(rowData.id);
-          },
-        },
-      ],
-    }),
-  ];
-};
+import columns from './components/ActionsTableColumns';
+import { useState } from 'react';
 
 const CreateCompensationPlanPage = () => {
-  const { errors, fields, addAction, register, removeAction } = useCreateCompensationPlan();
+  const {
+    errors,
+    fields,
+    actionsSelected,
+    setActionsSelected,
+    addAllActions,
+    register,
+    removeAction,
+    setValue,
+    getValues,
+  } = useCreateCompensationPlan();
   const { t } = useTranslation('commons');
+  const [open, setOpen] = useState(false);
 
   return (
     <ManagmentLayout
@@ -127,6 +77,10 @@ const CreateCompensationPlanPage = () => {
               </Grid>
 
               <Grid item xs={12}>
+                <EmptyBox height={30} width={1} />
+              </Grid>
+
+              <Grid item xs={12}>
                 <CustomText
                   texto={t('generalFormInputLabels.description')}
                   variante="subtitulo"
@@ -140,6 +94,10 @@ const CreateCompensationPlanPage = () => {
                   type="number"
                 />
                 {errors.description && <span>{errors.description.message}</span>}
+              </Grid>
+
+              <Grid item xs={12}>
+                <EmptyBox height={30} width={1} />
               </Grid>
 
               <Grid item xs={12} md={10}>
@@ -159,14 +117,7 @@ const CreateCompensationPlanPage = () => {
                   color="info"
                   icon={<AddIcon />}
                   onClick={() => {
-                    addAction({
-                      id: 1,
-                      name: 'acion 1',
-                      description: 'Description de la action id 1',
-                      unitaryPrice: 10,
-                      footPrintUnity: 500,
-                      quantity: 1,
-                    });
+                    setOpen(true);
                   }}
                 />
               </Grid>
@@ -178,6 +129,11 @@ const CreateCompensationPlanPage = () => {
                   dataRows={fields}
                   enableTools={false}
                 />
+              </Grid>
+
+              <Grid item xs={12}>
+                <CustomText texto={t('generalFormInputLabels.discount')} variante="subtitulo" />
+                <CustomText texto={`${getValues('discount')}`} variante="subtitulo" />
               </Grid>
             </Grid>
 
@@ -194,6 +150,20 @@ const CreateCompensationPlanPage = () => {
               />
             </Box>
           </form>
+
+          <ActionsModal
+            open={open}
+            actionSummary={actionsSelected}
+            onCancel={() => {
+              setOpen(false);
+            }}
+            onAddSelected={({ actions, totalUfp, totalCosto }) => {
+              setActionsSelected({ actions, totalUfp, totalCosto });
+              addAllActions(actions);
+              setValue('discount', totalUfp);
+              setOpen(false);
+            }}
+          />
         </Box>
       }
     />
