@@ -45,24 +45,33 @@ const ActionsModal: React.FC<ActionsModalProps> = ({
   const navigate = useNavigate();
   const { actions, loading, error } = useActions(); // Usa el hook personalizado
   const [selectedActions, setSelectedActions] = useState<ActionType[]>([]);
-  const [actionTemplate, setActionTemplate] = useState<ActionSummaryType>();
+  const [actionTemplate, setActionTemplate] = useState<ActionSummaryType>({
+    actions: [],
+    totalUfp: 0,
+    totalCosto: 0,
+  });
   const [selectedRows, setSelectedRows] = useState(actionSummary.actions);
   const [validationErrors, setValidationErrors] = useState<string[]>([]); // Estado para almacenar los errores de validación
+  const [totalCosto, setTotalCosto] = useState(0);
+  const [totalUfp, setTotalUfp] = useState(0);
 
   useEffect(() => {
     if (!loading && !error) {
       setSelectedActions(actions);
-      const totalCosto = selectedRows.reduce(
+      const newTotalCosto = selectedRows.reduce(
         (acc, action) => acc + action.unitaryPrice * action.quantity,
         0,
       );
-      const totalUfp = selectedRows.reduce(
+      const newTotalUfp = selectedRows.reduce(
         (acc, action) => acc + action.footPrintUnity * action.quantity,
         0,
       );
+
+      setTotalCosto(newTotalCosto);
+      setTotalUfp(newTotalUfp);
       setActionTemplate({ actions: selectedRows, totalUfp, totalCosto });
     }
-  }, [loading, error, actions, selectedRows, onAddSelected]);
+  }, [loading, error, actions, selectedRows, onAddSelected, totalUfp, totalCosto]);
 
   const handleAddSelected = () => {
     console.log('Adding selected actions:', { actions: selectedRows });
@@ -70,15 +79,7 @@ const ActionsModal: React.FC<ActionsModalProps> = ({
     actionsValidationSchema
       .validate({ actions: selectedRows })
       .then(() => {
-        const totalCosto = selectedRows.reduce(
-          (acc, action) => acc + action.unitaryPrice * action.quantity,
-          0,
-        );
-        const totalUfp = selectedRows.reduce(
-          (acc, action) => acc + action.footPrintUnity * action.quantity,
-          0,
-        );
-        onAddSelected({ actions: selectedRows, totalUfp, totalCosto });
+        onAddSelected(actionTemplate);
         setValidationErrors([]); // Limpiar los errores de validación si la validación es exitosa
       })
       .catch((error: unknown) => {
@@ -145,8 +146,10 @@ const ActionsModal: React.FC<ActionsModalProps> = ({
           backdropFilter: 'blur(5px)',
         }}
       >
-        <DialogTitle>{t('modalAccion.title')}</DialogTitle>
-        <DialogContent>
+        <DialogTitle sx={{ marginBottom: 2, textAlign: 'center' }}>
+          {t('modalAccion.title')}
+        </DialogTitle>
+        <DialogContent sx={{ paddingTop: 2 }}>
           {loading && (
             <Box display="flex" justifyContent="center" alignItems="center" height="fullWidth">
               <CircularProgress color="success" />
@@ -171,17 +174,38 @@ const ActionsModal: React.FC<ActionsModalProps> = ({
                 enableTools={false}
               />
               <CustomText
-                texto={`${t('modalAccion.totalUfp')}${actionTemplate?.totalUfp}`}
+                texto={`${t('modalAccion.totalUfp')}${actionTemplate.totalUfp}`}
                 variante="subtitulo"
               />
               <CustomText
-                texto={`${t('modalAccion.totalCosto')} ${actionTemplate?.totalCosto} COP`}
+                texto={`${t('modalAccion.totalCosto')} ${actionTemplate.totalCosto} COP`}
                 variante="texto"
               />
             </>
           )}
         </DialogContent>
         <DialogActions>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'flex-start',
+              justifyContent: 'space-between',
+              padding: '1rem',
+            }}
+          />
+          <CustomText
+            texto={`${t('modalAccion.totalUfp')}${actionTemplate.totalUfp}`}
+            variante="subtitulo"
+            styles={{ textAlign: 'center' }}
+          />
+          <CustomText
+            texto={`${t('modalAccion.totalCosto')} ${actionTemplate.totalCosto} COP`}
+            variante="texto"
+            styles={{ textAlign: 'center' }}
+          />
+          <Box />
+
           <Box
             sx={{
               width: '100%',
@@ -203,6 +227,7 @@ const ActionsModal: React.FC<ActionsModalProps> = ({
                 color="success"
                 content={t('generalButtonText.add')}
                 onClick={handleAddSelected}
+                sx={{ marginRight: '20px' }}
               />
             )}
           </Box>
