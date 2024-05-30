@@ -1,5 +1,5 @@
 import {ManagmentLayout, CustomButton, CustomText, CustomColumn,DataTable,} from '../../components';
-import { Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -83,7 +83,9 @@ const ActionsPage = () => {
       }
       generalContents={
         <Grid>
-          <CustomText texto={t('actionsPage.description')} variante="subtitulo" />
+           <Box mb={10}>
+            <CustomText texto={t('actionsPage.description')} variante="subtitulo" />
+          </Box>
           <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={actions} />
         </Grid>
       }
