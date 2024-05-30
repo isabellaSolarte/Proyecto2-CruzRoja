@@ -5,6 +5,7 @@ import { DataTable } from '../../orgamisms';
 import { actionsValidationSchema } from './schema';
 import { CustomColumn } from '../../Molecules';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import RecyclingIcon from '@mui/icons-material/Recycling';
 import { CustomButton, CustomText } from '../../Atoms';
 import { useTranslation } from 'react-i18next';
 import { useActions } from './hook';
@@ -77,7 +78,7 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
     console.log('Editing quantity for action:', rowData);
   };
   const columns = [
-    CustomColumn({ field: 'name', headerName: 'Acción', format: 'text' }),
+    CustomColumn({ field: 'name', headerName: 'Acción', format: 'text', icon: <RecyclingIcon sx={{ color: 'green' }} />, }),
     CustomColumn({ field: 'footPrintUnity', headerName: 'UFP', format: 'text' }),
     CustomColumn({ field: 'quantity', headerName: 'Cantidad', format: 'text', onClick: handleQuantityEdit }),
     CustomColumn({ field: 'unitaryPrice', headerName: 'Costo (COP)', format: 'text' }),
