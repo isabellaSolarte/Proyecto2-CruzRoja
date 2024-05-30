@@ -15,7 +15,8 @@
         "registerCategory": "Registar categoría",
         "previousPage": "Ir a página anterior",
         "start": "Iniciar",
-        "add": "Agregar"
+        "add": "Agregar",
+        "createAction": "Crear acción"
     },
     "menuOptions": {
         "home": "Inicio",
@@ -51,7 +52,8 @@
         "caculatorCatogories": "Categorías de la calculadora",
         "calculatorCostsUsages": "Consumos y costos",
         "createAction":"Registrar nueva acción",
-        "editAction":"Editar Acción"
+        "editAction":"Editar Acción",
+        "actions":"Acciones"
     },
     "rolesPages": {
         "tabs": {
@@ -75,6 +77,13 @@
             "descriptionCategories": "Seleccione las categorías a las que le realizará el cálculo de emisión"
         }
        
+    },
+    "actionsPage":{
+        "actionsTable": {
+            "name": "Acciones",
+            "unitaryPrice":"Ufp",
+            "options": "Opciones"        
+        }
     },
 
     "usersPages": {
