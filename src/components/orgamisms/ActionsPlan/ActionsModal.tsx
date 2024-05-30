@@ -77,7 +77,7 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
   const columns = [
     CustomColumn({ field: 'name', headerName: t('modalAccion.name'), format: 'text', icon: <RecyclingIcon sx={{ color: 'green' }} />, }),
     CustomColumn({ field: 'footPrintUnity', headerName: t('modalAccion.footPrintUnity'), format: 'text' }),
-    CustomColumn({ field: 'quantity', headerName: t('modalAccion.quantity'), format: 'text', onClick: handleQuantityEdit }),
+    CustomColumn({ field: 'quantity', headerName: t('modalAccion.quantity'), format: 'text' }),
     CustomColumn({ field: 'unitaryPrice', headerName: t('modalAccion.unitaryPrice'), format: 'text' }),
     CustomColumn({
       field: 'options',
