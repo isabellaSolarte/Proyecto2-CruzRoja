@@ -13,27 +13,27 @@ const useActions = () => {
         const fetchActions = async () => {
             try {
                 setLoading(true);
-                // const response2 = await getAllActions(); // TOD: Cambia esto por el endpoint correcto
-                // console.log(response2);
-                const response = {
-                    data: [
-                        { id: 1, name: 'Plantar Árboles', description: 'Descripción de Plantar Árboles', unitaryPrice: 10, footPrintUnity: 100, quantity: 3 },
-                        { id: 2, name: 'Reciclaje', description: 'Descripción de Reciclaje', unitaryPrice: 15, footPrintUnity: 10, quantity: 0 },
-                        // otras acciones
-                    ],
-                };
+                const response2 = await getAllActions(); // TOD: Cambia esto por el endpoint correcto
+                console.log(response2);
+                // const response = {
+                //     data: [
+                //         { id: 1, name: 'Plantar Árboles', description: 'Descripción de Plantar Árboles', unitaryPrice: 10, footPrintUnity: 100, quantity: 3 },
+                //         { id: 2, name: 'Reciclaje', description: 'Descripción de Reciclaje', unitaryPrice: 15, footPrintUnity: 10, quantity: 0 },
+                //         // otras acciones
+                //     ],
+                // };
 
-                // const updatedActions = response.data.map((action) => ({
-                //     ...action,
-                //     //description: '',
-                //     //unitaryPrice: 0,
-                //     footPrintUnity: 100,
-                //     quantity: 0,
-                // }));
+                const updatedActions = response2.map((action) => ({
+                    ...action,
+                    //description: '',
+                    //unitaryPrice: 0,
+                    footPrintUnity: 100,
+                    quantity: 2,
+                }));
 
                 setTimeout(() => {
-                    //setActions(updatedActions);
-                    setActions(response.data);
+                    setActions(updatedActions);
+                    //setActions(response.data);
                     setLoading(false);
                 }, 500);
             } catch (err) {

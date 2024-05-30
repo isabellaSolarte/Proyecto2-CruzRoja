@@ -33,8 +33,8 @@ const actionSchema = yup.object().shape({
     id: yup.number().required('El id es requerido'),
     name: yup.string().required('El nombre es requerido'),
     description: yup.string().required('La descripción es requerida'),
-    unitaryPrice: yup.number().required('El precio unitario es requerido').min(0, 'El precio unitario debe ser mayor o igual a 0'),
-    footPrintUnity: yup.number().required('El UFP es requerido').min(0, 'El UFP debe ser mayor o igual a 0'),
+    unitaryPrice: yup.number().required('El precio unitario es requerido').min(1, 'El precio unitario debe ser mayor a 0'),
+    footPrintUnity: yup.number().required('El UFP es requerido').min(1, 'El UFP debe ser mayor a 0'),
     quantity: yup.number().required('La cantidad es requerida').min(1, 'La cantidad debe ser mayor o igual a 1'),
 });
 
