@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { Box, Dialog, DialogActions, DialogContent, DialogTitle, Alert } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -28,12 +29,18 @@ type ActionSummaryType = {
 };
 
 interface ActionsModalProps {
+  open: boolean;
   actionSummary: ActionSummaryType;
   onCancel: () => void;
   onAddSelected: (selectedActions: ActionSummaryType) => void;
 }
 
-const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, onAddSelected }) => {
+const ActionsModal: React.FC<ActionsModalProps> = ({
+  open,
+  actionSummary,
+  onCancel,
+  onAddSelected,
+}) => {
   const { t } = useTranslation('commons');
   const navigate = useNavigate();
   const { actions, loading, error } = useActions(); // Usa el hook personalizado
@@ -45,20 +52,32 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
   useEffect(() => {
     if (!loading && !error) {
       setSelectedActions(actions);
-      const totalCosto = selectedRows.reduce((acc, action) => acc + (action.unitaryPrice * action.quantity), 0);
-      const totalUfp = selectedRows.reduce((acc, action) => acc + (action.footPrintUnity * action.quantity), 0);
+      const totalCosto = selectedRows.reduce(
+        (acc, action) => acc + action.unitaryPrice * action.quantity,
+        0,
+      );
+      const totalUfp = selectedRows.reduce(
+        (acc, action) => acc + action.footPrintUnity * action.quantity,
+        0,
+      );
       setActionTemplate({ actions: selectedRows, totalUfp, totalCosto });
     }
   }, [loading, error, actions, selectedRows, onAddSelected]);
 
   const handleAddSelected = () => {
-    console.log('Adding selected actions:', {actions: selectedRows});
+    console.log('Adding selected actions:', { actions: selectedRows });
 
     actionsValidationSchema
-      .validate({actions: selectedRows})
+      .validate({ actions: selectedRows })
       .then(() => {
-        const totalCosto = selectedRows.reduce((acc, action) => acc + (action.unitaryPrice * action.quantity), 0);
-        const totalUfp = selectedRows.reduce((acc, action) => acc + (action.footPrintUnity * action.quantity), 0);
+        const totalCosto = selectedRows.reduce(
+          (acc, action) => acc + action.unitaryPrice * action.quantity,
+          0,
+        );
+        const totalUfp = selectedRows.reduce(
+          (acc, action) => acc + action.footPrintUnity * action.quantity,
+          0,
+        );
         onAddSelected({ actions: selectedRows, totalUfp, totalCosto });
         setValidationErrors([]); // Limpiar los errores de validación si la validación es exitosa
       })
@@ -73,12 +92,24 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
       });
   };
 
-  
   const columns = [
-    CustomColumn({ field: 'name', headerName: t('modalAccion.name'), format: 'text', icon: <RecyclingIcon sx={{ color: 'green' }} />, }),
-    CustomColumn({ field: 'footPrintUnity', headerName: t('modalAccion.footPrintUnity'), format: 'text' }),
+    CustomColumn({
+      field: 'name',
+      headerName: t('modalAccion.name'),
+      format: 'text',
+      icon: <RecyclingIcon sx={{ color: 'green' }} />,
+    }),
+    CustomColumn({
+      field: 'footPrintUnity',
+      headerName: t('modalAccion.footPrintUnity'),
+      format: 'text',
+    }),
     CustomColumn({ field: 'quantity', headerName: t('modalAccion.quantity'), format: 'text' }),
-    CustomColumn({ field: 'unitaryPrice', headerName: t('modalAccion.unitaryPrice'), format: 'text' }),
+    CustomColumn({
+      field: 'unitaryPrice',
+      headerName: t('modalAccion.unitaryPrice'),
+      format: 'text',
+    }),
     CustomColumn({
       field: 'options',
       headerName: t('modalAccion.options'),
@@ -90,7 +121,10 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
           color: 'warning',
           icon: <VisibilityIcon />,
           //onClick: row => { console.log('Observar', PathNames.VIEW_ACTIONS.replace(':id', String(row.id))); },
-          onClick: (row) => { console.log('Observar', PathNames.VIEW_ACTIONS.replace(':id', String(row.id))); navigate(PathNames.VIEW_ACTIONS.replace(':id', String(row.id))); },
+          onClick: row => {
+            console.log('Observar', PathNames.VIEW_ACTIONS.replace(':id', String(row.id)));
+            navigate(PathNames.VIEW_ACTIONS.replace(':id', String(row.id)));
+          },
         },
       ],
     }),
@@ -98,7 +132,7 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
   return (
     <Box>
       <Dialog
-        open
+        open={open}
         onClose={onCancel}
         fullWidth
         maxWidth="md"
@@ -134,9 +168,16 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
                 dataRows={selectedActions}
                 selectedRowsData={selectedRows}
                 onSelectionChange={setSelectedRows}
+                enableTools={false}
               />
-              <CustomText texto={`${t('modalAccion.totalUfp')}${actionTemplate?.totalUfp}`} variante="subtitulo" />
-              <CustomText texto={`${t('modalAccion.totalCosto')} ${actionTemplate?.totalCosto} COP`} variante="texto" />
+              <CustomText
+                texto={`${t('modalAccion.totalUfp')}${actionTemplate?.totalUfp}`}
+                variante="subtitulo"
+              />
+              <CustomText
+                texto={`${t('modalAccion.totalCosto')} ${actionTemplate?.totalCosto} COP`}
+                variante="texto"
+              />
             </>
           )}
         </DialogContent>

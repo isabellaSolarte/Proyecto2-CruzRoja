@@ -3,10 +3,18 @@ import { CompensationPlanModel } from '../../../models/CompensationPlan/Compensa
 import { yupResolver } from '@hookform/resolvers/yup';
 import { CompensationPlanSchema } from '../schemas';
 import { ActionsModel } from '../../../models/Actions';
+import { useState } from 'react';
 
 const useCreateCompensationPlan = () => {
+  const [actionsSelected, setActionsSelected] = useState<{
+    actions: ActionsModel[];
+    totalUfp: number;
+    totalCosto: number;
+  }>({ actions: [], totalUfp: 0, totalCosto: 0 });
+
   const {
     getValues,
+    setValue,
     register,
     handleSubmit,
     control,
@@ -20,8 +28,14 @@ const useCreateCompensationPlan = () => {
     name: 'actions',
   });
 
-  const addAction = (actions: ActionsModel) => {
-    append(actions);
+  const addAction = (action: ActionsModel) => {
+    append(action);
+  };
+
+  const addAllActions = (actions: ActionsModel[]) => {
+    actions.forEach(action => {
+      append(action);
+    });
   };
 
   const removeAction = (index: number) => {
@@ -32,9 +46,13 @@ const useCreateCompensationPlan = () => {
   return {
     fields,
     errors,
+    actionsSelected,
+    setActionsSelected,
     addAction,
+    addAllActions,
     removeAction,
     getValues,
+    setValue,
     register,
     handleSubmit,
   };
