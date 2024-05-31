@@ -38,7 +38,6 @@ const Header: React.FC = () => {
   return (
     <Box
       sx={{
-        flexGrow: 1,
         borderBottom: '2px solid',
         borderColor: theme.backgroundContentColors?.red,
       }}
