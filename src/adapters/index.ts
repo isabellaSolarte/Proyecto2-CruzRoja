@@ -1,5 +1,7 @@
+export * from './ActionAdapder';
 export * from './CategoryAdapter';
 export * from './CompanyUserAdapter';
+export * from './CompensationPlanAdapter';
 export * from './GeneralUserAdapter';
 export { default as LoggedInAdapter } from './LoggedInAdapter';
 export * from './PermissionsAdapter';

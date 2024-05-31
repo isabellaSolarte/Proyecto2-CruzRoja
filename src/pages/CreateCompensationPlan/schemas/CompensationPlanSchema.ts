@@ -1,8 +1,20 @@
 import * as yup from 'yup';
+import { CompensationPlanModel } from '../../../models/CompensationPlan/CompensationPlanModel';
+
+export const defaultCompensationPlan: CompensationPlanModel = {
+  name: '',
+  description: '',
+  discount: 0,
+  actions: [],
+  id: 0,
+  price: 0,
+};
 
 const CompensationPlanSchema = yup
   .object()
   .shape({
+    id: yup.number().default(0),
+    price: yup.number().default(0),
     name: yup.string().required('El nombre es obligatorio'),
     description: yup
       .string()
@@ -11,7 +23,8 @@ const CompensationPlanSchema = yup
       .required('La descripción es obligatoria'),
     discount: yup
       .number()
-      .min(1, 'El descuento no puede ser menor a 1')
+      .default(0)
+      .min(0, 'El descuento no puede ser menor a 0')
       .required('El descuento es obligatorio'),
     actions: yup
       .array()

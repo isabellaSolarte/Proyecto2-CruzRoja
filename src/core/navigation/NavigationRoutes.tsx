@@ -96,6 +96,11 @@ export const NavigationRoutes = () => {
       title: t('menuOptions.createPlan'),
     },
     {
+      path: PathNames.EDIT_PLAN,
+      component: <CreateCompensationPlanPage />,
+      title: t('menuOptions.createPlan'),
+    },
+    {
       path: PathNames.ACTIVITY,
       component: <h1>GESTIONAR ACTIVIDAD</h1>,
       title: t('menuOptions.activities'),

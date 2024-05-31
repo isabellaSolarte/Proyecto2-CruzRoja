@@ -3,10 +3,23 @@ import { CompensationPlanModel } from '../../../models/CompensationPlan/Compensa
 import { yupResolver } from '@hookform/resolvers/yup';
 import { CompensationPlanSchema } from '../schemas';
 import { ActionsModel } from '../../../models/Actions';
-import { useState } from 'react';
-import { postCompensationPlan } from '../../../services/AxiosRequests/Plans/PlanRequests';
+import { useEffect, useMemo, useState } from 'react';
+import {
+  getCompensationPlanById,
+  postCompensationPlan,
+  putCompensationPlan,
+} from '../../../services/AxiosRequests/Plans/PlanRequests';
+import Swal from 'sweetalert2';
+import { useNavigate, useParams } from 'react-router-dom';
+import { PathNames } from '../../../core';
+import { defaultCompensationPlan } from '../schemas/CompensationPlanSchema';
 
 const useCreateCompensationPlan = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [currentPlan, setCurrentPlan] = useState<CompensationPlanModel>(
+    defaultCompensationPlan,
+  );
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [actionsSelected, setActionsSelected] = useState<{
     actions: ActionsModel[];
@@ -19,11 +32,32 @@ const useCreateCompensationPlan = () => {
     setValue,
     register,
     handleSubmit,
+    reset,
     control,
     formState: { errors },
   } = useForm<CompensationPlanModel>({
+    defaultValues: useMemo(() => currentPlan, [id, currentPlan]),
     resolver: yupResolver(CompensationPlanSchema),
   });
+
+  const generateInitalPlanState = async () => {
+    if (!id) {
+      setCurrentPlan(defaultCompensationPlan);
+      return;
+    }
+    try {
+      const plan = await getCompensationPlanById(Number(id));
+      setCurrentPlan(plan);
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: `Ocurrió un error al obtener el plan de compensación`,
+      }).then(() => {
+        navigate(PathNames.PLANS, { replace: true });
+      });
+    }
+  };
 
   const { append, fields, remove } = useFieldArray({
     control: control,
@@ -46,12 +80,39 @@ const useCreateCompensationPlan = () => {
   };
 
   const onSubmit = async (data: CompensationPlanModel) => {
-    setIsLoading(true);
-    console.log('data:', data);
-    const response = await postCompensationPlan({ ...data });
-    console.log('Response:', response);
-    setIsLoading(false);
+    try {
+      setIsLoading(true);
+      if (!id) {
+        await postCompensationPlan(data);
+      } else {
+        await putCompensationPlan(data);
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: `Ocurrió un error al crear el plan de compensación`,
+      });
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+      Swal.fire({
+        icon: 'success',
+        title: 'Plan de compensación creado',
+        text: `El plan de compensación fue ${
+          id ? 'editado' : 'creado'
+        } con éxito`,
+        confirmButtonText: 'Aceptar',
+      }).then(() => {
+        navigate(PathNames.PLANS, { replace: true });
+      });
+    }
   };
+
+  useEffect(() => {
+    generateInitalPlanState();
+    reset(currentPlan);
+  }, [id]);
 
   return {
     fields,

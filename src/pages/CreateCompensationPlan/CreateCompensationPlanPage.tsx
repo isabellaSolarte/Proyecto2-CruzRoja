@@ -7,6 +7,7 @@ import {
   DataTable,
   ActionsModal,
   EmptyBox,
+  CustomLoader,
 } from '../../components';
 import HelpIcon from '@mui/icons-material/Help';
 import EnergySavingsLeafIcon from '@mui/icons-material/EnergySavingsLeaf';
@@ -21,6 +22,7 @@ const CreateCompensationPlanPage = () => {
     errors,
     fields,
     actionsSelected,
+    isLoading,
     setActionsSelected,
     addAllActions,
     register,
@@ -65,9 +67,10 @@ const CreateCompensationPlanPage = () => {
       }
       generalContents={
         <Box>
+          {isLoading && <CustomLoader />}
           <form onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={2}>
-              <Grid item xs={12}>
+              <Grid item xs={12} md={6}>
                 <CustomText
                   texto={t('generalFormInputLabels.name')}
                   variante="subtitulo"
@@ -76,6 +79,20 @@ const CreateCompensationPlanPage = () => {
                 />
                 <CustomInput placeholder={t('Nombre')} size="large" props={register('name')} />
                 {errors.name && <span>{errors.name.message}</span>}
+              </Grid>
+
+              <Grid item xs={12} md={6}>
+                <CustomText
+                  texto={t('generalFormInputLabels.discount')}
+                  variante="subtitulo"
+                  icon={<EnergySavingsLeafIcon color="success" />}
+                />
+                <CustomInput
+                  placeholder={t('Discount')}
+                  size="large"
+                  props={register('discount')}
+                />
+                {errors.discount && <span>{errors.discount.message}</span>}
               </Grid>
 
               <Grid item xs={12}>

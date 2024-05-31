@@ -7,8 +7,10 @@ import { ActionsModel } from '../Actions';
  * @field actions: Acciones que se van a realizar para mitigar la huella de carbono
  */
 export interface CompensationPlanModel {
+  id: number;
   name: string;
   description: string;
   discount: number;
   actions: ActionsModel[];
+  price: number;
 }
