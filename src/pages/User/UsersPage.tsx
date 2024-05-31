@@ -4,6 +4,7 @@ import {
   ManagmentLayout,
   DataTable,
   CustomColumn,
+  TabsAtomComponent,
 } from '../../components';
 import { useTranslation } from 'react-i18next';
 import EditIcon from '@mui/icons-material/Edit';
@@ -42,7 +43,6 @@ const UsersPage = () => {
   const [colorDialog, setColorDialog] = useState('green');
   const [colorButton, setColorButton] = useState<Color>('success');
   const [confirmationMessage, setConfirmationMessage] = useState('');
-
 
   const [rowData1, setRowData1] = useState({} as GridRenderCellParams['row']);
 
@@ -259,22 +259,29 @@ const UsersPage = () => {
       // inputBar={<SearchBar placeholder={t('generalButtonText.search')} />}
       generalContents={
         <>
+          <TabsAtomComponent
+            tabsHeaderTitle={['Voluntarios', 'Representantes de empresas']}
+            tabsContent={[
+              <DataTable
+                key={0}
+                enableCheckboxSelection={false}
+                dataColumns={columns}
+                dataRows={volunteerInfo}
+                loading={loading}
+              />,
+              <DataTable
+                key={1}
+                enableCheckboxSelection={false}
+                dataColumns={columnsCompanyUsers}
+                dataRows={companyUserInfo}
+                loading={loadingcompanyUsers}
+              />,
+            ]}
+          />
           {/* <TabsAtomComponent tabContentItem={[t("usersPages.tabs.volunteer"), t("usersPages.tabs.CompanyUser")]} /> */}
           <CustomText texto={t('usersPages.tabs.volunteer')} variante="subtitulo" />
-          <DataTable
-            enableCheckboxSelection={false}
-            dataColumns={columns}
-            dataRows={volunteerInfo}
-            loading={loading}
-          />
 
           <CustomText texto={t('usersPages.tabs.CompanyUser')} variante="subtitulo" />
-          <DataTable
-            enableCheckboxSelection={false}
-            dataColumns={columnsCompanyUsers}
-            dataRows={companyUserInfo}
-            loading={loadingcompanyUsers}
-          />
 
           <CustomDialog
             isOpen={isDialogOpen}
