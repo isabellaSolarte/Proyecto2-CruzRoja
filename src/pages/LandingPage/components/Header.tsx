@@ -59,15 +59,7 @@ const Header: React.FC = () => {
             <CustomText variante="subtitulo" texto="Cruz Roja Colombiana" />
           </Container>
 
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ display: { xs: 'block', md: 'none' } }}
-            onClick={toggleDrawer(true)}
-          >
-            <MenuIcon />
-          </IconButton>
+          
 
           <Drawer
             anchor="right"
@@ -134,6 +126,15 @@ const Header: React.FC = () => {
             </Box>
           )}
           </Container>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ display: { xs: 'block', md: 'none' } }}
+            onClick={toggleDrawer(true)}
+          >
+            <MenuIcon />
+          </IconButton>
 
         </Toolbar>
       </AppBar>
