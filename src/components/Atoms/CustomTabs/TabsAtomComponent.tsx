@@ -1,7 +1,5 @@
 import React from 'react';
-import { Tabs, Tab } from '@material-ui/core';
-import { styled } from 'styled-components';
-import { Box } from '@mui/material';
+import { Box, Tab, Tabs, styled } from '@mui/material';
 interface TabProps {
   tabsHeaderTitle: string[];
   tabsContent: React.ReactNode[];
