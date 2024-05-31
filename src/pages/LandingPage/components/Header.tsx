@@ -55,7 +55,7 @@ const Header: React.FC = () => {
             }}
           >
             <img src="/public/cruzRojaLogo.png" style={{ width: '2rem' }} />
-            <CustomText variante="subtitulo" texto="Cruz Roja Colombiana" />
+            <CustomText variante="subtitulo" texto="Cruz Roja Colombiana" styles={{textAlign: 'center'}} />
           </Container>
 
           
@@ -103,7 +103,11 @@ const Header: React.FC = () => {
             }}
           >
           {!user[0] ? (
-            <Button color="inherit" sx={{ borderRadius: '50px', border: `2px solid ${theme.palette.success.main}` }}>INICIAR SESIÓN</Button>
+            <Button 
+                color="inherit" 
+                sx={{ borderRadius: '50px', border: `2px solid ${theme.palette.success.main}` }}
+                onClick={() => {navigate(PathNames.LOGIN)}}
+            >INICIAR SESIÓN</Button>
           ) : (
             <Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
               <AccountCircleIcon sx={{ fontSize: '2.5rem' }} />
