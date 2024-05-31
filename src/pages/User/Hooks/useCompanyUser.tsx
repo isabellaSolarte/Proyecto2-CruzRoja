@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react';
 import { CompanyUserModel } from '../../../models/UserModels/CompanyUserModel';
 import { getCompanies } from '../../../services';
 import CompanyUserType from '../types/CompanyUserType';
+import { set } from 'react-hook-form';
 
 const useCompanyUser = () => {
   const [companyUsers, setCompanyUsers] = useState<CompanyUserModel[]>([]);
   const [loadingcompanyUsers, setLoadingcompanyUsers] = useState<boolean>(false);
+  const [errorCompanyUsers, setError] =useState<string | null>(null);
   const [companyUserInfo, setCompanyUserInfo] = useState<CompanyUserType[]>([]);
 
   const updateCompanyUserInfo = (updatedCompanyUsers: CompanyUserModel[]) => {
@@ -33,8 +35,10 @@ const useCompanyUser = () => {
       setCompanyUsers(CompaniesData);
       const mappedCompanyUsers = mapCompanyUsersToInfo(CompaniesData);
       setCompanyUserInfo(mappedCompanyUsers);
+      setError(null);
     } catch (error) {
       console.error('Error al obtener los usuarios de la empresa:', error);
+      setError(error.response.data.message);
     }
     setLoadingcompanyUsers(false);
   };
@@ -52,6 +56,7 @@ const useCompanyUser = () => {
     loadingcompanyUsers,
     companyUserInfo,
     updateCompanyUserInfo,
+    errorCompanyUsers,
   };
 };
 

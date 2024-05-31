@@ -25,6 +25,7 @@ const useActions = () => {
                 setTimeout(() => {
                     setActions(updatedActions);
                     setLoading(false);
+                    setError(null)
                 }, 500);
             } catch (err) {
                 setError('Error fetching actions',err.message);
