@@ -23,12 +23,12 @@ export const getVolunteers = async (): Promise<VolunterUserModel[]> => {
 
     return adaptedVolunteers;
   } catch (error) {
-    if (error.response.status === 406) {
-      console.error('No hay voluntarios: ', error.response.status);
-      return [];
-    } else {
-      throw error; // Lanzar el error para manejarlo en el componente
-    }
+    // if (error.response.status === 406) {
+    //   console.error('No hay voluntarios: ', error.response.status);
+    //   return [];
+    // } else {
+    // }
+    throw error; // Lanzar el error para manejarlo en el componente
   }
 };
 
@@ -76,15 +76,15 @@ export const getCompanies = async (): Promise<CompanyUserModel[]> => {
 
     return adaptedCompanies;
   } catch (error) {
-    if (error.response.status === 406) {
-      console.error(
-        'No hay representantes de empresas: ',
-        error.response.status,
-      );
-      return [];
-    } else {
-      throw error; // Lanzar el error para manejarlo en el componente
-    }
+    // if (error.response.status === 406) {
+    //   console.error(
+    //     'No hay representantes de empresas: ',
+    //     error.response.status,
+    //   );
+    //   return [];
+    // } else {
+    // }
+    throw error; // Lanzar el error para manejarlo en el componente
   }
 };
 

@@ -6,6 +6,7 @@ import VolunteerInfoType from '../types/VolunteerInfoType';
 const useVolunteers = () => {
   const [volunteers, setVolunteers] = useState<VolunterUserModel[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [errorVolunteers, setError] = useState<string | null>(null);
   const [volunteerInfo, setVolunteerInfo] = useState<VolunteerInfoType[]>([]);
 
   const updateVolunteerInfo = (updatedVolunteers: VolunterUserModel[]) => {
@@ -32,8 +33,12 @@ const useVolunteers = () => {
       setVolunteers(volunteersData as VolunterUserModel[]);
       const mappedVolunteers = mapVolunteersToInfo(volunteersData);
       setVolunteerInfo(mappedVolunteers);
+      setError(null);
     } catch (error) {
       console.error('Error fetching volunteers:', error);
+      //cuardo el error en el estado errores
+      //si es 406 cambier
+      setError(error.response.data.message);
     }
     setLoading(false);
   };
@@ -46,7 +51,7 @@ const useVolunteers = () => {
     };
   }, []);
 
-  return { volunteers, setVolunteers, loading, volunteerInfo, updateVolunteerInfo };
+  return { volunteers, setVolunteers, loading, errorVolunteers, volunteerInfo, updateVolunteerInfo };
 };
 
 export default useVolunteers;
