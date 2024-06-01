@@ -158,6 +158,7 @@ const UsersPage = () => {
   };
   const columns = [
     CustomColumn({
+      width: 200,
       field: 'names',
       headerName: t('usersPages.userTable.name'),
       format: 'text',
@@ -165,14 +166,15 @@ const UsersPage = () => {
       icon: <AccountCircleIcon />,
     }),
     CustomColumn({
+      width: 170,
       field: 'roles',
       headerName: t('usersPages.userTable.roles'),
       format: 'text',
       variante: 'texto',
     }),
     CustomColumn({
+      width: 250,
       field: 'actions',
-      width: 500,
       headerName: t('usersPages.userTable.actions'),
       format: 'button',
       variante: 'texto',
@@ -194,6 +196,7 @@ const UsersPage = () => {
       ],
     }),
     CustomColumn({
+      width: 130,
       field: 'state',
       headerName: t('generalButtonText.state'),
       format: 'switch',
@@ -203,6 +206,7 @@ const UsersPage = () => {
   ];
   const columnsCompanyUsers = [
     CustomColumn({
+      width: 200,
       field: 'names',
       headerName: t('usersPages.userTable.name'),
       format: 'text',
@@ -210,18 +214,21 @@ const UsersPage = () => {
       icon: <AccountCircleIcon />,
     }),
     CustomColumn({
+      width: 250,
       field: 'companyName',
       headerName: t('usersPages.userTable.companyName'),
       format: 'text',
       variante: 'texto',
     }),
     CustomColumn({
+      width: 170,
       field: 'roles',
       headerName: t('usersPages.userTable.roles'),
       format: 'text',
       variante: 'texto',
     }),
     CustomColumn({
+      width: 250,
       field: 'actions',
       headerName: t('usersPages.userTable.actions'),
       format: 'button',
@@ -244,6 +251,7 @@ const UsersPage = () => {
       ],
     }),
     CustomColumn({
+      width: 130,
       field: 'state',
       headerName: t('generalButtonText.state'),
       format: 'switch',
