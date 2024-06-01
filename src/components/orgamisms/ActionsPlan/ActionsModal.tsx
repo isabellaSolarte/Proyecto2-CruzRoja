@@ -29,14 +29,12 @@ type ActionSummaryType = {
 };
 
 interface ActionsModalProps {
-  open: boolean;
   actionSummary: ActionSummaryType;
   onCancel: () => void;
   onAddSelected: (selectedActions: ActionSummaryType) => void;
 }
 
 const ActionsModal: React.FC<ActionsModalProps> = ({
-  open,
   actionSummary,
   onCancel,
   onAddSelected,
@@ -99,17 +97,20 @@ const ActionsModal: React.FC<ActionsModalProps> = ({
       headerName: t('modalAccion.name'),
       format: 'text',
       icon: <RecyclingIcon sx={{ color: 'green' }} />,
+      width: 200,
     }),
     CustomColumn({
       field: 'footPrintUnity',
       headerName: t('modalAccion.footPrintUnity'),
       format: 'text',
+      width: 150,
     }),
-    CustomColumn({ field: 'quantity', headerName: t('modalAccion.quantity'), format: 'text' }),
+    CustomColumn({ field: 'quantity', headerName: t('modalAccion.quantity'), format: 'text', width: 150 }),
     CustomColumn({
       field: 'unitaryPrice',
       headerName: t('modalAccion.unitaryPrice'),
       format: 'text',
+      width: 150,
     }),
     CustomColumn({
       field: 'options',
@@ -121,19 +122,19 @@ const ActionsModal: React.FC<ActionsModalProps> = ({
           variant: 'contained',
           color: 'warning',
           icon: <VisibilityIcon />,
-          //onClick: row => { console.log('Observar', PathNames.VIEW_ACTIONS.replace(':id', String(row.id))); },
           onClick: row => {
             console.log('Observar', PathNames.VIEW_ACTIONS.replace(':id', String(row.id)));
             navigate(PathNames.VIEW_ACTIONS.replace(':id', String(row.id)));
           },
         },
       ],
+      width: 200,
     }),
   ];
   return (
     <Box>
       <Dialog
-        open={open}
+        open
         onClose={onCancel}
         fullWidth
         maxWidth="md"
@@ -172,14 +173,6 @@ const ActionsModal: React.FC<ActionsModalProps> = ({
                 selectedRowsData={selectedRows}
                 onSelectionChange={setSelectedRows}
                 enableTools={false}
-              />
-              <CustomText
-                texto={`${t('modalAccion.totalUfp')}${actionTemplate.totalUfp}`}
-                variante="subtitulo"
-              />
-              <CustomText
-                texto={`${t('modalAccion.totalCosto')} ${actionTemplate.totalCosto} COP`}
-                variante="texto"
               />
             </>
           )}
