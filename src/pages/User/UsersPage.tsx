@@ -27,8 +27,14 @@ import { Alert, Box, CircularProgress } from '@mui/material';
 const UsersPage = () => {
   const { t } = useTranslation('commons');
   const navigate = useNavigate(); // Utilize the useNavigate hook
-  const { volunteers, setVolunteers, loading,errorVolunteers, volunteerInfo, updateVolunteerInfo } =
-    useVolunteers();
+  const {
+    volunteers,
+    setVolunteers,
+    loading,
+    errorVolunteers,
+    volunteerInfo,
+    updateVolunteerInfo,
+  } = useVolunteers();
   const {
     companyUsers,
     setCompanyUsers,
@@ -166,6 +172,7 @@ const UsersPage = () => {
     }),
     CustomColumn({
       field: 'actions',
+      width: 500,
       headerName: t('usersPages.userTable.actions'),
       format: 'button',
       variante: 'texto',
@@ -266,17 +273,17 @@ const UsersPage = () => {
             tabsContent={[
               <>
                 {loading && (
-                  <Box display="flex" justifyContent="center" alignItems="center" height="fullWidth">
+                  <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    height="fullWidth"
+                  >
                     <CircularProgress color="success" />
                   </Box>
                 )}
-                {errorVolunteers && (
-                  <Alert severity="error">
-                    {errorVolunteers}
-                  </Alert>
-                )}
+                {errorVolunteers && <Alert severity="error">{errorVolunteers}</Alert>}
                 {!loading && !errorVolunteers && (
-
                   <DataTable
                     key={0}
                     enableCheckboxSelection={false}
@@ -284,19 +291,19 @@ const UsersPage = () => {
                     dataRows={volunteerInfo}
                   />
                 )}
-              
               </>,
               <>
                 {loadingcompanyUsers && (
-                  <Box display="flex" justifyContent="center" alignItems="center" height="fullWidth">
+                  <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    height="fullWidth"
+                  >
                     <CircularProgress color="success" />
                   </Box>
                 )}
-                {errorCompanyUsers  && (
-                  <Alert severity="error">
-                    {errorCompanyUsers}
-                  </Alert>
-                )}
+                {errorCompanyUsers && <Alert severity="error">{errorCompanyUsers}</Alert>}
                 {!loadingcompanyUsers && !errorCompanyUsers && (
                   <DataTable
                     key={1}

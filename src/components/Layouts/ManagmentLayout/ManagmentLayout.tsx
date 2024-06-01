@@ -31,6 +31,7 @@ const ManagmentLayout = ({
     <Container
       sx={{
         padding: Mesuares.CONTENT_BOX_PADDING,
+        maxWidth: 'calc(100vw*0.9)',
       }}
     >
       <Grid container>
@@ -45,10 +46,9 @@ const ManagmentLayout = ({
         )}
       </Grid>
 
-      <EmptyBox height={30} width={100} />
-
       {description && (
         <div>
+          <EmptyBox height={30} width={100} />
           {description}
           <EmptyBox height={30} width={100} />
         </div>
@@ -60,7 +60,9 @@ const ManagmentLayout = ({
           <EmptyBox height={30} width={100} />
         </>
       )}
-      {generalContents}
+
+      <Container>{generalContents}</Container>
+      <EmptyBox height={30} width={100} />
     </Container>
   );
 };

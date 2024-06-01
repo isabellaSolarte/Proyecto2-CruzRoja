@@ -3,6 +3,15 @@ import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 import './DataTableStyle.css';
 import { esES } from '@mui/x-data-grid/locales';
 import { useEffect, useState } from 'react';
+import {
+  TableContainer,
+  Paper,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+} from '@mui/material';
 
 interface DataTableProps {
   enableCheckboxSelection: boolean;
@@ -12,6 +21,18 @@ interface DataTableProps {
   enableTools?: boolean;
   onSelectionChange?: (selectedRows: any[]) => void;
 }
+
+function createData(name: string, calories: number, fat: number, carbs: number, protein: number) {
+  return { name, calories, fat, carbs, protein };
+}
+
+const rows = [
+  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+  createData('Eclair', 262, 16.0, 24, 6.0),
+  createData('Cupcake', 305, 3.7, 67, 4.3),
+  createData('Gingerbread', 356, 16.0, 49, 3.9),
+];
 
 /**
  *
@@ -42,8 +63,36 @@ const DataTable = ({
     setSelectedRows(selectedRowIds);
   }, [selectedRowsData]);
 
+  // return (
+  //   <TableContainer component={Paper} sx={{ overflow: 'scroll', maxWidth: '100%' }}>
+  //     <Table size="small" aria-label="a dense table">
+  //       <TableHead>
+  //         <TableRow>
+  //           {dataColumns.map(column => (
+  //             <TableCell align="left" key={column.field}>
+  //               {column.headerName}
+  //             </TableCell>
+  //           ))}
+  //         </TableRow>
+  //       </TableHead>
+  //       <TableBody>
+  //         {dataRows.map(row => (
+  //           <TableRow key={row.id}>
+  //             {dataColumns.map(column => (
+  //               <TableCell key={column.field} align="left">
+  //                 {row[column.field]}
+  //               </TableCell>
+  //             ))}
+  //           </TableRow>
+  //         ))}
+
+  //       </TableBody>
+  //     </Table>
+  //   </TableContainer>
+  // );
+
   return (
-    <div style={{ height: 450, width: '100%' }}>
+    <div style={{ height: 450 }}>
       <DataGrid
         localeText={esES.components.MuiDataGrid.defaultProps.localeText}
         className="my-data-grid"
