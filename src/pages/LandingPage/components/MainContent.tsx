@@ -1,69 +1,87 @@
 import React from 'react';
 import { Box, Typography, Button, Grid, Theme, Container, useTheme } from '@mui/material';
 import { styled } from '@mui/system';
+import { CustomText } from '../../../components';
+import { useTranslation } from 'react-i18next';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import BusinessIcon from '@mui/icons-material/Business';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import { useNavigate } from 'react-router-dom';
+import { PathNames } from '../../../core';
+
 
 const BackgroundContainer = styled(Box)(({ theme }) => ({
-  position: 'relative',
-  background: `url('/path_to_image/mainContec.jpg') no-repeat center center`,
-  backgroundSize: 'cover',
-  padding: theme.spacing(4),
-  [theme.breakpoints.down('md')]: {
-    padding: theme.spacing(2),
-  },
+    position: 'relative',
+    background: `url('/public/LandingPageVector.svg') no-repeat left center`,
+    backgroundSize: 'contain',
+    padding: theme.spacing(4),
+    [theme.breakpoints.down('md')]: {
+        background: 'none', // Esto hará que la imagen de fondo desaparezca en pantallas 'md' o menores
+        padding: theme.spacing(2),
+    },
 }));
 
 const ContentContainer = styled(Container)(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  flexWrap: 'wrap',
-  [theme.breakpoints.down('md')]: {
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-}));
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    flexWrap: 'nowrap',
+    [theme.breakpoints.down('md')]: {
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+  }));
 
 
 const InfoContainer = styled(Box)(({ theme }: { theme: Theme }) => ({
-    background: 'rgba(255, 255, 255, 0.9)', // Fondo semi-transparente
     padding: theme.spacing(2),
-    borderRadius: theme.spacing(1),
-    boxShadow: theme.shadows[3],
     textAlign: 'center',
+    alignItems: 'center',
     marginTop: theme.spacing(2),
+    display: 'flex', 
+    flexDirection: 'column',
 }));
 
 const MainContent: React.FC = () => {
     const theme = useTheme();
+    const { t } = useTranslation('commons');
+    const navigate = useNavigate(); // Utilize the useNavigate hook
+
 
   return (
     <BackgroundContainer>
       <ContentContainer maxWidth="lg">
-        <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', p: 2 }}>
-            <img src="public\LandingPageVector.svg" alt="Cruz Roja Footprint" style={{ maxWidth: '100%', height: 'auto' }} />
-            </Box>
-        <Box sx={{ flex: 1, p: 2 }}>
-          <Typography variant="h4" gutterBottom>
-            CRUZ ROJA FOOTPRINT
-          </Typography>
-          <Typography variant="body1" paragraph>
+      <Box sx={{ p: 2, marginLeft: { xs: 0, md: '25vw' } }}>
+            <CustomText texto={t('CRUZ ROJA FOOTPRINT')} variante="titulo" styles={{textAlign: 'center',}}/>
+            <Typography variant="body1" paragraph>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...
-          </Typography>
-          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
-            <Button variant="contained" color="primary" sx={{ mx: 1 }}>
-              USAR CALCULADORA
+            </Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 4 }}>
+            <Button variant="contained" color="info" sx={{ borderRadius: '50px' }}>
+                USAR CALCULADORA
             </Button>
-            <Button variant="outlined" color="primary" sx={{ mx: 1 }}>
-              REGÍSTRATE
-            </Button>
-          </Box>
+            <Button 
+                color="inherit" 
+                sx={{ borderRadius: '50px', border: `2px solid ${theme.palette.success.main}` }}
+                onClick={() => {navigate(PathNames.LOGIN)}}
+            >REGÍSTRATE</Button>
+            </Box>
         </Box>
-        
-      </ContentContainer>
-      <Grid container spacing={2} justifyContent="center">
+        </ContentContainer>
+      <Grid container spacing={2} justifyContent="center"
+      sx={{
+        boxShadow: '0 0 1rem 0 rgba(0, 0, 0, .2)',
+        borderRadius: '5px',
+        backgroundColor: 'rgba(255, 255, 255, .75)',
+        backdropFilter: 'blur(5px)',
+      }}
+      
+      
+      >
         <Grid item xs={12} md={4}>
           <InfoContainer theme={theme}>
-            <Typography variant="h6">Estadísticas</Typography>
+          <BarChartIcon color="success" fontSize="large" />
+          <CustomText texto={t('Estadísticas')} variante="subtitulo" styles={{textAlign: 'center',}}/>
             <Typography variant="body2">
               Our frontend developers understand the delicate balance between aesthetics and functionality.
             </Typography>
@@ -71,15 +89,17 @@ const MainContent: React.FC = () => {
         </Grid>
         <Grid item xs={12} md={4}>
           <InfoContainer theme={theme}>
-            <Typography variant="h6">Empresas</Typography>
+          <BusinessIcon color='success' fontSize="large" />
+          <CustomText texto={t('Empresas')} variante="subtitulo" styles={{textAlign: 'center',}}/>
             <Typography variant="body2">
               Our backend developers are the architects of efficiency and security. They design and build the databases and APIs.
             </Typography>
           </InfoContainer>
         </Grid>
-        <Grid item xs={12} md={4}>
-          <InfoContainer>
-            <Typography variant="h6">Beneficios</Typography>
+        <Grid item xs={12} md={4} >
+          <InfoContainer theme={theme}>
+          <ThumbUpIcon color="success" fontSize="large" />
+          <CustomText texto={t('Beneficios')} variante="subtitulo" styles={{textAlign: 'center',}}/>
             <Typography variant="body2">
               Our data analytics team is a blend of mathematicians, statisticians, and technology enthusiasts.
             </Typography>

@@ -7,7 +7,7 @@ import Footer from './components/Footer';
 
 const LandingPage: React.FC = () => {
     return (
-        <Box display="flex" flexDirection="column" minHeight="100vh" sx={{ overflowX: 'hidden' }}>
+        <Box display="flex" flexDirection="column" height="auto" sx={{ overflowX: 'hidden' }}>
             <Header />
             <Container>
                 <MainContent />
