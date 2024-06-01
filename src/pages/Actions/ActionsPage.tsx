@@ -12,25 +12,36 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useActionsPage } from '../../pages/Actions/hooks/useActions';
 import { useNavigate } from 'react-router-dom';
 import { PathNames } from '../../core';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import RecyclingIcon from '@mui/icons-material/Recycling';
 import { green } from '@mui/material/colors';
+import { CustomModal } from '../../components/orgamisms/CustomModal';
+import { set } from 'react-hook-form';
 
 const ActionsPage = () => {
   const { t } = useTranslation('commons');
-  const { actions, fetchActions } = useActionsPage();
+  const [showModal, setShowModal] = useState(false);
+  const { actions, fetchActions,fetchActionById,action,setId} = useActionsPage();
   const navigate = useNavigate();
 
   useEffect(() => {
     void fetchActions();
   }, []);
+ 
 
   const handleEditButtonClick = (actionId: number) => {
+    
     navigate(PathNames.EDIT_ACTIONS.replace(':id', actionId.toString()));
   };
 
   const handleViewButtonClick = (actionId: number) => {
-    navigate(PathNames.VIEW_ACTIONS.replace(':id', actionId.toString()));
+    setId(actionId)
+    fetchActionById(actionId)
+    console.log(action?.name)
+    //llamo a una funcion que busque la accion por id y me devuelva la accion
+    //a partir de la accion llamo al modal que muestra la informacion de la accion
+    //navigate(PathNames.VIEW_ACTIONS.replace(':id', actionId.toString()));
+    setShowModal(true)
   };
 
   const handleCreateButtonClick = () => {
@@ -63,14 +74,14 @@ const ActionsPage = () => {
           variant: 'contained',
           color: 'info',
           icon: <EditIcon />,
-          onClick: (rowData: { id: number }) => handleEditButtonClick(rowData.id),
+          onClick: (rowData: { id: number}) => handleEditButtonClick(rowData.id),
         },
         {
           content: t('generalButtonText.view'),
           variant: 'contained',
           color: 'warning',
           icon: <VisibilityIcon />,
-          onClick: (rowData: { id: number }) => handleViewButtonClick(rowData.id),
+          onClick: (rowData: { id: number}) => handleViewButtonClick(rowData.id),
         },
       ],
     }),
@@ -92,7 +103,19 @@ const ActionsPage = () => {
       generalContents={
         <Grid>
           <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={actions} />
+            {showModal && (
+              <CustomModal
+                open={showModal}
+                title={<CustomText texto={action?.name ?? ''} variante="titulo" />}
+                description={<CustomText texto={action?.description ?? ''} variante="subtitulo" />}
+                generalContents={
+                <Box> </Box>
+                }
+                onClose={() => setShowModal(false)}
+              />
+            )}
         </Grid>
+        
       }
     />
   );
