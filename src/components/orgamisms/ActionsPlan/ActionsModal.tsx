@@ -110,7 +110,7 @@ const ActionsModal: React.FC<ActionsModalProps> = ({
       field: 'unitaryPrice',
       headerName: t('modalAccion.unitaryPrice'),
       format: 'text',
-      width: 150,
+      width: 200,
     }),
     CustomColumn({
       field: 'options',
