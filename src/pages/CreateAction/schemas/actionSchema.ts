@@ -10,7 +10,7 @@ export const actionSchema = yup
       .required('El nombre no puede estar vacío'),
     description: yup
       .string()
-      .min(2, 'La descripción debe tener más de 2 caracteres')
+      .min(10, 'La descripción debe tener más de 10 caracteres')
       .max(255, 'La descripción no puede tener más de 255 caracteres')
       .required('La descripción no puede estar vacía'),
     unitaryPrice: yup

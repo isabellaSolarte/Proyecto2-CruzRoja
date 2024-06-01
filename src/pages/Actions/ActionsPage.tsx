@@ -1,4 +1,10 @@
-import {ManagmentLayout, CustomButton, CustomText, CustomColumn,DataTable,} from '../../components';
+import {
+  ManagmentLayout,
+  CustomButton,
+  CustomText,
+  CustomColumn,
+  DataTable,
+} from '../../components';
 import { Box, Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import EditIcon from '@mui/icons-material/Edit';
@@ -46,6 +52,7 @@ const ActionsPage = () => {
       variante: 'texto',
     }),
     CustomColumn({
+      width: 300,
       field: 'options',
       headerName: t('actionsPage.actionsTable.options'),
       format: 'button',
@@ -81,11 +88,9 @@ const ActionsPage = () => {
           style={{ marginLeft: '10px' }}
         />
       }
+      description={<CustomText texto={t('actionsPage.description')} variante="subtitulo" />}
       generalContents={
         <Grid>
-           <Box mb={10}>
-            <CustomText texto={t('actionsPage.description')} variante="subtitulo" />
-          </Box>
           <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={actions} />
         </Grid>
       }

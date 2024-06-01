@@ -33,7 +33,6 @@ const CreateActionPage = () => {
   }, [id]);
 
   useEffect(() => {
-    console.log("id:",id)
     if (action) {
       setValue('name', action.name); 
       setValue('description', action.description); 
@@ -47,9 +46,11 @@ const CreateActionPage = () => {
     createOrUpdateAction(data);
   });
 
+  const pageTitle = id ? t('pageTitles.editAction') : t('pageTitles.createAction');
+
   return (
     <ManagmentLayout
-      title={<CustomText texto={t('pageTitles.createAction')} variante="titulo" />}
+      title={<CustomText texto={pageTitle} variante="titulo" />}
       actionsContent={
         <Tooltip title={t('registerAction.help.descriptionActionFormHelp')} placement="right">
           <HelpIcon color="disabled" />

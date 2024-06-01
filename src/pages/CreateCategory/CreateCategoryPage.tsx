@@ -46,9 +46,11 @@ const CreateCategoryPage = () => {
     createOrUpdateCategory(data);
   });
 
+  const pageTitle = id ? t('pageTitles.editCategory') : t('pageTitles.createCategory');
+  
   return (
     <ManagmentLayout
-      title={<CustomText texto={t('pageTitles.registerCategory')} variante="titulo" />}
+      title={<CustomText texto={pageTitle} variante="titulo" />}
       generalContents={
         <Box>
           <form onSubmit={onSubmit}>
