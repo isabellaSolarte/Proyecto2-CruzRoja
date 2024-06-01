@@ -40,7 +40,7 @@ const ManagmentLayout = ({
         </Grid>
 
         {actionsContent && (
-          <Grid item md={4} xs={12} sx={{ display: 'flex' }}>
+          <Grid item md={4} xs={12} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
             {actionsContent}
           </Grid>
         )}

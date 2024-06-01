@@ -65,6 +65,9 @@ export const theme: ThemeOptions = createTheme({
           '& .MuiGrid-item': {
             //padding: '1.5rem 1rem',
           },
+          '& .MuiButton-text': {
+            border: 'none',
+          },
         },
       },
     },
@@ -100,6 +103,11 @@ export const theme: ThemeOptions = createTheme({
           fontWeight: 'bold',
           widht: 'auto',
         },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {},
       },
     },
   },

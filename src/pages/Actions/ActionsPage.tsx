@@ -88,7 +88,7 @@ const ActionsPage = () => {
           style={{ marginLeft: '10px' }}
         />
       }
-      description={<CustomText texto={t('actionsPage.description')} variante="subtitulo" />}
+      description={<CustomText texto={t('actionsPage.description')} variante="texto" />}
       generalContents={
         <Grid>
           <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={actions} />
