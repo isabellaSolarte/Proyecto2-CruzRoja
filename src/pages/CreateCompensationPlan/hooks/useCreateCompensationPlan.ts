@@ -3,7 +3,7 @@ import { CompensationPlanModel } from '../../../models/CompensationPlan/Compensa
 import { yupResolver } from '@hookform/resolvers/yup';
 import { CompensationPlanSchema } from '../schemas';
 import { ActionsModel } from '../../../models/Actions';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import {
   getCompensationPlanById,
   postCompensationPlan,
@@ -40,9 +40,20 @@ const useCreateCompensationPlan = () => {
     resolver: yupResolver(CompensationPlanSchema),
   });
 
+  const { append, fields, remove } = useFieldArray({
+    control: control,
+    name: 'actions',
+  });
+
+  const getTotalUfp = (actions: ActionsModel[]) => {
+    return actions.reduce((acc, action) => acc + action.footPrintUnity, 0);
+  };
+
   const generateInitalPlanState = async () => {
+    setIsLoading(true);
     if (!id) {
       setCurrentPlan(defaultCompensationPlan);
+      setIsLoading(false);
       return;
     }
     try {
@@ -56,13 +67,10 @@ const useCreateCompensationPlan = () => {
       }).then(() => {
         navigate(PathNames.PLANS, { replace: true });
       });
+    } finally {
+      setIsLoading(false);
     }
   };
-
-  const { append, fields, remove } = useFieldArray({
-    control: control,
-    name: 'actions',
-  });
 
   const addAction = (action: ActionsModel) => {
     append(action);
@@ -109,16 +117,14 @@ const useCreateCompensationPlan = () => {
     }
   };
 
-  useEffect(() => {
-    generateInitalPlanState();
-    reset(currentPlan);
-  }, [id]);
-
   return {
     fields,
     errors,
     actionsSelected,
     isLoading,
+    id,
+    currentPlan,
+    getTotalUfp,
     onSubmit,
     setActionsSelected,
     addAction,
@@ -128,6 +134,8 @@ const useCreateCompensationPlan = () => {
     setValue,
     register,
     handleSubmit,
+    generateInitalPlanState,
+    reset,
   };
 };
 

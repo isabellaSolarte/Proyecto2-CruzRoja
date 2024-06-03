@@ -15,7 +15,7 @@ import { useCreateCompensationPlan } from './hooks';
 import AddIcon from '@mui/icons-material/Add';
 import { useTranslation } from 'react-i18next';
 import columns from './components/ActionsTableColumns';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const CreateCompensationPlanPage = () => {
   const {
@@ -23,17 +23,34 @@ const CreateCompensationPlanPage = () => {
     fields,
     actionsSelected,
     isLoading,
+    currentPlan,
+    id,
     setActionsSelected,
     addAllActions,
     register,
     removeAction,
-    setValue,
-    getValues,
+    getTotalUfp,
     onSubmit,
     handleSubmit,
+    getValues,
+    generateInitalPlanState,
+    reset,
   } = useCreateCompensationPlan();
   const { t } = useTranslation('commons');
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (id) {
+      generateInitalPlanState();
+      reset(currentPlan);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    if (currentPlan.description !== '') {
+      reset(currentPlan);
+    }
+  }, [currentPlan]);
 
   return (
     <ManagmentLayout
@@ -149,7 +166,7 @@ const CreateCompensationPlanPage = () => {
                 <Box sx={{ display: 'flex' }}>
                   <CustomText texto={'Unidades de compensación: '} variante="subtitulo" />
                   <CustomText
-                    texto={`  ${getValues('discount') ? getValues('discount') : 0} ufp`}
+                    texto={`${getTotalUfp(getValues('actions'))} `}
                     variante="subtitulo"
                   />
                 </Box>
