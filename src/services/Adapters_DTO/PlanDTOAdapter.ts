@@ -6,7 +6,7 @@ export const PlanDTOAdapter = (plan: CompensationPlanModel) => {
     planId: plan.id,
     planName: plan.name,
     planDescription: plan.description,
-    planDiscount: 99,
+    planDiscount: plan.discount,
     planPrice: plan.price,
     actions: plan.actions.map(adaptActionsModelToDTO),
   };
