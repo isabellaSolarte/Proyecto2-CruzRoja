@@ -16,7 +16,7 @@ interface RouteProtectorProps {
 
 const RouteProtector = ({ route, component }: RouteProtectorProps) => {
   const user: UserModel | undefined = useUserActions().getLoggedUser();
-  if (!user) return <Navigate to="/login" />;
+  if (!user) return <Navigate to={PathNames.LANDIN_PAGE} />;
 
   const allowedUserRoutes: string[] = getAllowedUserRoutePaths(user);
 
