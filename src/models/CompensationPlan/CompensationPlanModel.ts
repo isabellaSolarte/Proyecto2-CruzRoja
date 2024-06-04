@@ -1,4 +1,4 @@
-import { ActionsModel } from '../Actions';
+import { CompensationPlanActionModel } from '../Actions';
 
 /**
  * @field name: Nombre del plan de compensación
@@ -11,6 +11,7 @@ export interface CompensationPlanModel {
   name: string;
   description: string;
   discount: number;
-  actions: ActionsModel[];
+  actions: CompensationPlanActionModel[];
   price: number;
+  ufpCompensation: number;
 }
