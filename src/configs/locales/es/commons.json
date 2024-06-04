@@ -81,7 +81,7 @@
     "actionsPage":{
         "actionsTable": {
             "name": "Acciones",
-            "unitaryPrice":"Ufp",
+            "footPrintUnity":"Ufp",
             "options": "Opciones"        
         },
         "description": "La Cruz Roja implementa diversas acciones para reducir su huella de carbono y promover la sostenibilidad. Estas incluyen programas de reforestación, promoción de energías renovables, educación ambiental, gestión de residuos, fomento de la movilidad sostenible y medidas de eficiencia energética. Estas iniciativas son parte de su compromiso con la mitigación del cambio climático y la creación de entornos más saludables y sostenibles para las comunidades."

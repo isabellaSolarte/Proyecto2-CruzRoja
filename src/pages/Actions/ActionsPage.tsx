@@ -57,8 +57,8 @@ const ActionsPage = () => {
       icon: <RecyclingIcon style={{ color: green[500] }} />,
     }),
     CustomColumn({
-      field: 'unitaryPrice',
-      headerName: t('actionsPage.actionsTable.unitaryPrice'),
+      field: 'footPrintUnity',
+      headerName: t('actionsPage.actionsTable.footPrintUnity'),
       format: 'text',
       variante: 'texto',
     }),
