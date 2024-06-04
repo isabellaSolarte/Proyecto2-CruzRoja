@@ -254,12 +254,11 @@
         "unitaryPrice":"Precio unitario",
         "description":"Descripción",
         "help": { 
-            "descriptionActionFormHelp":"Ejemplo: Lorem ipsum",
-            "nameAction":"Nombre de la acción: Lorem ipsum",
-            "footPrintUnity":"Costo ufp por unidad: Lorem ipsum",
-            "quantity":"Cantidad: Lorem ipsum:  Lorem ipsum",
-            "unitaryPrice":"Precio unitario:  Lorem ipsum",
-            "description":"Descripción: Lorem ipsum", 
+            "descriptionActionFormHelp":"Ejemplo: Nombre de la acción: Plantación de árboles en áreas urbanas, Precio unitario de la acción: $25 USD por árbol plantado, Costo unidad de huella de carbono: 0.02 toneladas métricas de CO2 por árbol al año, Descripción: Esta acción consiste en la plantación de árboles en áreas urbanas para mejorar la calidad del aire, proporcionar sombra y reducir el efecto de isla de calor urbano. Cada árbol plantado ayudará a absorber dióxido de carbono de la atmósfera, contribuyendo a la mitigación del cambio climático.  ",
+            "nameAction":"Nombre de la acción:  Título o denominación que se le da a la acción específica que se implementará. ",
+            "footPrintUnity":"Costo ufp por unidad: Cantidad de carbono que se espera compensar con una unidad de la acción.",
+            "unitaryPrice":"Precio unitario:  Costo monetario de implementar una unidad de la acción específica.",
+            "description":"Descripción: Proporciona detalles adicionales sobre la acción, explicando cómo se llevará a cabo, sus beneficios específicos, y cualquier otro dato relevante.", 
             "title":"A continuacion registre los datos asociados a una acción:"   
         }
     },

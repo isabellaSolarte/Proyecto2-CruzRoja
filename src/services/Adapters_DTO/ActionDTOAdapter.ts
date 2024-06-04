@@ -6,8 +6,7 @@ interface ActionDTO {
   actionName: string;
   actionDescription: string;
   actionUnitaryPrice: number;
-  actionFootPrintUnity: number;
-  actionQuantity: number;
+  actionUfp: number;
 }
 
 // Función para adaptar una acción del modelo de la aplicación al formato del servidor
@@ -17,7 +16,6 @@ export const adaptActionsModelToDTO = (action: ActionsModel): ActionDTO => {
     actionName: action.name,
     actionDescription: action.description,
     actionUnitaryPrice: action.unitaryPrice,
-    actionFootPrintUnity: action.footPrintUnity,
-    actionQuantity: action.quantity,
+    actionUfp: action.footPrintUnity,
   };
 };
