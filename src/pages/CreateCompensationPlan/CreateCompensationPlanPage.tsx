@@ -187,19 +187,19 @@ const CreateCompensationPlanPage = () => {
             </Box>
           </form>
 
-          {open && (
+          {/* {open && (
             <ActionsModal
               actionSummary={actionsSelected}
               onCancel={() => {
                 setOpen(false);
               }}
               onAddSelected={({ actions, totalUfp, totalCosto }) => {
-                setActionsSelected({ actions, totalUfp, totalCosto });
+                setActionsSelected({ actions, totalUfp, totalPrice: totalCosto });
                 addAllActions(actions);
                 setOpen(false);
               }}
             />
-          )}
+          )} */}
         </Box>
       }
     />

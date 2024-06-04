@@ -2,7 +2,7 @@ import { useFieldArray, useForm } from 'react-hook-form';
 import { CompensationPlanModel } from '../../../models/CompensationPlan/CompensationPlanModel';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { CompensationPlanSchema } from '../schemas';
-import { ActionsModel } from '../../../models/Actions';
+import { CompensationPlanActionModel } from '../../../models/Actions';
 import { useMemo, useState } from 'react';
 import {
   getCompensationPlanById,
@@ -22,10 +22,11 @@ const useCreateCompensationPlan = () => {
   );
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [actionsSelected, setActionsSelected] = useState<{
-    actions: ActionsModel[];
+    actions: CompensationPlanActionModel[];
     totalUfp: number;
-    totalCosto: number;
-  }>({ actions: [], totalUfp: 0, totalCosto: 0 });
+    totalPrice: number;
+    quantity: number;
+  }>({ actions: [], totalUfp: 0, totalPrice: 0, quantity: 0 });
 
   const {
     getValues,
@@ -45,8 +46,8 @@ const useCreateCompensationPlan = () => {
     name: 'actions',
   });
 
-  const getTotalUfp = (actions: ActionsModel[]) => {
-    return actions.reduce((acc, action) => acc + action.footPrintUnity, 0);
+  const getTotalUfp = (actions: CompensationPlanActionModel[]) => {
+    return actions.reduce((acc, action) => acc + action.totalActionUfp, 0);
   };
 
   const generateInitalPlanState = async () => {
@@ -72,18 +73,17 @@ const useCreateCompensationPlan = () => {
     }
   };
 
-  const addAction = (action: ActionsModel) => {
+  const addAction = (action: CompensationPlanActionModel) => {
     append(action);
   };
 
-  const addAllActions = (actions: ActionsModel[]) => {
+  const addAllActions = (actions: CompensationPlanActionModel[]) => {
     actions.forEach(action => {
       append(action);
     });
   };
 
   const removeAction = (index: number) => {
-    console.log(index);
     remove(index);
   };
 

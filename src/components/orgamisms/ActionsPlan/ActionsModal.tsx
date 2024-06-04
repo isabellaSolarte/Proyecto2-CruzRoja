@@ -12,18 +12,10 @@ import { useTranslation } from 'react-i18next';
 import { useActions } from './hook';
 import { PathNames } from '../../../core';
 import { useNavigate } from 'react-router-dom';
-
-export type ActionType = {
-  id: number;
-  name: string;
-  description: string;
-  unitaryPrice: number;
-  footPrintUnity: number;
-  quantity: number;
-};
+import { CompensationPlanActionModel } from '../../../models/Actions';
 
 type ActionSummaryType = {
-  actions: ActionType[];
+  actions: CompensationPlanActionModel[];
   totalUfp: number;
   totalCosto: number;
 };
@@ -34,15 +26,11 @@ interface ActionsModalProps {
   onAddSelected: (selectedActions: ActionSummaryType) => void;
 }
 
-const ActionsModal: React.FC<ActionsModalProps> = ({
-  actionSummary,
-  onCancel,
-  onAddSelected,
-}) => {
+const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, onAddSelected }) => {
   const { t } = useTranslation('commons');
   const navigate = useNavigate();
   const { actions, loading, error } = useActions(); // Usa el hook personalizado
-  const [selectedActions, setSelectedActions] = useState<ActionType[]>([]);
+  const [selectedActions, setSelectedActions] = useState<CompensationPlanActionModel[]>([]);
   const [actionTemplate, setActionTemplate] = useState<ActionSummaryType>({
     actions: [],
     totalUfp: 0,
@@ -105,7 +93,12 @@ const ActionsModal: React.FC<ActionsModalProps> = ({
       format: 'text',
       width: 150,
     }),
-    CustomColumn({ field: 'quantity', headerName: t('modalAccion.quantity'), format: 'text', width: 150 }),
+    CustomColumn({
+      field: 'quantity',
+      headerName: t('modalAccion.quantity'),
+      format: 'text',
+      width: 150,
+    }),
     CustomColumn({
       field: 'unitaryPrice',
       headerName: t('modalAccion.unitaryPrice'),
