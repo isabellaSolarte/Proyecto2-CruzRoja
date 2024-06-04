@@ -28,6 +28,7 @@ import { CreateActionPage } from '../../pages/CreateAction';
 import ForestIcon from '@mui/icons-material/Forest';
 import CreateCompensationPlanPage from '../../pages/CreateCompensationPlan/CreateCompensationPlanPage';
 import ActionsPage from '../../pages/Actions/ActionsPage';
+import CompensationPlanPage from '../../pages/CompensationPlans/CompensationPlanPage';
 
 export const NavigationRoutes = () => {
   const { t } = useTranslation('commons');
@@ -86,7 +87,7 @@ export const NavigationRoutes = () => {
     },
     {
       path: PathNames.PLANS,
-      component: <h1>GESTIONAR PLANES</h1>,
+      component: <CompensationPlanPage/>,
       title: t('menuOptions.plans'),
       icon: <ViewInArIcon />,
     },

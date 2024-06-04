@@ -5,6 +5,19 @@ import { PlanDTOAdapter } from '../../Adapters_DTO';
 import { api } from '../api';
 import { PlanEndpoints } from './Endpoints';
 
+
+export const getAllPlans = async (): Promise<CompensationPlanModel[]> => {
+  try {
+    const response = await api.get(PlanEndpoints.getAllPlans);
+    const adaptedPlans: CompensationPlanModel[] = response.data.map((externalPlan: any) =>
+      CompensationPlanAdapter(externalPlan),
+    );
+    return adaptedPlans;
+  } catch (err) {
+    throw new Error(JSON.stringify(err));
+  }
+};
+
 export const postCompensationPlan = async (
   plan: CompensationPlanModel,
 ): Promise<any> => {
@@ -15,8 +28,8 @@ export const postCompensationPlan = async (
       data,
     );
     return response.data;
-  } catch (error) {
-    throw new Error(error);
+  } catch (err) {
+    throw new Error(JSON.stringify(err));
   }
 };
 
@@ -27,8 +40,8 @@ export const getCompensationPlanById = async (
     const response = await api.get(PlanEndpoints.getPlanById(planId));
     const adaptedPlan = CompensationPlanAdapter(response.data);
     return adaptedPlan;
-  } catch (error) {
-    throw new Error(error);
+  } catch (err) {
+    throw new Error(JSON.stringify(err));
   }
 };
 
@@ -42,7 +55,7 @@ export const putCompensationPlan = async (
       data,
     );
     return response.data;
-  } catch (error) {
-    throw new Error(error);
+  } catch (err) {
+    throw new Error(JSON.stringify(err));
   }
 };

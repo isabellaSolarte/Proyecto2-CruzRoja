@@ -37,6 +37,7 @@
         "users": "Gestión de usuarios",
         "business": "Gestión de empresas",
         "roles": "Gestionar roles",
+        "compensationPlans": "Planes de compensación",
         "createRole": "Editar - Crear rol",
         "userView": "Visualizar usuario",
         "registerCategory": "Registro de categoria",
@@ -264,6 +265,12 @@
         }
     },
     "compensationPlans": {
+        "name": "Nombre",
+        "price": "Precio",
+        "discount": "Descuento",
+        "total": "Precio total",
+        "actions":"Acciones",
+        "description": "Administración integral de estrategias diseñadas para neutralizar o reducir las emisiones de carbono, mediante la implementación de proyectos de compensación y la monitorización del progreso hacia la sostenibilidad."
     },
     "generalTableHeaders":{
         "name": "Nombre",
