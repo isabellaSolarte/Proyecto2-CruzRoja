@@ -12,12 +12,12 @@ import { useTranslation } from 'react-i18next';
 import { useActions } from './hook';
 import { PathNames } from '../../../core';
 import { useNavigate } from 'react-router-dom';
-import { CompensationPlanActionModel } from '../../../models/Actions';
+import { ActionsModel, CompensationPlanActionModel } from '../../../models/Actions';
 
 type ActionSummaryType = {
   actions: CompensationPlanActionModel[];
   totalUfp: number;
-  totalCosto: number;
+  totalPrice: number;
 };
 
 interface ActionsModalProps {
@@ -34,30 +34,32 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
   const [actionTemplate, setActionTemplate] = useState<ActionSummaryType>({
     actions: [],
     totalUfp: 0,
-    totalCosto: 0,
+    totalPrice: 0,
   });
   const [selectedRows, setSelectedRows] = useState(actionSummary.actions);
   const [validationErrors, setValidationErrors] = useState<string[]>([]); // Estado para almacenar los errores de validación
-  const [totalCosto, setTotalCosto] = useState(0);
+  const [totalPrice, setTotalCosto] = useState(0);
   const [totalUfp, setTotalUfp] = useState(0);
 
   useEffect(() => {
     if (!loading && !error) {
+      console.log('Actions loaded:', actions[1].action.name);
+      
       setSelectedActions(actions);
       const newTotalCosto = selectedRows.reduce(
-        (acc, action) => acc + action.unitaryPrice * action.quantity,
+        (acc, action) => acc + action.action.unitaryPrice * action.quantity,
         0,
       );
       const newTotalUfp = selectedRows.reduce(
-        (acc, action) => acc + action.footPrintUnity * action.quantity,
+        (acc, action) => acc + action.action.footPrintUnity * action.quantity,
         0,
       );
 
       setTotalCosto(newTotalCosto);
       setTotalUfp(newTotalUfp);
-      setActionTemplate({ actions: selectedRows, totalUfp, totalCosto });
+      setActionTemplate({ actions: selectedRows, totalUfp, totalPrice });
     }
-  }, [loading, error, actions, selectedRows, onAddSelected, totalUfp, totalCosto]);
+  }, [loading, error, actions, selectedRows, onAddSelected, totalUfp, totalPrice]);
 
   const handleAddSelected = () => {
     console.log('Adding selected actions:', { actions: selectedRows });
@@ -186,7 +188,7 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
             styles={{ textAlign: 'center' }}
           />
           <CustomText
-            texto={`${t('modalAccion.totalCosto')} ${actionTemplate.totalCosto} COP`}
+            texto={`${t('modalAccion.totalCosto')} ${actionTemplate.totalPrice} COP`}
             variante="texto"
             styles={{ textAlign: 'center' }}
           />
