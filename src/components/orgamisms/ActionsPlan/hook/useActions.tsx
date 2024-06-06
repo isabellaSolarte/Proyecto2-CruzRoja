@@ -12,8 +12,7 @@ const useActions = () => {
         const fetchActions = async () => {
             try {
                 setLoading(true);
-                const response2 = await getAllActions(); // TOD: Cambia esto por el endpoint correcto
-
+                const response2 = await getAllActions(); 
                 const updatedActions = response2.map((action) => ({
                     id: action.id,
                     action: action,
@@ -32,7 +31,7 @@ const useActions = () => {
                     setError(null)
                 }, 500);
             } catch (err) {
-                setError('Error fetching actions',err.message);
+                setError(`Error fetching actions: ${err}`);
                 setLoading(false);
             }
         };
@@ -40,7 +39,7 @@ const useActions = () => {
         void fetchActions();
     }, []);
 
-    return { actions, loading, error };
+    return { actions,setActions, loading, error };
 };
 
 export default useActions;

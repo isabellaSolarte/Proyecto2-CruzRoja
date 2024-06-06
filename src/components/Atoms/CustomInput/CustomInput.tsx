@@ -7,6 +7,7 @@ interface CustomInputProps {
   size: 'small' | 'medium' | 'large'; // Define size prop
   type?: 'text' | 'password' | 'email' | 'number' | 'submit'; // Define type prop
   updateText?: (text: string) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value?: string | number;
   props?: object;
   defaultValue?: string;
@@ -22,16 +23,13 @@ const CustomInput = ({
   type = 'text',
   updateText,
   value,
+  onChange,
   defaultValue,
   props = {},
 }: CustomInputProps) => {
   const inputClass = `custom-input-${size}`;
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (updateText) {
-      updateText(e.target.value);
-    }
-  };
+  
 
   return (
     <div>
