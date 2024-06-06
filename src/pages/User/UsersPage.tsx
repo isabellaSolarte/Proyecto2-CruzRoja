@@ -20,20 +20,28 @@ import WarningIcon from '@mui/icons-material/Warning';
 import CustomDialog from '../../components/orgamisms/CustomDialog/CustomDialog';
 import { putVolunteer, putUserCompany } from '../../services';
 import { GridRenderCellParams } from '@mui/x-data-grid';
+import { Alert, Box, CircularProgress } from '@mui/material';
 
 // TODO: CREAR EL FORMULARIO CON VALIDACIONES
 
 const UsersPage = () => {
   const { t } = useTranslation('commons');
   const navigate = useNavigate(); // Utilize the useNavigate hook
-  const { volunteers, setVolunteers, loading, volunteerInfo, updateVolunteerInfo } =
-    useVolunteers();
+  const {
+    volunteers,
+    setVolunteers,
+    loading,
+    errorVolunteers,
+    volunteerInfo,
+    updateVolunteerInfo,
+  } = useVolunteers();
   const {
     companyUsers,
     setCompanyUsers,
     loadingcompanyUsers,
     companyUserInfo,
     updateCompanyUserInfo,
+    errorCompanyUsers,
   } = useCompanyUser();
 
   type Color = 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
@@ -150,6 +158,7 @@ const UsersPage = () => {
   };
   const columns = [
     CustomColumn({
+      width: 200,
       field: 'names',
       headerName: t('usersPages.userTable.name'),
       format: 'text',
@@ -157,12 +166,14 @@ const UsersPage = () => {
       icon: <AccountCircleIcon />,
     }),
     CustomColumn({
+      width: 170,
       field: 'roles',
       headerName: t('usersPages.userTable.roles'),
       format: 'text',
       variante: 'texto',
     }),
     CustomColumn({
+      width: 250,
       field: 'actions',
       headerName: t('usersPages.userTable.actions'),
       format: 'button',
@@ -185,6 +196,7 @@ const UsersPage = () => {
       ],
     }),
     CustomColumn({
+      width: 130,
       field: 'state',
       headerName: t('generalButtonText.state'),
       format: 'switch',
@@ -194,6 +206,7 @@ const UsersPage = () => {
   ];
   const columnsCompanyUsers = [
     CustomColumn({
+      width: 200,
       field: 'names',
       headerName: t('usersPages.userTable.name'),
       format: 'text',
@@ -201,18 +214,21 @@ const UsersPage = () => {
       icon: <AccountCircleIcon />,
     }),
     CustomColumn({
+      width: 250,
       field: 'companyName',
       headerName: t('usersPages.userTable.companyName'),
       format: 'text',
       variante: 'texto',
     }),
     CustomColumn({
+      width: 170,
       field: 'roles',
       headerName: t('usersPages.userTable.roles'),
       format: 'text',
       variante: 'texto',
     }),
     CustomColumn({
+      width: 250,
       field: 'actions',
       headerName: t('usersPages.userTable.actions'),
       format: 'button',
@@ -235,6 +251,7 @@ const UsersPage = () => {
       ],
     }),
     CustomColumn({
+      width: 130,
       field: 'state',
       headerName: t('generalButtonText.state'),
       format: 'switch',
@@ -262,26 +279,50 @@ const UsersPage = () => {
           <TabsAtomComponent
             tabsHeaderTitle={['Voluntarios', 'Representantes de empresas']}
             tabsContent={[
-              <DataTable
-                key={0}
-                enableCheckboxSelection={false}
-                dataColumns={columns}
-                dataRows={volunteerInfo}
-                loading={loading}
-              />,
-              <DataTable
-                key={1}
-                enableCheckboxSelection={false}
-                dataColumns={columnsCompanyUsers}
-                dataRows={companyUserInfo}
-                loading={loadingcompanyUsers}
-              />,
+              <>
+                {loading && (
+                  <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    height="fullWidth"
+                  >
+                    <CircularProgress color="success" />
+                  </Box>
+                )}
+                {errorVolunteers && <Alert severity="error">{errorVolunteers}</Alert>}
+                {!loading && !errorVolunteers && (
+                  <DataTable
+                    key={0}
+                    enableCheckboxSelection={false}
+                    dataColumns={columns}
+                    dataRows={volunteerInfo}
+                  />
+                )}
+              </>,
+              <>
+                {loadingcompanyUsers && (
+                  <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    height="fullWidth"
+                  >
+                    <CircularProgress color="success" />
+                  </Box>
+                )}
+                {errorCompanyUsers && <Alert severity="error">{errorCompanyUsers}</Alert>}
+                {!loadingcompanyUsers && !errorCompanyUsers && (
+                  <DataTable
+                    key={1}
+                    enableCheckboxSelection={false}
+                    dataColumns={columnsCompanyUsers}
+                    dataRows={companyUserInfo}
+                  />
+                )}
+              </>,
             ]}
           />
-          {/* <TabsAtomComponent tabContentItem={[t("usersPages.tabs.volunteer"), t("usersPages.tabs.CompanyUser")]} /> */}
-          <CustomText texto={t('usersPages.tabs.volunteer')} variante="subtitulo" />
-
-          <CustomText texto={t('usersPages.tabs.CompanyUser')} variante="subtitulo" />
 
           <CustomDialog
             isOpen={isDialogOpen}

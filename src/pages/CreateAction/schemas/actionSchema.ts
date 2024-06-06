@@ -10,7 +10,7 @@ export const actionSchema = yup
       .required('El nombre no puede estar vacío'),
     description: yup
       .string()
-      .min(2, 'La descripción debe tener más de 2 caracteres')
+      .min(10, 'La descripción debe tener más de 10 caracteres')
       .max(255, 'La descripción no puede tener más de 255 caracteres')
       .required('La descripción no puede estar vacía'),
     unitaryPrice: yup
@@ -23,11 +23,5 @@ export const actionSchema = yup
       .positive('La unidad de huella de carbono debe ser un número positivo')
       .typeError('La unidad de huella de carbono debe ser un número')
       .required('La unidad de huella de carbono es requerida'),
-    quantity: yup
-      .number()
-      .positive('La cantidad debe ser un número positivo')
-      .integer('La cantidad debe ser un número entero')
-      .typeError('La cantidad debe ser un número')
-      .required('La cantidad es requerida'),
   })
   .required();

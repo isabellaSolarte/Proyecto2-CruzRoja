@@ -33,13 +33,11 @@ const CreateActionPage = () => {
   }, [id]);
 
   useEffect(() => {
-    console.log("id:",id)
     if (action) {
       setValue('name', action.name); 
       setValue('description', action.description); 
       setValue('unitaryPrice', action.unitaryPrice); 
       setValue('footPrintUnity', action.footPrintUnity); 
-      setValue('quantity', action.quantity); 
     }
   }, [action, setValue]); 
 
@@ -47,9 +45,11 @@ const CreateActionPage = () => {
     createOrUpdateAction(data);
   });
 
+  const pageTitle = id ? t('pageTitles.editAction') : t('pageTitles.createAction');
+
   return (
     <ManagmentLayout
-      title={<CustomText texto={t('pageTitles.createAction')} variante="titulo" />}
+      title={<CustomText texto={pageTitle} variante="titulo" />}
       actionsContent={
         <Tooltip title={t('registerAction.help.descriptionActionFormHelp')} placement="right">
           <HelpIcon color="disabled" />
@@ -67,9 +67,6 @@ const CreateActionPage = () => {
             </li>
             <li>
               <CustomText texto={t('registerAction.help.footPrintUnity')} variante={'texto'} />
-            </li>
-            <li>
-              <CustomText texto={t('registerAction.help.quantity')} variante={'texto'} />
             </li>
             <li>
               <CustomText texto={t('registerAction.help.description')} variante={'texto'} />
@@ -124,21 +121,6 @@ const CreateActionPage = () => {
                   type="number"
                 />
                 {errors.footPrintUnity && <span>{errors.footPrintUnity.message}</span>}
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <CustomText
-                  texto={t('registerAction.quantity')}
-                  variante="subtitulo"
-                  icon={<EnergySavingsLeafIcon color="success" />}
-                  mandatory
-                />
-                <CustomInput
-                  placeholder={t('Cantidad')}
-                  size="large"
-                  props={register('quantity')}
-                  type="number"
-                />
-                {errors.quantity && <span>{errors.quantity.message}</span>}
               </Grid>
               <Grid item xs={12}>
                 <CustomText

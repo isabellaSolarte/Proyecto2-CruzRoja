@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import './DataTableStyle.css';
 import { esES } from '@mui/x-data-grid/locales';
 import { useEffect, useState } from 'react';
+import ToolBar from './ToolBar';
 
 interface DataTableProps {
   enableCheckboxSelection: boolean;
@@ -43,7 +44,7 @@ const DataTable = ({
   }, [selectedRowsData]);
 
   return (
-    <div style={{ height: 450, width: '100%' }}>
+    <div style={{ height: 450 }}>
       <DataGrid
         localeText={esES.components.MuiDataGrid.defaultProps.localeText}
         className="my-data-grid"
@@ -55,11 +56,13 @@ const DataTable = ({
             paginationModel: { page: 0, pageSize: 10 },
           },
         }}
-        slots={{ toolbar: enableTools ? GridToolbar : undefined }}
+        slots={{
+          toolbar: enableTools ? ToolBar : undefined,
+        }}
         sx={{
           '&, [class^=MuiDataGrid]': { border: 'none' },
           '& .MuiDataGrid-columnHeaders': {
-            borderBottom: '1px solid #000',
+            borderBottom: '2px solid rgba(255, 1, 11, 0.3)',
             marginBottom: '0.5em',
             fontSize: '1.3em',
           },

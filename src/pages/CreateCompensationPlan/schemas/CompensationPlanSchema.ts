@@ -8,6 +8,9 @@ export const defaultCompensationPlan: CompensationPlanModel = {
   actions: [],
   id: 0,
   price: 0,
+  ufpCompensation: 0,
+  volunterId: undefined,
+  personalized: false,
 };
 
 const CompensationPlanSchema = yup
@@ -15,7 +18,10 @@ const CompensationPlanSchema = yup
   .shape({
     id: yup.number().default(0),
     price: yup.number().default(0),
+    ufpCompensation: yup.number().default(0),
     name: yup.string().required('El nombre es obligatorio'),
+    volunterId: yup.number().nullable(),
+    personalized: yup.boolean().default(false),
     description: yup
       .string()
       .min(50, 'La descripción es demasiado corta.')
@@ -30,18 +36,26 @@ const CompensationPlanSchema = yup
       .array()
       .of(
         yup.object().shape({
-          id: yup.number().required(),
-          name: yup.string().required('El nombre no puede estar vacío'),
-          description: yup
-            .string()
-            .required('La descripción no puede estar vacía'),
-          unitaryPrice: yup
+          action: yup.object().shape({
+            id: yup.number().required(),
+            name: yup.string().required('El nombre no puede estar vacío'),
+            description: yup
+              .string()
+              .required('La descripción no puede estar vacía'),
+            unitaryPrice: yup
+              .number()
+              .required('El precio unitario es requerido'),
+            footPrintUnity: yup
+              .number()
+              .required('La unidad de huella de carbono es requerida'),
+          }),
+          quantity: yup.number().required('La cantidad es obligatoria'),
+          totalActionPrice: yup
             .number()
-            .required('El precio unitario es requerido'),
-          footPrintUnity: yup
+            .required('El precio total de la acción es obligatorio'),
+          totalActionUfp: yup
             .number()
-            .required('La unidad de huella de carbono es requerida'),
-          quantity: yup.number().required('La cantidad es requerida'),
+            .required('La huella de carbono es obligatoria'),
         }),
       )
       .min(1, 'Seleccionar al menos 1 acción')

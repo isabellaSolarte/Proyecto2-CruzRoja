@@ -32,7 +32,7 @@ const ParentComponent = () => {
     setActionSummary(selectedActions)
     // Aquí puedes realizar la lógica adicional que necesites, como actualizar el estado o enviar datos a un servidor
     setShowModal(false);
-  };
+  }
 
   return (
     <ManagmentLayout

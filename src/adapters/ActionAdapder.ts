@@ -6,7 +6,6 @@ export const ActionAdapter = (externalAction: any): ActionsModel => {
     name: externalAction.actionName,
     description: externalAction.actionDescription,
     unitaryPrice: externalAction.actionUnitaryPrice,
-    footPrintUnity: externalAction.actionFootPrintUnity,
-    quantity: externalAction.actionQuantity,
+    footPrintUnity: externalAction.actionUfp,
   };
 };

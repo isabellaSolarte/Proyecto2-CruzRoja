@@ -8,6 +8,7 @@ import {
   ActionsModal,
   EmptyBox,
   CustomLoader,
+  CustomSearchInput,
 } from '../../components';
 import HelpIcon from '@mui/icons-material/Help';
 import EnergySavingsLeafIcon from '@mui/icons-material/EnergySavingsLeaf';
@@ -15,25 +16,56 @@ import { useCreateCompensationPlan } from './hooks';
 import AddIcon from '@mui/icons-material/Add';
 import { useTranslation } from 'react-i18next';
 import columns from './components/ActionsTableColumns';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useBusinessHooks } from '../Bussiness';
 
 const CreateCompensationPlanPage = () => {
+  const { loadAllCompanies, business } = useBusinessHooks();
+  const [companies, setCompanies] = useState<{ label: string; value: object }[]>([]);
   const {
     errors,
     fields,
     actionsSelected,
     isLoading,
+    currentPlan,
+    id,
+    path,
     setActionsSelected,
-    addAllActions,
     register,
     removeAction,
-    setValue,
-    getValues,
+    getTotalUfp,
     onSubmit,
     handleSubmit,
+    getValues,
+    generateInitalPlanState,
+    reset,
+    updateActions,
+    updateSelectedBusiness,
   } = useCreateCompensationPlan();
   const { t } = useTranslation('commons');
   const [open, setOpen] = useState(false);
+
+  // Cargar el plan de compensación en caso de que se edite
+  useEffect(() => {
+    if (id) generateInitalPlanState();
+  }, [id]);
+
+  // Resetear el plan de compensación en caso de que se edite
+  useEffect(() => {
+    if (currentPlan.description !== '') {
+      reset(currentPlan);
+    }
+  }, [currentPlan]);
+
+  // Cargar las empresas
+  useEffect(() => {
+    loadAllCompanies();
+  }, []);
+
+  // Actualizar las empresas en el select de empresas para el serachInput
+  useEffect(() => {
+    setCompanies(business.map(company => ({ label: company.companyName, value: company })));
+  }, [business]);
 
   return (
     <ManagmentLayout
@@ -70,10 +102,10 @@ const CreateCompensationPlanPage = () => {
           {isLoading && <CustomLoader />}
           <form onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={2}>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12}>
                 <CustomText
                   texto={t('generalFormInputLabels.name')}
-                  variante="subtitulo"
+                  variante="texto"
                   icon={<EnergySavingsLeafIcon color="success" />}
                   mandatory
                 />
@@ -84,7 +116,7 @@ const CreateCompensationPlanPage = () => {
               <Grid item xs={12} md={6}>
                 <CustomText
                   texto={t('generalFormInputLabels.discount')}
-                  variante="subtitulo"
+                  variante="texto"
                   icon={<EnergySavingsLeafIcon color="success" />}
                 />
                 <CustomInput
@@ -95,10 +127,22 @@ const CreateCompensationPlanPage = () => {
                 {errors.discount && <span>{errors.discount.message}</span>}
               </Grid>
 
+              {/* {path && path.includes('Custom') && (
+              )} */}
+              <Grid item xs={12} md={6}>
+                <CustomSearchInput
+                  options={companies}
+                  placeholder={t('generalSearchPlaceholder.business')}
+                  inputTitle={t('generalFormInputLabels.business')}
+                  props={undefined}
+                  onChangeEvent={updateSelectedBusiness}
+                />
+              </Grid>
+
               <Grid item xs={12}>
                 <CustomText
                   texto={t('generalFormInputLabels.description')}
-                  variante="subtitulo"
+                  variante="texto"
                   icon={<EnergySavingsLeafIcon color="success" />}
                   mandatory
                 />
@@ -117,7 +161,7 @@ const CreateCompensationPlanPage = () => {
               <Grid item xs={12} md={10}>
                 <CustomText
                   texto={t('generalTableHeaders.actions')}
-                  variante="subtitulo"
+                  variante="texto"
                   icon={<EnergySavingsLeafIcon color="success" />}
                   mandatory
                 />
@@ -149,7 +193,7 @@ const CreateCompensationPlanPage = () => {
                 <Box sx={{ display: 'flex' }}>
                   <CustomText texto={'Unidades de compensación: '} variante="subtitulo" />
                   <CustomText
-                    texto={`  ${getValues('discount') ? getValues('discount') : 0} ufp`}
+                    texto={`${getTotalUfp(getValues('actions'))} `}
                     variante="subtitulo"
                   />
                 </Box>
@@ -170,19 +214,21 @@ const CreateCompensationPlanPage = () => {
             </Box>
           </form>
 
-          <ActionsModal
-            open={open}
-            actionSummary={actionsSelected}
-            onCancel={() => {
-              setOpen(false);
-            }}
-            onAddSelected={({ actions, totalUfp, totalCosto }) => {
-              setActionsSelected({ actions, totalUfp, totalCosto });
-              addAllActions(actions);
-              setValue('discount', totalUfp);
-              setOpen(false);
-            }}
-          />
+          {open && (
+            <ActionsModal
+              actionSummary={actionsSelected}
+              onCancel={() => {
+                setOpen(false);
+              }}
+              onAddSelected={({ actions, totalUfp, totalPrice }) => {
+                setActionsSelected({ actions, totalUfp, totalPrice: totalPrice });
+
+                updateActions(actions);
+
+                setOpen(false);
+              }}
+            />
+          )}
         </Box>
       }
     />

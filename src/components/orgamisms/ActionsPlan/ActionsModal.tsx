@@ -12,66 +12,70 @@ import { useTranslation } from 'react-i18next';
 import { useActions } from './hook';
 import { PathNames } from '../../../core';
 import { useNavigate } from 'react-router-dom';
-
-export type ActionType = {
+import { ActionsModel, CompensationPlanActionModel } from '../../../models/Actions';
+export interface ActionsModel {
   id: number;
   name: string;
   description: string;
   unitaryPrice: number;
   footPrintUnity: number;
+}
+
+export interface CompensationPlanActionModel {
+  action: ActionsModel;
   quantity: number;
-};
+  totalActionPrice: number;
+  totalActionUfp: number;
+}
 
 type ActionSummaryType = {
-  actions: ActionType[];
+  actions: CompensationPlanActionModel[];
   totalUfp: number;
-  totalCosto: number;
+  totalPrice: number;
 };
 
 interface ActionsModalProps {
-  open: boolean;
   actionSummary: ActionSummaryType;
   onCancel: () => void;
   onAddSelected: (selectedActions: ActionSummaryType) => void;
 }
 
-const ActionsModal: React.FC<ActionsModalProps> = ({
-  open,
-  actionSummary,
-  onCancel,
-  onAddSelected,
-}) => {
+const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, onAddSelected }) => {
   const { t } = useTranslation('commons');
   const navigate = useNavigate();
   const { actions, loading, error } = useActions(); // Usa el hook personalizado
-  const [selectedActions, setSelectedActions] = useState<ActionType[]>([]);
+  const [selectedActions, setSelectedActions] = useState<CompensationPlanActionModel[]>([]);
   const [actionTemplate, setActionTemplate] = useState<ActionSummaryType>({
     actions: [],
     totalUfp: 0,
-    totalCosto: 0,
+    totalPrice: 0,
   });
   const [selectedRows, setSelectedRows] = useState(actionSummary.actions);
   const [validationErrors, setValidationErrors] = useState<string[]>([]); // Estado para almacenar los errores de validación
-  const [totalCosto, setTotalCosto] = useState(0);
+  const [totalPrice, setTotalCosto] = useState(0);
   const [totalUfp, setTotalUfp] = useState(0);
 
   useEffect(() => {
     if (!loading && !error) {
       setSelectedActions(actions);
-      const newTotalCosto = selectedRows.reduce(
-        (acc, action) => acc + action.unitaryPrice * action.quantity,
+      const newSelectedRows = selectedRows.map(action => {
+        const totalActionPrice = action.action.unitaryPrice * action.quantity;
+        const totalActionUfp = action.action.footPrintUnity * action.quantity;
+        return { ...action, totalActionPrice, totalActionUfp };
+      });
+
+      const newTotalCosto = newSelectedRows.reduce(
+        (acc, action) => acc + action.totalActionPrice,
         0,
       );
-      const newTotalUfp = selectedRows.reduce(
-        (acc, action) => acc + action.footPrintUnity * action.quantity,
-        0,
-      );
+      const newTotalUfp = newSelectedRows.reduce((acc, action) => acc + action.totalActionUfp, 0);
 
       setTotalCosto(newTotalCosto);
       setTotalUfp(newTotalUfp);
-      setActionTemplate({ actions: selectedRows, totalUfp, totalCosto });
+      setSelectedRows(newSelectedRows);
+      setActionTemplate({ actions: newSelectedRows, totalUfp, totalPrice });
     }
-  }, [loading, error, actions, selectedRows, onAddSelected, totalUfp, totalCosto]);
+  }, [loading, error, actions, selectedRows, onAddSelected, totalUfp, totalPrice]);
 
   const handleAddSelected = () => {
     console.log('Adding selected actions:', { actions: selectedRows });
@@ -99,17 +103,36 @@ const ActionsModal: React.FC<ActionsModalProps> = ({
       headerName: t('modalAccion.name'),
       format: 'text',
       icon: <RecyclingIcon sx={{ color: 'green' }} />,
+      width: 200,
     }),
     CustomColumn({
+      aling: 'center',
       field: 'footPrintUnity',
       headerName: t('modalAccion.footPrintUnity'),
       format: 'text',
+      width: 100,
     }),
-    CustomColumn({ field: 'quantity', headerName: t('modalAccion.quantity'), format: 'text' }),
     CustomColumn({
+      aling: 'center',
+      width: 120,
+      field: 'quantity',
+      headerName: t('modalAccion.quantity'),
+      format: 'input',
+      inputDetails: [
+        {
+          placeholder: t('modalAccion.quantity'),
+          updateText: (text: string) => {
+            console.log('Cantidad actualizada: ', text);
+          },
+        },
+      ],
+    }),
+    CustomColumn({
+      aling: 'center',
       field: 'unitaryPrice',
       headerName: t('modalAccion.unitaryPrice'),
       format: 'text',
+      width: 200,
     }),
     CustomColumn({
       field: 'options',
@@ -121,19 +144,19 @@ const ActionsModal: React.FC<ActionsModalProps> = ({
           variant: 'contained',
           color: 'warning',
           icon: <VisibilityIcon />,
-          //onClick: row => { console.log('Observar', PathNames.VIEW_ACTIONS.replace(':id', String(row.id))); },
           onClick: row => {
             console.log('Observar', PathNames.VIEW_ACTIONS.replace(':id', String(row.id)));
             navigate(PathNames.VIEW_ACTIONS.replace(':id', String(row.id)));
           },
         },
       ],
+      width: 200,
     }),
   ];
   return (
     <Box>
       <Dialog
-        open={open}
+        open
         onClose={onCancel}
         fullWidth
         maxWidth="md"
@@ -173,14 +196,6 @@ const ActionsModal: React.FC<ActionsModalProps> = ({
                 onSelectionChange={setSelectedRows}
                 enableTools={false}
               />
-              <CustomText
-                texto={`${t('modalAccion.totalUfp')}${actionTemplate.totalUfp}`}
-                variante="subtitulo"
-              />
-              <CustomText
-                texto={`${t('modalAccion.totalCosto')} ${actionTemplate.totalCosto} COP`}
-                variante="texto"
-              />
             </>
           )}
         </DialogContent>
@@ -200,7 +215,7 @@ const ActionsModal: React.FC<ActionsModalProps> = ({
             styles={{ textAlign: 'center' }}
           />
           <CustomText
-            texto={`${t('modalAccion.totalCosto')} ${actionTemplate.totalCosto} COP`}
+            texto={`${t('modalAccion.totalCosto')} ${actionTemplate.totalPrice} COP`}
             variante="texto"
             styles={{ textAlign: 'center' }}
           />

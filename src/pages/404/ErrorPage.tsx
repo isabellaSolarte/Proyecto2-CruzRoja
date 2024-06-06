@@ -6,7 +6,7 @@ const Error404 = () => {
   const navigate = useNavigate();
 
   const handleGoHome = () => {
-    navigate(PathNames.CALCULATOR, { replace: true }); // Vuelve a la página de inicio
+    navigate(PathNames.HOME, { replace: true }); // Vuelve a la página de inicio
   };
 
   return (
