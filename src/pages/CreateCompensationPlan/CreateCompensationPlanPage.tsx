@@ -23,6 +23,7 @@ const CreateCompensationPlanPage = () => {
   const { loadAllCompanies, business } = useBusinessHooks();
   const [companies, setCompanies] = useState<{ label: string; value: object }[]>([]);
   const {
+    userId,
     errors,
     fields,
     actionsSelected,
@@ -37,6 +38,7 @@ const CreateCompensationPlanPage = () => {
     onSubmit,
     handleSubmit,
     getValues,
+    setValue,
     generateInitalPlanState,
     reset,
     updateActions,
@@ -59,6 +61,7 @@ const CreateCompensationPlanPage = () => {
 
   // Cargar las empresas
   useEffect(() => {
+    setValue('volunterId', userId);
     loadAllCompanies();
   }, []);
 
@@ -127,17 +130,17 @@ const CreateCompensationPlanPage = () => {
                 {errors.discount && <span>{errors.discount.message}</span>}
               </Grid>
 
-              {/* {path && path.includes('Custom') && (
-              )} */}
-              <Grid item xs={12} md={6}>
-                <CustomSearchInput
-                  options={companies}
-                  placeholder={t('generalSearchPlaceholder.business')}
-                  inputTitle={t('generalFormInputLabels.business')}
-                  props={undefined}
-                  onChangeEvent={updateSelectedBusiness}
-                />
-              </Grid>
+              {path && path.includes('custom') && (
+                <Grid item xs={12} md={6}>
+                  <CustomSearchInput
+                    options={companies}
+                    placeholder={t('generalSearchPlaceholder.business')}
+                    inputTitle={t('generalFormInputLabels.business')}
+                    props={undefined}
+                    onChangeEvent={updateSelectedBusiness}
+                  />
+                </Grid>
+              )}
 
               <Grid item xs={12}>
                 <CustomText

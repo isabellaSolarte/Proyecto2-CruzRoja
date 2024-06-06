@@ -7,21 +7,22 @@ import { PlanEndpoints } from './Endpoints';
 
 export const postCompensationPlan = async (
   plan: CompensationPlanModel,
+  type: 'custom' | 'generic',
 ): Promise<any> => {
   try {
     const data = PlanDTOAdapter(plan);
-    console.log(JSON.stringify(data));
-    const response = await api.post<CompensationPlanModel>(
-      plan.volunterId
+    const route =
+      type == 'custom'
         ? PlanEndpoints.postCustomPlan
-        : PlanEndpoints.postGenericPlan,
-      data,
-      {
-        params: {
-          volunterId: plan.volunterId,
-        },
+        : PlanEndpoints.postGenericPlan;
+    console.log(JSON.stringify(route));
+    console.log(JSON.stringify(data));
+    console.log(JSON.stringify(plan.volunterId));
+    const response = await api.post<CompensationPlanModel>(route, data, {
+      params: {
+        volunteerId: plan.volunterId,
       },
-    );
+    });
     return response.data;
   } catch (error) {
     throw new Error(error);

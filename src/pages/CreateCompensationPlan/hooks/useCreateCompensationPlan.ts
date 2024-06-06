@@ -112,14 +112,17 @@ const useCreateCompensationPlan = () => {
           : getValues('name')
       }_${businessName}_${new Date().getTime()}`,
     );
-    setValue('volunterId', getLoggedUser()?.id);
   };
 
   const onSubmit = async (data: CompensationPlanModel) => {
     try {
       setIsLoading(true);
+
       if (!id) {
-        await postCompensationPlan(data);
+        await postCompensationPlan(
+          data,
+          path.includes('custom') ? 'custom' : 'generic',
+        );
       } else {
         await putCompensationPlan(data);
       }
@@ -146,6 +149,7 @@ const useCreateCompensationPlan = () => {
   };
 
   return {
+    userId: getLoggedUser().id,
     fields,
     errors,
     actionsSelected,

@@ -43,11 +43,13 @@ mapRoutes.set(802, PathNames.EDIT_ACTIONS);
 mapRoutes.set(803, PathNames.VIEW_ACTIONS);
 mapRoutes.set(804, PathNames.VIEW_ACTIONS);
 
-mapRoutes.set(900, PathNames.PLANS);
-mapRoutes.set(901, PathNames.CREATE_PLAN);
-mapRoutes.set(902, PathNames.EDIT_PLAN);
-mapRoutes.set(903, PathNames.VIEW_PLAN);
-mapRoutes.set(904, PathNames.VIEW_PLAN);
+mapRoutes.set(1000, PathNames.CREATE_PLAN);
+mapRoutes.set(1001, PathNames.CREATE_CUSTOM_PLAN);
+mapRoutes.set(1002, PathNames.PLANS); // LISTAR PLANES GENERICOS
+mapRoutes.set(1003, PathNames.PLANS); // LISTAR PLANES CUSTOM
+mapRoutes.set(1005, PathNames.PLANS);
+mapRoutes.set(1006, [PathNames.VIEW_GENERIC_PLAN, PathNames.VIEW_CUSTOM_PLAN]);
+mapRoutes.set(1004, [PathNames.EDIT_GENERIC_PLAN, PathNames.EDIT_CUSTOM_PLAN]);
 
 export default mapRoutes;
 
