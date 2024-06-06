@@ -10,20 +10,20 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { green } from '@mui/material/colors';
 import { useViewCompensationPlan } from './hooks/useViewCompensationPlan';
-const viewCompensationPage = () => {
+const ViewCompensationPage = () => {
     const { t } = useTranslation('commons');
     const { currentPlan,  fetchPlan, handleEdit } = useViewCompensationPlan();
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  useEffect(() => {
-    void fetchPlan();
-  }, []);
+    useEffect(() => {
+      void fetchPlan();
+    }, []);
 
   
 
-  const handleViewButtonClick = (actionId: number) => {
-    navigate(PathNames.VIEW_ACTIONS.replace(':id', actionId.toString()));
-  };
+    const handleViewButtonClick = (actionId: number) => {
+      navigate(PathNames.VIEW_ACTIONS.replace(':id', actionId.toString()));
+    };
 
   const columns = [
     CustomColumn({
@@ -106,4 +106,4 @@ const viewCompensationPage = () => {
   );
 
 };
-export default viewCompensationPage;
+export default ViewCompensationPage;
