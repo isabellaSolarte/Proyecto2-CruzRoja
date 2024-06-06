@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios'; // Asegúrate de tener axios instalado: npm install axios
-import { ActionType } from '../types/ActionType';
 import { getAllActions } from '../../../../services/AxiosRequests/Actions';
+import { CompensationPlanActionModel } from '../../../../models/Actions';
 
 
 const useActions = () => {
-    const [actions, setActions] = useState<ActionType[]>([]);
+    const [actions, setActions] = useState<CompensationPlanActionModel[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -14,12 +13,17 @@ const useActions = () => {
             try {
                 setLoading(true);
                 const response2 = await getAllActions(); // TOD: Cambia esto por el endpoint correcto
-                console.log(response2);
 
                 const updatedActions = response2.map((action) => ({
-                    ...action,
-                    footPrintUnity: 100,
-                    quantity: 2,
+                    id: action.id,
+                    action: action,
+                    name: action.name,
+                    description: action.description,
+                    unitaryPrice: action.unitaryPrice,
+                    footPrintUnity: action.footPrintUnity,
+                    quantity: 1,
+                    totalActionPrice: 0,
+                    totalActionUfp: 0,
                 }));
 
                 setTimeout(() => {

@@ -25,8 +25,7 @@ const useCreateCompensationPlan = () => {
     actions: CompensationPlanActionModel[];
     totalUfp: number;
     totalPrice: number;
-    quantity: number;
-  }>({ actions: [], totalUfp: 0, totalPrice: 0, quantity: 0 });
+  }>({ actions: [], totalUfp: 0, totalPrice: 0});
 
   const {
     getValues,
