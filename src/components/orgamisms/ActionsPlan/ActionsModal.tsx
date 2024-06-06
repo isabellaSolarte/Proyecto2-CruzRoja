@@ -13,6 +13,20 @@ import { useActions } from './hook';
 import { PathNames } from '../../../core';
 import { useNavigate } from 'react-router-dom';
 import { ActionsModel, CompensationPlanActionModel } from '../../../models/Actions';
+export interface ActionsModel {
+  id: number;
+  name: string;
+  description: string;
+  unitaryPrice: number;
+  footPrintUnity: number;
+}
+
+export interface CompensationPlanActionModel {
+  action: ActionsModel;
+  quantity: number;
+  totalActionPrice: number;
+  totalActionUfp: number;
+}
 
 type ActionSummaryType = {
   actions: CompensationPlanActionModel[];
@@ -43,21 +57,26 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
 
   useEffect(() => {
     if (!loading && !error) {
-      console.log('Actions loaded:', actions[1].action.name);
-      
       setSelectedActions(actions);
-      const newTotalCosto = selectedRows.reduce(
-        (acc, action) => acc + action.action.unitaryPrice * action.quantity,
+      const newSelectedRows = selectedRows.map((action) => {
+        const totalActionPrice = action.action.unitaryPrice * action.quantity;
+        const totalActionUfp = action.action.footPrintUnity * action.quantity;
+        return { ...action, totalActionPrice, totalActionUfp };
+      });
+  
+      const newTotalCosto = newSelectedRows.reduce(
+        (acc, action) => acc + action.totalActionPrice,
         0,
       );
-      const newTotalUfp = selectedRows.reduce(
-        (acc, action) => acc + action.action.footPrintUnity * action.quantity,
+      const newTotalUfp = newSelectedRows.reduce(
+        (acc, action) => acc + action.totalActionUfp,
         0,
       );
-
+  
       setTotalCosto(newTotalCosto);
       setTotalUfp(newTotalUfp);
-      setActionTemplate({ actions: selectedRows, totalUfp, totalPrice });
+      setSelectedRows(newSelectedRows);
+      setActionTemplate({ actions: newSelectedRows, totalUfp, totalPrice });
     }
   }, [loading, error, actions, selectedRows, onAddSelected, totalUfp, totalPrice]);
 
