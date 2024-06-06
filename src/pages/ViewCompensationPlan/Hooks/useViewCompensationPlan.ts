@@ -1,52 +1,47 @@
-import { useEffect, useState } from "react";
-//getActionsId
-import { ActionsModel } from "../../../models/Actions";
+import { useState } from "react";
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { PathNames } from '../../../core';
+import { getCompensationPlanById } from "../../../services/AxiosRequests/Plans";
+import { CompensationPlanModel } from "../../../models/CompensationPlan/CompensationPlanModel";
+import { defaultCompensationPlan } from "../../CreateCompensationPlan/schemas/CompensationPlanSchema";
 
 export const useViewCompensationPlan = () => {
     const [loading, setLoading] = useState(true);
-    const [actions, setActions] = useState<ActionsModel[]>([]);
+    const [currentPlan, setCurrentPlan] = useState<CompensationPlanModel>(
+      defaultCompensationPlan,
+    );
     const [error, setError] = useState<string | null>(null);
+    const navigate = useNavigate();
+    const path = useLocation().pathname;
+    const { id } = useParams();
+    
 
-    const fetchActions = async () => {
+    const fetchPlan = async () => {
         try {
-          const actionsData = await ;//;getAllActions();
-          if (Array.isArray(actionsData) && actionsData.length > 0) {
-            const adaptedActions = actionsData.map((action) => ({
-              id: action.id,
-              name: action.name,
-              description: action.description,
-              unitaryPrice: action.unitaryPrice,
-              footPrintUnity: action.footPrintUnity,
-              quantity: action.quantity,
-            }));
-            setActions(adaptedActions);
-            setError(null);
-          } else {
-            setActions([]);
-            setError("No se encontraron acciones en la base de datos para el plan de compensacion.");
-          }
+          const plan = await getCompensationPlanById(Number(id), path.includes('custom') ? 'custom' : 'generic');
+          setCurrentPlan(plan);
         } catch (error) {
-          setError("No se pueden obtener las acciones en este momento. Por favor, inténtalo de nuevo más tarde.");
-          console.error("Error fetching actions:", error);
+          setError("No se pueden obtener el en este momento. Por favor, inténtalo de nuevo más tarde.");
+          console.error("Error fetching plan:", error);
         } finally {
           setLoading(false);
         }
       };
 
-
-    const updateActionInfo = (updatedActions: ActionsModel[]) => {
-        setActions(updatedActions);
-    };
-    
-    useEffect(() => {
-        void fetchActions();
-    }, []);
-    
+    const handleEdit = () =>{
+      navigate(
+        PathNames.EDIT_PLAN.replace(':id', 'id'),
+        {
+          replace: true,
+        },
+      );
+    }
     return {
-        actions,
+        currentPlan,  
         loading,
+        fetchPlan,
         error,
-        fetchActions,
-        updateActionInfo
+        handleEdit
     };
-}
+};
+

@@ -2,26 +2,24 @@ import { useNavigate } from 'react-router-dom';
 import { PathNames } from '../../core';
 import { useEffect } from 'react';
 import RecyclingIcon from '@mui/icons-material/Recycling';
-import { green } from '@mui/material/colors';
 import {ManagmentLayout, CustomButton, CustomText, CustomColumn,DataTable,} from '../../components';
 import { Box, Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { useViewCompensationPlan } from './Hooks/useViewCompensationPlan';
-
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import { green } from '@mui/material/colors';
+import { useViewCompensationPlan } from './hooks/useViewCompensationPlan';
 const viewCompensationPage = () => {
     const { t } = useTranslation('commons');
-    const { actions, fetchActions } = useViewCompensationPlan();
+    const { currentPlan,  fetchPlan, handleEdit } = useViewCompensationPlan();
   const navigate = useNavigate();
 
   useEffect(() => {
-    void fetchActions();
+    void fetchPlan();
   }, []);
 
-  const handleEditButtonClick = (actionId: number) => {
-    navigate(PathNames.EDIT_PLAN.replace(':id', actionId.toString()));
-  };
+  
 
   const handleViewButtonClick = (actionId: number) => {
     navigate(PathNames.VIEW_ACTIONS.replace(':id', actionId.toString()));
@@ -29,15 +27,31 @@ const viewCompensationPage = () => {
 
   const columns = [
     CustomColumn({
+      icon: <RecyclingIcon color="success" />,
+      width: 200,
       field: 'name',
-      headerName: t('actionsPage.actionsTable.name'),
+      headerName: t('generalTableHeaders.actions'),
       format: 'text',
       variante: 'texto',
-      icon: <RecyclingIcon style={{ color: green[500] }} />,
     }),
     CustomColumn({
+      width: 100,
+      field: 'footPrintUnity',
+      headerName: t('generalTableHeaders.ufp'),
+      format: 'text',
+      variante: 'texto',
+    }),
+    CustomColumn({
+      width: 100,
+      field: 'quantity',
+      headerName: t('generalTableHeaders.quantity'),
+      format: 'text',
+      variante: 'texto',
+    }),
+    CustomColumn({
+      width: 100,
       field: 'unitaryPrice',
-      headerName: t('actionsPage.actionsTable.unitaryPrice'),
+      headerName: t('generalTableHeaders.cost'),
       format: 'text',
       variante: 'texto',
     }),
@@ -59,22 +73,33 @@ const viewCompensationPage = () => {
   ];
   return (
     <ManagmentLayout
-      title={<CustomText texto={t('pageTitles.actions')} variante="titulo" />}
+      title={<CustomText texto={currentPlan.name} variante="titulo" />}
       actionsContent={
-        <CustomButton
-          content={t('generalButtonText.createAction')}
+        <><CustomButton
+          content={t('generalButtonText.edit')}
           variant="contained"
-          color="success"
-          //onClick={(rowData: { id: number }) => handleViewButtonClick(rowData.id)}
-          style={{ marginLeft: '10px' }}
-        />
+          color="info"
+          icon={<EditIcon />}
+          onClick={handleEdit}
+          style={{ marginLeft: '10px' }} 
+          disabled={currentPlan.volunterId === null}/>
+          <CustomButton
+            content={'Adquirir'}
+            variant="contained"
+            color="info"
+            icon={<AttachMoneyIcon style={{ color: green[500] }} />}
+            onClick={handleEdit}
+            style={{ marginLeft: '10px' }} />
+        </>
       }
       generalContents={
         <Grid>
            <Box mb={10}>
-            <CustomText texto={t('actionsPage.description')} variante="subtitulo" />
+            <CustomText texto={currentPlan.description} variante="subtitulo" />
+            <CustomText texto={`Compensación total: ${currentPlan.ufpCompensation} ufp`} variante="subtitulo" />
+            <CustomText texto={`Costo del plan: $ ${currentPlan.price} COP`} variante="subtitulo" />
           </Box>
-          <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={actions} />
+          <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={currentPlan.actions} />
         </Grid>
       }
     />
