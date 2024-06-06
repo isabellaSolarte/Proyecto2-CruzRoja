@@ -113,38 +113,36 @@ const useCreateCompensationPlan = () => {
       }_${businessName}_${new Date().getTime()}`,
     );
     setValue('volunterId', getLoggedUser()?.id);
-    setValue('personalized', true);
   };
 
   const onSubmit = async (data: CompensationPlanModel) => {
-    console.log(data);
-    // try {
-    //   setIsLoading(true);
-    //   if (!id) {
-    //     await postCompensationPlan(data);
-    //   } else {
-    //     await putCompensationPlan(data);
-    //   }
-    // } catch (error) {
-    //   Swal.fire({
-    //     icon: 'error',
-    //     title: 'Error',
-    //     text: `Ocurrió un error al crear el plan de compensación`,
-    //   });
-    //   console.error(error);
-    // } finally {
-    //   setIsLoading(false);
-    //   Swal.fire({
-    //     icon: 'success',
-    //     title: 'Plan de compensación creado',
-    //     text: `El plan de compensación fue ${
-    //       id ? 'editado' : 'creado'
-    //     } con éxito`,
-    //     confirmButtonText: 'Aceptar',
-    //   }).then(() => {
-    //     navigate(PathNames.PLANS, { replace: true });
-    //   });
-    // }
+    try {
+      setIsLoading(true);
+      if (!id) {
+        await postCompensationPlan(data);
+      } else {
+        await putCompensationPlan(data);
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: `Ocurrió un error al crear el plan de compensación`,
+      });
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+      Swal.fire({
+        icon: 'success',
+        title: 'Plan de compensación creado',
+        text: `El plan de compensación fue ${
+          id ? 'editado' : 'creado'
+        } con éxito`,
+        confirmButtonText: 'Aceptar',
+      }).then(() => {
+        navigate(PathNames.PLANS, { replace: true });
+      });
+    }
   };
 
   return {
