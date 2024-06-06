@@ -10,9 +10,17 @@ export const postCompensationPlan = async (
 ): Promise<any> => {
   try {
     const data = PlanDTOAdapter(plan);
+    console.log(JSON.stringify(data));
     const response = await api.post<CompensationPlanModel>(
-      PlanEndpoints.postPlan,
+      plan.volunterId
+        ? PlanEndpoints.postCustomPlan
+        : PlanEndpoints.postGenericPlan,
       data,
+      {
+        params: {
+          volunterId: plan.volunterId,
+        },
+      },
     );
     return response.data;
   } catch (error) {
@@ -22,9 +30,14 @@ export const postCompensationPlan = async (
 
 export const getCompensationPlanById = async (
   planId: number,
+  planType: 'custom' | 'generic',
 ): Promise<CompensationPlanModel> => {
   try {
-    const response = await api.get(PlanEndpoints.getPlanById(planId));
+    const response = await api.get(
+      planType === 'custom'
+        ? PlanEndpoints.getCustomPlanById(planId)
+        : PlanEndpoints.getGenericPlanById(planId),
+    );
     const adaptedPlan = CompensationPlanAdapter(response.data);
     return adaptedPlan;
   } catch (error) {

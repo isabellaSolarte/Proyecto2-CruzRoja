@@ -15,5 +15,4 @@ export interface CompensationPlanModel {
   price: number;
   ufpCompensation: number;
   volunterId: number | undefined | null; // id del voluntario que creo el plan personalizado, si es plan general es null
-  personalized: boolean; // si es falso es un plan general, si es verdadero es un plan personalizado
 }
