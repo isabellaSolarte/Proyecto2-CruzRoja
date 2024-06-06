@@ -298,9 +298,18 @@
         "actions": "Acciones",
         "users": "Usuarios",
         "roles": "Roles",
-        "business": "Empresas",
+        "business": "Empresa",
         "categories": "Categorías",
         "quantity": "Cantidad",
-        "cost": "Costo"
+        "cost": "Costo",
+        "discount": "Descuento"
+    },
+    "generalSearchPlaceholder": {
+        "business": "Buscar empresa",
+        "users": "Buscar usuario",
+        "roles": "Buscar rol",
+        "categories": "Buscar categoría",
+        "actions": "Buscar acción",
+        "compensationPlan": "Buscar plan de compensación"
     }
 }

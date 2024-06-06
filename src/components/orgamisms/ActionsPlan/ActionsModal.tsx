@@ -58,21 +58,18 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
   useEffect(() => {
     if (!loading && !error) {
       setSelectedActions(actions);
-      const newSelectedRows = selectedRows.map((action) => {
+      const newSelectedRows = selectedRows.map(action => {
         const totalActionPrice = action.action.unitaryPrice * action.quantity;
         const totalActionUfp = action.action.footPrintUnity * action.quantity;
         return { ...action, totalActionPrice, totalActionUfp };
       });
-  
+
       const newTotalCosto = newSelectedRows.reduce(
         (acc, action) => acc + action.totalActionPrice,
         0,
       );
-      const newTotalUfp = newSelectedRows.reduce(
-        (acc, action) => acc + action.totalActionUfp,
-        0,
-      );
-  
+      const newTotalUfp = newSelectedRows.reduce((acc, action) => acc + action.totalActionUfp, 0);
+
       setTotalCosto(newTotalCosto);
       setTotalUfp(newTotalUfp);
       setSelectedRows(newSelectedRows);
@@ -109,18 +106,29 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
       width: 200,
     }),
     CustomColumn({
+      aling: 'center',
       field: 'footPrintUnity',
       headerName: t('modalAccion.footPrintUnity'),
       format: 'text',
-      width: 150,
+      width: 100,
     }),
     CustomColumn({
+      aling: 'center',
+      width: 120,
       field: 'quantity',
       headerName: t('modalAccion.quantity'),
-      format: 'text',
-      width: 150,
+      format: 'input',
+      inputDetails: [
+        {
+          placeholder: t('modalAccion.quantity'),
+          updateText: (text: string) => {
+            console.log('Cantidad actualizada: ', text);
+          },
+        },
+      ],
     }),
     CustomColumn({
+      aling: 'center',
       field: 'unitaryPrice',
       headerName: t('modalAccion.unitaryPrice'),
       format: 'text',

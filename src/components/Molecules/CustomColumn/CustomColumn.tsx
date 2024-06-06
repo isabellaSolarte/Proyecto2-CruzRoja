@@ -2,13 +2,14 @@
 /* eslint-disable no-unused-vars */
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { ReactElement } from 'react';
-import { CustomButton, CustomSwitch, CustomText } from '../../../components';
+import { CustomButton, CustomInput, CustomSwitch, CustomText } from '../../../components';
 
 interface CustomColumnProps {
   field: string;
   headerName: string;
   width?: number;
-  format: 'text' | 'button' | 'switch';
+  aling?: 'center' | 'left' | 'right';
+  format: 'text' | 'button' | 'switch' | 'input';
   sortable?: boolean;
   variante?: 'titulo' | 'texto' | 'subtitulo';
   icon?: ReactElement;
@@ -21,19 +22,28 @@ interface CustomColumnProps {
     onClick?: (rowData: GridRenderCellParams['row']) => void;
   }>;
   onClick?: (rowData: GridRenderCellParams['row']) => void;
+  inputDetails?: Array<{
+    placeholder: string;
+    updateText: (text: string) => void;
+    defaultValue?: string;
+    props?: any;
+  }>;
 }
 
 const CustomColumn = ({
   field,
   headerName,
   width,
+  aling = 'left',
   format,
   buttonDetails,
   variante = 'texto',
   sortable = true,
   icon,
+  inputDetails,
   onClick,
 }: CustomColumnProps): GridColDef => ({
+  align: aling,
   field,
   headerName,
   flex: width ? undefined : 1,
@@ -60,6 +70,21 @@ const CustomColumn = ({
       );
     } else if (format == 'text') {
       return <CustomText texto={params.value as string} variante={variante} icon={icon} />;
+    } else if (format == 'input') {
+      return (
+        <div style={{ display: 'flex', gap: '10px' }}>
+          {inputDetails?.map((input, index) => (
+            <CustomInput
+              key={index}
+              placeholder={input.placeholder}
+              size={'small'}
+              props={input.props}
+              updateText={input.updateText}
+              defaultValue={input.defaultValue}
+            />
+          ))}
+        </div>
+      );
     } else {
       return (
         <CustomSwitch
