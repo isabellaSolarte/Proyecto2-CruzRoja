@@ -149,7 +149,7 @@ const useCreateCompensationPlan = () => {
   };
 
   return {
-    userId: getLoggedUser().id,
+    userId: getLoggedUser()?.id,
     fields,
     errors,
     actionsSelected,
