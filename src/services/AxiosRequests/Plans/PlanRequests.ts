@@ -9,9 +9,13 @@ import { PlanEndpoints } from './Endpoints';
 export const getAllPlans = async (): Promise<CompensationPlanModel[]> => {
   try {
     const response = await api.get(PlanEndpoints.getAllPlans);
+    console.log('Respuesta: ', response);
+    
     const adaptedPlans: CompensationPlanModel[] = response.data.map((externalPlan: any) =>
       CompensationPlanAdapter(externalPlan),
     );
+    console.log('adaptedPlans',adaptedPlans);
+    
     return adaptedPlans;
   } catch (err) {
     throw new Error(JSON.stringify(err));

@@ -4,12 +4,14 @@ import { ActionAdapter } from './ActionAdapder';
 export const CompensationPlanAdapter = (
   externalPlan: any,
 ): CompensationPlanModel => {
+  console.log(externalPlan);
+  
   return {
-    id: externalPlan.planId,
-    name: externalPlan.planName,
-    description: externalPlan.planDescription,
-    discount: externalPlan.planDiscount,
-    actions: externalPlan.actions.map((action: any) => {
+    id: externalPlan.plan.planId,
+    name: externalPlan.plan.planName,
+    description: externalPlan.plan.planDescription,
+    discount: externalPlan.plan.planDiscount,
+    actions: externalPlan.plan.actions?.map((action: any) => {
       return {
         action: ActionAdapter(action),
         quantity: action.quantity,
@@ -17,7 +19,7 @@ export const CompensationPlanAdapter = (
         totalActionUfp: action.totalActionUfp,
       };
     }),
-    price: externalPlan.planPrice,
-    ufpCompensation: externalPlan.totalUfp,
+    price: externalPlan.plan.planPrice,
+    ufpCompensation: externalPlan.plan.totalUfp,
   };
 };

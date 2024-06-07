@@ -16,7 +16,10 @@
         "previousPage": "Ir a página anterior",
         "start": "Iniciar",
         "add": "Agregar",
-        "createAction": "Crear acción"
+        "createAction": "Crear acción",
+        "createPlan": "Crear plan",
+        "createPlanEmpresa": "Crear plan personal",
+        "acquirePlan": "Adquirir"
     },
     "menuOptions": {
         "home": "Inicio",
@@ -54,7 +57,8 @@
         "calculatorCostsUsages": "Consumos y costos",
         "createAction":"Registrar nueva acción",
         "editAction":"Editar Acción",
-        "actions":"Acciones"
+        "actions":"Acciones",
+        "acquirePlan": "Adquirir Plan de Compensación"
     },
     "rolesPages": {
         "tabs": {

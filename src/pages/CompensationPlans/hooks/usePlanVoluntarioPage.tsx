@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { getAllPlans } from "../../../services/AxiosRequests/Plans/PlanRequests";
-import { CompensationPlanModel } from './../../../models/CompensationPlan/CompensationPlanModel';
+import { CompensationPlanModel } from '../../../models/CompensationPlan/CompensationPlanModel';
 
-export const useCompensationPlanPage = () => {
+export const useCompensationPlanVoluntarioPage = () => {
     const [loading, setLoading] = useState(true);
     const [compensationPlans, setCompensationPlans] = useState<CompensationPlanModel[]>([]);
     const [error, setError] = useState<string | null>(null);
