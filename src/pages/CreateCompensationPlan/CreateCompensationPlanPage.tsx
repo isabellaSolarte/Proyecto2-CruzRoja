@@ -8,7 +8,6 @@ import {
   ActionsModal,
   EmptyBox,
   CustomLoader,
-  CustomSearchInput,
 } from '../../components';
 import HelpIcon from '@mui/icons-material/Help';
 import EnergySavingsLeafIcon from '@mui/icons-material/EnergySavingsLeaf';
@@ -18,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 import columns from './components/ActionsTableColumns';
 import { useEffect, useState } from 'react';
 import { useBusinessHooks } from '../Bussiness';
+import CustomSearchInput from '../../components/Molecules/CustomSearchInput/CustomSearchInput';
 
 const CreateCompensationPlanPage = () => {
   const { loadAllCompanies, business } = useBusinessHooks();
