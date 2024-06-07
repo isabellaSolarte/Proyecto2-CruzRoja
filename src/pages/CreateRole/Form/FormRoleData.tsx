@@ -51,7 +51,7 @@ const FormRoleData = ({updateRolData, rolData }: FormRoleDataProps) => {
       setSearchTerm(event.target.value);
     };
     const filteredPermissons = permissionList.filter(permission =>
-      permissionMessages[permission.id].toLowerCase().includes(searchTerm.toLowerCase())
+      permissionMessages[permission.id]?.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     

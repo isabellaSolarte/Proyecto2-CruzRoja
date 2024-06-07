@@ -10,6 +10,8 @@ export const useCompensationPlanPage = () => {
     const fetchCompensationPlan = async () => {
         try {
             const compensationPlanData = await getAllPlans();
+            console.log('compensationPlanData: ',compensationPlanData);
+            
             if (Array.isArray(compensationPlanData) && compensationPlanData.length > 0) {
                 const adaptedCompensationPlans = compensationPlanData.map((compensationPlan) => ({
                     id: compensationPlan.id,

@@ -4,7 +4,7 @@ import { ActionAdapter } from './ActionAdapder';
 export const CompensationPlanAdapter = (
   externalPlan: any,
 ): CompensationPlanModel => {
-  console.log(externalPlan);
+  console.log("externalPlan", externalPlan);
   
   return {
     id: externalPlan.plan.planId,

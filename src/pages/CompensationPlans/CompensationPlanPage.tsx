@@ -4,6 +4,7 @@ import {
     CustomColumn,
     DataTable,
     ManagmentLayout,
+    TabsAtomComponent,
 } from '../../components';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -21,7 +22,7 @@ const CompensationPlanPage = () => {
     const { t } = useTranslation('commons');
     const { compensationPlans, fetchCompensationPlan } = useCompensationPlanPage();
     const navigate = useNavigate();
-    const [modalState, setModalState] = useState(true);
+    const [modalState, setModalState] = useState(false);
 
     useEffect(() => {
         void fetchCompensationPlan();
@@ -35,8 +36,8 @@ const CompensationPlanPage = () => {
         //navigate(PathNames.EDIT_PLAN.replace(':id', compensationPlanId));
     };
 
-    const handleViewButtonClick = (ompensationPlanId: string) => {
-        navigate(PathNames.VIEW_PLAN.replace(':id', ompensationPlanId));
+    const handleViewButtonClick = (compensationPlanId: string) => {
+        navigate(PathNames.VIEW_CUSTOM_PLAN.replace(':id', compensationPlanId));
     };
 
    
@@ -121,75 +122,86 @@ const CompensationPlanPage = () => {
             }
             generalContents={
                 <>
-                    <DataTable
-                        enableCheckboxSelection={false}
-                        dataColumns={columns}
-                        dataRows={compensationPlans}
-                    />
-                    <CustomModal 
-                    open={modalState} 
-                    title={
-                        <Box sx={{marginTop: 5, marginLeft: 2}}>
+                    <TabsAtomComponent 
+                        tabsHeaderTitle={['Planes genéricos', 'Mis planes']}
+                        tabsContent={[
+                            <>
+                                <DataTable
+                                    enableCheckboxSelection={false}
+                                    dataColumns={columns}
+                                    dataRows={compensationPlans}
+                                />
+                                <CustomModal 
+                                open={modalState} 
+                                title={
+                                    <Box sx={{marginTop: 5, marginLeft: 2}}>
 
-                            <CustomText texto={t('pageTitles.acquirePlan')} variante='titulo' color='black'/>
-                        </Box>
-                    }
+                                        <CustomText texto={t('pageTitles.acquirePlan')} variante='titulo' color='black'/>
+                                    </Box>
+                                }
+                                
+                                generalContents={
+                                        <Grid container spacing={4}>
+                                            <Grid item xs={12} paddingTop={3} sx={{display:"flex", justifyItems: "center"}}>
+                                                <CustomText texto={'Cliente:'} variante={'subtitulo'} />
+                                                <Typography component="span">&nbsp;&nbsp;</Typography>
+                                                <Autocomplete
+                                                    disablePortal
+                                                    id="combo-box-demo"
+                                                    options={ [
+                                                        { label: 'The Shawshank Redemption', year: 1994 },
+                                                        { label: 'The Godfather', year: 1972 }]}
+                                                        sx={{
+                                                            '& .MuiFormLabel-root.MuiInputLabel-root.Mui-focused': {
+                                                                color: 'black',
+                                                            },
+                                                            width: 500,
+                                                            minWidth: 250,
+                                                            '& .MuiOutlinedInput-root': {
+                                                                '&.Mui-focused fieldset': {
+                                                                    borderColor: 'black',
+                                                                },
+                                                            },
+                                                        }}
+                                                    renderInput={(params) => <TextField {...params} label="Buscar y seleccionar cliente u empresa" />}
+                                                    />
+                                            </Grid>
+                                            <Grid item xs={10} paddingTop={3} sx={{paddingLeft: 5}}>
+                                                
+                                            </Grid>
+
+                                            <Grid item xs={12} paddingTop={3} sx={{display:"flex"}}>
+                                                <CustomText texto='Plan de Compensación: ' variante='subtitulo' color='black'/>
+                                                <Typography component="span">&nbsp;&nbsp;</Typography>
+                                                <CustomText texto='Dato2' variante='texto' color='black'/>
+                                            </Grid>
+
+                                            <Grid item xs={12} paddingTop={3} sx={{display:"flex"}}>
+                                                <CustomText texto='Costo: ' variante='subtitulo' color='black'/>
+                                                <Typography component="span">&nbsp;&nbsp;</Typography>
+                                                <CustomText texto='Dato3' variante='texto' color='black'/>
+                                            </Grid>
+                                        </Grid>
+
+                                }
+                                actionsContent={
+                                    <CustomButton
+                                    content={t('generalButtonText.acquirePlan')}
+                                    variant="contained"
+                                    color="success"
+                                    //onClick:  (rowData: { id: string }) => handleAcquireButtonClick(rowData.id)
+                                    style={{ marginLeft: '10px' }}
+                                />
+                                }
+                                onClose={handleCreateButtonClick}
+                                />
+                            </>,
+                            <>
+                                Nada
+                            </>
+                        ]}
+                    />
                     
-                    generalContents={
-                            <Grid container spacing={4}>
-                                <Grid item xs={12} paddingTop={3} sx={{display:"flex", justifyItems: "center"}}>
-                                    <CustomText texto={'Cliente:'} variante={'subtitulo'} />
-                                    <Typography component="span">&nbsp;&nbsp;</Typography>
-                                    <Autocomplete
-                                        disablePortal
-                                        id="combo-box-demo"
-                                        options={ [
-                                            { label: 'The Shawshank Redemption', year: 1994 },
-                                            { label: 'The Godfather', year: 1972 }]}
-                                            sx={{
-                                                '& .MuiFormLabel-root.MuiInputLabel-root.Mui-focused': {
-                                                    color: 'black',
-                                                },
-                                                width: 500,
-                                                minWidth: 250,
-                                                '& .MuiOutlinedInput-root': {
-                                                    '&.Mui-focused fieldset': {
-                                                        borderColor: 'black',
-                                                    },
-                                                },
-                                            }}
-                                        renderInput={(params) => <TextField {...params} label="Buscar y seleccionar cliente u empresa" />}
-                                        />
-                                </Grid>
-                                <Grid item xs={10} paddingTop={3} sx={{paddingLeft: 5}}>
-                                    
-                                </Grid>
-
-                                <Grid item xs={12} paddingTop={3} sx={{display:"flex"}}>
-                                    <CustomText texto='Plan de Compensación: ' variante='subtitulo' color='black'/>
-                                    <Typography component="span">&nbsp;&nbsp;</Typography>
-                                    <CustomText texto='Dato2' variante='texto' color='black'/>
-                                </Grid>
-
-                                <Grid item xs={12} paddingTop={3} sx={{display:"flex"}}>
-                                    <CustomText texto='Costo: ' variante='subtitulo' color='black'/>
-                                    <Typography component="span">&nbsp;&nbsp;</Typography>
-                                    <CustomText texto='Dato3' variante='texto' color='black'/>
-                                </Grid>
-                            </Grid>
-
-                    }
-                    actionsContent={
-                        <CustomButton
-                        content={t('generalButtonText.acquirePlan')}
-                        variant="contained"
-                        color="success"
-                        //onClick:  (rowData: { id: string }) => handleAcquireButtonClick(rowData.id)
-                        style={{ marginLeft: '10px' }}
-                    />
-                    }
-                    onClose={handleCreateButtonClick}
-                    />
                 </>
             }
         />
