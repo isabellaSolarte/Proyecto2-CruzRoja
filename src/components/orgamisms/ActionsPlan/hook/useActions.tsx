@@ -3,8 +3,8 @@ import { getAllActions } from '../../../../services/AxiosRequests/Actions';
 import { CompensationPlanActionModel } from '../../../../models/Actions';
 
 
-const useActions = () => {
-    const [actions, setActions] = useState<CompensationPlanActionModel[]>([]);
+const useActions = (initialActions: CompensationPlanActionModel[]) => {
+    const [actions, setActions] = useState<CompensationPlanActionModel[]>(initialActions);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -12,21 +12,35 @@ const useActions = () => {
         const fetchActions = async () => {
             try {
                 setLoading(true);
-                const response2 = await getAllActions(); 
-                const updatedActions = response2.map((action) => ({
-                    id: action.id,
-                    action: action,
-                    name: action.name,
-                    description: action.description,
-                    unitaryPrice: action.unitaryPrice,
-                    footPrintUnity: action.footPrintUnity,
-                    quantity: 1,
-                    totalActionPrice: 0,
-                    totalActionUfp: 0,
-                }));
-
+                console.log('initialActions', actions);
+                
+                const response2 = await getAllActions();
+                
+                
+                const updatedActions2 = response2.map((responseAction) => {
+                    const action = actions.find(a => a.action.id === responseAction.id);
+                    if (action) {
+                        const totalActionPrice = action.action.unitaryPrice * action.quantity;
+                        const totalActionUfp = action.action.footPrintUnity * action.quantity;
+                        return { ...action, totalActionPrice, totalActionUfp };
+                    } else {
+                        return { 
+                            id: responseAction.id,
+                            action: responseAction,
+                            name: responseAction.name,
+                            description: responseAction.description,
+                            unitaryPrice: responseAction.unitaryPrice,
+                            footPrintUnity: responseAction.footPrintUnity,
+                            quantity: 1,
+                            totalActionPrice: 0,
+                            totalActionUfp: 0, 
+                        };
+                    }
+                });
+                console.log('updatedActions2', updatedActions2);
+                
                 setTimeout(() => {
-                    setActions(updatedActions);
+                    setActions(updatedActions2);
                     setLoading(false);
                     setError(null)
                 }, 500);

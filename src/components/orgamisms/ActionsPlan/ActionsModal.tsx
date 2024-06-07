@@ -29,7 +29,7 @@ interface ActionsModalProps {
 const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, onAddSelected }) => {
   const { t } = useTranslation('commons');
   const navigate = useNavigate();
-  const { actions, setActions, loading, error } = useActions();
+  const { actions, setActions, loading, error } = useActions(actionSummary.actions);
   const [selectedActions, setSelectedActions] = useState<CompensationPlanActionModel[]>([]);
   const [selectedRows, setSelectedRows] = useState(actionSummary.actions);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
