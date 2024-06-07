@@ -73,7 +73,12 @@ const CreateCompensationPlanPage = () => {
 
   return (
     <ManagmentLayout
-      title={<CustomText texto={t('pageTitles.createAction')} variante="titulo" />}
+      title={
+        <CustomText
+          texto={path.includes('edit') ? t('pageTitles.editPlan') : t('pageTitles.createPlan')}
+          variante="titulo"
+        />
+      }
       actionsContent={
         <Tooltip title={t('registerPlan.help.descriptionActionFormHelp')} placement="right">
           <HelpIcon color="disabled" />

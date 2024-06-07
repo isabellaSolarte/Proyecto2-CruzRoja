@@ -53,7 +53,9 @@
         "calculatorCostsUsages": "Consumos y costos",
         "createAction":"Registrar nueva acción",
         "editAction":"Editar Acción",
-        "actions":"Acciones"
+        "actions":"Acciones",
+        "createPlan":"Crear plan de compensación",
+        "editPlan":"Editar plan de compensación"
     },
     "rolesPages": {
         "tabs": {
