@@ -23,11 +23,5 @@ export const actionSchema = yup
       .positive('La unidad de huella de carbono debe ser un número positivo')
       .typeError('La unidad de huella de carbono debe ser un número')
       .required('La unidad de huella de carbono es requerida'),
-    quantity: yup
-      .number()
-      .positive('La cantidad debe ser un número positivo')
-      .integer('La cantidad debe ser un número entero')
-      .typeError('La cantidad debe ser un número')
-      .required('La cantidad es requerida'),
   })
   .required();

@@ -14,4 +14,5 @@ export interface CompensationPlanModel {
   actions: CompensationPlanActionModel[];
   price: number;
   ufpCompensation: number;
+  volunterId: number | undefined | null; // id del voluntario que creo el plan personalizado, si es plan general es null
 }

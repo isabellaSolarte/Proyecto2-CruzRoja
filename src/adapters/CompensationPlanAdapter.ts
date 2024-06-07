@@ -19,7 +19,8 @@ export const CompensationPlanAdapter = (
         totalActionUfp: action.totalActionUfp,
       };
     }),
-    price: externalPlan.plan.planPrice,
-    ufpCompensation: externalPlan.plan.totalUfp,
+    price: externalPlan.planPrice,
+    ufpCompensation: externalPlan.totalUfp,
+    volunterId: externalPlan.volunterId,
   };
 };

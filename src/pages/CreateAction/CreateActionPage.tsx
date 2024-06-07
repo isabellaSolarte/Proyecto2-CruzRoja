@@ -38,7 +38,6 @@ const CreateActionPage = () => {
       setValue('description', action.description); 
       setValue('unitaryPrice', action.unitaryPrice); 
       setValue('footPrintUnity', action.footPrintUnity); 
-      setValue('quantity', action.quantity); 
     }
   }, [action, setValue]); 
 
@@ -68,9 +67,6 @@ const CreateActionPage = () => {
             </li>
             <li>
               <CustomText texto={t('registerAction.help.footPrintUnity')} variante={'texto'} />
-            </li>
-            <li>
-              <CustomText texto={t('registerAction.help.quantity')} variante={'texto'} />
             </li>
             <li>
               <CustomText texto={t('registerAction.help.description')} variante={'texto'} />
@@ -125,21 +121,6 @@ const CreateActionPage = () => {
                   type="number"
                 />
                 {errors.footPrintUnity && <span>{errors.footPrintUnity.message}</span>}
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <CustomText
-                  texto={t('registerAction.quantity')}
-                  variante="subtitulo"
-                  icon={<EnergySavingsLeafIcon color="success" />}
-                  mandatory
-                />
-                <CustomInput
-                  placeholder={t('Cantidad')}
-                  size="large"
-                  props={register('quantity')}
-                  type="number"
-                />
-                {errors.quantity && <span>{errors.quantity.message}</span>}
               </Grid>
               <Grid item xs={12}>
                 <CustomText

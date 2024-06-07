@@ -21,14 +21,18 @@ interface Ron {
 
 export const getCountries = async () => {
   try {
-    const response = await axios.get<Country[]>(
-      'https://restcountries.com/v3.1/all?fields=name',
+    const token = 'bEU5NEd5NUtEQnd6a0VQdkZMbU11TWttaXV6MTN2SUxTaVhlVnBmcw==';
+    const response = await axios.get<any[]>(
+      'https://api.countrystatecity.in/v1/countries',
+      {
+        headers: { 'X-CSCAPI-KEY': token },
+      },
     );
 
-    const countryList = response.data.map((country: Country) => {
+    const countryList = response.data.map(country => {
       return {
-        label: country.name.common,
-        value: country.name.common,
+        label: country.name,
+        value: country.name,
       };
     });
 

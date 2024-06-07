@@ -9,6 +9,7 @@ export const defaultCompensationPlan: CompensationPlanModel = {
   id: 0,
   price: 0,
   ufpCompensation: 0,
+  volunterId: undefined,
 };
 
 const CompensationPlanSchema = yup
@@ -18,6 +19,7 @@ const CompensationPlanSchema = yup
     price: yup.number().default(0),
     ufpCompensation: yup.number().default(0),
     name: yup.string().required('El nombre es obligatorio'),
+    volunterId: yup.number().nullable(),
     description: yup
       .string()
       .min(50, 'La descripción es demasiado corta.')

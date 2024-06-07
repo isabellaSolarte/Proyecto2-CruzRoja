@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { Box, Dialog, DialogActions, DialogContent, DialogTitle, Alert } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -14,10 +13,11 @@ import { PathNames } from '../../../core';
 import { useNavigate } from 'react-router-dom';
 import { CompensationPlanActionModel } from '../../../models/Actions';
 
+
 type ActionSummaryType = {
   actions: CompensationPlanActionModel[];
   totalUfp: number;
-  totalCosto: number;
+  totalPrice: number;
 };
 
 interface ActionsModalProps {
@@ -29,54 +29,88 @@ interface ActionsModalProps {
 const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, onAddSelected }) => {
   const { t } = useTranslation('commons');
   const navigate = useNavigate();
-  const { actions, loading, error } = useActions(); // Usa el hook personalizado
+  const { actions, setActions, loading, error } = useActions(actionSummary.actions);
   const [selectedActions, setSelectedActions] = useState<CompensationPlanActionModel[]>([]);
-  const [actionTemplate, setActionTemplate] = useState<ActionSummaryType>({
-    actions: [],
-    totalUfp: 0,
-    totalCosto: 0,
-  });
   const [selectedRows, setSelectedRows] = useState(actionSummary.actions);
-  const [validationErrors, setValidationErrors] = useState<string[]>([]); // Estado para almacenar los errores de validación
-  const [totalCosto, setTotalCosto] = useState(0);
+  const [validationErrors, setValidationErrors] = useState<string[]>([]);
+  const [totalPrice, setTotalCosto] = useState(0);
   const [totalUfp, setTotalUfp] = useState(0);
 
   useEffect(() => {
     if (!loading && !error) {
-      setSelectedActions(actions);
-      const newTotalCosto = selectedRows.reduce(
-        (acc, action) => acc + action.unitaryPrice * action.quantity,
+      
+      const updatedSelectedRows = selectedRows.map(action => {
+        const totalActionPrice = action.action.unitaryPrice * action.quantity;
+        const totalActionUfp = action.action.footPrintUnity * action.quantity;
+        return { ...action, totalActionPrice, totalActionUfp };
+      });
+
+      const newTotalCosto = updatedSelectedRows.reduce(
+        (acc, action) => acc + action.totalActionPrice,
         0,
       );
-      const newTotalUfp = selectedRows.reduce(
-        (acc, action) => acc + action.footPrintUnity * action.quantity,
+      const newTotalUfp = updatedSelectedRows.reduce(
+        (acc, action) => acc + action.totalActionUfp,
         0,
       );
 
       setTotalCosto(newTotalCosto);
       setTotalUfp(newTotalUfp);
-      setActionTemplate({ actions: selectedRows, totalUfp, totalCosto });
+      setSelectedRows(updatedSelectedRows);
+      setSelectedActions(actions);
     }
-  }, [loading, error, actions, selectedRows, onAddSelected, totalUfp, totalCosto]);
+  }, [loading, error, actions, selectedRows]);
 
   const handleAddSelected = () => {
-    console.log('Adding selected actions:', { actions: selectedRows });
-
     actionsValidationSchema
       .validate({ actions: selectedRows })
       .then(() => {
-        onAddSelected(actionTemplate);
-        setValidationErrors([]); // Limpiar los errores de validación si la validación es exitosa
+        onAddSelected({
+          actions: selectedRows,
+          totalUfp,
+          totalPrice
+        });
+        setValidationErrors([]);
       })
       .catch((error: unknown) => {
         if (error instanceof Error) {
-          console.error(error.message);
-          setValidationErrors([error.message]); // Almacenar el error de validación en el estado
+          setValidationErrors([error.message]);
         } else {
-          console.error('Error al validar las acciones');
-          setValidationErrors(['Error al validar las acciones']); // Almacenar el error de validación en el estado
+          setValidationErrors(['Error al validar las acciones']);
         }
       });
+  };
+
+  const handleQuantityChange = (e, row) => {
+    const newQuantity = Number(e.target.value);
+
+    const updatedActions = actions.map(action => 
+      action.action.id === row.action.id ? { ...action, quantity: newQuantity } : action
+    );
+
+    const updatedSelectedRows = selectedRows.map(selectedRow => {
+      if (selectedRow.action.id === row.action.id) {
+        const totalActionPrice = selectedRow.action.unitaryPrice * newQuantity;
+        const totalActionUfp = selectedRow.action.footPrintUnity * newQuantity;
+        return { ...selectedRow, quantity: newQuantity, totalActionPrice, totalActionUfp };
+      }
+      return selectedRow;
+    });
+
+    const newTotalCosto = updatedSelectedRows.reduce(
+      (acc, action) => acc + action.totalActionPrice,
+      0,
+    );
+    const newTotalUfp = updatedSelectedRows.reduce(
+      (acc, action) => acc + action.totalActionUfp,
+      0,
+    );
+
+    setActions(updatedActions);
+    setSelectedActions(updatedActions);
+    setTotalCosto(newTotalCosto);
+    setTotalUfp(newTotalUfp);
+    setSelectedRows(updatedSelectedRows);
   };
 
   const columns = [
@@ -88,18 +122,30 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
       width: 200,
     }),
     CustomColumn({
+      aling: 'center',
       field: 'footPrintUnity',
       headerName: t('modalAccion.footPrintUnity'),
       format: 'text',
       width: 150,
     }),
     CustomColumn({
+      aling: 'center',
+      width: 150,
       field: 'quantity',
       headerName: t('modalAccion.quantity'),
-      format: 'text',
-      width: 150,
+      format: 'input',
+      inputDetails: [
+        {
+          placeholder: t('modalAccion.quantity'),
+          updateText: (text) => {
+            console.log('Cantidad actualizada: ', text);
+          },
+          onChange: handleQuantityChange
+        },
+      ],
     }),
     CustomColumn({
+      aling: 'center',
       field: 'unitaryPrice',
       headerName: t('modalAccion.unitaryPrice'),
       format: 'text',
@@ -116,7 +162,6 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
           color: 'warning',
           icon: <VisibilityIcon />,
           onClick: row => {
-            console.log('Observar', PathNames.VIEW_ACTIONS.replace(':id', String(row.id)));
             navigate(PathNames.VIEW_ACTIONS.replace(':id', String(row.id)));
           },
         },
@@ -124,6 +169,7 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
       width: 200,
     }),
   ];
+
   return (
     <Box>
       <Dialog
@@ -181,12 +227,12 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
             }}
           />
           <CustomText
-            texto={`${t('modalAccion.totalUfp')}${actionTemplate.totalUfp}`}
+            texto={`${t('modalAccion.totalUfp')}${totalUfp}`}
             variante="subtitulo"
             styles={{ textAlign: 'center' }}
           />
           <CustomText
-            texto={`${t('modalAccion.totalCosto')} ${actionTemplate.totalCosto} COP`}
+            texto={`${t('modalAccion.totalCosto')} ${totalPrice} COP`}
             variante="texto"
             styles={{ textAlign: 'center' }}
           />

@@ -16,16 +16,20 @@ export const GeneralUserAdapter = (externalUser: any): UserModel => {
       // Verifica si el ID del permiso está mapeado en el map
       if (mapRoutes.has(permiso.idPermission)) {
         const mappedPath = mapRoutes.get(permiso.idPermission);
-        // Comprueba si la ruta ya está en el array para evitar duplicados
-        if (!allowedRoutes.includes(mappedPath)) {
+        if (Array.isArray(mappedPath)) {
+          mappedPath.map(path => {
+            if (!allowedRoutes.includes(path)) {
+              allowedRoutes.push(path);
+            }
+          });
+        } else if (!allowedRoutes.includes(mappedPath)) {
+          // Comprueba si la ruta ya está en el array para evitar duplicados
           // Agrega la ruta al array de rutas permitidas
           allowedRoutes.push(mappedPath);
         }
       }
     });
   });
-
-  console.log('allowedRoutes', allowedRoutes);
 
   return {
     id: externalUser.documentNumber,
