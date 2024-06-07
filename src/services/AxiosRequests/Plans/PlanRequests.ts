@@ -32,9 +32,6 @@ export const postCompensationPlan = async (
       type == 'custom'
         ? PlanEndpoints.postCustomPlan
         : PlanEndpoints.postGenericPlan;
-    console.log(JSON.stringify(route));
-    console.log(JSON.stringify(data));
-    console.log(JSON.stringify(plan.volunterId));
     const response = await api.post<CompensationPlanModel>(route, data, {
       params: {
         volunteerId: plan.volunterId,
@@ -48,15 +45,11 @@ export const postCompensationPlan = async (
 
 export const getCompensationPlanById = async (
   planId: number,
-  planType: 'custom' | 'generic',
 ): Promise<CompensationPlanModel> => {
   try {
-    const response = await api.get(
-      planType === 'custom'
-        ? PlanEndpoints.getCustomPlanById(planId)
-        : PlanEndpoints.getGenericPlanById(planId),
-    );
+    const response = await api.get(PlanEndpoints.getGenericPlanById(planId));
     const adaptedPlan = CompensationPlanAdapter(response.data);
+    console.log(adaptedPlan);
     return adaptedPlan;
   } catch (err) {
     throw new Error(JSON.stringify(err));
@@ -68,9 +61,14 @@ export const putCompensationPlan = async (
 ) => {
   try {
     const data = PlanDTOAdapter(updatePlan);
-    const response = await api.post<CompensationPlanModel>(
+    const response = await api.put<CompensationPlanModel>(
       PlanEndpoints.putPlan,
       data,
+      {
+        params: {
+          volunteerId: updatePlan.volunterId,
+        },
+      },
     );
     return response.data;
   } catch (err) {

@@ -58,7 +58,9 @@
         "createAction":"Registrar nueva acción",
         "editAction":"Editar Acción",
         "actions":"Acciones",
-        "acquirePlan": "Adquirir Plan de Compensación"
+        "acquirePlan": "Adquirir Plan de Compensación",
+        "createPlan":"Crear plan de compensación",
+        "editPlan":"Editar plan de compensación"
     },
     "rolesPages": {
         "tabs": {

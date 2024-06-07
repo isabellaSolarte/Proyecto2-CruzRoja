@@ -30,6 +30,7 @@ const DataTable = ({
   onSelectionChange,
   enableTools = true,
 }: DataTableProps) => {
+  console.log('dataRows', dataRows);
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
   /*   useEffect(()=> {
     if (selectedRowsData && selectedRowsData.length > 0) {

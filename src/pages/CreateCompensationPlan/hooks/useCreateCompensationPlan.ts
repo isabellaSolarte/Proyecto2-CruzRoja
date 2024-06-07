@@ -61,7 +61,18 @@ const useCreateCompensationPlan = () => {
     }
     try {
       const plan = await getCompensationPlanById(Number(id));
-      setCurrentPlan(plan);
+      const adaptedActions = plan.actions.map(action => {
+        return {
+          action: action.action,
+          quantity: action.quantity,
+          footPrintUnity: action.action.footPrintUnity,
+          unitaryPrice: action.action.unitaryPrice,
+          totalActionUfp: action.quantity * action.action.footPrintUnity,
+          totalActionPrice: action.quantity * action.action.unitaryPrice,
+          name: action.action.name,
+        };
+      });
+      setCurrentPlan({ ...plan, actions: adaptedActions });
     } catch (error) {
       Swal.fire({
         icon: 'error',
@@ -101,6 +112,12 @@ const useCreateCompensationPlan = () => {
 
   const removeAction = (index: number) => {
     remove(index);
+  };
+
+  const removeAllActions = () => {
+    fields.forEach((_, index) => {
+      remove(index);
+    });
   };
 
   const updateSelectedBusiness = (businessName: string) => {
@@ -172,6 +189,7 @@ const useCreateCompensationPlan = () => {
     updateAction,
     updateActions,
     updateSelectedBusiness,
+    removeAllActions,
   };
 };
 

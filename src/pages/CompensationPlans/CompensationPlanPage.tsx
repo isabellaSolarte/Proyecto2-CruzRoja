@@ -37,7 +37,9 @@ const CompensationPlanPage = () => {
     };
 
     const handleViewButtonClick = (compensationPlanId: string) => {
-        navigate(PathNames.VIEW_CUSTOM_PLAN.replace(':id', compensationPlanId));
+        console.log(compensationPlanId);
+        
+        navigate(PathNames.VIEW_P.replace(':id', compensationPlanId));
     };
 
    
@@ -85,7 +87,7 @@ const CompensationPlanPage = () => {
                     variant: 'contained',
                     color: 'warning',
                     icon: <VisibilityIcon />,
-                    onClick: handleViewButtonClick,
+                    onClick: (rowData: { id: string }) => handleViewButtonClick(rowData.id),
                 },
                 {
                     content: t('generalButtonText.acquirePlan'),
