@@ -28,6 +28,8 @@ import { CreateActionPage } from '../../pages/CreateAction';
 import ForestIcon from '@mui/icons-material/Forest';
 import CreateCompensationPlanPage from '../../pages/CreateCompensationPlan/CreateCompensationPlanPage';
 import ActionsPage from '../../pages/Actions/ActionsPage';
+import { BusinessPage } from '../../pages/Bussiness';
+import { ViewBusinessPage } from '../../pages/ViewBusiness';
 
 export const NavigationRoutes = () => {
   const { t } = useTranslation('commons');
@@ -46,7 +48,13 @@ export const NavigationRoutes = () => {
     },
     {
       path: PathNames.BUSINESS,
-      component: <h1>GESTIONAR EMPRESAS</h1>,
+      component: <BusinessPage />,
+      title: t('menuOptions.business'),
+      icon: <BusinessIcon />,
+    },
+    {
+      path: PathNames.VIEW_BUSINESS,
+      component: <ViewBusinessPage />,
       title: t('menuOptions.business'),
       icon: <BusinessIcon />,
     },
@@ -101,7 +109,12 @@ export const NavigationRoutes = () => {
       title: t('menuOptions.createPlan'),
     },
     {
-      path: PathNames.EDIT_PLAN,
+      path: PathNames.EDIT_CUSTOM_PLAN,
+      component: <CreateCompensationPlanPage />,
+      title: t('menuOptions.createPlan'),
+    },
+    {
+      path: PathNames.EDIT_GENERIC_PLAN,
       component: <CreateCompensationPlanPage />,
       title: t('menuOptions.createPlan'),
     },

@@ -64,6 +64,7 @@ const useGeneralUserDataForm = (
   };
 
   const onChangeComfirmedPassword = (value: string) => {
+    console.log(value);
     setConfirmedPassword(value);
   };
 
@@ -73,6 +74,8 @@ const useGeneralUserDataForm = (
    * @returns boolean, if the password is the same as the confirmed password return true else return false
    */
   const validatePassword = (): boolean => {
+    console.log(getValues('password'));
+    console.log(confirmedPassword);
     setConfirmedPasswordError(getValues().password !== confirmedPassword);
     return !confirmedPasswordError;
   };

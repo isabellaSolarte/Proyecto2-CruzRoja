@@ -56,6 +56,7 @@ const CreateCompensationPlanPage = () => {
   useEffect(() => {
     if (currentPlan.description !== '') {
       reset(currentPlan);
+      console.log(JSON.stringify(fields));
     }
   }, [currentPlan]);
 
