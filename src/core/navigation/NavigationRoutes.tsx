@@ -119,12 +119,7 @@ export const NavigationRoutes = () => {
       title: t('menuOptions.createPlan'),
     },
     {
-      path: PathNames.VIEW_CUSTOM_PLAN,
-      component: <CreateCompensationPlanPage />,
-      title: t('menuOptions.createPlan'),
-    },
-    {
-      path: PathNames.VIEW_GENERIC_PLAN,
+      path: PathNames.VIEW_PLAN,
       component: <CreateCompensationPlanPage />,
       title: t('menuOptions.createPlan'),
     },
