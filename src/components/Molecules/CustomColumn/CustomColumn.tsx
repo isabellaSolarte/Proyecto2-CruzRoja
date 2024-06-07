@@ -25,6 +25,7 @@ interface CustomColumnProps {
   inputDetails?: Array<{
     placeholder: string;
     updateText: (text: string) => void;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>, rowData: GridRenderCellParams['row']) => void;
     defaultValue?: string;
     props?: any;
   }>;
@@ -80,7 +81,8 @@ const CustomColumn = ({
               size={'small'}
               props={input.props}
               updateText={input.updateText}
-              defaultValue={input.defaultValue}
+              onChange={(e) => input.onChange && input.onChange(e, params.row)}
+              defaultValue={params.value}
             />
           ))}
         </div>
