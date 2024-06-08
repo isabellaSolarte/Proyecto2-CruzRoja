@@ -24,9 +24,8 @@ export enum PathNames {
 
   PLANS = '/plans',
   CREATE_PLAN = '/plans/create',
-  CREATE_CUSTOM_PLAN = '/plans/createCustomPlan',
-  VIEW_GENERIC_PLAN = '/plans/view/:id',
-  VIEW_CUSTOM_PLAN = '/plans/view/custom/:id',
+  CREATE_CUSTOM_PLAN = '/plans/create/custom',
+  VIEW_PLAN = '/plans/view/:id',
   EDIT_PLAN = '/plans/edit/:id',
 
   ACTIVITY = '/activity',

@@ -16,7 +16,10 @@
         "previousPage": "Ir a página anterior",
         "start": "Iniciar",
         "add": "Agregar",
-        "createAction": "Crear acción"
+        "createAction": "Crear acción",
+        "createPlan": "Crear plan",
+        "createPlanEmpresa": "Crear plan personal",
+        "acquirePlan": "Adquirir"
     },
     "menuOptions": {
         "home": "Inicio",
@@ -37,6 +40,7 @@
         "users": "Gestión de usuarios",
         "business": "Gestión de empresas",
         "roles": "Gestionar roles",
+        "compensationPlans": "Planes de compensación",
         "createRole": "Editar - Crear rol",
         "userView": "Visualizar usuario",
         "registerCategory": "Registro de categoria",
@@ -53,7 +57,10 @@
         "calculatorCostsUsages": "Consumos y costos",
         "createAction":"Registrar nueva acción",
         "editAction":"Editar Acción",
-        "actions":"Acciones"
+        "actions":"Acciones",
+        "acquirePlan": "Adquirir Plan de Compensación",
+        "createPlan":"Crear plan de compensación",
+        "editPlan":"Editar plan de compensación"
     },
     "rolesPages": {
         "tabs": {
@@ -202,6 +209,7 @@
         "userCreated": "Usuario creado exitosamente",
         "rolCreate": "El rol se ha creado exitosamente",
         "rolEdit": "El rol se ha actualizado exitosamente",
+        "acquiredPlan": "El plan ha sido adquirido exitosamente",
         "inputErrors": "Ha ocurrido un error, por favor verifique los datos ingresados",
         "generalError": "Ups, lo sentimos",
         "updateStateConfirmation": "¿Estás seguro de cambiar el estado de este {{userType}}?"
@@ -263,6 +271,12 @@
         }
     },
     "compensationPlans": {
+        "name": "Nombre",
+        "price": "Precio",
+        "discount": "Descuento",
+        "total": "Precio total",
+        "actions":"Acciones",
+        "description": "Administración integral de estrategias diseñadas para neutralizar o reducir las emisiones de carbono, mediante la implementación de proyectos de compensación y la monitorización del progreso hacia la sostenibilidad."
     },
     "generalTableHeaders":{
         "name": "Nombre",

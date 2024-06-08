@@ -5,20 +5,21 @@ export const CompensationPlanAdapter = (
   externalPlan: any,
 ): CompensationPlanModel => {
   return {
-    id: externalPlan.planId,
-    name: externalPlan.planName,
-    description: externalPlan.planDescription,
-    discount: externalPlan.planDiscount,
+    id: externalPlan.plan.planId,
+    name: externalPlan.plan.planName,
+    description: externalPlan.plan.planDescription,
+    discount: externalPlan.plan.planDiscount,
     actions: externalPlan.actions.map((action: any) => {
       return {
-        action: ActionAdapter(action),
-        quantity: action.quantity,
-        totalActionPrice: action.totalActionPrice,
-        totalActionUfp: action.totalActionUfp,
+        action: ActionAdapter(action.action),
+        quantity: action.amount,
+        totalActionPrice: action.price,
+        totalActionUfp: action.ufp,
       };
     }),
-    price: externalPlan.planPrice,
-    ufpCompensation: externalPlan.totalUfp,
-    volunterId: externalPlan.volunterId,
+    price: externalPlan.plan.planPrice,
+    ufpCompensation: externalPlan.plan.planUfp,
+    volunterId: externalPlan.plan.volunteerId,
+    isCustom: !externalPlan.plan.planDefault,
   };
 };

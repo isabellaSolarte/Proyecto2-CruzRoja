@@ -61,7 +61,18 @@ const useCreateCompensationPlan = () => {
     }
     try {
       const plan = await getCompensationPlanById(Number(id));
-      setCurrentPlan(plan);
+      const adaptedActions = plan.actions.map(action => {
+        return {
+          action: action.action,
+          quantity: action.quantity,
+          footPrintUnity: action.action.footPrintUnity,
+          unitaryPrice: action.action.unitaryPrice,
+          totalActionUfp: action.quantity * action.action.footPrintUnity,
+          totalActionPrice: action.quantity * action.action.unitaryPrice,
+          name: action.action.name,
+        };
+      });
+      setCurrentPlan({ ...plan, actions: adaptedActions });
     } catch (error) {
       Swal.fire({
         icon: 'error',
@@ -103,6 +114,12 @@ const useCreateCompensationPlan = () => {
     remove(index);
   };
 
+  const removeAllActions = () => {
+    fields.forEach((_, index) => {
+      remove(index);
+    });
+  };
+
   const updateSelectedBusiness = (businessName: string) => {
     setValue(
       'name',
@@ -112,14 +129,17 @@ const useCreateCompensationPlan = () => {
           : getValues('name')
       }_${businessName}_${new Date().getTime()}`,
     );
-    setValue('volunterId', getLoggedUser()?.id);
   };
 
   const onSubmit = async (data: CompensationPlanModel) => {
     try {
       setIsLoading(true);
+
       if (!id) {
-        await postCompensationPlan(data);
+        await postCompensationPlan(
+          data,
+          path.includes('custom') ? 'custom' : 'generic',
+        );
       } else {
         await putCompensationPlan(data);
       }
@@ -146,6 +166,7 @@ const useCreateCompensationPlan = () => {
   };
 
   return {
+    userId: getLoggedUser()?.id,
     fields,
     errors,
     actionsSelected,
@@ -168,6 +189,7 @@ const useCreateCompensationPlan = () => {
     updateAction,
     updateActions,
     updateSelectedBusiness,
+    removeAllActions,
   };
 };
 

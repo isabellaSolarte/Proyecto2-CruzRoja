@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import { TextField } from '@mui/material';
 import './InputStyle.css';
 
 interface CustomInputProps {
@@ -7,6 +6,7 @@ interface CustomInputProps {
   size: 'small' | 'medium' | 'large'; // Define size prop
   type?: 'text' | 'password' | 'email' | 'number' | 'submit'; // Define type prop
   updateText?: (text: string) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value?: string | number;
   props?: object;
   defaultValue?: string;
@@ -22,14 +22,18 @@ const CustomInput = ({
   type = 'text',
   updateText,
   value,
+  onChange,
   defaultValue,
   props = {},
 }: CustomInputProps) => {
   const inputClass = `custom-input-${size}`;
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeState = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (updateText) {
       updateText(e.target.value);
+    }
+    if (onChange) {
+      onChange(e);
     }
   };
 
@@ -43,7 +47,7 @@ const CustomInput = ({
         style={{
           width: '100%',
         }}
-        onChange={onChange}
+        onChange={onChangeState}
         {...props}
       />
     </div>

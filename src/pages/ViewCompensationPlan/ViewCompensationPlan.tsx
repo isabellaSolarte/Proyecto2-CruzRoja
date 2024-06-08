@@ -10,6 +10,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { green } from '@mui/material/colors';
 import { useViewCompensationPlan } from './hooks/useViewCompensationPlan';
+
 const ViewCompensationPage = () => {
     const { t } = useTranslation('commons');
     const { currentPlan,  fetchPlan, handleEdit } = useViewCompensationPlan();
@@ -89,7 +90,13 @@ const ViewCompensationPage = () => {
             color="info"
             icon={<AttachMoneyIcon style={{ color: green[500] }} />}
             onClick={handleEdit}
-            style={{ marginLeft: '10px' }} />
+            style={{
+              marginLeft: '10px',
+              backgroundColor: 'transparent', 
+              border: '2px solid green',
+              color: 'green', 
+              padding: '10px 20px', 
+            }} />
         </>
       }
       generalContents={

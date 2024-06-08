@@ -29,6 +29,9 @@ import ForestIcon from '@mui/icons-material/Forest';
 import CreateCompensationPlanPage from '../../pages/CreateCompensationPlan/CreateCompensationPlanPage';
 import ActionsPage from '../../pages/Actions/ActionsPage';
 import ViewCompensationPage from '../../pages/ViewCompensationPlan/ViewCompensationPlan';
+import CompensationPlanPage from '../../pages/CompensationPlans/CompensationPlanPage';
+import { BusinessPage } from '../../pages/Bussiness';
+import { ViewBusinessPage } from '../../pages/ViewBusiness';
 
 export const NavigationRoutes = () => {
   const { t } = useTranslation('commons');
@@ -47,7 +50,13 @@ export const NavigationRoutes = () => {
     },
     {
       path: PathNames.BUSINESS,
-      component: <h1>GESTIONAR EMPRESAS</h1>,
+      component: <BusinessPage />,
+      title: t('menuOptions.business'),
+      icon: <BusinessIcon />,
+    },
+    {
+      path: PathNames.VIEW_BUSINESS,
+      component: <ViewBusinessPage />,
       title: t('menuOptions.business'),
       icon: <BusinessIcon />,
     },
@@ -87,7 +96,7 @@ export const NavigationRoutes = () => {
     },
     {
       path: PathNames.PLANS,
-      component: <h1>GESTIONAR PLANES</h1>,
+      component: <CompensationPlanPage/>,
       title: t('menuOptions.plans'),
       icon: <ViewInArIcon />,
     },
@@ -107,12 +116,7 @@ export const NavigationRoutes = () => {
       title: t('menuOptions.createPlan'),
     },
     {
-      path: PathNames.VIEW_CUSTOM_PLAN,
-      component: <ViewCompensationPage />,
-      title: t('menuOptions.createPlan'),
-    },
-    {
-      path: PathNames.VIEW_GENERIC_PLAN,
+      path: PathNames.VIEW_PLAN,
       component: <ViewCompensationPage />,
       title: t('menuOptions.createPlan'),
     },

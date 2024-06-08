@@ -8,7 +8,6 @@ import {
   ActionsModal,
   EmptyBox,
   CustomLoader,
-  CustomSearchInput,
 } from '../../components';
 import HelpIcon from '@mui/icons-material/Help';
 import EnergySavingsLeafIcon from '@mui/icons-material/EnergySavingsLeaf';
@@ -18,11 +17,13 @@ import { useTranslation } from 'react-i18next';
 import columns from './components/ActionsTableColumns';
 import { useEffect, useState } from 'react';
 import { useBusinessHooks } from '../Bussiness';
+import CustomSearchInput from '../../components/Molecules/CustomSearchInput/CustomSearchInput';
 
 const CreateCompensationPlanPage = () => {
   const { loadAllCompanies, business } = useBusinessHooks();
   const [companies, setCompanies] = useState<{ label: string; value: object }[]>([]);
   const {
+    userId,
     errors,
     fields,
     actionsSelected,
@@ -37,6 +38,7 @@ const CreateCompensationPlanPage = () => {
     onSubmit,
     handleSubmit,
     getValues,
+    setValue,
     generateInitalPlanState,
     reset,
     updateActions,
@@ -54,11 +56,13 @@ const CreateCompensationPlanPage = () => {
   useEffect(() => {
     if (currentPlan.description !== '') {
       reset(currentPlan);
+      console.log(JSON.stringify(fields));
     }
   }, [currentPlan]);
 
   // Cargar las empresas
   useEffect(() => {
+    setValue('volunterId', userId);
     loadAllCompanies();
   }, []);
 
@@ -69,7 +73,12 @@ const CreateCompensationPlanPage = () => {
 
   return (
     <ManagmentLayout
-      title={<CustomText texto={t('pageTitles.createAction')} variante="titulo" />}
+      title={
+        <CustomText
+          texto={path.includes('edit') ? t('pageTitles.editPlan') : t('pageTitles.createPlan')}
+          variante="titulo"
+        />
+      }
       actionsContent={
         <Tooltip title={t('registerPlan.help.descriptionActionFormHelp')} placement="right">
           <HelpIcon color="disabled" />
@@ -127,17 +136,17 @@ const CreateCompensationPlanPage = () => {
                 {errors.discount && <span>{errors.discount.message}</span>}
               </Grid>
 
-              {/* {path && path.includes('Custom') && (
-              )} */}
-              <Grid item xs={12} md={6}>
-                <CustomSearchInput
-                  options={companies}
-                  placeholder={t('generalSearchPlaceholder.business')}
-                  inputTitle={t('generalFormInputLabels.business')}
-                  props={undefined}
-                  onChangeEvent={updateSelectedBusiness}
-                />
-              </Grid>
+              {(getValues('isCustom') || path.includes('custom')) && (
+                <Grid item xs={12} md={6}>
+                  <CustomSearchInput
+                    options={companies}
+                    placeholder={t('generalSearchPlaceholder.business')}
+                    inputTitle={t('generalFormInputLabels.business')}
+                    props={undefined}
+                    onChangeEvent={updateSelectedBusiness}
+                  />
+                </Grid>
+              )}
 
               <Grid item xs={12}>
                 <CustomText
