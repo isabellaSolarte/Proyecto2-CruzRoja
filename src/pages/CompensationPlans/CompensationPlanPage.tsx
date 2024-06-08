@@ -122,7 +122,7 @@ const CompensationPlanPage = () => {
         icon: <AttachMoneyIcon />,
         onClick: (rowData: { id: string }) => handleAcquireButtonClick(rowData),
     };
-    
+
     const editButton = {
         content: t('generalButtonText.edit'),
         variant: 'contained',
@@ -170,6 +170,7 @@ const buttons = [
         CustomColumn({
             field: 'actions',
             headerName: t('compensationPlans.actions'),
+            width: 400,
             format: 'button',
             variante: 'texto',
             buttonDetails: buttons,
