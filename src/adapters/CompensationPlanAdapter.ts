@@ -22,5 +22,6 @@ export const CompensationPlanAdapter = (
     price: externalPlan.plan.planPrice,
     ufpCompensation: externalPlan.plan.planUfp,
     volunterId: externalPlan.plan.volunteerId,
+    isCustom: !externalPlan.plan.planDefault,
   };
 };

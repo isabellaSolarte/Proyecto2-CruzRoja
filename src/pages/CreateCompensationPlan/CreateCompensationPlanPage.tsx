@@ -136,7 +136,7 @@ const CreateCompensationPlanPage = () => {
                 {errors.discount && <span>{errors.discount.message}</span>}
               </Grid>
 
-              {path && path.includes('custom') && (
+              {getValues('isCustom') && (
                 <Grid item xs={12} md={6}>
                   <CustomSearchInput
                     options={companies}
