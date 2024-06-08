@@ -113,9 +113,11 @@ export const useCompensationPlanPage = () => {
         setCompensationPlans(updatedCompensationPlans);
     };
 
-    const onSubmit = async (CompanyPlan: any) => {
+    const onSubmit = async (companyPlan: any) => {
+        console.log(companyPlan);
+        
         try {
-            await postAcquiredPlan(CompanyPlan)
+            await postAcquiredPlan(companyPlan);
             void Swal.fire({
                 title: t('alertText.correctOperation'),
                 text: t('alertText.acquiredPlan'),
@@ -123,13 +125,13 @@ export const useCompensationPlanPage = () => {
                 confirmButtonText: t('generalButtonText.accept'),
             });
         } catch (error: any) {
+            console.error("Error posting acquired plan:", error); // Add more error logging here
             void Swal.fire({
                 title: t('alertText.error'),
                 text: t('alertText.errorDescription'),
                 icon: 'error',
                 confirmButtonText: t('generalButtonText.accept'),
             });
-            throw error;
         }
     };
 

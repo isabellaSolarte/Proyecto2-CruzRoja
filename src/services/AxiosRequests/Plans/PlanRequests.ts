@@ -60,7 +60,8 @@ export const postAcquiredPlan = async (plan: any) => {
     const response = await api.post<AxiosResponse>(PlanEndpoints.postAcquiredPlan, plan);
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.error("Error in postAcquiredPlan:", error);
+    throw error;  // Lanzar el error para que sea capturado por el bloque try-catch del caller
   }
 };
 

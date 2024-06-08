@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { PathNames } from '../../core';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import EditIcon from '@mui/icons-material/Edit';
 import ForestIcon from '@mui/icons-material/Forest';
 import { CustomModal } from '../../components/orgamisms/CustomModal';
 import { Grid, Typography, Alert, Autocomplete, Box, TextField } from '@mui/material';
@@ -88,6 +89,10 @@ const CompensationPlanPage = () => {
         navigate(PathNames.VIEW_PLAN.replace(':id', compensationPlanId));
     };
 
+    const handleEditButtonClick = (compensationPlanId: string) => {
+        navigate(PathNames.EDIT_PLAN.replace(':id', compensationPlanId));
+    };
+
     const handleFormSubmit = (event) => {
         event.preventDefault();
         onSubmit(formData);
@@ -101,6 +106,36 @@ const CompensationPlanPage = () => {
             companyNit: newValue ? newValue.value : null,
         }));
     };
+
+    const viewButton = {
+        content: t('generalButtonText.view'),
+        variant: 'contained' as const,
+        color: 'warning' as const,
+        icon: <VisibilityIcon />,
+        onClick: (rowData: { id: string }) => handleViewButtonClick(rowData.id),
+    };
+
+    const acquireButton = {
+        content: t('generalButtonText.acquirePlan'),
+        variant: 'contained' as const,
+        color: 'success' as const,
+        icon: <AttachMoneyIcon />,
+        onClick: (rowData: { id: string }) => handleAcquireButtonClick(rowData),
+    };
+    
+    const editButton = {
+        content: t('generalButtonText.edit'),
+        variant: 'contained',
+        color: 'info',
+        icon: <EditIcon />,
+        onClick: (rowData: { id: string }) => handleEditButtonClick(rowData.id),
+    };
+
+const buttons = [
+        viewButton,
+        ...(hasPermission(1004) ? [editButton] : []),
+        acquireButton
+    ];
     
     
     const columns = [
@@ -137,22 +172,7 @@ const CompensationPlanPage = () => {
             headerName: t('compensationPlans.actions'),
             format: 'button',
             variante: 'texto',
-            buttonDetails: [
-                {
-                    content: t('generalButtonText.view'),
-                    variant: 'contained',
-                    color: 'warning',
-                    icon: <VisibilityIcon />,
-                    onClick: (rowData: { id: string }) => handleViewButtonClick(rowData.id),
-                },
-                {
-                    content: t('generalButtonText.acquirePlan'),
-                    variant: 'contained',
-                    color: 'success',
-                    icon: <AttachMoneyIcon />,
-                    onClick: (rowData: { id: string }) => handleAcquireButtonClick(rowData),
-                },
-            ],
+            buttonDetails: buttons,
         }),
     ];
 
