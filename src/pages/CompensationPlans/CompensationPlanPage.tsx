@@ -231,81 +231,6 @@ const buttons = [
                                         dataRows={compensationPlans}
                                     />
                                 )}
-                                <CustomModal 
-                                open={modalState} 
-                                title={
-                                    <Box sx={{marginTop: 5, marginLeft: 2}}>
-
-                                        <CustomText texto={t('pageTitles.acquirePlan')} variante='titulo' color='black'/>
-                                    </Box>
-                                }
-                                
-                                generalContents={
-                                    <form id="acquirePlanForm" onSubmit={handleFormSubmit}>
-                                        <Grid container spacing={4}>
-                                            <Grid item xs={12} paddingTop={3} sx={{display:"flex", justifyItems: "center"}}>
-                                                <CustomText texto={'Cliente:'} variante={'subtitulo'} />
-                                                <Typography component="span">&nbsp;&nbsp;</Typography>
-                                                <Autocomplete
-                disablePortal
-                id="company-autocomplete"
-                options={companies}
-                getOptionLabel={(option) => option.label}
-                onChange={handleCompanyChange}
-                sx={{
-                    '& .MuiFormLabel-root.MuiInputLabel-root.Mui-focused': {
-                        color: 'black',
-                    },
-                    width: 500,
-                    minWidth: 250,
-                    '& .MuiOutlinedInput-root': {
-                        '&.Mui-focused fieldset': {
-                            borderColor: 'black',
-                        },
-                    },
-                }}
-                renderInput={(params) => (
-                    <TextField
-                        {...params}
-                        label="Buscar y seleccionar cliente u empresa"
-                        required
-                        error={error && !formData.companyNit}
-                        helperText={error && !formData.companyNit ? 'Este campo es obligatorio.' : ''}
-                    />
-                )}
-            />
-                                            </Grid>
-                                            <Grid item xs={10} paddingTop={3} sx={{paddingLeft: 5}}>
-                                                
-                                            </Grid>
-
-                                            <Grid item xs={12} paddingTop={3} sx={{display:"flex"}}>
-                                                <CustomText texto='Plan de Compensación: ' variante='subtitulo' color='black'/>
-                                                <Typography component="span">&nbsp;&nbsp;</Typography>
-                                                <CustomText texto={adquirirPlan?.name} variante='texto' color='black'/>
-                                            </Grid>
-
-                                            <Grid item xs={12} paddingTop={3} sx={{display:"flex"}}>
-                                                <CustomText texto='Costo: ' variante='subtitulo' color='black'/>
-                                                <Typography component="span">&nbsp;&nbsp;</Typography>
-                                                <CustomText texto={adquirirPlan?.total}  variante='texto' color='black'/>
-                                            </Grid>
-                                        </Grid>
-                                    </form>
-                                }
-                                actionsContent={
-                                    <CustomButton
-                                    content={t('generalButtonText.acquirePlan')}
-                                    variant="contained"
-                                    color="success"
-                                    //onClick:  (rowData: { id: string }) => handleAcquireButtonClick(rowData.id)
-                                    type='submit'
-                                    form='acquirePlanForm'
-                                    style={{ marginLeft: '10px' }}
-                                />
-                                }
-                                onClose={handleonCLoseModal}
-                                />
                             </>,
                             <>
                                 {hasPermission(1002)?
@@ -323,11 +248,85 @@ const buttons = [
                                     :
                                     <Alert severity="error">No cuentas con los permisos para visualizar planes personales</Alert>
                                 }
-                                
+
                             </>
                         ]}
                     />
-                    
+                    <CustomModal 
+                        open={modalState} 
+                        title={
+                            <Box sx={{marginTop: 5, marginLeft: 2}}>
+
+                                <CustomText texto={t('pageTitles.acquirePlan')} variante='titulo' color='black'/>
+                            </Box>
+                        }
+                        
+                        generalContents={
+                            <form id="acquirePlanForm" onSubmit={handleFormSubmit}>
+                                <Grid container spacing={4}>
+                                    <Grid item xs={12} paddingTop={3} sx={{display:"flex", justifyItems: "center"}}>
+                                        <CustomText texto={'Cliente:'} variante={'subtitulo'} />
+                                        <Typography component="span">&nbsp;&nbsp;</Typography>
+                                        <Autocomplete
+                                        disablePortal
+                                        id="company-autocomplete"
+                                        options={companies}
+                                        getOptionLabel={(option) => option.label}
+                                        onChange={handleCompanyChange}
+                                        sx={{
+                                            '& .MuiFormLabel-root.MuiInputLabel-root.Mui-focused': {
+                                                color: 'black',
+                                            },
+                                            width: 500,
+                                            minWidth: 250,
+                                            '& .MuiOutlinedInput-root': {
+                                                '&.Mui-focused fieldset': {
+                                                    borderColor: 'black',
+                                                },
+                                            },
+                                        }}
+                                        renderInput={(params) => (
+                                            <TextField
+                                                {...params}
+                                                label="Buscar y seleccionar cliente u empresa"
+                                                required
+                                                error={error && !formData.companyNit}
+                                                helperText={error && !formData.companyNit ? 'Este campo es obligatorio.' : ''}
+                                            />
+                                        )}
+                                    />
+                                    </Grid>
+                                    <Grid item xs={10} paddingTop={3} sx={{paddingLeft: 5}}>
+                                        
+                                    </Grid>
+
+                                    <Grid item xs={12} paddingTop={3} sx={{display:"flex"}}>
+                                        <CustomText texto='Plan de Compensación: ' variante='subtitulo' color='black'/>
+                                        <Typography component="span">&nbsp;&nbsp;</Typography>
+                                        <CustomText texto={adquirirPlan?.name} variante='texto' color='black'/>
+                                    </Grid>
+
+                                    <Grid item xs={12} paddingTop={3} sx={{display:"flex"}}>
+                                        <CustomText texto='Costo: ' variante='subtitulo' color='black'/>
+                                        <Typography component="span">&nbsp;&nbsp;</Typography>
+                                        <CustomText texto={adquirirPlan?.total}  variante='texto' color='black'/>
+                                    </Grid>
+                                </Grid>
+                            </form>
+                        }
+                        actionsContent={
+                            <CustomButton
+                                content={t('generalButtonText.acquirePlan')}
+                                variant="contained"
+                                color="success"
+                                //onClick:  (rowData: { id: string }) => handleAcquireButtonClick(rowData.id)
+                                type='submit'
+                                form='acquirePlanForm'
+                                style={{ marginLeft: '10px' }}
+                            />
+                        }
+                        onClose={handleonCLoseModal}
+                    />
                 </>
             }
         />
