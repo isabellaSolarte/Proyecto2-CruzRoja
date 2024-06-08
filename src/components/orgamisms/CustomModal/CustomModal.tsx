@@ -40,14 +40,13 @@ const CustomModal = ({ open, title, description, generalContents, actionsContent
 
         {description && (
           <div>
-            <EmptyBox height={30} width={100} />
+            <EmptyBox height={20} width={100} />
             {description}
-            <EmptyBox height={30} width={100} />
           </div>
         )}
-        <EmptyBox height={30} width={100} />
+
+        <EmptyBox height={20} width={100} />
         {generalContents}
-        <EmptyBox height={30} width={100} />
         
         <Grid item md={4} xs={12} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 <CustomButton
