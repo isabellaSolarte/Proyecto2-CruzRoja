@@ -1,17 +1,30 @@
 import { useEffect, useState } from "react";
-import { getAllPlans } from "../../../services/AxiosRequests/Plans/PlanRequests";
+import { getAllPersonalPlans, getAllPlans, postAcquiredPlan } from "../../../services/AxiosRequests/Plans/PlanRequests";
 import { CompensationPlanModel } from './../../../models/CompensationPlan/CompensationPlanModel';
+import { getCompanies } from "../../../services";
+import { CompanyUserModel } from "../../../models";
+import {userAtom} from './../../../recoil/Login/States';
+import { useRecoilState } from "recoil";
+import Swal from 'sweetalert2';
+import { useTranslation } from 'react-i18next';
+
 
 export const useCompensationPlanPage = () => {
-    const [loading, setLoading] = useState(true);
+    const { t } = useTranslation('commons');
+    const [loadingPlan, setLoadingPlan] = useState(true);
+    const [loadingPersonalPlan, setLoadingPersonalPlan] = useState(true);
+    const [loadingCompanies, setLoadingCompanies] = useState(true);
     const [compensationPlans, setCompensationPlans] = useState<CompensationPlanModel[]>([]);
-    const [error, setError] = useState<string | null>(null);
+    const [personalCompensationPlans, setPersonalCompensationPlans] = useState<CompensationPlanModel[]>([]);
+    const [companies, setCompanies] = useState<CompanyUserModel[]>([]);
+    const [errorPlan, setErrorPlan] = useState<string | null>(null);
+    const [errorCompanies, setErrorCompanies] = useState<string | null>(null);
+    const [errorPersonalPlan, setErrorPersonalPlan] = useState<string | null>(null);
+    const [user, setUser] = useRecoilState(userAtom);
 
     const fetchCompensationPlan = async () => {
         try {
             const compensationPlanData = await getAllPlans();
-            console.log('compensationPlanData: ',compensationPlanData);
-            
             if (Array.isArray(compensationPlanData) && compensationPlanData.length > 0) {
                 const adaptedCompensationPlans = compensationPlanData.map((compensationPlan) => ({
                     id: compensationPlan.id,
@@ -24,34 +37,127 @@ export const useCompensationPlanPage = () => {
                     total: compensationPlan.price - (compensationPlan.price * (compensationPlan.discount / 100))
                 }));
                 setCompensationPlans(adaptedCompensationPlans);
-                setError(null);
+                setErrorPlan(null);
             } 
             else {
                 setCompensationPlans([]);
-                setError("No se encontraron roles en la base de datos.");
+                setErrorPlan("No se encontraron los planes de compensacion en la base de datos.");
             }
         } 
         catch (error) {
-            setError("No se pueden obtener los roles en este momento. Por favor, inténtalo de nuevo más tarde.");
-            console.error("Error fetching roles:", error);
+            setErrorPlan("No se pueden obtener los planes de compensacion en este momento. Por favor, inténtalo de nuevo más tarde.");
         } finally {
-            setLoading(false);
+            setLoadingPlan(false);
         }
     };
+
+    const fetchPersonalCompensationPlan = async () => {
+        try {
+            const compensationPlanData = await getAllPersonalPlans(Number(user?.id));
+            if (Array.isArray(compensationPlanData) && compensationPlanData.length > 0) {
+                const adaptedCompensationPlans = compensationPlanData.map((compensationPlan) => ({
+                    id: compensationPlan.id,
+                    name: compensationPlan.name,
+                    description: compensationPlan.description,
+                    price: compensationPlan.price,
+                    discount: compensationPlan.discount,
+                    actions: compensationPlan.actions,
+                    ufpCompensation: compensationPlan.ufpCompensation,
+                    total: compensationPlan.price - (compensationPlan.price * (compensationPlan.discount / 100))
+                }));
+                setPersonalCompensationPlans(adaptedCompensationPlans);
+                setErrorPersonalPlan(null);
+            } 
+            else {
+                setPersonalCompensationPlans([]);
+                setErrorPersonalPlan("No se encontraron los planes de compensacion en la base de datos.");
+            }
+        } 
+        catch (error) {
+            setErrorPersonalPlan("No se pueden obtener los planes de compensacion en este momento. Por favor, inténtalo de nuevo más tarde.");
+        } finally {
+            setLoadingPersonalPlan(false);
+        }
+    };
+
+    const fetchCompanies = async () => {
+        try {
+            const companiesData = await getCompanies();
+            if (Array.isArray(companiesData) && companiesData.length > 0) {
+                const adaptedCompanies = companiesData.map((company) => ({
+                    label: company.companyName,
+                    value: company.companyNit,
+                }));
+                setCompanies(adaptedCompanies);
+                setErrorCompanies(null);
+            } 
+            else {
+                setCompanies([]);
+                setErrorCompanies("No se encontraron compañías en la base de datos.");
+            }
+        } 
+        catch (error) {
+            setErrorCompanies("No se pueden obtener las compañías en este momento. Por favor, inténtalo de nuevo más tarde.");
+        } finally {
+            setLoadingCompanies(false);
+        }
+    };
+
+    const hasPermission = (permissionId: number) =>{
+        return user?.roles.some(role => 
+            role.permissions.some(permission => permission.id === permissionId)
+        );
+    }
 
     const updateCompensationPlanInfo = (updatedCompensationPlans: CompensationPlanModel[]) => {
         setCompensationPlans(updatedCompensationPlans);
     };
 
+    const onSubmit = async (CompanyPlan: any) => {
+        try {
+            await postAcquiredPlan(CompanyPlan)
+            void Swal.fire({
+                title: t('alertText.correctOperation'),
+                text: t('alertText.acquiredPlan'),
+                icon: 'success',
+                confirmButtonText: t('generalButtonText.accept'),
+            });
+        } catch (error: any) {
+            void Swal.fire({
+                title: t('alertText.error'),
+                text: t('alertText.errorDescription'),
+                icon: 'error',
+                confirmButtonText: t('generalButtonText.accept'),
+            });
+            throw error;
+        }
+    };
+
     useEffect(() => {
         void fetchCompensationPlan();
+        void fetchPersonalCompensationPlan();
+        void fetchCompanies();
+    }, []);
+    useEffect(() => {
+        void fetchPersonalCompensationPlan();
     }, []);
 
     return {
         compensationPlans,
-        loading,
-        error,
+        personalCompensationPlans,
+        companies,
+        loadingPlan,
+        loadingPersonalPlan,
+        loadingCompanies,
+        errorPlan,
+        errorPersonalPlan,
+        errorCompanies,
+        user,
+        onSubmit,
         fetchCompensationPlan,
+        fetchPersonalCompensationPlan,
+        fetchCompanies,
+        hasPermission,
         updateCompensationPlanInfo
     };
 }

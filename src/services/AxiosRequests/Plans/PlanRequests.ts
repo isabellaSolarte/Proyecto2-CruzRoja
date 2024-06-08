@@ -4,18 +4,30 @@ import { CompensationPlanModel } from '../../../models/CompensationPlan/Compensa
 import { PlanDTOAdapter } from '../../Adapters_DTO';
 import { api } from '../api';
 import { PlanEndpoints } from './Endpoints';
+import { AxiosResponse } from 'axios';
 
 
 export const getAllPlans = async (): Promise<CompensationPlanModel[]> => {
   try {
-    const response = await api.get(PlanEndpoints.getAllPlans);
+    const response = await api.get(PlanEndpoints.getAllPlans);  
+    const adaptedPlans: CompensationPlanModel[] = response.data.map((externalPlan: any) =>
+      CompensationPlanAdapter(externalPlan),
+    );
+    return adaptedPlans;
+  } catch (err) {
+    throw new Error(JSON.stringify(err));
+  }
+};
+
+export const getAllPersonalPlans = async (id: number): Promise<CompensationPlanModel[]> => {
+  
+  try {
+    const response = await api.get(PlanEndpoints.getAllPersonalPlans(id));
     console.log('Respuesta request: ', response);
     
     const adaptedPlans: CompensationPlanModel[] = response.data.map((externalPlan: any) =>
       CompensationPlanAdapter(externalPlan),
     );
-    console.log('adaptedPlans',adaptedPlans);
-    
     return adaptedPlans;
   } catch (err) {
     throw new Error(JSON.stringify(err));
@@ -43,13 +55,21 @@ export const postCompensationPlan = async (
   }
 };
 
+export const postAcquiredPlan = async (plan: any) => {
+  try {
+    const response = await api.post<AxiosResponse>(PlanEndpoints.postAcquiredPlan, plan);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const getCompensationPlanById = async (
   planId: number,
 ): Promise<CompensationPlanModel> => {
   try {
     const response = await api.get(PlanEndpoints.getGenericPlanById(planId));
     const adaptedPlan = CompensationPlanAdapter(response.data);
-    console.log(adaptedPlan);
     return adaptedPlan;
   } catch (err) {
     throw new Error(JSON.stringify(err));

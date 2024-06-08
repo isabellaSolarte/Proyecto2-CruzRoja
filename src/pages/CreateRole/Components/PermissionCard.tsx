@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react';
 import { CustomCard, CustomIconDetails } from '../../../components';
 import { PermissionModel } from '../../../models';
@@ -20,7 +21,7 @@ const PermissionCard = ({
   const [switchState, setSwitchState] = useState(false);
 
   const isPermissionAdded = () => {
-    addedPermissions?.map(permiso => {
+    addedPermissions.map(permiso => {
       if (permiso.id === permission.id) {
         setSwitchState(true);
       }

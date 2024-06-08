@@ -4,14 +4,12 @@ import { ActionAdapter } from './ActionAdapder';
 export const CompensationPlanAdapter = (
   externalPlan: any,
 ): CompensationPlanModel => {
-  console.log('externalPlan', externalPlan);
   return {
     id: externalPlan.plan.planId,
     name: externalPlan.plan.planName,
     description: externalPlan.plan.planDescription,
     discount: externalPlan.plan.planDiscount,
     actions: externalPlan.actions.map((action: any) => {
-      console.log('action', action);
       return {
         action: ActionAdapter(action.action),
         quantity: action.amount,

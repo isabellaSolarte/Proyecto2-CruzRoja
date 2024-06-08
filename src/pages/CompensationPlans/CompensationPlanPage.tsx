@@ -14,38 +14,94 @@ import { PathNames } from '../../core';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ForestIcon from '@mui/icons-material/Forest';
-import { Autocomplete, Box, TextField } from '@mui/material';
 import { CustomModal } from '../../components/orgamisms/CustomModal';
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography, Alert, Autocomplete, Box, TextField } from '@mui/material';
+import Swal from 'sweetalert2';
+
 
 const CompensationPlanPage = () => {
     const { t } = useTranslation('commons');
-    const { compensationPlans, fetchCompensationPlan } = useCompensationPlanPage();
+    const { 
+        user, 
+        compensationPlans, 
+        personalCompensationPlans, 
+        companies, 
+        fetchCompensationPlan, 
+        fetchPersonalCompensationPlan,
+        fetchCompanies, 
+        hasPermission,
+        loadingPlan,
+        loadingPersonalPlan,
+        loadingCompanies,
+        errorPlan,
+        errorPersonalPlan,
+        errorCompanies,
+        onSubmit
+    } = useCompensationPlanPage();
     const navigate = useNavigate();
     const [modalState, setModalState] = useState(false);
+    const [adquirirPlan, setAdquirirPlan] = useState([]);
+    const [formData, setFormData] = useState({
+        companyNit: null, // Puede ser 0 o null dependiendo de tu preferencia
+        sellerId: user?.id,
+        planId: 0,
+    });
+    const [error, setError] = useState(false);
 
     useEffect(() => {
         void fetchCompensationPlan();
+        void fetchPersonalCompensationPlan();
+        void fetchCompanies();
+
     }, []);
+/*     useEffect(() => {
+        
+    }, []); */
 
     const handleCreateButtonClick = () => {
         navigate(PathNames.CREATE_PLAN);
     };
-    const handleAcquireButtonClick = (compensationPlanId: string) => {
-        setModalState
+    const handleCreatePersonalButtonClick = () => {
+        navigate(PathNames.CREATE_CUSTOM_PLAN);
+    };
+    const handleonCLoseModal = () => {
+        setModalState(false)
+    };
+    const handleAcquireButtonClick = (compensationPlan: any) => {
+        if(!loadingCompanies){
+            formData.planId = compensationPlan.id;
+            setAdquirirPlan(compensationPlan);
+            setModalState(true)
+        }else{
+            void Swal.fire({
+                title: t('alertText.generalError'),
+                text: `${errorCompanies}`,
+                icon: 'error',
+                confirmButtonText: t('generalButtonText.accept'),
+            })
+        }
+        
         //navigate(PathNames.EDIT_PLAN.replace(':id', compensationPlanId));
     };
 
     const handleViewButtonClick = (compensationPlanId: string) => {
-        console.log(compensationPlanId);
-        
-        navigate(PathNames.VIEW_P.replace(':id', compensationPlanId));
+        navigate(PathNames.VIEW_PLAN.replace(':id', compensationPlanId));
     };
 
-   
+    const handleFormSubmit = (event) => {
+        event.preventDefault();
+        onSubmit(formData);
+        setModalState(false)
+    };
 
 
-    console.log(compensationPlans);
+    const handleCompanyChange = (event, newValue) => {
+        setFormData((prevData) => ({
+            ...prevData,
+            companyNit: newValue ? newValue.value : null,
+        }));
+    };
+    
     
     const columns = [
         CustomColumn({
@@ -94,7 +150,7 @@ const CompensationPlanPage = () => {
                     variant: 'contained',
                     color: 'success',
                     icon: <AttachMoneyIcon />,
-                    onClick: (rowData: { id: string }) => handleAcquireButtonClick(rowData.id),
+                    onClick: (rowData: { id: string }) => handleAcquireButtonClick(rowData),
                 },
             ],
         }),
@@ -110,16 +166,33 @@ const CompensationPlanPage = () => {
                     </Box>
                 </Box>
             }
-            //description={<CustomText texto={t('compensationPlans.description')} variante='texto'/>}
             actionsContent={
                 <Box>
-                    <CustomButton
+                    {hasPermission(1000)?
+                        <CustomButton
                         content={t('generalButtonText.createPlan')}
                         variant="contained"
+                        sx={{marginBottom:1}}
                         color="success"
                         onClick={handleCreateButtonClick}
                         style={{ marginLeft: '10px' }}
-                    />
+                        />
+                    :
+                        null    
+                    }
+                    {hasPermission(1001)?
+                        <CustomButton
+                        content={t('generalButtonText.createPlanEmpresa')}
+                        variant="contained"
+                        color="success"
+                        onClick={handleCreatePersonalButtonClick}
+                        type='submit'
+                        form='acquirePlanForm'
+                        style={{ marginLeft: '10px' }}
+                        />
+                    :
+                        null    
+                    }
                 </Box>
             }
             generalContents={
@@ -128,11 +201,15 @@ const CompensationPlanPage = () => {
                         tabsHeaderTitle={['Planes genéricos', 'Mis planes']}
                         tabsContent={[
                             <>
-                                <DataTable
-                                    enableCheckboxSelection={false}
-                                    dataColumns={columns}
-                                    dataRows={compensationPlans}
-                                />
+                                {errorPlan && <Alert severity="error">{errorPlan}</Alert>}
+                                    {!loadingPlan && !errorPlan && (
+                                    <DataTable
+                                        key={0}
+                                        enableCheckboxSelection={false}
+                                        dataColumns={columns}
+                                        dataRows={compensationPlans}
+                                    />
+                                )}
                                 <CustomModal 
                                 open={modalState} 
                                 title={
@@ -143,30 +220,39 @@ const CompensationPlanPage = () => {
                                 }
                                 
                                 generalContents={
+                                    <form id="acquirePlanForm" onSubmit={handleFormSubmit}>
                                         <Grid container spacing={4}>
                                             <Grid item xs={12} paddingTop={3} sx={{display:"flex", justifyItems: "center"}}>
                                                 <CustomText texto={'Cliente:'} variante={'subtitulo'} />
                                                 <Typography component="span">&nbsp;&nbsp;</Typography>
                                                 <Autocomplete
-                                                    disablePortal
-                                                    id="combo-box-demo"
-                                                    options={ [
-                                                        { label: 'The Shawshank Redemption', year: 1994 },
-                                                        { label: 'The Godfather', year: 1972 }]}
-                                                        sx={{
-                                                            '& .MuiFormLabel-root.MuiInputLabel-root.Mui-focused': {
-                                                                color: 'black',
-                                                            },
-                                                            width: 500,
-                                                            minWidth: 250,
-                                                            '& .MuiOutlinedInput-root': {
-                                                                '&.Mui-focused fieldset': {
-                                                                    borderColor: 'black',
-                                                                },
-                                                            },
-                                                        }}
-                                                    renderInput={(params) => <TextField {...params} label="Buscar y seleccionar cliente u empresa" />}
-                                                    />
+                disablePortal
+                id="company-autocomplete"
+                options={companies}
+                getOptionLabel={(option) => option.label}
+                onChange={handleCompanyChange}
+                sx={{
+                    '& .MuiFormLabel-root.MuiInputLabel-root.Mui-focused': {
+                        color: 'black',
+                    },
+                    width: 500,
+                    minWidth: 250,
+                    '& .MuiOutlinedInput-root': {
+                        '&.Mui-focused fieldset': {
+                            borderColor: 'black',
+                        },
+                    },
+                }}
+                renderInput={(params) => (
+                    <TextField
+                        {...params}
+                        label="Buscar y seleccionar cliente u empresa"
+                        required
+                        error={error && !formData.companyNit}
+                        helperText={error && !formData.companyNit ? 'Este campo es obligatorio.' : ''}
+                    />
+                )}
+            />
                                             </Grid>
                                             <Grid item xs={10} paddingTop={3} sx={{paddingLeft: 5}}>
                                                 
@@ -175,16 +261,16 @@ const CompensationPlanPage = () => {
                                             <Grid item xs={12} paddingTop={3} sx={{display:"flex"}}>
                                                 <CustomText texto='Plan de Compensación: ' variante='subtitulo' color='black'/>
                                                 <Typography component="span">&nbsp;&nbsp;</Typography>
-                                                <CustomText texto='Dato2' variante='texto' color='black'/>
+                                                <CustomText texto={adquirirPlan?.name} variante='texto' color='black'/>
                                             </Grid>
 
                                             <Grid item xs={12} paddingTop={3} sx={{display:"flex"}}>
                                                 <CustomText texto='Costo: ' variante='subtitulo' color='black'/>
                                                 <Typography component="span">&nbsp;&nbsp;</Typography>
-                                                <CustomText texto='Dato3' variante='texto' color='black'/>
+                                                <CustomText texto={adquirirPlan?.total}  variante='texto' color='black'/>
                                             </Grid>
                                         </Grid>
-
+                                    </form>
                                 }
                                 actionsContent={
                                     <CustomButton
@@ -192,14 +278,31 @@ const CompensationPlanPage = () => {
                                     variant="contained"
                                     color="success"
                                     //onClick:  (rowData: { id: string }) => handleAcquireButtonClick(rowData.id)
+                                    type='submit'
+                                    form='acquirePlanForm'
                                     style={{ marginLeft: '10px' }}
                                 />
                                 }
-                                onClose={handleCreateButtonClick}
+                                onClose={handleonCLoseModal}
                                 />
                             </>,
                             <>
-                                Nada
+                                {hasPermission(1002)?
+                                    <>
+                                        {errorPersonalPlan && <Alert severity="error">{errorPersonalPlan}</Alert>}
+                                        {!loadingPersonalPlan && !errorPersonalPlan && (
+                                        <DataTable
+                                            key={0}
+                                            enableCheckboxSelection={false}
+                                            dataColumns={columns}
+                                            dataRows={personalCompensationPlans}
+                                        />
+                                        )}
+                                    </>
+                                    :
+                                    <Alert severity="error">No cuentas con los permisos para visualizar planes personales</Alert>
+                                }
+                                
                             </>
                         ]}
                     />

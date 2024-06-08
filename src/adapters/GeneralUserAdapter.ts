@@ -31,7 +31,7 @@ export const GeneralUserAdapter = (externalUser: any): UserModel => {
     });
   });
 
-  console.log(allowedRoutes);
+  //console.log(allowedRoutes);
 
   return {
     id: externalUser.documentNumber,
