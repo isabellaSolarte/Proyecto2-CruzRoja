@@ -17,6 +17,7 @@ import RecyclingIcon from '@mui/icons-material/Recycling';
 import { green } from '@mui/material/colors';
 import { CustomModal } from '../../components/orgamisms/CustomModal';
 import { set } from 'react-hook-form';
+import EnergySavingsLeafIcon from '@mui/icons-material/EnergySavingsLeaf';
 
 const ActionsPage = () => {
   const { t } = useTranslation('commons');
@@ -106,11 +107,34 @@ const ActionsPage = () => {
             {showModal && (
               <CustomModal
                 open={showModal}
-                title={<CustomText texto={action?.name ?? ''} variante="titulo" />}
-                description={<CustomText texto={action?.description ?? ''} variante="subtitulo" />}
+                title={
+                        <CustomText texto={action?.name ?? ''} variante="subtitulo" icon={ <RecyclingIcon style={{ color: green[500] }} />}/>
+                      }
+                description={
+                  <Box  sx={{borderBottom: '1px solid #C8C8C8'}}> 
+                    <CustomText texto={action?.description ?? ''} variante="texto"  />
+                  </Box>
+                  }
                 generalContents={
-                <Box> </Box>
+                  <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                    <Box sx={{ display: 'flex' }} >
+                      <CustomText  texto={'Total UFP:'} variante="texto" styles={{ fontWeight: 'bold' }} icon={<EnergySavingsLeafIcon color="success" />}/>
+                      <CustomText texto={'' + (action?.footPrintUnity ?? '')} variante="texto" />
+                    </Box>
+                    <Box sx={{ display: 'flex' }}>
+                      <CustomText texto={'Costo $: '} variante="texto" styles={{ fontWeight: 'bold', marginRight: '0.5rem' }} icon={<EnergySavingsLeafIcon color="success" />}/>
+                      <CustomText texto={' ' + (action?.unitaryPrice ?? '') + ' COP'} variante="texto" />
+                    </Box>
+                  </Box>
                 }
+                actionsContent={
+                  <CustomButton
+                    content={t('generalButtonText.edit')}
+                    variant='contained'
+                    color='info'
+                    icon= {<EditIcon />}
+                    onClick={() => handleEditButtonClick(action?.id ?? 0)}
+                  />}
                 onClose={() => setShowModal(false)}
               />
             )}
