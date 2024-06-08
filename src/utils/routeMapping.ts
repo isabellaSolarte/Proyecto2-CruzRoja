@@ -49,7 +49,7 @@ mapRoutes.set(1002, PathNames.PLANS); // LISTAR PLANES GENERICOS
 mapRoutes.set(1003, PathNames.PLANS); // LISTAR PLANES CUSTOM
 mapRoutes.set(1005, PathNames.PLANS);
 mapRoutes.set(1006, PathNames.VIEW_PLAN);
-mapRoutes.set(1004, [PathNames.EDIT_GENERIC_PLAN, PathNames.EDIT_CUSTOM_PLAN]);
+mapRoutes.set(1004, PathNames.EDIT_PLAN);
 
 export default mapRoutes;
 
