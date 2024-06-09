@@ -28,6 +28,7 @@ import { CreateActionPage } from '../../pages/CreateAction';
 import ForestIcon from '@mui/icons-material/Forest';
 import CreateCompensationPlanPage from '../../pages/CreateCompensationPlan/CreateCompensationPlanPage';
 import ActionsPage from '../../pages/Actions/ActionsPage';
+import ViewCompensationPage from '../../pages/ViewCompensationPlan/ViewCompensationPlan';
 import CompensationPlanPage from '../../pages/CompensationPlans/CompensationPlanPage';
 import { BusinessPage } from '../../pages/Bussiness';
 import { ViewBusinessPage } from '../../pages/ViewBusiness';
@@ -116,7 +117,7 @@ export const NavigationRoutes = () => {
     },
     {
       path: PathNames.VIEW_PLAN,
-      component: <CreateCompensationPlanPage />,
+      component: <ViewCompensationPage />,
       title: t('menuOptions.createPlan'),
     },
     {
