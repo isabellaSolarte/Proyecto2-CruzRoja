@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { PathNames } from '../../core';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import RecyclingIcon from '@mui/icons-material/Recycling';
-import {ManagmentLayout, CustomButton, CustomText, CustomColumn,DataTable,} from '../../components';
+import {ManagmentLayout, CustomButton, CustomText, CustomColumn,DataTable, CustomModal,} from '../../components';
 import { Box, Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import EditIcon from '@mui/icons-material/Edit';
@@ -10,12 +10,13 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { green } from '@mui/material/colors';
 import { useViewCompensationPlan } from './hooks/useViewCompensationPlan';
-import { getRolId } from '../../services/AxiosRequests/Roles/roleRequest';
+import EnergySavingsLeafIcon from '@mui/icons-material/EnergySavingsLeaf';
 
 const ViewCompensationPage = () => {
     const { t } = useTranslation('commons');
-    const { currentPlan,  fetchPlan, handleEdit, currentActionsPlan } = useViewCompensationPlan();
+    const { currentPlan,  fetchPlan, handleEdit, allowed, fetchActionById,actionSelect,setIdAction } = useViewCompensationPlan();
     const navigate = useNavigate();
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
       void fetchPlan();
@@ -31,7 +32,10 @@ const ViewCompensationPage = () => {
     }));
 
     const handleViewButtonClick = (actionId: number) => {
-      navigate(PathNames.VIEW_ACTIONS.replace(':id', actionId.toString()));
+      setIdAction(actionId)
+      fetchActionById(actionId)
+      console.log(actionSelect?.name)
+      setShowModal(true)
     };
 
   const columns = [
@@ -85,14 +89,17 @@ const ViewCompensationPage = () => {
     <ManagmentLayout
       title={<CustomText texto={currentPlan.name} variante="titulo" />}
       actionsContent={
-        <><CustomButton
-          content={t('generalButtonText.edit')}
-          variant="contained"
-          color="info"
-          icon={<EditIcon />}
-          onClick={handleEdit}
-          style={{ marginLeft: '10px' }} 
-          disabled={currentPlan.isCustom === false}/>
+        <>
+          {!allowed && ( 
+            <CustomButton
+              content={t('generalButtonText.edit')}
+              variant="contained"
+              color="info"
+              icon={<EditIcon />}
+              onClick={handleEdit}
+              style={{ marginLeft: '10px' }}
+            />
+          )}
           <CustomButton
             content={'Adquirir'}
             variant="contained"
@@ -111,15 +118,49 @@ const ViewCompensationPage = () => {
       generalContents={
         <Grid>
            <Box mb={10}>
-            <CustomText texto={currentPlan.description} variante="subtitulo" />
-            <CustomText texto={`Compensación total: ${currentPlan.ufpCompensation} ufp`} variante="subtitulo" />
-            <CustomText texto={`Costo del plan: $ ${currentPlan.price} COP`} variante="subtitulo" />
+            <CustomText texto={currentPlan.description} variante="subtitulo" styles={{ fontWeight: 'normal',marginTop: '16px', marginBottom: '20px' }}/>
+            <div style={{ display: 'inline-block' }}>
+              <h3 style={{ fontWeight: 'bold', display: 'inline' }} >Compensación total:</h3>
+              <h3 style={{ fontWeight: 'normal', display: 'inline' }}> {currentPlan.ufpCompensation} ufp</h3>
+            </div>
+            <br />
+            <div style={{ display: 'inline-block' }}>
+              <h3 style={{ fontWeight: 'bold', display: 'inline' }} >Costo del plan:</h3>
+              <h3 style={{ fontWeight: 'normal', display: 'inline' }}> {currentPlan.price} COP</h3>
+            </div>
           </Box>
           <DataTable 
             enableCheckboxSelection={false} 
             dataColumns={columns} 
-            dataRows={actionsWithIds} 
+            dataRows={actionsWithIds}
             />
+            {showModal && (
+              <CustomModal
+                open={showModal}
+                title={
+                        <CustomText texto={actionSelect?.name ?? ''} variante="subtitulo" icon={ <RecyclingIcon style={{ color: green[500] }} />}/>
+                      }
+                description={
+                  <Box  sx={{borderBottom: '1px solid #C8C8C8'}}> 
+                    <CustomText texto={actionSelect?.description ?? ''} variante="texto"  />
+                  </Box>
+                  }
+                generalContents={
+                  <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                    <Box sx={{ display: 'flex' }} >
+                      <CustomText  texto={'Total UFP:'} variante="texto" styles={{ fontWeight: 'bold' }} icon={<EnergySavingsLeafIcon color="success" />}/>
+                      <CustomText texto={'' + (actionSelect?.footPrintUnity ?? '')} variante="texto" />
+                    </Box>
+                    <Box sx={{ display: 'flex' }}>
+                      <CustomText texto={'Costo $: '} variante="texto" styles={{ fontWeight: 'bold', marginRight: '0.5rem' }} icon={<EnergySavingsLeafIcon color="success" />}/>
+                      <CustomText texto={' ' + (actionSelect?.unitaryPrice ?? '') + ' COP'} variante="texto" />
+                    </Box>
+                  </Box>
+                }
+                
+                onClose={() => setShowModal(false)}
+              />
+            )}
         </Grid>
       }
     />
