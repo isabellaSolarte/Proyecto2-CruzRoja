@@ -31,17 +31,7 @@ export const useViewCompensationPlan = () => {
 
     const [user, setUser] = useRecoilState(userAtom);
     const [companies, setCompanies] = useState<CompanyUserModel[]>([]);
-    interface FlagCompany {
-      companyId: number; 
-      planId: number; 
-      vendedorId: number; 
-    };
-    let flagCompany: FlagCompany = 
-    {
-      companyId: 0, 
-      planId: 0,
-      vendedorId: 0 
-    };
+   
 
     let allowed;
     
@@ -74,14 +64,7 @@ export const useViewCompensationPlan = () => {
         },
       );
     }
-    const handleAcquire = () =>{
-      navigate(
-        PathNames.EDIT_PLAN.replace(':id', id?.toString() || ''),
-        {
-          replace: true,
-        },
-      );
-    }
+    
     const fetchActionById = async (id: number) => {
       try {
         const actionData = await getActionById(id);
@@ -155,7 +138,6 @@ export const useViewCompensationPlan = () => {
         fetchPlan,
         error,
         handleEdit,
-        handleAcquire, 
         allowed,
         fetchActionById,
         actionSelect,
