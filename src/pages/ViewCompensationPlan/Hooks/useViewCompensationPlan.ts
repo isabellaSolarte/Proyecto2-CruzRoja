@@ -1,20 +1,25 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 import { PathNames } from '../../../core';
-import { getCompensationPlanById } from "../../../services/AxiosRequests/Plans";
+import { getCompensationPlanById, postAcquiredPlan } from "../../../services/AxiosRequests/Plans";
 import { CompensationPlanModel } from "../../../models/CompensationPlan/CompensationPlanModel";
 import { defaultCompensationPlan } from "../../CreateCompensationPlan/schemas/CompensationPlanSchema";
-import { getVolunteerById } from "../../../services";
+import { getCompanies, getVolunteerById } from "../../../services";
 import { allowedPagesBaseOnPermissions } from "../../../utils";
-import { UserModel } from "../../../models";
+import { CompanyUserModel, UserModel } from "../../../models";
 import { getActionById } from "../../../services/AxiosRequests/Actions";
 import { ActionsModel } from "../../../models/Actions";
+import {userAtom} from './../../../recoil/Login/States';
+import { useRecoilState } from "recoil";
+import Swal from "sweetalert2";
+import { useTranslation } from "react-i18next";
 
 export const useViewCompensationPlan = () => {
     const [loading, setLoading] = useState(true);
     const [currentPlan, setCurrentPlan] = useState<CompensationPlanModel>(
       defaultCompensationPlan,
     );
+    const { t } = useTranslation('commons');
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
     const { id } = useParams();
@@ -23,6 +28,10 @@ export const useViewCompensationPlan = () => {
     const [actionSelect, setActionSelect] = useState<ActionsModel>();
 
     const [idAction, setIdAction] = useState<number>();
+
+    const [user, setUser] = useRecoilState(userAtom);
+    const [companies, setCompanies] = useState<CompanyUserModel[]>([]);
+
 
     let allowed;
     
@@ -77,6 +86,48 @@ export const useViewCompensationPlan = () => {
         setLoading(false);
       }
     };
+
+    const fetchCompanies = async () => {
+      try {
+          const companiesData = await getCompanies();
+          if (Array.isArray(companiesData) && companiesData.length > 0) {
+              const adaptedCompanies = companiesData.map((company) => ({
+                  label: company.companyName,
+                  value: company.companyNit,
+              }));
+              setCompanies(adaptedCompanies);
+          } 
+          else {
+              setCompanies([]);
+          }
+      } 
+      catch (error) {
+      } finally {
+      }
+    };
+    const onSubmit = async (companyPlan: any) => {
+      console.log(companyPlan);
+      
+      try {
+          await postAcquiredPlan(companyPlan);
+          void Swal.fire({
+              title: t('alertText.correctOperation'),
+              text: t('alertText.acquiredPlan'),
+              icon: 'success',
+              confirmButtonText: t('generalButtonText.accept'),
+          });
+      } catch (error: any) {
+          console.error("Error posting acquired plan:", error); // Add more error logging here
+          void Swal.fire({
+              title: t('alertText.error'),
+              text: t('alertText.errorDescription'),
+              icon: 'error',
+              confirmButtonText: t('generalButtonText.accept'),
+          });
+      }
+  };
+
+
     useEffect(() => {
       if (idAction !== undefined) {
         fetchActionById(idAction);
@@ -97,7 +148,12 @@ export const useViewCompensationPlan = () => {
         allowed,
         fetchActionById,
         actionSelect,
-        setIdAction
+        setIdAction, 
+        user,
+        onSubmit,
+        companies, 
+        fetchCompanies
+
         
     };
 };
