@@ -1,2 +1,2 @@
-export {default as viewCompensationPage} from './ViewCompensationPlan';
+export { default as ViewCompensationPlan } from './ViewCompensationPlan';
 export * from './hooks';

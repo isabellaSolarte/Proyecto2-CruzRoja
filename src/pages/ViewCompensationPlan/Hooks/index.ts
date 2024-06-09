@@ -1,1 +1,1 @@
-export * from './useViewCompensationPlan'
+export { default as useViewCompensationPlan } from './useViewCompensationPlan';
