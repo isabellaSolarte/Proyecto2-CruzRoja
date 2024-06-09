@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { getAllPersonalPlans, getAllPlans, postAcquiredPlan } from "../../../services/AxiosRequests/Plans/PlanRequests";
-import { CompensationPlanModel } from './../../../models/CompensationPlan/CompensationPlanModel';
+import { CompensationPlanModel } from '../../../models/CompensationPlan/CompensationPlanModel';
 import { getCompanies } from "../../../services";
 import { CompanyUserModel } from "../../../models";
-import {userAtom} from './../../../recoil/Login/States';
+import {userAtom} from '../../../recoil/Login/States';
 import { useRecoilState } from "recoil";
 import Swal from 'sweetalert2';
 import { useTranslation } from 'react-i18next';
@@ -139,9 +139,6 @@ export const useCompensationPlanPage = () => {
         void fetchCompensationPlan();
         void fetchPersonalCompensationPlan();
         void fetchCompanies();
-    }, []);
-    useEffect(() => {
-        void fetchPersonalCompensationPlan();
     }, []);
 
     return {

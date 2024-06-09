@@ -8,7 +8,7 @@ import {
 } from '../../components';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useCompensationPlanPage } from './hooks/usePlanPage';
+import { useCompensationPlanPage } from './hooks/useCompensationPlanPage';
 import { useNavigate } from 'react-router-dom';
 import { PathNames } from '../../core';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
@@ -33,7 +33,6 @@ const CompensationPlanPage = () => {
         hasPermission,
         loadingPlan,
         loadingPersonalPlan,
-        loadingCompanies,
         errorPlan,
         errorPersonalPlan,
         errorCompanies,
@@ -42,11 +41,12 @@ const CompensationPlanPage = () => {
     const navigate = useNavigate();
     const [modalState, setModalState] = useState(false);
     const [adquirirPlan, setAdquirirPlan] = useState([]);
-    const [formData, setFormData] = useState({
-        companyNit: null, // Puede ser 0 o null dependiendo de tu preferencia
+    const body = {
+        companyNit: null, 
         sellerId: user?.id,
         planId: 0,
-    });
+    }
+    const [formData, setFormData] = useState(body);
     const [error, setError] = useState(false);
 
     useEffect(() => {
@@ -55,9 +55,6 @@ const CompensationPlanPage = () => {
         void fetchCompanies();
 
     }, []);
-/*     useEffect(() => {
-        
-    }, []); */
 
     const handleCreateButtonClick = () => {
         navigate(PathNames.CREATE_PLAN);
@@ -65,11 +62,13 @@ const CompensationPlanPage = () => {
     const handleCreatePersonalButtonClick = () => {
         navigate(PathNames.CREATE_CUSTOM_PLAN);
     };
-    const handleonCLoseModal = () => {
+    const handleCloseModal = () => {
         setModalState(false)
     };
     const handleAcquireButtonClick = (compensationPlan: any) => {
-        if(!loadingCompanies){
+        console.log(Array.isArray(companies) && companies.length > 0);
+        
+        if(Array.isArray(companies) && companies.length > 0){
             formData.planId = compensationPlan.id;
             setAdquirirPlan(compensationPlan);
             setModalState(true)
@@ -81,8 +80,6 @@ const CompensationPlanPage = () => {
                 confirmButtonText: t('generalButtonText.accept'),
             })
         }
-        
-        //navigate(PathNames.EDIT_PLAN.replace(':id', compensationPlanId));
     };
 
     const handleViewButtonClick = (compensationPlanId: string) => {
@@ -96,7 +93,8 @@ const CompensationPlanPage = () => {
     const handleFormSubmit = (event) => {
         event.preventDefault();
         onSubmit(formData);
-        setModalState(false)
+        setModalState(false);
+        setFormData(body)
     };
 
 
@@ -325,7 +323,7 @@ const buttons = [
                                 style={{ marginLeft: '10px' }}
                             />
                         }
-                        onClose={handleonCLoseModal}
+                        onClose={handleCloseModal}
                     />
                 </>
             }

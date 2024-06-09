@@ -5,39 +5,70 @@ import {
     DataTable,
     ManagmentLayout,
 } from '../../components';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useCompensationPlanVoluntarioPage } from './hooks/usePlanVoluntarioPage'; 
+import { useCompensationPlanEmpresaPage } from './hooks/useCompensationPlanEmpresaPage';
 import { useNavigate } from 'react-router-dom';
 import { PathNames } from '../../core';
-import EditIcon from '@mui/icons-material/Edit';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ForestIcon from '@mui/icons-material/Forest';
-import { Box } from '@mui/material';
+import { CustomModal } from '../../components/orgamisms/CustomModal';
+import { Grid, Typography, Alert,  Box } from '@mui/material';
 
 
-const CompensationPlanPage = () => {
+const CompensationPlanEmpresaPage = () => {
     const { t } = useTranslation('commons');
-    const { compensationPlans, fetchCompensationPlan } = useCompensationPlanVoluntarioPage();
+    const { 
+        user, 
+        company,
+        compensationPlans, 
+        fetchCompensationPlan, 
+        getCompany, 
+        loadingPlan,
+        errorPlan,
+        onSubmit
+    } = useCompensationPlanEmpresaPage();
     const navigate = useNavigate();
+    const [modalState, setModalState] = useState(false);
+    const [adquirirPlan, setAdquirirPlan] = useState([]);
+
+
+    const body = {
+        companyNit: null, 
+        sellerId: user?.id,
+        planId: 0,
+    }
+    const [formData, setFormData] = useState(body);
 
     useEffect(() => {
         void fetchCompensationPlan();
+        void getCompany();
+
     }, []);
 
-    const handleCreateButtonClick = () => {
-        navigate(PathNames.CREATE_PLAN);
+    const handleCloseModal = () => {
+        setModalState(false)
     };
-    const handleEditButtonClick = (compensationPlanId: string) => {
-        navigate(PathNames.EDIT_PLAN.replace(':id', compensationPlanId));
+    const handleAcquireButtonClick = (compensationPlan: any) => {
+        getCompany()
+        formData.planId = compensationPlan.id;
+        formData.companyNit = company?.nit;
+        setAdquirirPlan(compensationPlan);
+        setModalState(true)
     };
 
-    const handleViewButtonClick = (ompensationPlanId: string) => {
-        navigate(PathNames.VIEW_PLAN.replace(':id', ompensationPlanId));
+    const handleViewButtonClick = (compensationPlanId: string) => {
+        navigate(PathNames.VIEW_PLAN.replace(':id', compensationPlanId));
     };
 
-    console.log(compensationPlans);
-    
+    const handleFormSubmit = (event) => {
+        event.preventDefault();
+        onSubmit(formData);
+        setModalState(false)
+        setFormData(body)
+    };
+
     const columns = [
         CustomColumn({
             field: 'name',
@@ -70,31 +101,24 @@ const CompensationPlanPage = () => {
         CustomColumn({
             field: 'actions',
             headerName: t('compensationPlans.actions'),
+            width: 400,
             format: 'button',
             variante: 'texto',
-            buttonDetails: [
-                {
-                    content: t('generalButtonText.view'),
-                    variant: 'contained',
-                    color: 'warning',
-                    icon: <VisibilityIcon />,
-                    onClick: handleViewButtonClick,
-                },
-                {
-                    content: t('generalButtonText.edit'),
-                    variant: 'contained',
-                    color: 'info',
-                    icon: <EditIcon />,
-                    onClick: (rowData: { id: string }) => handleEditButtonClick(rowData.id),
-                },
-                {
-                    content: t('generalButtonText.edit'),
-                    variant: 'contained',
-                    color: 'info',
-                    icon: <EditIcon />,
-                    onClick: (rowData: { id: string }) => handleEditButtonClick(rowData.id),
-                },
-            ],
+            buttonDetails: [{
+                content: t('generalButtonText.view'),
+                variant: 'contained' as const,
+                color: 'warning' as const,
+                icon: <VisibilityIcon />,
+                onClick: (rowData: { id: string }) => handleViewButtonClick(rowData.id),
+            },
+            {
+                content: t('generalButtonText.acquirePlan'),
+                variant: 'contained' as const,
+                color: 'success' as const,
+                icon: <AttachMoneyIcon />,
+                onClick: (rowData: { id: string }) => handleAcquireButtonClick(rowData),
+            }
+        ]
         }),
     ];
 
@@ -108,24 +132,62 @@ const CompensationPlanPage = () => {
                     </Box>
                 </Box>
             }
-            //description={<CustomText texto={t('compensationPlans.description')} variante='texto'/>}
-            actionsContent={
-                <Box>
-                    <CustomButton
-                        content={t('generalButtonText.create')}
-                        variant="contained"
-                        color="success"
-                        onClick={handleCreateButtonClick}
-                        style={{ marginLeft: '10px' }}
-                    />
-                </Box>
-            }
+
             generalContents={
                 <>
+                    {errorPlan && <Alert severity="error">{errorPlan}</Alert>}
+                    {!loadingPlan && !errorPlan && (
                     <DataTable
+                        key={0}
                         enableCheckboxSelection={false}
                         dataColumns={columns}
                         dataRows={compensationPlans}
+                        />
+                    )}
+                    
+                    <CustomModal 
+                        open={modalState} 
+                        title={
+                            <Box sx={{marginTop: 5, marginLeft: 2}}>
+
+                                <CustomText texto={t('pageTitles.acquirePlan')} variante='titulo' color='black'/>
+                            </Box>
+                        }
+                        
+                        generalContents={
+                            <form id="acquirePlanForm" onSubmit={handleFormSubmit}>
+                                <Grid container spacing={4}>
+                                    <Grid item xs={12} paddingTop={3} sx={{display:"flex", justifyItems: "center"}}>
+                                        <CustomText texto={'Cliente:'} variante={'subtitulo'} />
+                                        <Typography component="span">&nbsp;&nbsp;</Typography>
+                                        <CustomText texto={company?.name} variante='texto' color='black'/>
+                                    </Grid>
+
+                                    <Grid item xs={12} paddingTop={3} sx={{display:"flex"}}>
+                                        <CustomText texto='Plan de Compensación: ' variante='subtitulo' color='black'/>
+                                        <Typography component="span">&nbsp;&nbsp;</Typography>
+                                        <CustomText texto={adquirirPlan?.name} variante='texto' color='black'/>
+                                    </Grid>
+
+                                    <Grid item xs={12} paddingTop={3} sx={{display:"flex"}}>
+                                        <CustomText texto='Costo: ' variante='subtitulo' color='black'/>
+                                        <Typography component="span">&nbsp;&nbsp;</Typography>
+                                        <CustomText texto={adquirirPlan?.total}  variante='texto' color='black'/>
+                                    </Grid>
+                                </Grid>
+                            </form>
+                        }
+                        actionsContent={
+                            <CustomButton
+                                content={t('generalButtonText.acquirePlan')}
+                                variant="contained"
+                                color="success"
+                                type='submit'
+                                form='acquirePlanForm'
+                                style={{ marginLeft: '10px' }}
+                            />
+                        }
+                        onClose={handleCloseModal}
                     />
                 </>
             }
@@ -133,4 +195,4 @@ const CompensationPlanPage = () => {
     );
 };
 
-export default CompensationPlanPage;
+export default CompensationPlanEmpresaPage;
