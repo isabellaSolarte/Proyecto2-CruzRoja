@@ -10,17 +10,25 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { green } from '@mui/material/colors';
 import { useViewCompensationPlan } from './hooks/useViewCompensationPlan';
+import { getRolId } from '../../services/AxiosRequests/Roles/roleRequest';
 
 const ViewCompensationPage = () => {
     const { t } = useTranslation('commons');
-    const { currentPlan,  fetchPlan, handleEdit } = useViewCompensationPlan();
+    const { currentPlan,  fetchPlan, handleEdit, currentActionsPlan } = useViewCompensationPlan();
     const navigate = useNavigate();
 
     useEffect(() => {
       void fetchPlan();
+      
     }, []);
 
-  
+    const actionsWithIds = currentPlan.actions.map((action, index) => ({
+      id: action.action.id || index ,
+      name: action.action.name,
+      footPrintUnity: action.action.footPrintUnity,
+      quantity: action.quantity,
+      unitaryPrice: action.action.unitaryPrice
+    }));
 
     const handleViewButtonClick = (actionId: number) => {
       navigate(PathNames.VIEW_ACTIONS.replace(':id', actionId.toString()));
@@ -36,21 +44,21 @@ const ViewCompensationPage = () => {
       variante: 'texto',
     }),
     CustomColumn({
-      width: 100,
+      width: 150,
       field: 'footPrintUnity',
       headerName: t('generalTableHeaders.ufp'),
       format: 'text',
       variante: 'texto',
     }),
     CustomColumn({
-      width: 100,
+      width: 150,
       field: 'quantity',
       headerName: t('generalTableHeaders.quantity'),
       format: 'text',
       variante: 'texto',
     }),
     CustomColumn({
-      width: 100,
+      width: 200,
       field: 'unitaryPrice',
       headerName: t('generalTableHeaders.cost'),
       format: 'text',
@@ -59,6 +67,7 @@ const ViewCompensationPage = () => {
     CustomColumn({
       field: 'options',
       headerName: t('actionsPage.actionsTable.options'),
+      width: 300,
       format: 'button',
       variante: 'texto',
       buttonDetails: [
@@ -83,7 +92,7 @@ const ViewCompensationPage = () => {
           icon={<EditIcon />}
           onClick={handleEdit}
           style={{ marginLeft: '10px' }} 
-          disabled={currentPlan.volunterId === null}/>
+          disabled={currentPlan.isCustom === false}/>
           <CustomButton
             content={'Adquirir'}
             variant="contained"
@@ -106,7 +115,11 @@ const ViewCompensationPage = () => {
             <CustomText texto={`Compensación total: ${currentPlan.ufpCompensation} ufp`} variante="subtitulo" />
             <CustomText texto={`Costo del plan: $ ${currentPlan.price} COP`} variante="subtitulo" />
           </Box>
-          <DataTable enableCheckboxSelection={false} dataColumns={columns} dataRows={currentPlan.actions} />
+          <DataTable 
+            enableCheckboxSelection={false} 
+            dataColumns={columns} 
+            dataRows={actionsWithIds} 
+            />
         </Grid>
       }
     />

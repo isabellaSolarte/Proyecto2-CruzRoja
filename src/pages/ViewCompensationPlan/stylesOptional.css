@@ -9,3 +9,7 @@
   .transparent-button:hover {
     border-color: darkgreen;
   }
+  
+  .no-bold {
+    font-weight: normal;
+  }
