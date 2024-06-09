@@ -31,7 +31,17 @@ export const useViewCompensationPlan = () => {
 
     const [user, setUser] = useRecoilState(userAtom);
     const [companies, setCompanies] = useState<CompanyUserModel[]>([]);
-
+    interface FlagCompany {
+      companyId: number; 
+      planId: number; 
+      vendedorId: number; 
+    };
+    let flagCompany: FlagCompany = 
+    {
+      companyId: 0, 
+      planId: 0,
+      vendedorId: 0 
+    };
 
     let allowed;
     
@@ -105,9 +115,10 @@ export const useViewCompensationPlan = () => {
       } finally {
       }
     };
+    
     const onSubmit = async (companyPlan: any) => {
-      console.log(companyPlan);
-      
+     
+      companyPlan.planId = currentPlan.id;
       try {
           await postAcquiredPlan(companyPlan);
           void Swal.fire({

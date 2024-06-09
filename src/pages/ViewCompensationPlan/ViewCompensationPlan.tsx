@@ -204,7 +204,7 @@ const ViewCompensationPage = () => {
                 </Box>
               }
                 generalContents={
-                  <Box sx={{ display: 'flex', flexDirection: 'column', marginBottom : 10 }}>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', marginBottom : 5 }}>
                   
                     <form id="acquirePlanForm" onSubmit={handleFormSubmit}>
                           <div style={{ display: 'inline-block' }}>
