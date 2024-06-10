@@ -2,7 +2,7 @@ import { Box, Icon, Tooltip, Typography, useTheme } from '@mui/material';
 
 interface PropiedadesEtiqueta {
   texto: string;
-  variante: 'titulo' | 'texto' | 'subtitulo' | 'pequeño';
+  variante: 'titulo' | 'texto' | 'subtitulo' | 'pequeño' | 'boldText';
   mandatory?: boolean;
   icon?: JSX.Element;
   color?: string;
@@ -36,7 +36,7 @@ const CustomText = ({
     padding: 0,
     textAlign: 'justify',
     color: colorStyled,
-    fontWeight: variante === 'titulo' || variante === 'subtitulo' ? 'bold' : 'regular',
+    fontWeight: ['titulo', 'text', 'boldText', 'subtitulo'].includes(variante) ? 'bold' : 'regular',
     ...styles,
   };
 
@@ -48,6 +48,8 @@ const CustomText = ({
           variante === 'titulo'
             ? 'h4'
             : variante === 'texto'
+            ? 'body1'
+            : variante === 'boldText'
             ? 'body1'
             : variante === 'subtitulo'
             ? 'h6'

@@ -8,6 +8,7 @@ import {
   ActionsModal,
   EmptyBox,
   CustomLoader,
+  ErrorText,
 } from '../../components';
 import HelpIcon from '@mui/icons-material/Help';
 import EnergySavingsLeafIcon from '@mui/icons-material/EnergySavingsLeaf';
@@ -86,22 +87,13 @@ const CreateCompensationPlanPage = () => {
       }
       description={
         <div>
-          <CustomText texto={t('registerPlan.help.title')} variante={'texto'} />
+          <CustomText texto={t('registerPlan.description')} variante={'texto'} />
           <ul>
             <li>
-              <CustomText texto={t('registerPlan.help.nameAction')} variante={'texto'} />
-            </li>
-            <li>
-              <CustomText texto={t('registerPlan.help.unitaryPrice')} variante={'texto'} />
-            </li>
-            <li>
-              <CustomText texto={t('registerPlan.help.footPrintUnity')} variante={'texto'} />
-            </li>
-            <li>
-              <CustomText texto={t('registerPlan.help.quantity')} variante={'texto'} />
-            </li>
-            <li>
-              <CustomText texto={t('registerPlan.help.description')} variante={'texto'} />
+              <div style={{ display: 'flex' }}>
+                <CustomText texto={`${t('Discount')}:`} variante={'boldText'} />
+                <CustomText texto={t('registerPlan.discountHelp')} variante={'texto'} />
+              </div>
             </li>
           </ul>
         </div>
@@ -119,7 +111,9 @@ const CreateCompensationPlanPage = () => {
                   mandatory
                 />
                 <CustomInput placeholder={t('Nombre')} size="large" props={register('name')} />
-                {errors.name && <span>{errors.name.message}</span>}
+                {errors.name && (
+                  <ErrorText error={'registerPlanError'} formErrorKey={errors.name.message} />
+                )}
               </Grid>
 
               <Grid item xs={12} md={6}>
@@ -132,8 +126,11 @@ const CreateCompensationPlanPage = () => {
                   placeholder={t('Discount')}
                   size="large"
                   props={register('discount')}
+                  type="number"
                 />
-                {errors.discount && <span>{errors.discount.message}</span>}
+                {errors.discount && (
+                  <ErrorText error={'registerPlanError'} formErrorKey={errors.discount.message} />
+                )}
               </Grid>
 
               {(getValues('isCustom') || path.includes('custom')) && (
@@ -160,7 +157,12 @@ const CreateCompensationPlanPage = () => {
                   size="large"
                   props={register('description')}
                 />
-                {errors.description && <span>{errors.description.message}</span>}
+                {errors.description && (
+                  <ErrorText
+                    error={'registerPlanError'}
+                    formErrorKey={errors.description.message}
+                  />
+                )}
               </Grid>
 
               <Grid item xs={12}>
@@ -196,6 +198,9 @@ const CreateCompensationPlanPage = () => {
                   dataRows={fields}
                   enableTools={false}
                 />
+                {errors.actions && (
+                  <ErrorText error={'registerPlanError'} formErrorKey={errors.actions.message} />
+                )}
               </Grid>
 
               <Grid item xs={12}>

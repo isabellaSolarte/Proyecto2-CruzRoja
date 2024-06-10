@@ -31,6 +31,7 @@ const CompensationPlanSchema = yup
       .number()
       .default(0)
       .min(0, 'El descuento no puede ser menor a 0')
+      .max(100, 'El descuento no puede ser mayor a 100')
       .required('El descuento es obligatorio'),
     actions: yup
       .array()

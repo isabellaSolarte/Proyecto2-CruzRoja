@@ -25,7 +25,10 @@ interface CustomColumnProps {
   inputDetails?: Array<{
     placeholder: string;
     updateText: (text: string) => void;
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>, rowData: GridRenderCellParams['row']) => void;
+    onChange?: (
+      e: React.ChangeEvent<HTMLInputElement>,
+      rowData: GridRenderCellParams['row'],
+    ) => void;
     defaultValue?: string;
     props?: any;
   }>;
@@ -65,6 +68,7 @@ const CustomColumn = ({
               onClick={() => {
                 button.onClick && button.onClick(params.row);
               }}
+              sx={{ color: button.variant === 'outlined' ? button.color : '#fff' }}
             />
           ))}
         </div>
@@ -81,7 +85,7 @@ const CustomColumn = ({
               size={'small'}
               props={input.props}
               updateText={input.updateText}
-              onChange={(e) => input.onChange && input.onChange(e, params.row)}
+              onChange={e => input.onChange && input.onChange(e, params.row)}
               defaultValue={params.value}
             />
           ))}

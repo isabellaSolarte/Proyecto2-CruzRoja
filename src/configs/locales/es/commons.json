@@ -171,7 +171,8 @@
         "neighborhood": "Barrio",
         "street": "Calle",
         "number": "Número",
-        "floorOrApartment": "Piso o apartamento"    
+        "floorOrApartment": "Piso o apartamento",
+        "direction": "Dirección"
     },
     "positions": {
         "admin": "Administrador",
@@ -277,6 +278,22 @@
         "total": "Precio total",
         "actions":"Acciones",
         "description": "Administración integral de estrategias diseñadas para neutralizar o reducir las emisiones de carbono, mediante la implementación de proyectos de compensación y la monitorización del progreso hacia la sostenibilidad."
+    },
+    "registerPlan": {
+        "description": "Nuestro Plan de Compensación de Huella de Carbono está diseñado para ayudar a las empresas a reducir su impacto ambiental y alcanzar sus objetivos de sostenibilidad. A través de este programa, ofrecemos estrategias personalizadas para medir, reducir y compensar las emisiones de carbono por medio de acciones que podrás agregar o eliminar en tu plan.",
+        "discountHelp": "Porcentaje de descuento aplicado al precio total del plan."
+    },
+    "businessPage": {
+        "bussinesInfoTitle": "Información de la empresa",
+            "name": "Nombre",
+            "nit": "NIT",
+            "phone": "Teléfono",
+            "email": "Email",
+            "address": "Dirección",
+            "actions": "Acciones",
+            "business": "Empresas",
+            "addressInfo": "Datos de Ubicación"
+
     },
     "generalTableHeaders":{
         "name": "Nombre",
