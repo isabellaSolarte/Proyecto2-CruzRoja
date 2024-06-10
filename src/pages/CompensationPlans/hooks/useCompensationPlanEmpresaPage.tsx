@@ -12,10 +12,13 @@ import { useTranslation } from 'react-i18next';
 export const useCompensationPlanEmpresaPage = () => {
     const { t } = useTranslation('commons');
     const [loadingPlan, setLoadingPlan] = useState(true);
+    const [loadingAcquiredPlan, setLoadingAcquiredPlan] = useState(true);
     const [loadingCompany, setLoadingCompany] = useState(true);
     const [compensationPlans, setCompensationPlans] = useState<CompensationPlanModel[]>([]);
+    const [acquiredCompensationPlans, setAcquiredCompensationPlans] = useState<CompensationPlanModel[]>([]);
     const [company, setCompany] = useState<CompanyUserModel[]>([]);
     const [errorPlan, setErrorPlan] = useState<string | null>(null);
+    const [errorAcquiredPlan, setErrorAcquiredPlan] = useState<string | null>(null);
     const [errorCompany, setErrorCompany] = useState<string | null>(null);
     const [user, setUser] = useRecoilState(userAtom);
 
@@ -45,6 +48,35 @@ export const useCompensationPlanEmpresaPage = () => {
             setErrorPlan("No se pueden obtener los planes de compensacion en este momento. Por favor, inténtalo de nuevo más tarde.");
         } finally {
             setLoadingPlan(false);
+        }
+    };
+
+    const fetchAcquiredCompensationPlan = async () => {
+        try {
+            const acquiredCompensationPlanData = await getAcquiredPlans();
+            if (Array.isArray(acquiredCompensationPlanData) && acquiredCompensationPlanData.length > 0) {
+                const adaptedAcquiredCompensationPlans = acquiredCompensationPlanData.map((acquiredCompensationPlan) => ({
+                    id: acquiredCompensationPlan.id,
+                    name: acquiredCompensationPlan.name,
+                    description: acquiredCompensationPlan.description,
+                    price: acquiredCompensationPlan.price,
+                    discount: acquiredCompensationPlan.discount,
+                    actions: acquiredCompensationPlan.actions,
+                    ufpCompensation: acquiredCompensationPlan.ufpCompensation,
+                    total: acquiredCompensationPlan.price - (acquiredCompensationPlan.price * (acquiredCompensationPlan.discount / 100))
+                }));
+                setAcquiredCompensationPlans(adaptedAcquiredCompensationPlans);
+                setErrorAcquiredPlan(null);
+            } 
+            else {
+                setAcquiredCompensationPlans([]);
+                setErrorAcquiredPlan("No se encontraron los planes de compensacion en la base de datos.");
+            }
+        } 
+        catch (error) {
+            setErrorAcquiredPlan("No se pueden obtener los planes de compensacion en este momento. Por favor, inténtalo de nuevo más tarde.");
+        } finally {
+            setLoadingAcquiredPlan(false);
         }
     };
 
@@ -95,20 +127,25 @@ export const useCompensationPlanEmpresaPage = () => {
 
     useEffect(() => {
         void fetchCompensationPlan();
+        void fetchAcquiredCompensationPlan();
         void getCompany();
     }, []);
 
 
     return {
         compensationPlans,
+        acquiredCompensationPlans,
         company,
         loadingPlan,
+        loadingAcquiredPlan,
         loadingCompany,
         errorPlan,
+        errorAcquiredPlan,
         errorCompany,
         user,
         onSubmit,
         fetchCompensationPlan,
+        fetchAcquiredCompensationPlan,
         getCompany,
         updateCompensationPlanInfo
     };

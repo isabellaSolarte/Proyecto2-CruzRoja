@@ -4,6 +4,7 @@ import { BorderBottom } from '@mui/icons-material';
 interface TabProps {
   tabsHeaderTitle: string[];
   tabsContent: React.ReactNode[];
+  onTabChange?: (title: string) => void;
 }
 
 // const StyledTabs = styled(Tabs)`
@@ -67,6 +68,9 @@ const TabsAtomComponent = ({ tabsHeaderTitle, tabsContent }: TabProps) => {
 
   const handleTabChange = (event: React.ChangeEvent<unknown>, newValue: number) => {
     setSelectedTab(newValue);
+    if (props.onTabChange) {
+      props.onTabChange(tabsHeaderTitle[newValue]);
+    }
   };
 
   return (

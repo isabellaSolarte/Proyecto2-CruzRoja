@@ -217,6 +217,7 @@ const buttons = [
             generalContents={
                 <>
                     <TabsAtomComponent 
+
                         tabsHeaderTitle={['Planes genéricos', 'Mis planes']}
                         tabsContent={[
                             <>

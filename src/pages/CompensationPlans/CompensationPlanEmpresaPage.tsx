@@ -4,6 +4,7 @@ import {
     CustomColumn,
     DataTable,
     ManagmentLayout,
+    TabsAtomComponent,
 } from '../../components';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -23,15 +24,21 @@ const CompensationPlanEmpresaPage = () => {
         user, 
         company,
         compensationPlans, 
+        acquiredCompensationPlans, 
         fetchCompensationPlan, 
+        fetchAcquiredCompensationPlan,
         getCompany, 
         loadingPlan,
+        loadingAcquiredPlan,
         errorPlan,
+        errorAcquiredPlan,
         onSubmit
     } = useCompensationPlanEmpresaPage();
     const navigate = useNavigate();
     const [modalState, setModalState] = useState(false);
     const [adquirirPlan, setAdquirirPlan] = useState([]);
+    const [activeTabTitle, setActiveTabTitle] = useState('Planes');
+
 
 
     const body = {
@@ -43,6 +50,7 @@ const CompensationPlanEmpresaPage = () => {
 
     useEffect(() => {
         void fetchCompensationPlan();
+        void fetchAcquiredCompensationPlan();
         void getCompany();
 
     }, []);
@@ -68,6 +76,40 @@ const CompensationPlanEmpresaPage = () => {
         setModalState(false)
         setFormData(body)
     };
+
+    const handleTabChange = (title: string) => {
+        setActiveTabTitle(title);
+    };
+
+    const viewButton = {
+        content: t('generalButtonText.view'),
+        variant: 'contained' as const,
+        color: 'warning' as const,
+        icon: <VisibilityIcon />,
+        onClick: (rowData: { id: string }) => handleViewButtonClick(rowData.id),
+    };
+
+    const acquireButton = {
+        content: t('generalButtonText.acquirePlan'),
+        variant: 'contained' as const,
+        color: 'success' as const,
+        icon: <AttachMoneyIcon />,
+        onClick: (rowData: { id: string }) => handleAcquireButtonClick(rowData),
+    };
+
+    const getButtons = () => {
+        if (activeTabTitle === 'Planes') {
+            return [
+                viewButton,
+                acquireButton
+            ];
+        } else {
+            return [
+                viewButton
+            ];
+        }
+    };
+    
 
     const columns = [
         CustomColumn({
@@ -104,21 +146,7 @@ const CompensationPlanEmpresaPage = () => {
             width: 400,
             format: 'button',
             variante: 'texto',
-            buttonDetails: [{
-                content: t('generalButtonText.view'),
-                variant: 'contained' as const,
-                color: 'warning' as const,
-                icon: <VisibilityIcon />,
-                onClick: (rowData: { id: string }) => handleViewButtonClick(rowData.id),
-            },
-            {
-                content: t('generalButtonText.acquirePlan'),
-                variant: 'contained' as const,
-                color: 'success' as const,
-                icon: <AttachMoneyIcon />,
-                onClick: (rowData: { id: string }) => handleAcquireButtonClick(rowData),
-            }
-        ]
+            buttonDetails: getButtons()
         }),
     ];
 
@@ -135,60 +163,79 @@ const CompensationPlanEmpresaPage = () => {
 
             generalContents={
                 <>
-                    {errorPlan && <Alert severity="error">{errorPlan}</Alert>}
-                    {!loadingPlan && !errorPlan && (
-                    <DataTable
-                        key={0}
-                        enableCheckboxSelection={false}
-                        dataColumns={columns}
-                        dataRows={compensationPlans}
-                        />
-                    )}
-                    
-                    <CustomModal 
-                        open={modalState} 
-                        title={
-                            <Box sx={{marginTop: 5, marginLeft: 2}}>
+                    <TabsAtomComponent 
+                    tabsHeaderTitle={['Planes', 'Mis Planes Adquiridos']}
+                    onTabChange={handleTabChange}
+                    tabsContent={[
+                        <>
+                            {errorPlan && <Alert severity="error">{errorPlan}</Alert>}
+                                {!loadingPlan && !errorPlan && (
+                                <DataTable
+                                    key={0}
+                                    enableCheckboxSelection={false}
+                                    dataColumns={columns}
+                                    dataRows={compensationPlans}
+                                />
+                            )}
+                            <CustomModal 
+                                open={modalState} 
+                                title={
+                                    <Box sx={{marginTop: 5, marginLeft: 2}}>
 
-                                <CustomText texto={t('pageTitles.acquirePlan')} variante='titulo' color='black'/>
-                            </Box>
-                        }
-                        
-                        generalContents={
-                            <form id="acquirePlanForm" onSubmit={handleFormSubmit}>
-                                <Grid container spacing={4}>
-                                    <Grid item xs={12} paddingTop={3} sx={{display:"flex", justifyItems: "center"}}>
-                                        <CustomText texto={'Cliente:'} variante={'subtitulo'} />
-                                        <Typography component="span">&nbsp;&nbsp;</Typography>
-                                        <CustomText texto={company?.name} variante='texto' color='black'/>
-                                    </Grid>
+                                        <CustomText texto={t('pageTitles.acquirePlan')} variante='titulo' color='black'/>
+                                    </Box>
+                                }
+                                
+                                generalContents={
+                                    <form id="acquirePlanForm" onSubmit={handleFormSubmit}>
+                                        <Grid container spacing={4}>
+                                            <Grid item xs={12} paddingTop={3} sx={{display:"flex", justifyItems: "center"}}>
+                                                <CustomText texto={'Cliente:'} variante={'subtitulo'} />
+                                                <Typography component="span">&nbsp;&nbsp;</Typography>
+                                                <CustomText texto={company?.name} variante='texto' color='black'/>
+                                            </Grid>
 
-                                    <Grid item xs={12} paddingTop={3} sx={{display:"flex"}}>
-                                        <CustomText texto='Plan de Compensación: ' variante='subtitulo' color='black'/>
-                                        <Typography component="span">&nbsp;&nbsp;</Typography>
-                                        <CustomText texto={adquirirPlan?.name} variante='texto' color='black'/>
-                                    </Grid>
+                                            <Grid item xs={12} paddingTop={3} sx={{display:"flex"}}>
+                                                <CustomText texto='Plan de Compensación: ' variante='subtitulo' color='black'/>
+                                                <Typography component="span">&nbsp;&nbsp;</Typography>
+                                                <CustomText texto={adquirirPlan?.name} variante='texto' color='black'/>
+                                            </Grid>
 
-                                    <Grid item xs={12} paddingTop={3} sx={{display:"flex"}}>
-                                        <CustomText texto='Costo: ' variante='subtitulo' color='black'/>
-                                        <Typography component="span">&nbsp;&nbsp;</Typography>
-                                        <CustomText texto={adquirirPlan?.total}  variante='texto' color='black'/>
-                                    </Grid>
-                                </Grid>
-                            </form>
-                        }
-                        actionsContent={
-                            <CustomButton
-                                content={t('generalButtonText.acquirePlan')}
-                                variant="contained"
-                                color="success"
-                                type='submit'
-                                form='acquirePlanForm'
-                                style={{ marginLeft: '10px' }}
+                                            <Grid item xs={12} paddingTop={3} sx={{display:"flex"}}>
+                                                <CustomText texto='Costo: ' variante='subtitulo' color='black'/>
+                                                <Typography component="span">&nbsp;&nbsp;</Typography>
+                                                <CustomText texto={adquirirPlan?.total}  variante='texto' color='black'/>
+                                            </Grid>
+                                        </Grid>
+                                    </form>
+                                }
+                                actionsContent={
+                                    <CustomButton
+                                        content={t('generalButtonText.acquirePlan')}
+                                        variant="contained"
+                                        color="success"
+                                        type='submit'
+                                        form='acquirePlanForm'
+                                        style={{ marginLeft: '10px' }}
+                                    />
+                                }
+                                onClose={handleCloseModal}
                             />
-                        }
-                        onClose={handleCloseModal}
+                        </>,
+                        <>
+                            {errorAcquiredPlan && <Alert severity="error">{errorAcquiredPlan}</Alert>}
+                            {!loadingAcquiredPlan && !errorAcquiredPlan && (
+                            <DataTable
+                                key={0}
+                                enableCheckboxSelection={false}
+                                dataColumns={columns}
+                                dataRows={acquiredCompensationPlans}
+                            />
+                            )}
+                        </>
+                    ]}
                     />
+                    
                 </>
             }
         />
