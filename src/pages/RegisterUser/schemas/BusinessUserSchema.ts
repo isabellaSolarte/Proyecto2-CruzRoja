@@ -30,7 +30,14 @@ export const businessUserSchemaValidation = yup
       .moreThan(0, 'companyNit.number')
       .required('companyNit.required'),
 
-    companyName: yup.string().required('companyName.required'),
+    companyName: yup
+      .string()
+      .test(
+        'len',
+        'El nombre de la empresa debe tener al menos 10 caracteres',
+        val => (val ? val.length >= 10 : false),
+      )
+      .required('companyName.required'),
 
     companyPhone: yup
       .string()
