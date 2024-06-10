@@ -23,3 +23,19 @@ export const CompensationPlanAdapter = (
     isCustom: !externalPlan.plan.planDefault,
   };
 };
+
+export const AcquiredCompensationPlanAdapter = (
+  externalPlan: any,
+): CompensationPlanModel => {
+  return {
+    id: externalPlan.planId,
+    name: externalPlan.planName,
+    description: externalPlan.planDescription,
+    discount: externalPlan.planDiscount,
+    price: externalPlan.planPrice,
+    ufpCompensation: externalPlan.planUfp,
+    volunterId: externalPlan.volunteerId,
+    isCustom: !externalPlan.planDefault,
+    actions: []
+  };
+};

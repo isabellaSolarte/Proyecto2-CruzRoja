@@ -63,13 +63,13 @@ function CustomTabPanel(props: TabPanelProps) {
   );
 }
 
-const TabsAtomComponent = ({ tabsHeaderTitle, tabsContent }: TabProps) => {
+const TabsAtomComponent = ({ tabsHeaderTitle, tabsContent, onTabChange }: TabProps) => {
   const [selectedTab, setSelectedTab] = React.useState(0);
 
   const handleTabChange = (event: React.ChangeEvent<unknown>, newValue: number) => {
     setSelectedTab(newValue);
-    if (props.onTabChange) {
-      props.onTabChange(tabsHeaderTitle[newValue]);
+    if (onTabChange) {
+        onTabChange(tabsHeaderTitle[newValue]);
     }
   };
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllPlans, postAcquiredPlan } from "../../../services/AxiosRequests/Plans/PlanRequests";
+import { getAllPlans, postAcquiredPlan, getAllAcquiredPlans } from "../../../services/AxiosRequests/Plans/PlanRequests";
 import { CompensationPlanModel } from '../../../models/CompensationPlan/CompensationPlanModel';
 import { getCompayUserById } from "../../../services";
 import { CompanyUserModel } from "../../../models";
@@ -53,7 +53,7 @@ export const useCompensationPlanEmpresaPage = () => {
 
     const fetchAcquiredCompensationPlan = async () => {
         try {
-            const acquiredCompensationPlanData = await getAcquiredPlans();
+            const acquiredCompensationPlanData = await getAllAcquiredPlans(Number(company?.nit));
             if (Array.isArray(acquiredCompensationPlanData) && acquiredCompensationPlanData.length > 0) {
                 const adaptedAcquiredCompensationPlans = acquiredCompensationPlanData.map((acquiredCompensationPlan) => ({
                     id: acquiredCompensationPlan.id,
@@ -86,7 +86,7 @@ export const useCompensationPlanEmpresaPage = () => {
             const companyData = await getCompayUserById(Number(user?.id));
             
             const adaptedCompany = {
-                name: companyData.names,
+                name: companyData.companyName,
                 nit: companyData.companyNit
             }
             setCompany(adaptedCompany);

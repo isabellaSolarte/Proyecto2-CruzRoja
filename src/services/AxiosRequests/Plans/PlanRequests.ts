@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { CompensationPlanAdapter } from '../../../adapters';
+import { CompensationPlanAdapter, AcquiredCompensationPlanAdapter } from '../../../adapters';
 import { CompensationPlanModel } from '../../../models/CompensationPlan/CompensationPlanModel';
 import { PlanDTOAdapter } from '../../Adapters_DTO';
 import { api } from '../api';
@@ -11,7 +11,7 @@ export const getAllPlans = async (): Promise<CompensationPlanModel[]> => {
   try {
     const response = await api.get(PlanEndpoints.getAllPlans);  
     const adaptedPlans: CompensationPlanModel[] = response.data.map((externalPlan: any) =>
-      CompensationPlanAdapter(externalPlan),
+      CompensationPlanAdapter(externalPlan)
     );
     return adaptedPlans;
   } catch (err) {
@@ -23,10 +23,25 @@ export const getAllPersonalPlans = async (id: number): Promise<CompensationPlanM
   
   try {
     const response = await api.get(PlanEndpoints.getAllPersonalPlans(id));
-    console.log('Respuesta request: ', response);
-    
     const adaptedPlans: CompensationPlanModel[] = response.data.map((externalPlan: any) =>
       CompensationPlanAdapter(externalPlan),
+    );
+    return adaptedPlans;
+  } catch (err) {
+    throw new Error(JSON.stringify(err));
+  }
+};
+
+export const getAllAcquiredPlans = async (nit: number): Promise<CompensationPlanModel[]> => {
+  
+  try {
+    const response = await api.get(PlanEndpoints.getAllAcquiredPlans(nit));
+    response.data.map((externalPlan: any) =>{
+      console.log(externalPlan);
+      return null}
+    );
+    const adaptedPlans: CompensationPlanModel[] = response.data.map((externalPlan: any) =>
+      AcquiredCompensationPlanAdapter(externalPlan),
     );
     return adaptedPlans;
   } catch (err) {
@@ -56,6 +71,8 @@ export const postCompensationPlan = async (
 };
 
 export const postAcquiredPlan = async (plan: any) => {
+  console.log(plan);
+  
   try {
     const response = await api.post<AxiosResponse>(PlanEndpoints.postAcquiredPlan, plan);
     return response.data;
