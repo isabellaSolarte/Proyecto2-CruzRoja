@@ -13,6 +13,7 @@ declare module '@mui/material/styles' {
       paper?: string;
       placeholders?: string;
       green?: string;
+      red?: string;
     };
     selectionColors?: {
       darkBlue?: string;
@@ -39,6 +40,7 @@ declare module '@mui/material/styles' {
       paper?: string;
       placeholders?: string;
       green?: string;
+      red?: string;
     };
     selectionColors?: {
       darkBlue?: string;
@@ -61,9 +63,51 @@ export const theme: ThemeOptions = createTheme({
         root: {
           margin: 0,
           '& .MuiGrid-item': {
-            padding: '0',
+            //padding: '1.5rem 1rem',
+          },
+          '& .MuiButton-text': {
+            border: 'none',
           },
         },
+      },
+    },
+    MuiDrawer: {
+      styleOverrides: {
+        paper: {
+          top: 'unset',
+          backgroundColor: '#FFF',
+          border: 'none',
+          boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+        },
+      },
+    },
+    MuiRadio: {
+      styleOverrides: {
+        root: {
+          color: '#A4A4A8',
+          '&.Mui-checked': {
+            color: '#65B741',
+          },
+        },
+      },
+    },
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          backgroundColor: '#fff',
+          color: '#3e8022',
+          fontSize: '14px',
+          padding: '10px',
+          borderRadius: '10px',
+          border: '1px solid #3e8022',
+          fontWeight: 'bold',
+          widht: 'auto',
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {},
       },
     },
   },
@@ -105,6 +149,7 @@ export const theme: ThemeOptions = createTheme({
     paper: '#C8C8C8',
     placeholders: '#D9D9D9',
     green: '#65B741',
+    red: '#FF010B',
   },
   selectionColors: {
     darkBlue: '#3170DC',

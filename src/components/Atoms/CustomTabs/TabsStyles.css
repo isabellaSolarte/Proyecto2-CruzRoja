@@ -1,0 +1,12 @@
+.tabs-root {
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: flex-end;
+    width: fit-content;
+  }
+  
+.tab-root {
+    min-width: 100px;
+    text-transform: none;
+    font-size: 16px;
+}

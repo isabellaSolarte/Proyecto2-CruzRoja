@@ -1,9 +1,9 @@
-import { styled, Theme, CSSObject } from '@mui/material/styles';
+import { styled, Theme, CSSObject, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
-import { useState } from 'react';
 import { CustomDrawerContent, CustomDrawerHeader } from '../../Atoms';
 import { MenuOption } from '../../../models';
+import { useState } from 'react';
 
 const drawerWidth = 260;
 
@@ -27,6 +27,9 @@ const closedMixin = (theme: Theme): CSSObject => ({
   width: `calc(${theme.spacing(7)} + 1px)`,
   [theme.breakpoints.up('sm')]: {
     width: `calc(${theme.spacing(8)} + 1px)`,
+  },
+  [theme.breakpoints.down('sm')]: {
+    width: 0,
   },
 });
 
@@ -52,17 +55,21 @@ interface CollapseMenuProps {
 }
 
 const DrawerMenu = ({ options }: CollapseMenuProps) => {
+  const theme = useTheme();
   const [open, setOpen] = useState(false);
 
-  const handleDrawer = () => {
+  const handleOpenMenu = () => {
     setOpen(!open);
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box
+      sx={{
+        backgroundColor: theme.backgroundContentColors?.green,
+      }}
+    >
       <Drawer variant="permanent" open={open}>
-        <CustomDrawerHeader open={open} handleDrawerState={handleDrawer} />
-
+        <CustomDrawerHeader open={open} handleDrawerState={handleOpenMenu} />
         <CustomDrawerContent open={open} navigationOptions={options} />
       </Drawer>
 

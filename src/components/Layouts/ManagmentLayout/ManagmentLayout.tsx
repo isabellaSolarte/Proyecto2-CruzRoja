@@ -6,46 +6,63 @@ interface ManagmentLayoutProps {
   title: JSX.Element;
   description?: JSX.Element;
   generalContents: JSX.Element;
-  button: JSX.Element;
-  inputBar: JSX.Element;
+  actionsContent?: JSX.Element;
+  inputBar?: JSX.Element;
 }
+
+/**
+ *
+ * @param title - Componente que contiene el título de la página. OBLIGATORIO
+ * @param description - Componente que contiene la descripción de la página. - OPCIONAL
+ * @param generalContents - Componente que contiene el contenido general de la página. OBLIGATORIO
+ * @param actionsContent - Componente que contiene las acciones de la página, puede ser un boton un un label. - OPCIONAL
+ * @param inputBar - Componente que contiene la barra de busqueda. OPCIONAL
+ * @returns
+ */
 
 const ManagmentLayout = ({
   title,
   description,
   generalContents,
-  button,
+  actionsContent,
   inputBar,
 }: ManagmentLayoutProps) => {
   return (
-    <Container sx={{ padding: Mesuares.CONTENT_BOX_PADDING }}>
-      {title}
+    <Container
+      sx={{
+        padding: Mesuares.CONTENT_BOX_PADDING,
+        maxWidth: 'calc(100vw*0.9)',
+      }}
+    >
+      <Grid container>
+        <Grid item md={8} xs={12} sx={{ display: 'flex', alignItems: 'center' }}>
+          {title}
+        </Grid>
 
-      <EmptyBox height={30} width={100} />
+        {actionsContent && (
+          <Grid item md={4} xs={12} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+            {actionsContent}
+          </Grid>
+        )}
+      </Grid>
 
       {description && (
-        <div style={{ minHeight: '2rem', textAlign: 'justify' }}>
-          {description} <EmptyBox height={30} width={100} />
+        <div>
+          <EmptyBox height={30} width={100} />
+          {description}
+          <EmptyBox height={30} width={100} />
         </div>
       )}
 
-      <Grid
-        container
-        columns={16}
-        sx={{ margin: 0, display: 'flex' }}
-        justifyContent={'space-between'}
-      >
-        <Grid item xs={10}>
+      {inputBar && (
+        <>
           {inputBar}
-        </Grid>
-        <Grid item xs={4}>
-          {button}
-        </Grid>
-      </Grid>
+          <EmptyBox height={30} width={100} />
+        </>
+      )}
 
+      <Container>{generalContents}</Container>
       <EmptyBox height={30} width={100} />
-
-      {generalContents}
     </Container>
   );
 };

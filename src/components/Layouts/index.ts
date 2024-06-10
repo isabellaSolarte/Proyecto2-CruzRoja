@@ -1,3 +1,5 @@
-export { default as MainLayout } from './MainLayout';
+export * from './MainLayout';
 export * from './ManagmentLayout';
 export * from './Mesearues';
+export * from './NotFoundLayout';
+export * from './SimpleLayout';

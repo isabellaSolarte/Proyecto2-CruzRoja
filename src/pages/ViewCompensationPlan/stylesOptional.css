@@ -1,0 +1,15 @@
+.transparent-button {
+    background-color: transparent;
+    border: 2px solid green;
+    color: green;
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+  
+  .transparent-button:hover {
+    border-color: darkgreen;
+  }
+  
+  .no-bold {
+    font-weight: normal;
+  }

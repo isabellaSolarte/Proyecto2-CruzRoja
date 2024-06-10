@@ -1,0 +1,1 @@
+export {default as ActionsTable} from './ActionsTable';

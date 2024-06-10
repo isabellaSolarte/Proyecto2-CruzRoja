@@ -1,59 +1,38 @@
 import React from 'react';
-import { MainLayout } from '../Layouts';
-import { Container } from '@mui/material';
 import { DrawerMenu } from '../Molecules';
-import { MenuOption, RouterModel, UserModel } from '../../models';
-import { PathNames, getAllowedUserRoutes } from '../../core';
+import { MenuOption, UserModel } from '../../models';
+import { availableMenuOptions, getAllowedUserRoutes } from '../../core';
+import { MainLayout } from '../Layouts';
+import CustomAppBar from './CustomAppBar/CustomAppBar';
+import { RouterModel } from '../../models/SideMenuModels/RouteModel';
+import { useUserActions } from '../../recoil';
+import { Navigate } from 'react-router-dom';
+import { getMenuOptions } from '../../utils';
 
 interface AppLayoutProps {
   content: React.ReactNode;
 }
 
 const AppLayout = ({ content }: AppLayoutProps) => {
-  const userTest: UserModel = {
-    id: 'id',
-    name: 'User Test',
-    email: '',
-    role: {
-      name: 'Admin',
-      routes: [
-        PathNames.USERS,
-        PathNames.ROLES,
-        PathNames.BUSINESS,
-        PathNames.PERMISSIONS,
-        PathNames.PLANS,
-        PathNames.ACTIVITY,
-        PathNames.STATISTICS,
-        PathNames.CLOSE_SESSION,
-      ],
-      permissions: [''],
-    },
-    password: '',
-    avatar: '',
-    status: '',
-    created_at: '',
-    updated_at: '',
-  };
+  const user: UserModel | undefined = useUserActions().getLoggedUser();
 
-  const allowedRoutes: RouterModel[] = getAllowedUserRoutes(userTest);
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
 
-  const adaptRoutesToMenuOptions = (routes: RouterModel[]): MenuOption[] => {
-    return routes.map(route => {
-      return {
-        title: route.title,
-        path: route.path,
-        icon: route.icon,
-      };
-    });
-  };
+  const allowedRoutes: RouterModel[] = getAllowedUserRoutes(user);
 
-  const adaptedMenuOptions: MenuOption[] = adaptRoutesToMenuOptions(allowedRoutes);
+  const adaptedMenuOptions: MenuOption[] = getMenuOptions(allowedRoutes);
+
+  const drawerOptions = adaptedMenuOptions.filter(option =>
+    availableMenuOptions.includes(option.path),
+  );
 
   return (
     <MainLayout
-      appBar={<Container> COMPONENTE PARA EL APP BAR </Container>}
+      appBar={<CustomAppBar />}
       content={content}
-      navigationMenu={<DrawerMenu options={adaptedMenuOptions} />}
+      navigationMenu={<DrawerMenu options={drawerOptions} />}
     />
   );
 };

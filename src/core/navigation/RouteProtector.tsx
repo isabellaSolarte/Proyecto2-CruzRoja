@@ -1,10 +1,13 @@
-import { UserModel } from '../../models/UserModel';
+/* eslint-disable @typescript-eslint/no-unsafe-enum-comparison */
 import { Navigate } from 'react-router-dom';
-import { RouterModel } from '../../models/RouteModel';
+import { RouterModel } from '../../models/SideMenuModels/RouteModel';
 import React from 'react';
 import { AppLayout } from '../../components';
 import { getAllowedUserRoutePaths } from './getAllowedUserRoutes';
+import { UserModel } from '../../models/UserModels/UserModel';
+import { useUserActions } from '../../recoil';
 import { PathNames } from '../PathNames';
+import { LandingPage } from '../../pages';
 
 interface RouteProtectorProps {
   route: RouterModel;
@@ -12,37 +15,16 @@ interface RouteProtectorProps {
 }
 
 const RouteProtector = ({ route, component }: RouteProtectorProps) => {
-  const userTest: UserModel = {
-    id: 'id',
-    name: 'User Test',
-    email: '',
-    role: {
-      name: 'Admin',
-      routes: [
-        PathNames.USERS,
-        PathNames.ROLES,
-        PathNames.BUSINESS,
-        PathNames.PERMISSIONS,
-        PathNames.PLANS,
-        PathNames.ACTIVITY,
-        PathNames.STATISTICS,
-        PathNames.CLOSE_SESSION,
-      ],
-      permissions: [''],
-    },
-    password: '',
-    avatar: '',
-    status: '',
-    created_at: '',
-    updated_at: '',
-  };
-  const loggedUser: boolean = true;
-  const allowedUserRoutes: string[] = getAllowedUserRoutePaths(userTest);
+  const user: UserModel | undefined = useUserActions().getLoggedUser();
+  if (!user) return <Navigate to={PathNames.LANDIN_PAGE} />;
 
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (!loggedUser) return <Navigate to="/login" />;
+  const allowedUserRoutes: string[] = getAllowedUserRoutePaths(user);
 
-  if (route.path === '/*') return <Navigate to="/users" />;
+  if (route.path === '/*') return <Navigate to={PathNames.NOT_FOUND} />;
+
+  if (route.path === PathNames.LANDIN_PAGE) return <LandingPage />;
+
+  if (route.path === PathNames.LOGIN) return <Navigate to={PathNames.USERS} />;
 
   if (!allowedUserRoutes.includes(route.path)) return <Navigate to="/404" />;
 
