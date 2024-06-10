@@ -1,1 +1,1 @@
-export {default as ActionsTable} from './ActionsTable';
+export {default as ViewActionModal} from './ViewActionModal';

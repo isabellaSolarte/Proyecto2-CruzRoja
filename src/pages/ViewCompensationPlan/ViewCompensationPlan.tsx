@@ -15,7 +15,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { green } from '@mui/material/colors';
 import EnergySavingsLeafIcon from '@mui/icons-material/EnergySavingsLeaf';
-import { useViewCompensationPlan } from './hooks';
+import { useViewCompensationPlan } from './Hooks';
 
 const ViewCompensationPage = () => {
   const { t } = useTranslation('commons');
