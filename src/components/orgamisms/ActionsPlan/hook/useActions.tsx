@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
-import { getAllActions } from '../../../../services/AxiosRequests/Actions';
-import { CompensationPlanActionModel } from '../../../../models/Actions';
+import { getActionById, getAllActions } from '../../../../services/AxiosRequests/Actions';
+import { CompensationPlanActionModel, ActionsModel } from '../../../../models/Actions';
 
 
 const useActions = (initialActions: CompensationPlanActionModel[]) => {
     const [actions, setActions] = useState<CompensationPlanActionModel[]>(initialActions);
+    const [loadingActionSelect, setLoadingActionSelect] = useState<boolean>(false);
+    const [actionSelect, setActionSelect] = useState<ActionsModel | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const [errorActionSelect, setErrorActionSelect] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchActions = async () => {
@@ -52,8 +55,25 @@ const useActions = (initialActions: CompensationPlanActionModel[]) => {
 
         void fetchActions();
     }, []);
-
-    return { actions,setActions, loading, error };
+    const fetchActionById = async (id: number) => {
+        try {
+            setLoadingActionSelect(true);
+          const actionData = await getActionById(id);
+          setTimeout(() => {
+                setActionSelect(actionData);
+                setLoadingActionSelect(false);
+                setErrorActionSelect(null);
+            }, 500);
+        } catch (error) {
+            setErrorActionSelect(
+            'No se puede obtener la acción en este momento. Por favor, inténtalo de nuevo más tarde.',
+          );
+          console.error('Error fetching action by ID:', error);
+        } finally {
+            setLoadingActionSelect(false);
+        }
+      };
+    return { actions,setActions, loading, error, fetchActionById, actionSelect, setActionSelect, errorActionSelect, loadingActionSelect};
 };
 
 export default useActions;

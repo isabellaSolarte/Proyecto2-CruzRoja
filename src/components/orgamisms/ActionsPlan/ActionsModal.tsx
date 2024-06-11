@@ -9,9 +9,9 @@ import RecyclingIcon from '@mui/icons-material/Recycling';
 import { CustomButton, CustomText } from '../../Atoms';
 import { useTranslation } from 'react-i18next';
 import { useActions } from './hook';
-import { PathNames } from '../../../core';
-import { useNavigate } from 'react-router-dom';
-import { CompensationPlanActionModel } from '../../../models/Actions';
+import { CompensationPlanActionModel, ActionsModel } from '../../../models/Actions';
+import { ViewActionModal } from './components';
+
 
 
 type ActionSummaryType = {
@@ -28,13 +28,21 @@ interface ActionsModalProps {
 
 const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, onAddSelected }) => {
   const { t } = useTranslation('commons');
-  const navigate = useNavigate();
-  const { actions, setActions, loading, error } = useActions(actionSummary.actions);
+  const [showModal, setShowModal] = useState(false);
+  const { actions, setActions, loading, error, fetchActionById, actionSelect,setActionSelect , errorActionSelect, loadingActionSelect} = useActions(actionSummary.actions);
   const [selectedActions, setSelectedActions] = useState<CompensationPlanActionModel[]>([]);
   const [selectedRows, setSelectedRows] = useState(actionSummary.actions);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const [totalPrice, setTotalCosto] = useState(0);
   const [totalUfp, setTotalUfp] = useState(0);
+  
+
+  const handleViewButtonClick = async (actionId: number) => {
+    console.log('Ver acción', actionId);
+    await fetchActionById(actionId);
+    console.log('actionSelect', actionSelect);
+    setShowModal(true);
+  };
 
   useEffect(() => {
     if (!loading && !error) {
@@ -162,7 +170,7 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
           color: 'warning',
           icon: <VisibilityIcon />,
           onClick: row => {
-            navigate(PathNames.VIEW_ACTIONS.replace(':id', String(row.id)));
+            handleViewButtonClick(row.action.id);
           },
         },
       ],
@@ -213,6 +221,22 @@ const ActionsModal: React.FC<ActionsModalProps> = ({ actionSummary, onCancel, on
                 onSelectionChange={setSelectedRows}
                 enableTools={false}
               />
+                {errorActionSelect && <Alert severity="error">{errorActionSelect}</Alert>}
+                {loadingActionSelect && (
+                  <Box display="flex" justifyContent="center" alignItems="center" height="fullWidth">
+                    <CircularProgress color="warning" />
+                  </Box>
+                )}
+                {actionSelect && !loadingActionSelect && !errorActionSelect && (
+                  <ViewActionModal
+                    open={showModal}
+                    action={actionSelect}
+                    onClose={() => {
+                      setActionSelect(null);
+                      setShowModal(false);
+                    }}
+                  />
+                  )}
             </>
           )}
         </DialogContent>
