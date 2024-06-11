@@ -1,5 +1,17 @@
 import React, { useState } from 'react';
-import { AppBar, Toolbar, Button, Container, Box, styled, useTheme, Drawer, List, ListItem, IconButton } from '@mui/material';
+import {
+  AppBar,
+  Toolbar,
+  Button,
+  Container,
+  Box,
+  styled,
+  useTheme,
+  Drawer,
+  List,
+  ListItem,
+  IconButton,
+} from '@mui/material';
 import { CustomButton, CustomText } from '../../../components';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -8,7 +20,6 @@ import { useUserActions, userAtom } from '../../../recoil';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { PathNames } from '../../../core';
-
 
 const ProfileBox = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
@@ -38,12 +49,17 @@ const Header: React.FC = () => {
 
   return (
     <Box
-      sx={{
-        borderBottom: '2px solid',
-        borderColor: theme.backgroundContentColors?.red,
-      }}
+      sx={
+        {
+          //borderBottom: '2px solid',
+          //borderColor: theme.backgroundContentColors?.red,
+        }
+      }
     >
-      <AppBar position="static">
+      <AppBar
+        position="static"
+        sx={{ backgroundColor: 'rgba(13,64,86,0.0)', backdropFilter: 'blur(10px)', color: '#000' }}
+      >
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           {/* LOGO */}
           <Container
@@ -56,16 +72,14 @@ const Header: React.FC = () => {
             }}
           >
             <img src="/public/cruzRojaLogo.png" style={{ width: '2rem' }} />
-            <CustomText variante="subtitulo" texto="Cruz Roja Colombiana" styles={{textAlign: 'center'}} />
+            <CustomText
+              variante="subtitulo"
+              texto="Cruz Roja Colombiana"
+              styles={{ textAlign: 'center', color: '#000' }}
+            />
           </Container>
 
-          
-
-          <Drawer
-            anchor="right"
-            open={drawerOpen}
-            onClose={toggleDrawer(false)}
-          >
+          <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer(false)}>
             <List>
               {menuItems.map((text, index) => (
                 <ListItem button key={index}>
@@ -81,7 +95,7 @@ const Header: React.FC = () => {
               justifyContent: 'center',
               alignItems: 'center',
               gap: '1rem',
-              bgcolor: 'success.main',
+              //bgcolor: 'success.main',
               borderRadius: '1rem',
               p: 1,
             }}
@@ -91,9 +105,8 @@ const Header: React.FC = () => {
                 {text}
               </Button>
             ))}
-            
           </Container>
-        
+
           <Container
             sx={{
               display: 'flex',
@@ -103,32 +116,36 @@ const Header: React.FC = () => {
               margin: 0,
             }}
           >
-          {!user[0] ? (
-            <Button 
-                color="inherit" 
+            {!user[0] ? (
+              <Button
+                color="inherit"
                 sx={{ borderRadius: '50px', border: `2px solid ${theme.palette.success.main}` }}
-                onClick={() => {navigate(PathNames.LOGIN)}}
-            >INICIAR SESIÓN</Button>
-          ) : (
-            <Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-              <AccountCircleIcon sx={{ fontSize: '2.5rem' }} />
-              <ProfileBox sx={{ display: 'flex', flexDirection: 'column' }}>
-                <CustomText variante="texto" texto={`${user[0]?.names} ${user[0]?.lastNames}`} />
-                <CustomText variante="pequeño" texto={`${user[0]?.personalEmail}`} />
-              </ProfileBox>
-              <CustomButton
-                content="Cerrar sesión"
-                icon={<LogoutIcon sx={{ fontSize: 20 }} />}
-                buttonSide="end"
-                color="error"
-                sx={{ width: '9rem' }}
                 onClick={() => {
-                  navigate(PathNames.LOGIN, { replace: true });
-                  logout();
+                  navigate(PathNames.LOGIN);
                 }}
-              />
-            </Box>
-          )}
+              >
+                INICIAR SESIÓN
+              </Button>
+            ) : (
+              <Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                <AccountCircleIcon sx={{ fontSize: '2.5rem' }} />
+                <ProfileBox sx={{ display: 'flex', flexDirection: 'column' }}>
+                  <CustomText variante="texto" texto={`${user[0]?.names} ${user[0]?.lastNames}`} />
+                  <CustomText variante="pequeño" texto={`${user[0]?.personalEmail}`} />
+                </ProfileBox>
+                <CustomButton
+                  content="Cerrar sesión"
+                  icon={<LogoutIcon sx={{ fontSize: 20 }} />}
+                  buttonSide="end"
+                  color="error"
+                  sx={{ width: '9rem' }}
+                  onClick={() => {
+                    navigate(PathNames.LOGIN, { replace: true });
+                    logout();
+                  }}
+                />
+              </Box>
+            )}
           </Container>
           <IconButton
             edge="start"
@@ -139,7 +156,6 @@ const Header: React.FC = () => {
           >
             <MenuIcon />
           </IconButton>
-
         </Toolbar>
       </AppBar>
     </Box>

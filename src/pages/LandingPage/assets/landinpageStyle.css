@@ -1,0 +1,6 @@
+.landingPageBackground {
+    position: relative;
+    /* background: url('/public/landscape-2.png'); */
+    background-repeat: no-repeat;
+    background-size: cover;
+}

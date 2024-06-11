@@ -258,7 +258,7 @@
     },
     "registerAction": { 
         "nameAction":"Nombre de la acción",
-        "footPrintUnity":"Costo ufp por unidad",
+        "footPrintUnity":"Compensación ufp por unidad",
         "quantity":"Cantidad",
         "unitaryPrice":"Precio unitario",
         "description":"Descripción",
