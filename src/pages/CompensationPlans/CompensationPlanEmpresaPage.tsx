@@ -154,10 +154,7 @@ const CompensationPlanEmpresaPage = () => {
         <ManagmentLayout
             title={
                 <Box>
-                    <CustomText texto={t('pageTitles.compensationPlans')} variante="titulo" />
-                    <Box>
-                        <CustomText texto={t('compensationPlans.description')} variante='texto'/>
-                    </Box>
+                    <CustomText texto={t('compensationPlans.description')} variante='texto'/>
                 </Box>
             }
 
