@@ -4,24 +4,63 @@
         "accept": "Aceptar",
         "cancel": "Cancelar",
         "back": "Atrás",
-        "save": "Guardar"
+        "save": "Guardar",
+        "saveCategoriesSelected": "Guardar categorías",
+        "create": "Crear",
+        "edit": "Editar",
+        "view": "Observar",
+        "delete": "Eliminar",
+        "state": "Estado",
+        "search": "Buscar",
+        "registerCategory": "Registar categoría",
+        "previousPage": "Ir a página anterior",
+        "start": "Iniciar",
+        "add": "Agregar",
+        "createAction": "Crear acción",
+        "createPlan": "Crear plan",
+        "createPlanEmpresa": "Crear plan personal",
+        "acquirePlan": "Adquirir"
     },
     "menuOptions": {
-        "users": "usuarios",
-        "business": "empresas",
-        "roles": "roles",
+        "home": "Inicio",
+        "users": "Usuarios",
+        "business": "Empresas",
+        "roles": "Roles",
         "logout": "Cerrar sesión",
         "settings": "Configuración",
         "statistics": "Estadísticas",
+        "assessment": "Evaluación",
         "activities": "Actividades",
         "plans": "Planes de compensación",
-        "permissions": "Permisos"
+        "permissions": "Permisos",
+        "categories": "Categorías",
+        "calculator": "Calculadora"
     },
     "pageTitles": {
         "users": "Gestión de usuarios",
         "business": "Gestión de empresas",
-        "roles": "Gestión de roles",
-        "createRole": "Editar - Crear rol"
+        "roles": "Gestionar roles",
+        "compensationPlans": "Planes de compensación",
+        "createRole": "Editar - Crear rol",
+        "userView": "Visualizar usuario",
+        "registerCategory": "Registro de categoria",
+        "listCategories": "Categorías",
+        "sources": "Fuentes",
+        "createRoles": "Crear rol",
+        "editRoles": "Editar rol",
+        "editCategory": "Editar categoria",
+        "viewCategory": "Visualizar categoria",
+        "createCategory": "Registar nueva categoria",
+        "calculator": "Calculadora huella de carbono",
+        "editUser": "Editar usuario",
+        "caculatorCatogories": "Categorías de la calculadora",
+        "calculatorCostsUsages": "Consumos y costos",
+        "createAction":"Registrar nueva acción",
+        "editAction":"Editar Acción",
+        "actions":"Acciones",
+        "acquirePlan": "Adquirir Plan de Compensación",
+        "createPlan":"Crear plan de compensación",
+        "editPlan":"Editar plan de compensación"
     },
     "rolesPages": {
         "tabs": {
@@ -29,10 +68,279 @@
             "permissions": "Permisos"
         },
         "roleForm": {
-            "name": "Nombre",
-            "description": "Descripción",
-            "color": "Color",
-            "colorDescription": "Los usuarios con este rol tendrán este color en la aplicación"
+            "name": "Nombre del rol",
+            "type": "Tipo del rol",
+            "textTypeRol": "Ingresa el tipo de rol",
+            "rolePageDescription": "Usa los roles para asignar permisos en el sistema"
         }
+    },
+    "categoryPages": {
+        "description": {
+            "generalDescription": "Las categorías en el contexto del cálculo de la huella de carbono son un conjunto de actividades, que ayudan a identificar y clasificar las diferentes fuentes de emisiones de carbono en función de su naturaleza. "
+        }        
+    },
+    "calculatorPage":{
+        "descriptions":{
+            "descriptionCategories": "Seleccione las categorías a las que le realizará el cálculo de emisión"
+        }
+       
+    },
+    "actionsPage":{
+        "actionsTable": {
+            "name": "Acciones",
+            "footPrintUnity":"Ufp",
+            "options": "Opciones"        
+        },
+        "description": "La Cruz Roja implementa diversas acciones para reducir su huella de carbono y promover la sostenibilidad. Estas incluyen programas de reforestación, promoción de energías renovables, educación ambiental, gestión de residuos, fomento de la movilidad sostenible y medidas de eficiencia energética. Estas iniciativas son parte de su compromiso con la mitigación del cambio climático y la creación de entornos más saludables y sostenibles para las comunidades."
+    },
+
+    "usersPages": {
+        "tabs": {
+            "general": "General",
+            "roles": "Roles",
+            "business": "Empresas",
+            "volunteer": "Voluntario",
+            "CompanyUser": "Representante de compañia"
+        },
+        "userForm": {
+            "usertype": "Tipo de usuario",
+            "userTypeSelection": "Selecciona el tipo de usuario que deseas registrar.",
+            "userInfo": "Información de usuario",
+            "businessInfo": "Empresa",
+            "volunteerInfo": "Voluntario",
+            "name": "Nombre",
+            "lastname": "Apellidos",
+            "personalPhone": "Teléfono personal",
+            "email": "Email",
+            "password": "Contraseña",
+            "passwordConfirmation": "Confirmación de contraseña",
+            "role": "Rol",
+            "username": "Nombre de usuario",
+            "documentNumber": "Número de documento",
+            "documentType": "Tipo de documento",
+            "companyName": "Nombre de la empresa",
+            "companyNit": "NIT de la empresa",
+            "companyPhone": "Teléfono de la empresa",
+            "companyEmail": "Email de la empresa",
+            "position": "Cargo o posición",
+            "validateData": "Validar datos",
+            "createUser": "Crear usuario",
+            "personalInfo": "Información personal",
+            "asignedRoles": "Roles asignados",
+            "companyInfo": "Información de la empresa"
+        },
+        "userTable": {
+            "name": "Nombre",
+            "companyName":"Empresa",
+            "roles": "Roles",
+            "actions": "Acciones",
+            "users": "Usuarios"           
+        }
+    },
+    "notFoundPage": {
+        "sorry": "@LoSentimos",
+        "description": "Lo que buscas no existe o no está disponible en este momento.",
+        "rol": "Este rol no está disponible.",
+        "user": "Este usuario no está disponible."
+    },
+    "components": {
+        "stepper": {
+            "next": "Siguiente",
+            "back": "Atrás",
+            "end": "Finalizar",
+            "optional": "Opcional",
+            "step": "Paso",
+            "skip": "Saltar"
+        }
+    },
+    "userTypes": {
+        "admin": "Administrador",
+        "user": "Usuario",
+        "business": "Empresa",
+        "client": "Cliente",
+        "employee": "Empleado",
+        "volunteer": "Voluntario",
+        "redCross": "Cruz Roja",
+        "businessRepresntative": "Representante de empresa"
+    },
+    "address": {
+        "country": "País",
+        "city": "Ciudad",
+        "address": "Dirección",
+        "postalCode": "Código postal",
+        "neighborhood": "Barrio",
+        "street": "Calle",
+        "number": "Número",
+        "floorOrApartment": "Piso o apartamento",
+        "direction": "Dirección"
+    },
+    "positions": {
+        "admin": "Administrador",
+        "business": "Empresa",
+        "business_representative": "Representante de empresa",
+        "super_admin": "Super administrador",
+        "volunteer": "Voluntario"
+    },
+    "positionsDescription": {
+        "admin": "Tiene acceso completo y control sobre la plataforma",
+        "business": "Representa una empresa en la plataforma",
+        "business_representative": "Representa a una empresa en la plataforma",
+        "super_admin": "Tiene privilegios administrativos elevados en la plataforma",
+        "volunteer": "Contribuye como voluntario en la plataforma"
+    },
+    "documents": {
+        "CC": "Cédula de ciudadanía",
+        "CE": "Cédula de extranjería",
+        "PA": "Pasaporte",
+        "TI": "Tarjeta de identidad"
+    },
+    "company": {
+        "name": "Nombre de la empresa",
+        "nit": "NIT de la empresa",
+        "phone": "Teléfono de la empresa",
+        "email": "Email de la empresa",
+        "address": "Dirección de la empresa",
+        "addressInfo": "Información de la dirección de la empresa",
+        "title": "Empresa"
+    },
+    "alertText": {
+        "error": "Error",
+        "errorDescription": "Hubo un problema al procesar la solicitud",
+        "correctOperation": "¡Éxito!",
+        "userCreated": "Usuario creado exitosamente",
+        "rolCreate": "El rol se ha creado exitosamente",
+        "rolEdit": "El rol se ha actualizado exitosamente",
+        "acquiredPlan": "El plan ha sido adquirido exitosamente",
+        "inputErrors": "Ha ocurrido un error, por favor verifique los datos ingresados",
+        "generalError": "Ups, lo sentimos",
+        "updateStateConfirmation": "¿Estás seguro de cambiar el estado de este {{userType}}?"
+    },
+    "registerCategory": {
+        "placeholderSearch": "Buscar por nombre",
+        "nameCategory": "Nombre de la categoria",
+        "scope": "Alcance",
+        "description": "Breve descripción (máximo 250 caracteres)"
+    },
+    "calculator": {
+        "coverageForm": {
+            "title": "Coberturas",
+            "description": "Por cada fuente de emisión, indique:",
+            "helpTotal": "Total: Número de elementos que generan huella de carbono.",
+            "helpInformed": "Informadas: Número de fuentes a reportar en esta evaluación.",
+            "totalSources": "totales",
+            "informedSources": "informadas",
+            "source": "Fuente",
+            "help": "Ejemplo: una empresa u organización cuenta con un total 10 carros que generan contaminación, pero en la evaluación solo se informan 5."
+        },
+        "pollutionTypeForm": {
+            "title": "Tipo de Contaminante ",
+            "description": "A continuacion seleccione las cargas ambientales para cada categoria seleccionada que apliquen.",
+            "help": "Ejemplo: CO2, SO2, NOx, PM10.\n\nTipos de contaminante:\n- Gases de efecto invernadero: CO2, CH4\n- Contaminantes del aire: SO2, NOx, PM\n- Contaminantes del agua: DBO, metales pesados\n- Contaminantes del suelo: Residuos peligrosos\n\nFuentes:\n- Fijas: Calderas, hornos, turbinas\n- Móviles: Vehículos terrestres, aéreos, marítimos\n- Procesos: Materiales, químicos\n- Agrícolas: Ganado, agroquímicos\n- Refrigerantes: Cuartos fríos, aires acondicionados\n- Residuos: Plantas de tratamiento",
+            "helpTypes": "Por ejemplo, si has seleccionado la categoría 'Industria Química', las cargas ambientales podrían incluir emisiones de gases de efecto invernadero, vertidos de productos químicos y consumo de recursos hídricos."
+        },
+        "stepper": {
+            "welcome": "Bienvenido",
+            "categories": "Categorías",
+            "pollutants": "Contaminantes",
+            "fountains": "Fuentes",
+            "coverage": "Coberturas",
+            "consumptionCosts": "Consumos y Costos",
+            "validation": "Validación"
+        },
+        "costAndUsage":{
+            "description":"Para cada fuente de emisión indique: ",
+            "helpCost": "Costo: Costo del insumo." ,
+            "helpUsage": "Consumo: Cuanto de ese insumo se está usando.",
+            "helpDate": "Mes y año: Fecha de evaluación.",
+            "help":"Ejemplo: Se adquieren 10 litros del insumo gasolina, el COSTO de esos 10 litros son $50.000, de los cuales se están CONSUMIENDO 5 litros."
+        }
+
+    },
+    "registerAction": { 
+        "nameAction":"Nombre de la acción",
+        "footPrintUnity":"Compensación ufp por unidad",
+        "quantity":"Cantidad",
+        "unitaryPrice":"Precio unitario",
+        "description":"Descripción",
+        "help": { 
+            "descriptionActionFormHelp":"Ejemplo: Nombre de la acción: Plantación de árboles en áreas urbanas, Precio unitario de la acción: $25 USD por árbol plantado, Costo unidad de huella de carbono: 0.02 toneladas métricas de CO2 por árbol al año, Descripción: Esta acción consiste en la plantación de árboles en áreas urbanas para mejorar la calidad del aire, proporcionar sombra y reducir el efecto de isla de calor urbano. Cada árbol plantado ayudará a absorber dióxido de carbono de la atmósfera, contribuyendo a la mitigación del cambio climático.  ",
+            "nameAction":"Nombre de la acción:  Título o denominación que se le da a la acción específica que se implementará. ",
+            "footPrintUnity":"Costo ufp por unidad: Cantidad de carbono que se espera compensar con una unidad de la acción.",
+            "unitaryPrice":"Precio unitario:  Costo monetario de implementar una unidad de la acción específica.",
+            "description":"Descripción: Proporciona detalles adicionales sobre la acción, explicando cómo se llevará a cabo, sus beneficios específicos, y cualquier otro dato relevante.", 
+            "title":"A continuacion registre los datos asociados a una acción:"   
+        }
+    },
+    "compensationPlans": {
+        "name": "Nombre",
+        "price": "Precio",
+        "discount": "Descuento",
+        "total": "Precio total",
+        "actions":"Acciones",
+        "description": "Administración integral de estrategias diseñadas para neutralizar o reducir las emisiones de carbono, mediante la implementación de proyectos de compensación y la monitorización del progreso hacia la sostenibilidad."
+    },
+    "registerPlan": {
+        "description": "Nuestro Plan de Compensación de Huella de Carbono está diseñado para ayudar a las empresas a reducir su impacto ambiental y alcanzar sus objetivos de sostenibilidad. A través de este programa, ofrecemos estrategias personalizadas para medir, reducir y compensar las emisiones de carbono por medio de acciones que podrás agregar o eliminar en tu plan.",
+        "discountHelp": "Porcentaje de descuento aplicado al precio total del plan."
+    },
+    "businessPage": {
+        "bussinesInfoTitle": "Información de la empresa",
+            "name": "Nombre",
+            "nit": "NIT",
+            "phone": "Teléfono",
+            "email": "Email",
+            "address": "Dirección",
+            "actions": "Acciones",
+            "business": "Empresas",
+            "addressInfo": "Datos de Ubicación"
+
+    },
+    "generalTableHeaders":{
+        "name": "Nombre",
+        "description": "Descripción",
+        "options": "Opciones",
+        "state": "Estado",
+        "actions": "Acciones",
+        "users": "Usuarios",
+        "roles": "Roles",
+        "business": "Empresas",
+        "categories": "Categorías",
+        "quantity": "Cantidad",
+        "cost": "Costo",
+        "ufp": "UFP"
+
+    },
+    "modalAccion": {
+        "name": "Acción",
+        "footPrintUnity": "UFP",
+        "quantity": "Cantidad",
+        "unitaryPrice": "Costo (COP)",
+        "totalCosto": "Costo adicional:",
+        "totalUfp": "UFP total:",
+        "options": "Opciones",
+        "title": "Seleccione la acción que desea agregar",
+        "description": "Descripción que indique las acciones que se pueden realizar para compensar la huella de carbono. Incluye campos como el nombre de la acción, la cantidad y el costo unitario."
+    },
+    "generalFormInputLabels": {
+        "name": "Nombre",
+        "description": "Descripción",
+        "options": "Opciones",
+        "state": "Estado",
+        "actions": "Acciones",
+        "users": "Usuarios",
+        "roles": "Roles",
+        "business": "Empresa",
+        "categories": "Categorías",
+        "quantity": "Cantidad",
+        "cost": "Costo",
+        "discount": "Descuento"
+    },
+    "generalSearchPlaceholder": {
+        "business": "Buscar empresa",
+        "users": "Buscar usuario",
+        "roles": "Buscar rol",
+        "categories": "Buscar categoría",
+        "actions": "Buscar acción",
+        "compensationPlan": "Buscar plan de compensación"
     }
 }

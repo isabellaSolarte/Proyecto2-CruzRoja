@@ -1,8 +1,15 @@
-export * from './Button';
+export * from './CustomButton';
 export * from './CustomDrawerElements';
+export * from './CustomIconDeatils';
+export * from './CustomInput';
+export * from './CustomLoader';
 export * from './CustomSelect';
+export * from './CustomTabs';
 export * from './CustomText';
-export * from './Inputs';
+export { default as CustomTextArea } from './CustomTextArea/CustomTextArea';
+export * from './ErrorText';
+export { default as Typography } from './Label/Typography';
 export * from './MenuButton';
-export * from './Tabs';
+export * from './Search';
+export * from './Switch';
 export * from './emptyBox';

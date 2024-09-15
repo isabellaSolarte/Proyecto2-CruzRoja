@@ -1,0 +1,121 @@
+{
+    "userFormErrors": {
+        
+        "documentNumber": {
+            "moreThan": "El número de documento debe tener al menos 10 caracteres",
+            "required": "El número de documento es requerido",
+            "len": "El número de documento debe tener 10 caracteres"
+        },
+        "documentType": {
+            "min": "El tipo de documento debe tener al menos 6 caracteres",
+            "required": "El tipo de documento es requerido"
+        },
+        "names": {
+            "min": "Por favor escriba su nombre completo",
+            "required": "El nombre es requerido"
+        },
+        "lastNames": {
+            "required": "Los apellidos son requeridos"
+        },
+        "personalPhone": {
+            "required": "El teléfono personal es requerido"
+        },
+        "personalEmail": {
+            "email": "Ingrese un correo electrónico válido",
+            "required": "El correo electrónico es requerido"
+        },
+        "username": {
+            "required": "El nombre de usuario es requerido"
+        },
+        "password": {
+            "min": "La contraseña debe tener al menos 10 caracteres",
+            "required": "La contraseña es requerida",
+            "pattern": "La contraseña debe tener al menos una letra mayúscula, una minúscula, un número y un carácter especial"
+        },
+        "roles": {
+            "min": "Por favor seleccione al menos un rol",
+            "required": "La lista de roles es requerida"
+        },
+        "idRole": {
+            "moreThan": "El identificador del permiso debe ser positivo mayor a 0",
+            "required": "El identificador del permiso es requerido"
+        },
+        "typeRole": {
+            "required": "El tipo de rol es requerido"
+        },
+        "permissions": {
+            "required": "La lista de permisos es requerida"
+        },
+        "idPermission": {
+            "moreThan": "El identificador del permiso debe ser positivo mayor a 0",
+            "required": "El identificador del permiso es requerido"
+        },
+        "namePermission": {
+            "required": "El nombre del permiso es requerido"
+        },
+        "descriptionPermission": {
+            "required": "La descripción del permiso es requerida"
+        },
+        "companyNit": {
+            "number": "El NIT no es válido debe ser un número mayor a 0.",
+            "length": "El NIT debe tener máximo 9 dígitos",
+            "required": "El NIT es requerido"
+        },
+        "companyName": {
+            "required": "El nombre de la empresa es requerido"
+        },
+        "companyPhone": {
+            "string": "El teléfono debe ser una cadena de caracteres",
+            "required": "El teléfono de la empresa es requerido",
+            "number": "El teléfono de la empresa debe contener solo números",
+            "length": "El teléfono de la empresa debe tener al menos 8 dígitos"
+        },
+        "companyEmail": {
+            "string": "El correo electrónico debe ser una cadena de caracteres",
+            "email": "El correo electrónico debe ser válido",
+            "required": "El correo electrónico es requerido"
+        },
+        "address": {
+            "city": {
+                "required": "La ciudad es requerida"
+            },
+            "country": {
+                "required": "El país es requerido"
+            },
+            "neighborhood": {
+                "required": "El barrio es requerido"
+            },
+            "street": {
+                "required": "La calle es requerida"
+            },
+            "floorOrApartment": {
+                "required": "El piso o apartamento es requerido"
+            },
+            "number": {
+                "required": "El número es requerido"
+            }
+        }
+        
+    },
+    "userFormErrorsRole":{
+        "namesRol": {
+            "required": "El nombre del rol es requerido"
+        },
+        "permissions": {
+            "min": "Debe seleccionar al menos un permiso.",
+            "required": "Los permisos son un campo obligatorio."
+        }
+
+    },
+    "calculator": {
+        "coverageForm": {
+            "totalSource": "El número de fuentes totales es requerido",
+            "informedSource": "El número de fuentes informadas es requerido"
+        },
+        "pollutionType": {
+            "min": "Debe seleccionar al menos un tipo de contaminante para cada categoria.",
+            "required": "Los tipos de contaminante son un campo obligatorio."
+        }
+    }
+    
+}
