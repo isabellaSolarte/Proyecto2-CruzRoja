@@ -25,7 +25,7 @@ const BackgroundContainer = styled(Box)(({ theme }) => ({
 }));
 
 const ContentContainer = styled(Container)(({ theme }) => ({
-  minHeight: 'calc(100vh)',
+  minHeight: 'calc(100vh*0.9)',
   minWidth: 'calc(100vw*0.9)',
   display: 'flex',
   flexDirection: 'column',

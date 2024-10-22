@@ -12,7 +12,7 @@ import {
 import { Box, Grid } from '@mui/material';
 import { useEffect } from 'react';
 import { useUserPage } from './Hooks/useUserPage';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import PhoneAndroidOutlinedIcon from '@mui/icons-material/PhoneAndroidOutlined';
 import MarkEmailReadOutlinedIcon from '@mui/icons-material/MarkEmailReadOutlined';
 import CreditScoreOutlinedIcon from '@mui/icons-material/CreditScoreOutlined';
@@ -21,7 +21,9 @@ import { PermissionModel } from '../../models/RoleModels/PermissionModel';
 import { RoleModel } from '../../models';
 import BusinessOutlinedIcon from '@mui/icons-material/BusinessOutlined';
 import { allowedPagesBaseOnPermissions } from '../../utils/allowedPagesBaseOnPermissions';
+import { PathNames } from '../../core';
 const ViewUserPage = () => {
+  const navigate = useNavigate();
   const { t } = useTranslation('commons');
   const { id } = useParams<{ id: string }>();
   const { loadUserDataByID, userData, handleEdit, loading } = useUserPage();
@@ -130,7 +132,9 @@ const ViewUserPage = () => {
                 <Grid item xs={12} md={6} sm={12} paddingInline={3} paddingBlock={2}>
                   <CustomButton
                     content={t('generalButtonText.view') + ' empresa'}
-                    onClick={() => {}}
+                    onClick={() => {
+                      navigate(PathNames.VIEW_BUSINESS.replace(':id', userData?.id));
+                    }}
                     variant="contained"
                     color="warning"
                     sx={{
